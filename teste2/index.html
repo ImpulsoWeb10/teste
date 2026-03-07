@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avalie sua Experiência - ImpulsoWeb10</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .star-active { color: #fbce11; }
+        .star-inactive { color: #d1d5db; }
+    </style>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen p-4">
+
+    <div id="card-avaliacao" class="bg-white p-8 rounded-2xl shadow-xl max-w-sm w-full text-center border border-gray-100">
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Sua opinião é o nosso <span class="text-blue-600">Impulso!</span></h2>
+            <p class="text-gray-500 mt-2">Como foi sua experiência conosco?</p>
+        </div>
+
+        <div class="flex justify-center space-x-2 mb-8">
+            <button onclick="avaliar(1)" class="text-4xl hover:scale-110 transition star-inactive"><i class="fas fa-star"></i></button>
+            <button onclick="avaliar(2)" class="text-4xl hover:scale-110 transition star-inactive"><i class="fas fa-star"></i></button>
+            <button onclick="avaliar(3)" class="text-4xl hover:scale-110 transition star-inactive"><i class="fas fa-star"></i></button>
+            <button onclick="avaliar(4)" class="text-4xl hover:scale-110 transition star-inactive"><i class="fas fa-star"></i></button>
+            <button onclick="avaliar(5)" class="text-4xl hover:scale-110 transition star-inactive"><i class="fas fa-star"></i></button>
+        </div>
+
+        <div id="feedback-bom" class="hidden">
+            <p class="text-green-600 font-semibold mb-4">Ficamos muito felizes! 🎉</p>
+            <p class="text-sm text-gray-600 mb-6">Poderia compartilhar sua experiência no Google para nos ajudar?</p>
+            <a href="COLOQUE_LINK_GOOGLE_MAPS_AQUI" class="block w-full bg-blue-600 text-white font-bold py-3 rounded-lg shadow hover:bg-blue-700 transition">
+                <i class="fab fa-google mr-2"></i> Postar no Google
+            </a>
+        </div>
+
+        <div id="feedback-ruim" class="hidden">
+            <p class="text-orange-600 font-semibold mb-4">Sentimos muito por isso. 😔</p>
+            <p class="text-sm text-gray-600 mb-6">Queremos corrigir nosso erro. Fale direto com o nosso gerente agora:</p>
+            <a href="https://wa.me/5511951202306?text=Olá,%20tive%20um%20problema%20e%20gostaria%20de%20falar%20com%20o%20responsável." class="block w-full bg-green-500 text-white font-bold py-3 rounded-lg shadow hover:bg-green-600 transition">
+                <i class="fab fa-whatsapp mr-2"></i> Falar no WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function avaliar(nota) {
+            const botoes = document.querySelectorAll('button');
+            const bom = document.getElementById('feedback-bom');
+            const ruim = document.getElementById('feedback-ruim');
+
+            // Resetar cores
+            botoes.forEach((btn, index) => {
+                if(index < nota) {
+                    btn.classList.add('star-active');
+                    btn.classList.remove('star-inactive');
+                } else {
+                    btn.classList.add('star-inactive');
+                    btn.classList.remove('star-active');
+                }
+            });
+
+            // Lógica do Filtro
+            if (nota >= 4) {
+                bom.classList.remove('hidden');
+                ruim.classList.add('hidden');
+            } else {
+                ruim.classList.remove('hidden');
+                bom.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
