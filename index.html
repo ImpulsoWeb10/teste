@@ -3,156 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avalie-nos no Google</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Avalie-nos no Google | Impulso Web 10</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary-color: #4285F4; /* Google Blue */
-            --secondary-color: #34A853; /* Google Green */
-            --text-dark: #333;
-            --text-light: #666;
-            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --google-blue: #4285F4;
+            --google-red: #EA4335;
+            --google-yellow: #FBBC05;
+            --google-green: #34A853;
+            --text-main: #1A1A1B;
+            --bg-light: #F8FAFC;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
 
         body {
-            background: var(--bg-gradient);
+            background-color: var(--bg-light);
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             padding: 20px;
         }
 
-        .container {
-            background: #ffffff;
-            max-width: 500px;
+        .card {
+            background: white;
+            max-width: 450px;
             width: 100%;
             padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
             text-align: center;
-            animation: fadeIn 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Barra de progresso colorida no topo */
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--google-blue), var(--google-red), var(--google-yellow), var(--google-green));
         }
 
-        /* Estrelas */
-        .stars {
-            color: #FBBC05; /* Google Gold */
-            font-size: 2.5rem;
+        /* Estrelas com animação de pulso */
+        .stars-container {
             margin-bottom: 20px;
-        }
-
-        h1 {
-            color: var(--text-dark);
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            line-height: 1.2;
-        }
-
-        p {
-            color: var(--text-light);
-            font-size: 1rem;
-            margin-bottom: 30px;
-            line-height: 1.5;
-        }
-
-        /* Botões */
-        .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 16px;
-            margin-bottom: 15px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            border: none;
             cursor: pointer;
         }
 
-        .btn-google {
-            background-color: var(--primary-color);
+        .stars-container i {
+            color: var(--google-yellow);
+            font-size: 2.8rem;
+            margin: 0 2px;
+            transition: transform 0.2s ease;
+            filter: drop-shadow(0 2px 4px rgba(251, 188, 5, 0.3));
+        }
+
+        .stars-container i:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        h1 {
+            color: var(--text-main);
+            font-weight: 800;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        p {
+            color: #64748b;
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        /* Badge de Prova Social */
+        .social-proof {
+            display: inline-flex;
+            align-items: center;
+            background: #f0fdf4;
+            color: #166534;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .social-proof i { margin-right: 6px; }
+
+        /* Botão Principal Otimizado */
+        .btn-main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--google-blue);
             color: white;
-            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+            padding: 18px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(66, 133, 244, 0.2);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: pulse-blue 2s infinite;
         }
 
-        .btn-google:hover {
-            transform: scale(1.03);
-            background-color: #3367d6;
-            box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+        @keyframes pulse-blue {
+            0% { transform: scale(1); box-shadow: 0 10px 20px rgba(66, 133, 244, 0.2); }
+            50% { transform: scale(1.02); box-shadow: 0 15px 30px rgba(66, 133, 244, 0.4); }
+            100% { transform: scale(1); box-shadow: 0 10px 20px rgba(66, 133, 244, 0.2); }
         }
 
-        .btn-whatsapp {
-            background-color: var(--secondary-color);
-            color: white;
-            box-shadow: 0 4px 15px rgba(52, 168, 83, 0.3);
+        .btn-main:hover {
+            background: #2b6ad4;
         }
 
-        .btn-whatsapp:hover {
-            transform: scale(1.03);
-            background-color: #2d9249;
-            box-shadow: 0 6px 20px rgba(52, 168, 83, 0.4);
+        /* WhatsApp Secundário (Menos destaque) */
+        .btn-secondary {
+            display: inline-block;
+            margin-top: 20px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.2s;
         }
 
-        /* QR Code */
-        .qr-section {
+        .btn-secondary:hover { color: var(--google-green); }
+
+        .qr-box {
+            background: #f8fafc;
+            border: 2px dashed #e2e8f0;
+            border-radius: 16px;
+            padding: 15px;
+            margin-top: 25px;
+        }
+
+        footer {
             margin-top: 30px;
-            padding-top: 25px;
-            border-top: 1px solid #eee;
-        }
-
-        .qr-icon {
-            font-size: 3rem;
-            color: var(--text-dark);
-            margin-bottom: 10px;
-        }
-
-        .qr-text {
             font-size: 0.8rem;
-            color: var(--text-light);
-            text-transform: uppercase;
+            color: #94a3b8;
             letter-spacing: 1px;
         }
 
-        /* Rodapé */
-        footer {
-            margin-top: 30px;
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        /* Responsividade Mobile */
-        @media (max-width: 480px) {
-            .container {
-                padding: 30px 20px;
-            }
-            h1 { font-size: 1.5rem; }
-            .stars { font-size: 2rem; }
+        /* Mobile Adjustments */
+        @media (max-width: 400px) {
+            .stars-container i { font-size: 2.2rem; }
+            h1 { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="stars">
+    <div class="card">
+        <div class="social-proof">
+            <i class="fas fa-check-circle"></i> +50 clientes avaliaram esta semana
+        </div>
+
+        <div class="stars-container" onclick="openReview()">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
@@ -160,38 +176,36 @@
             <i class="fas fa-star"></i>
         </div>
 
-        <h1>Sua opinião é muito importante para nós!</h1>
-        <p>Sua avaliação nos ajuda a melhorar nossos serviços e ajuda outras pessoas a nos encontrarem no Google.</p>
+        <h1>Você teve uma boa experiência?</h1>
+        <p>Leve menos de 30 segundos para nos contar como foi. Isso ajuda nossa equipe a crescer!</p>
 
-        <a href="SUA_URL_DO_GOOGLE_AQUI" target="_blank" class="btn btn-google">
-            <i class="fab fa-google"></i> Deixar avaliação no Google
+        <a href="SEU_LINK_AQUI" target="_blank" class="btn-main" id="googleBtn">
+            <i class="fab fa-google" style="margin-right: 10px;"></i> AVALIAR NO GOOGLE
         </a>
 
-        <a href="https://wa.me/SEUNUMEROAQUI" target="_blank" class="btn btn-whatsapp">
-            <i class="fab fa-whatsapp"></i> Falar conosco no WhatsApp
-        </a>
-
-        <div class="qr-section">
-            <div class="qr-icon">
-                <i class="fas fa-qrcode"></i>
-            </div>
-            <p class="qr-text">Escaneie o código no balcão</p>
+        <div class="qr-box">
+            <i class="fas fa-qrcode" style="font-size: 2rem; margin-bottom: 5px; color: #334155;"></i>
+            <p style="margin: 0; font-size: 0.75rem; font-weight: 700;">MOSTRAR QR CODE NO BALCÃO</p>
         </div>
+
+        <a href="https://wa.me/SEUNUMERO" class="btn-secondary">
+            <i class="fab fa-whatsapp"></i> Teve algum problema? Fale conosco
+        </a>
     </div>
 
     <footer>
-        Desenvolvido por <strong>Impulso Web 10</strong>
+        DESENVOLVIDO POR <strong>IMPULSO WEB 10</strong>
     </footer>
 
     <script>
-        // Pequena interação: As estrelas brilham ao carregar
-        document.querySelectorAll('.stars i').forEach((star, index) => {
-            star.style.opacity = '0';
-            setTimeout(() => {
-                star.style.opacity = '1';
-                star.style.transition = 'opacity 0.5s ease';
-            }, index * 150);
-        });
+        const reviewLink = "SEU_LINK_AQUI";
+
+        function openReview() {
+            window.open(reviewLink, '_blank');
+        }
+
+        // Script para garantir que o clique nas estrelas também funcione como o botão
+        document.getElementById('googleBtn').href = reviewLink;
     </script>
 </body>
 </html>
