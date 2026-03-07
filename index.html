@@ -1,232 +1,525 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avalie a House Secure | Proteção Inteligente</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    
-    <style>
-        :root {
-            --primary-google: #4285F4;
-            --dark-bg: #0a1f44; /* Azul escuro da House Secure */
-            --accent-yellow: #f4b400;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+<title>House Secure Segurança Eletrônica | Proteção Inteligente</title>
+<meta name="description" content="Soluções em Controle de Acesso, CFTV e Alarmes em Itaquaquecetuba. Proteção inteligente para empresas e residências.">
 
-        body {
-            background-color: var(--dark-bg);
-            /* Efeito de iluminação suave no fundo escuro */
-            background-image: radial-gradient(circle at center, #162e5a 0%, #0a1f44 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            color: white;
-        }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        .card {
-            background: #ffffff;
-            color: #1e293b;
-            max-width: 420px;
-            width: 100%;
-            padding: 40px 30px;
-            border-radius: 32px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            animation: cardEnter 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
 
-        @keyframes cardEnter {
-            from { opacity: 0; transform: scale(0.8) translateY(30px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
+body{
+font-family:Arial, sans-serif;
+background:#f4f6f8;
+text-align:center;
+}
 
-        .logo-img {
-            width: 120px;
-            margin-bottom: 20px;
-        }
+.container{
+max-width:1100px;
+margin:0 auto;
+padding:0 20px;
+}
 
-        .stars { margin-bottom: 15px; }
-        .stars i {
-            color: var(--accent-yellow);
-            font-size: 2rem;
-            margin: 0 2px;
-            filter: drop-shadow(0 4px 8px rgba(244, 180, 0, 0.3));
-        }
+/* HEADER */
+header{
+background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+url('https://images.unsplash.com/photo-1581091215367-59ab6f7f3e6f') center/cover no-repeat;
+color:white;
+padding:120px 20px;
+position:relative;
+}
+header::before{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(10,31,68,0.65);
+}
+header .container{position:relative;z-index:1;}
 
-        h1 { font-weight: 800; font-size: 1.5rem; margin-bottom: 10px; color: var(--dark-bg); }
-        p { color: #64748b; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; }
+.logo{
+margin-bottom:25px;
+text-align:center;
+}
+.logo img{
+width:160px;
+max-width:90%;
+}
 
-        /* BOTÃO GOOGLE COM BRILHO E PULSO */
-        .btn-google {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: var(--primary-google);
-            color: white;
-            padding: 18px;
-            border-radius: 16px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 1.1rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(66, 133, 244, 0.4);
-            animation: pulseBtn 2s infinite;
-        }
+header h1{
+margin-bottom:20px;
+font-size:38px;
+font-weight:800;
+}
+header p{
+margin-bottom:35px;
+font-size:20px;
+}
 
-        /* Efeito de Brilho Passando (Shine) */
-        .btn-google::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(
-                to right,
-                transparent,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            );
-            transform: skewX(-25deg);
-            animation: shine 3s infinite;
-        }
+/* BOTÃO WHATS */
+.btn-whatsapp{
+background:#25D366;
+color:white;
+padding:16px 35px;
+text-decoration:none;
+border-radius:50px;
+font-weight:bold;
+display:inline-block;
+position:relative;
+overflow:hidden;
+box-shadow:0 8px 25px rgba(0,0,0,0.3);
+animation:pulse 2s infinite;
+cursor: pointer;
+border: none;
+}
 
-        @keyframes shine {
-            0% { left: -100%; }
-            20% { left: 150%; }
-            100% { left: 150%; }
-        }
+.btn-whatsapp::before{
+content:"";
+position:absolute;
+top:0;
+left:-75%;
+width:50%;
+height:100%;
+background:rgba(255,255,255,0.4);
+transform:skewX(-20deg);
+animation:brilho 2.5s infinite;
+}
 
-        @keyframes pulseBtn {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.04); }
-            100% { transform: scale(1); }
-        }
+@keyframes brilho{
+0%{left:-75%;}
+100%{left:125%;}
+}
 
-        /* QR Code Styling */
-        .qr-container {
-            margin: 25px 0;
-            padding: 15px;
-            background: #f8fafc;
-            border-radius: 20px;
-            display: inline-block;
-            border: 1px solid #e2e8f0;
-        }
-        
-        #qrcode img {
-            margin: 0 auto;
-            border: 4px solid white;
-            border-radius: 8px;
-        }
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.05);}
+100%{transform:scale(1);}
+}
 
-        .qr-label {
-            display: block;
-            font-size: 0.7rem;
-            font-weight: 800;
-            color: #94a3b8;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
+/* SECTION */
+section{padding:70px 20px;}
 
-        /* Selos de Segurança */
-        .security {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            font-size: 0.7rem;
-            color: #94a3b8;
-            margin-top: 10px;
-            font-weight: 600;
-        }
-        .security i { color: #22c55e; }
+.pergunta{
+font-size:24px;
+font-weight:bold;
+margin-bottom:40px;
+}
 
-        /* Rodapé Impulso Web 10 */
-        footer { margin-top: 40px; }
-        .dev-link {
-            text-decoration: none;
-            color: #94a3b8;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border-radius: 50px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-        }
-        .dev-link:hover {
-            background: #25D366;
-            color: white;
-            transform: translateY(-3px);
-            border-color: transparent;
-        }
-    </style>
+.opcoes{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+/* CARDS ATUALIZADOS COM INDICADOR DE GALERIA */
+.card{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+transition:0.3s;
+width:280px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card h3 {
+    cursor: pointer;
+    color: #0a1f44;
+    margin-bottom: 15px;
+}
+
+.btn-ver-fotos {
+    background: #f1f5f9;
+    color: #0a1f44;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-ver-fotos:hover {
+    background: #0a1f44;
+    color: white;
+}
+
+/* AVALIAÇÕES */
+.avaliacoes{
+background:linear-gradient(rgba(10,31,68,0.9),rgba(10,31,68,0.9)),
+url('https://images.unsplash.com/photo-1521791136064-7986c2920216');
+background-size:cover;
+background-position:center;
+color:white;
+}
+
+.estrelas{
+font-size:28px;
+color:#f4b400;
+margin:15px 0;
+}
+
+.estrelas span{
+display:inline-block;
+animation:loopEstrela 1.5s infinite;
+}
+
+.estrelas span:nth-child(1){animation-delay:0s;}
+.estrelas span:nth-child(2){animation-delay:0.2s;}
+.estrelas span:nth-child(3){animation-delay:0.4s;}
+.estrelas span:nth-child(4){animation-delay:0.6s;}
+.estrelas span:nth-child(5){animation-delay:0.8s;}
+
+@keyframes loopEstrela{
+0%{transform:scale(1);opacity:0.6;}
+50%{transform:scale(1.4);opacity:1;}
+100%{transform:scale(1);opacity:0.6;}
+}
+
+/* BOTÃO AVALIAÇÃO */
+.btn-avaliacoes{
+display:inline-block;
+margin-top:25px;
+background:#f4b400;
+color:#0a1f44;
+padding:16px 35px;
+text-decoration:none;
+border-radius:8px;
+font-weight:bold;
+transition:all 0.3s ease;
+animation:pulseBtn 1.8s infinite;
+box-shadow:0 6px 18px rgba(0,0,0,0.3);
+}
+
+@keyframes pulseBtn{
+0%{transform:scale(1);}
+50%{transform:scale(1.07);}
+100%{transform:scale(1);}
+}
+
+/* FOOTER ATUALIZADO */
+footer{
+background:#0a1f44;
+color:white;
+padding:40px 20px;
+}
+
+.footer-security {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #25D366;
+}
+
+.footer-security span { display: flex; align-items: center; gap: 5px; color: #fff; opacity: 0.8; }
+.footer-security i { color: #25D366; }
+
+.dev-link {
+    color: #25D366;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* WHATS FLOAT */
+.whatsapp-float{
+position:fixed;
+width:60px;
+height:60px;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+border-radius:50%;
+text-align:center;
+font-size:30px;
+line-height:60px;
+text-decoration:none;
+box-shadow:0 4px 10px rgba(0,0,0,0.3);
+z-index: 99;
+}
+
+/* MODAL ORIGINAL */
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.8);
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.modal-conteudo{
+background:white;
+padding:30px;
+border-radius:12px;
+max-width:500px;
+width:90%;
+text-align:center;
+position:relative;
+color: #333;
+}
+
+/* MODAL GALERIA (NOVO) */
+.modal-galeria {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 1001;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.galeria-wrapper {
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.img-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.img-slider {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 3px solid #fff;
+}
+
+.controles {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.btn-nav {
+    background: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.fechar{
+position:absolute;
+top:15px;
+right:20px;
+font-size:30px;
+cursor:pointer;
+color: #333;
+}
+
+.fechar-galeria { color: white; top: 20px; right: 30px; position: absolute; font-size: 40px; cursor: pointer;}
+</style>
 </head>
+
 <body>
 
-    <div class="card">
-        <img src="logo.png" alt="House Secure" class="logo-img" onerror="this.style.display='none'">
-        
-        <div class="stars">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-        </div>
-
-        <h1>Sua segurança é nossa prioridade!</h1>
-        <p>Gostou do nosso serviço? Avalie-nos no Google. Leva menos de 30 segundos.</p>
-
-        <a href="#" target="_blank" class="btn-google" id="googleLink">
-            <i class="fab fa-google"></i> AVALIAR NO GOOGLE
-        </a>
-
-        <div class="qr-container">
-            <span class="qr-label">Ou escaneie no balcão</span>
-            <div id="qrcode"></div>
-        </div>
-
-        <div class="security">
-            <span><i class="fas fa-lock"></i> SSL SEGURO</span>
-            <span><i class="fas fa-shield-check"></i> SITE VERIFICADO</span>
-        </div>
+<header>
+<div class="container">
+    <div class="logo">
+        <img src="logo.png" alt="House Secure">
     </div>
 
-    <footer>
-        <a href="https://wa.me/5511977788270?text=Olá,%20vim%20pelo%20rodapé%20da%20página%20de%20avaliação" target="_blank" class="dev-link">
-            Desenvolvido por <strong>Impulso Web 10</strong> <i class="fab fa-whatsapp"></i>
-        </a>
-    </footer>
+    <h1>House Secure Segurança Eletrônica</h1>
+    <p>Proteção inteligente para quem valoriza o que realmente importa.</p>
 
-    <script>
-        // CONFIGURAÇÃO: Seu link de avaliação (o mesmo que estava no seu código original)
-        const googleReviewURL = "https://g.page/r/CeL4xMoSMFRqEAE/review";
+    <a class="btn-whatsapp"
+    href="https://wa.me/5511977788270?text=Olá,%20quero%20proteger%20meu%20patrimônio"
+    target="_blank">
+    FALAR NO WHATSAPP
+    </a>
+</div>
+</header>
 
-        // Aplica o link ao botão
-        document.getElementById('googleLink').href = googleReviewURL;
+<section>
+<div class="container">
+    <p class="pergunta">Qual a melhor forma de proteger o que é importante para você hoje?</p>
 
-        // Gera o QR Code automaticamente
-        new QRCode(document.getElementById("qrcode"), {
-            text: googleReviewURL,
-            width: 140,
-            height: 140,
-            colorDark : "#0a1f44",
-            colorLight : "#f8fafc",
-            correctLevel : QRCode.CorrectLevel.H
-        });
-    </script>
+    <div class="opcoes">
+        <div class="card">
+            <h3 onclick="abrirModal('controle')">Controle de Acesso</h3>
+            <div class="btn-ver-fotos" onclick="abrirGaleria('controle')">
+                <i class="fas fa-images"></i> Ver Exemplos
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 onclick="abrirModal('cftv')">CFTV</h3>
+            <div class="btn-ver-fotos" onclick="abrirGaleria('cftv')">
+                <i class="fas fa-images"></i> Ver Exemplos
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 onclick="abrirModal('alarmes')">Alarmes</h3>
+            <div class="btn-ver-fotos" onclick="abrirGaleria('alarmes')">
+                <i class="fas fa-images"></i> Ver Exemplos
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<section class="avaliacoes">
+<div class="container">
+    <h2>Avaliação dos Clientes</h2>
+    <p class="estrelas">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+    </p>
+    <p>5.0 de 5 estrelas no Google</p>
+
+    <a href="https://g.page/r/CeL4xMoSMFRqEAE/review" target="_blank" id="btn-avaliacao" class="btn-avaliacoes">
+        ⭐ Ver Avaliações no Google
+    </a>
+</div>
+</section>
+
+<footer>
+<div class="container">
+    <div class="footer-security">
+        <span><i class="fas fa-lock"></i> SSL Ativo</span>
+        <span><i class="fas fa-shield-alt"></i> Site Seguro</span>
+        <span><i class="fas fa-check-circle"></i> Verificado</span>
+    </div>
+
+    <p><strong>House Secure Segurança Eletrônica</strong></p>
+    <p>📍 R. Francisco Alves, 109 - sala 2 - Itaquaquecetuba - SP</p>
+    <p>📞 WhatsApp: (11) 97778-8270</p>
+    <br>
+    <p>© 2026 Todos os direitos reservados</p>
+    <p>Desenvolvido por: <a href="https://wa.me/5511977788270" target="_blank" class="dev-link">ImpulsoWeb10</a></p>
+</div>
+</footer>
+
+<a href="https://wa.me/5511977788270" target="_blank" class="whatsapp-float">💬</a>
+
+<div id="modal" class="modal">
+    <div class="modal-conteudo">
+        <span class="fechar" onclick="fecharModal()">×</span>
+        <h3 id="modal-titulo"></h3>
+        <p id="modal-texto"></p>
+        <br>
+        <a id="modal-botao" target="_blank" class="btn-whatsapp">Falar no WhatsApp</a>
+    </div>
+</div>
+
+<div id="modal-galeria" class="modal-galeria">
+    <span class="fechar-galeria" onclick="fecharGaleria()">×</span>
+    <div class="galeria-wrapper">
+        <div class="img-container">
+            <img id="img-slider" src="" class="img-slider">
+        </div>
+        <div class="controles">
+            <button class="btn-nav" onclick="fotoAnterior()">❮ Anterior</button>
+            <button class="btn-nav" onclick="proximaFoto()">Próxima ❯</button>
+        </div>
+        <br><br>
+        <a id="galeria-whats" href="#" target="_blank" class="btn-whatsapp">ESTOU INTERESSADO</a>
+    </div>
+</div>
+
+<script>
+// LÓGICA DO MODAL ORIGINAL
+function abrirModal(tipo){
+    let titulo=document.getElementById("modal-titulo");
+    let texto=document.getElementById("modal-texto");
+    let botao=document.getElementById("modal-botao");
+
+    if(tipo==="controle"){
+        titulo.innerText="Controle de Acesso";
+        texto.innerText="Gerencie entradas com biometria, senha ou cartão, garantindo segurança total.";
+        botao.href="https://wa.me/5511977788270?text=Quero%20instalar%20Controle%20de%20Acesso";
+    }
+    if(tipo==="cftv"){
+        titulo.innerText="CFTV";
+        texto.innerText="Monitoramento 24h com câmeras em alta definição e acesso remoto.";
+        botao.href="https://wa.me/5511977788270?text=Quero%20instalar%20CFTV";
+    }
+    if(tipo==="alarmes"){
+        titulo.innerText="Alarmes";
+        texto.innerText="Sistema inteligente que detecta invasões e dispara alertas imediatos.";
+        botao.href="https://wa.me/5511977788270?text=Quero%20instalar%20Alarmes";
+    }
+    document.getElementById("modal").style.display="flex";
+}
+
+function fecharModal(){
+    document.getElementById("modal").style.display="none";
+}
+
+// LÓGICA DA GALERIA DE FOTOS (NOVO)
+const fotosPorServico = {
+    controle: [
+        'https://images.unsplash.com/photo-1558002038-1055907df827?w=500', 
+        'https://images.unsplash.com/photo-1518242047908-33e91307641d?w=500',
+        'https://images.unsplash.com/photo-1521110612723-5853f0807897?w=500'
+    ],
+    cftv: [
+        'https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=500',
+        'https://images.unsplash.com/photo-1529268209110-62be1d87fe75?w=500',
+        'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500'
+    ],
+    alarmes: [
+        'https://images.unsplash.com/photo-1582139329536-e7284fece509?w=500',
+        'https://images.unsplash.com/photo-1558002038-1055907df827?w=500',
+        'https://images.unsplash.com/photo-1518242047908-33e91307641d?w=500'
+    ]
+};
+
+let fotosAtuais = [];
+let indexFoto = 0;
+
+function abrirGaleria(servico) {
+    fotosAtuais = fotosPorServico[servico];
+    indexFoto = 0;
+    document.getElementById("img-slider").src = fotosAtuais[indexFoto];
+    document.getElementById("galeria-whats").href = "https://wa.me/5511977788270?text=Vi%20os%20exemplos%20de%20" + servico + "%20e%20gostaria%20de%20um%20orcamento";
+    document.getElementById("modal-galeria").style.display = "flex";
+}
+
+function fecharGaleria() {
+    document.getElementById("modal-galeria").style.display = "none";
+}
+
+function proximaFoto() {
+    indexFoto = (indexFoto + 1) % fotosAtuais.length;
+    document.getElementById("img-slider").src = fotosAtuais[indexFoto];
+}
+
+function fotoAnterior() {
+    indexFoto = (indexFoto - 1 + fotosAtuais.length) % fotosAtuais.length;
+    document.getElementById("img-slider").src = fotosAtuais[indexFoto];
+}
+
+document.getElementById("btn-avaliacao").addEventListener("click", function(){
+    this.style.background = "#25D366";
+    this.style.color = "white";
+});
+</script>
+
 </body>
 </html>
