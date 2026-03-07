@@ -6,6 +6,31 @@
 
 <title>House Secure Segurança Eletrônica | Proteção Inteligente</title>
 <meta name="description" content="Soluções em Controle de Acesso, CFTV e Alarmes em Itaquaquecetuba. Proteção inteligente para empresas e residências.">
+<meta name="author" content="ImpulsoWeb10">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SecurityService",
+  "name": "House Secure Segurança Eletrônica",
+  "description": "Especialista em CFTV, Alarmes e Controle de Acesso em Itaquaquecetuba.",
+  "provider": {
+    "@type": "Organization",
+    "name": "ImpulsoWeb10",
+    "url": "https://wa.me/5511977788270"
+  },
+  "areaServed": "Itaquaquecetuba",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Serviços de Segurança",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "CFTV Monitoramento 24h" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Instalação de Alarmes" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Controle de Acesso Biométrico" } }
+    ]
+  }
+}
+</script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -115,48 +140,69 @@ justify-content:center;
 gap:20px;
 }
 
-/* CARDS ATUALIZADOS COM INDICADOR DE GALERIA */
+/* CARDS ATUALIZADOS */
 .card{
 background:white;
-padding:25px;
-border-radius:10px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
+padding:30px 25px;
+border-radius:15px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 transition:0.3s;
 width:280px;
 display: flex;
 flex-direction: column;
 align-items: center;
-justify-content: space-between;
+border: 1px solid #f1f5f9;
 }
 
 .card:hover{
-transform:translateY(-5px);
+transform:translateY(-8px);
+box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
 
 .card h3 {
     cursor: pointer;
     color: #0a1f44;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 800;
 }
 
+/* BOTÃO EXEMPLO MODERNO (TECNOLÓGICO) */
 .btn-ver-fotos {
-    background: #f1f5f9;
+    background: rgba(10, 31, 68, 0.04);
     color: #0a1f44;
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-size: 13px;
-    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
     text-decoration: none;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(10, 31, 68, 0.1);
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-ver-fotos i {
+    font-size: 15px;
     transition: 0.3s;
 }
 
 .btn-ver-fotos:hover {
     background: #0a1f44;
     color: white;
+    border-color: #0a1f44;
+    box-shadow: 0 8px 15px rgba(10, 31, 68, 0.2);
+}
+
+.btn-ver-fotos:hover i {
+    color: #f4b400;
+    transform: scale(1.2);
 }
 
 /* AVALIAÇÕES */
@@ -212,30 +258,33 @@ box-shadow:0 6px 18px rgba(0,0,0,0.3);
 100%{transform:scale(1);}
 }
 
-/* FOOTER ATUALIZADO */
+/* FOOTER */
 footer{
 background:#0a1f44;
 color:white;
-padding:40px 20px;
+padding:50px 20px;
 }
 
 .footer-security {
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-bottom: 20px;
-    font-size: 14px;
-    color: #25D366;
+    margin-bottom: 25px;
+    font-size: 13px;
+    font-weight: 600;
 }
 
-.footer-security span { display: flex; align-items: center; gap: 5px; color: #fff; opacity: 0.8; }
+.footer-security span { display: flex; align-items: center; gap: 6px; color: #fff; opacity: 0.9; }
 .footer-security i { color: #25D366; }
 
 .dev-link {
     color: #25D366;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 800;
+    transition: 0.3s;
 }
+
+.dev-link:hover { text-shadow: 0 0 10px rgba(37, 211, 102, 0.5); }
 
 /* WHATS FLOAT */
 .whatsapp-float{
@@ -260,16 +309,16 @@ z-index: 99;
 display:none;
 position:fixed;
 inset:0;
-background:rgba(0,0,0,0.8);
+background:rgba(0,0,0,0.85);
 justify-content:center;
 align-items:center;
-z-index:999;
+z-index:1000;
 }
 
 .modal-conteudo{
 background:white;
-padding:30px;
-border-radius:12px;
+padding:40px;
+border-radius:15px;
 max-width:500px;
 width:90%;
 text-align:center;
@@ -277,12 +326,12 @@ position:relative;
 color: #333;
 }
 
-/* MODAL GALERIA (NOVO) */
+/* MODAL GALERIA */
 .modal-galeria {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.95);
+    background: rgba(0,0,0,0.96);
     z-index: 1001;
     justify-content: center;
     align-items: center;
@@ -295,33 +344,30 @@ color: #333;
     text-align: center;
 }
 
-.img-container {
-    position: relative;
-    margin-bottom: 20px;
-}
-
 .img-slider {
     width: 100%;
-    height: 300px;
+    height: 320px;
     object-fit: cover;
-    border-radius: 10px;
-    border: 3px solid #fff;
+    border-radius: 12px;
+    border: 4px solid #fff;
 }
 
 .controles {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .btn-nav {
     background: #fff;
     border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
+    padding: 10px 22px;
+    border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.3s;
 }
+.btn-nav:hover { background: #f4b400; }
 
 .fechar{
 position:absolute;
@@ -332,7 +378,7 @@ cursor:pointer;
 color: #333;
 }
 
-.fechar-galeria { color: white; top: 20px; right: 30px; position: absolute; font-size: 40px; cursor: pointer;}
+.fechar-galeria { color: white; top: 25px; right: 30px; position: absolute; font-size: 45px; cursor: pointer;}
 </style>
 </head>
 
@@ -363,21 +409,21 @@ color: #333;
         <div class="card">
             <h3 onclick="abrirModal('controle')">Controle de Acesso</h3>
             <div class="btn-ver-fotos" onclick="abrirGaleria('controle')">
-                <i class="fas fa-images"></i> Ver Exemplos
+                <i class="fas fa-camera-retro"></i> Ver Exemplos
             </div>
         </div>
 
         <div class="card">
             <h3 onclick="abrirModal('cftv')">CFTV</h3>
             <div class="btn-ver-fotos" onclick="abrirGaleria('cftv')">
-                <i class="fas fa-images"></i> Ver Exemplos
+                <i class="fas fa-video"></i> Ver Exemplos
             </div>
         </div>
 
         <div class="card">
             <h3 onclick="abrirModal('alarmes')">Alarmes</h3>
             <div class="btn-ver-fotos" onclick="abrirGaleria('alarmes')">
-                <i class="fas fa-images"></i> Ver Exemplos
+                <i class="fas fa-shield-alt"></i> Ver Exemplos
             </div>
         </div>
     </div>
@@ -401,8 +447,8 @@ color: #333;
 <footer>
 <div class="container">
     <div class="footer-security">
-        <span><i class="fas fa-lock"></i> SSL Ativo</span>
-        <span><i class="fas fa-shield-alt"></i> Site Seguro</span>
+        <span><i class="fas fa-lock"></i> SSL Criptografado</span>
+        <span><i class="fas fa-shield-check"></i> Site Seguro</span>
         <span><i class="fas fa-check-circle"></i> Verificado</span>
     </div>
 
@@ -471,7 +517,7 @@ function fecharModal(){
     document.getElementById("modal").style.display="none";
 }
 
-// LÓGICA DA GALERIA DE FOTOS (NOVO)
+// LÓGICA DA GALERIA
 const fotosPorServico = {
     controle: [
         'controle-de-acesso1.jpeg', 
