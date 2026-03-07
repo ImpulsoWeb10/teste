@@ -3,167 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliação Segura | Impulso Web 10</title>
+    <title>Avaliação Premium | Impulso Web 10</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     <style>
         :root {
-            --primary: #4285F4;
-            --success: #34A853;
-            --glass: rgba(255, 255, 255, 0.85);
-            --border: rgba(255, 255, 255, 0.3);
+            --primary-google: #4285F4;
+            --dark-bg: #0f172a; /* Azul marinho muito escuro */
+            --accent-glow: rgba(66, 133, 244, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
 
         body {
-            /* Fundo Moderno Estilo Mesh Gradient */
-            background: background-color: #ffffff;
-            background-image: 
-                radial-gradient(at 0% 0%, hsla(217,100%,92%,1) 0, transparent 50%), 
-                radial-gradient(at 50% 0%, hsla(186,100%,92%,1) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(242,100%,92%,1) 0, transparent 50%),
-                radial-gradient(at 0% 100%, hsla(192,100%,92%,1) 0, transparent 50%);
+            background-color: var(--dark-bg);
+            /* Efeito de iluminação suave no fundo */
+            background-image: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            color: white;
         }
 
-        /* Efeito de Vidro (Glassmorphism) */
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            max-width: 450px;
+        .card {
+            background: #ffffff;
+            color: #1e293b;
+            max-width: 420px;
             width: 100%;
             padding: 40px 30px;
-            border-radius: 30px;
-            border: 1px solid var(--border);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             text-align: center;
-            position: relative;
+            animation: cardEnter 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .stars {
-            margin-bottom: 20px;
+        @keyframes cardEnter {
+            from { opacity: 0; transform: scale(0.8) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
+        .stars { margin-bottom: 20px; }
         .stars i {
             color: #FBBC05;
-            font-size: 2.5rem;
-            margin: 0 3px;
-            filter: drop-shadow(0 0 10px rgba(251, 188, 5, 0.4));
-            animation: starBounce 1s ease infinite alternate;
+            font-size: 2.2rem;
+            margin: 0 2px;
+            filter: drop-shadow(0 4px 10px rgba(251, 188, 5, 0.3));
         }
 
-        @keyframes starBounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-5px); }
-        }
+        h1 { font-weight: 800; font-size: 1.6rem; margin-bottom: 12px; line-height: 1.2; }
+        p { color: #64748b; font-size: 0.95rem; margin-bottom: 30px; line-height: 1.5; }
 
-        h1 {
-            font-weight: 800;
-            color: #1e293b;
-            font-size: 1.7rem;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
-        }
-
-        p {
-            color: #475569;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        /* Botão principal com gradiente */
+        /* BOTÃO GOOGLE COM BRILHO E PULSO */
         .btn-google {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            background: linear-gradient(135deg, #4285F4, #34a853);
+            background: var(--primary-google);
             color: white;
             padding: 20px;
-            border-radius: 18px;
+            border-radius: 16px;
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 800;
             font-size: 1.1rem;
+            overflow: hidden; /* Importante para o brilho */
             transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(66, 133, 244, 0.3);
-            margin-bottom: 15px;
+            box-shadow: 0 10px 20px rgba(66, 133, 244, 0.4);
+            animation: pulseBtn 2s infinite;
         }
 
-        .btn-google:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(66, 133, 244, 0.4);
+        /* Efeito de Brilho Passando (Shine) */
+        .btn-google::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            transform: skewX(-25deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        @keyframes pulseBtn {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); box-shadow: 0 15px 30px rgba(66, 133, 244, 0.6); }
+            100% { transform: scale(1); }
+        }
+
+        /* QR Code Styling */
+        .qr-container {
+            margin: 30px 0 20px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 20px;
+            display: inline-block;
+            border: 1px solid #e2e8f0;
+        }
+        
+        #qrcode img {
+            margin: 0 auto;
+            border-radius: 8px;
+        }
+
+        .qr-label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: #94a3b8;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* Selos de Segurança */
-        .security-badges {
+        .security {
             display: flex;
             justify-content: center;
-            align-items: center;
             gap: 15px;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            font-size: 0.75rem;
-            color: #64748b;
-            font-weight: 600;
+            font-size: 0.7rem;
+            color: #94a3b8;
+            margin-top: 10px;
         }
 
-        .badge-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+        .security i { color: #22c55e; }
 
-        .badge-item i {
-            color: #16a34a; /* Verde sucesso */
-            font-size: 1rem;
-        }
-
-        /* QR Code Minimalista */
-        .qr-area {
-            margin-top: 20px;
-            opacity: 0.7;
-        }
-
-        /* Rodapé com link WhatsApp */
-        footer {
-            margin-top: 40px;
-            text-align: center;
-        }
-
+        /* Rodapé Developer */
+        footer { margin-top: 40px; }
         .dev-link {
             text-decoration: none;
-            color: #475569;
-            font-size: 0.85rem;
-            transition: all 0.3s;
+            color: #94a3b8;
+            font-size: 0.8rem;
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255,255,255,0.5);
-            padding: 8px 15px;
+            padding: 10px 20px;
             border-radius: 50px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
         }
-
         .dev-link:hover {
             background: #25D366;
             color: white;
+            transform: translateY(-2px);
         }
-
-        .dev-link strong { font-weight: 800; }
-
     </style>
 </head>
 <body>
 
-    <div class="glass-card">
+    <div class="card">
         <div class="stars">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
@@ -172,28 +179,21 @@
             <i class="fas fa-star"></i>
         </div>
 
-        <h1>Sua opinião é muito importante para nós!</h1>
-        <p>Ajude nossa empresa a crescer e melhorar nossos serviços com apenas 2 cliques.</p>
+        <h1>Sua opinião vale muito!</h1>
+        <p>Toque no botão abaixo ou escaneie o código para deixar sua avaliação no Google.</p>
 
-        <a href="SEU_LINK_DO_GOOGLE_AQUI" target="_blank" class="btn-google">
-            <i class="fab fa-google"></i> Deixar avaliação no Google
+        <a href="COLE_SEU_LINK_AQUI" target="_blank" class="btn-google" id="googleLink">
+            <i class="fab fa-google"></i> AVALIAR AGORA
         </a>
 
-        <div class="security-badges">
-            <div class="badge-item">
-                <i class="fas fa-shield-halved"></i> Site Seguro
-            </div>
-            <div class="badge-item">
-                <i class="fas fa-lock"></i> SSL Ativo
-            </div>
-            <div class="badge-item">
-                <i class="fas fa-certificate"></i> Verificado
-            </div>
+        <div class="qr-container">
+            <span class="qr-label">Ou escaneie no balcão</span>
+            <div id="qrcode"></div>
         </div>
 
-        <div class="qr-area">
-            <i class="fas fa-qrcode" style="font-size: 2rem;"></i>
-            <div style="font-size: 0.6rem; margin-top: 5px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Escaneie para avaliar</div>
+        <div class="security">
+            <span><i class="fas fa-lock"></i> SSL SEGURO</span>
+            <span><i class="fas fa-shield-check"></i> SITE VERIFICADO</span>
         </div>
     </div>
 
@@ -204,17 +204,20 @@
     </footer>
 
     <script>
-        // Animação de entrada suave para os elementos
-        window.addEventListener('load', () => {
-            const card = document.querySelector('.glass-card');
-            card.style.opacity = '0';
-            card.style.transform = 'scale(0.9)';
-            
-            setTimeout(() => {
-                card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                card.style.opacity = '1';
-                card.style.transform = 'scale(1)';
-            }, 100);
+        // CONFIGURAÇÃO: Cole seu link de avaliação aqui
+        const googleReviewURL = "https://search.google.com/local/writereview?placeid=SEU_ID_AQUI";
+
+        // Atualiza o link do botão
+        document.getElementById('https://impulsoweb10.github.io/Avaliacao/clientes/li&lidecor/').href = googleReviewURL;
+
+        // Gera o QR Code automaticamente para o link acima
+        new QRCode(document.getElementById("qrcode"), {
+            text: googleReviewURL,
+            width: 140,
+            height: 140,
+            colorDark : "#0f172a",
+            colorLight : "#f8fafc",
+            correctLevel : QRCode.CorrectLevel.H
         });
     </script>
 </body>
