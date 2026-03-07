@@ -1,224 +1,120 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliação Premium | Impulso Web 10</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    
-    <style>
-        :root {
-            --primary-google: #4285F4;
-            --dark-bg: #0f172a; /* Azul marinho muito escuro */
-            --accent-glow: rgba(66, 133, 244, 0.15);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avalie a House Secure</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+<style>
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg,#0f172a,#1e293b);
+    text-align:center;
+    color:white;
+}
 
-        body {
-            background-color: var(--dark-bg);
-            /* Efeito de iluminação suave no fundo */
-            background-image: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            color: white;
-        }
+.container{
+    padding:40px 20px;
+}
 
-        .card {
-            background: #ffffff;
-            color: #1e293b;
-            max-width: 420px;
-            width: 100%;
-            padding: 40px 30px;
-            border-radius: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            animation: cardEnter 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
+.logo{
+    max-width:200px;
+    margin-bottom:25px;
+}
 
-        @keyframes cardEnter {
-            from { opacity: 0; transform: scale(0.8) translateY(30px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
+h1{
+    font-size:28px;
+    margin-bottom:10px;
+}
 
-        .stars { margin-bottom: 20px; }
-        .stars i {
-            color: #FBBC05;
-            font-size: 2.2rem;
-            margin: 0 2px;
-            filter: drop-shadow(0 4px 10px rgba(251, 188, 5, 0.3));
-        }
+p{
+    font-size:18px;
+    margin-bottom:35px;
+    color:#cbd5e1;
+}
 
-        h1 { font-weight: 800; font-size: 1.6rem; margin-bottom: 12px; line-height: 1.2; }
-        p { color: #64748b; font-size: 0.95rem; margin-bottom: 30px; line-height: 1.5; }
+.btn{
+    display:block;
+    width:90%;
+    max-width:420px;
+    margin:20px auto;
+    padding:18px;
+    font-size:20px;
+    font-weight:bold;
+    border:none;
+    border-radius:50px;
+    text-decoration:none;
+    transition:0.3s;
+}
 
-        /* BOTÃO GOOGLE COM BRILHO E PULSO */
-        .btn-google {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: var(--primary-google);
-            color: white;
-            padding: 20px;
-            border-radius: 16px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 1.1rem;
-            overflow: hidden; /* Importante para o brilho */
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(66, 133, 244, 0.4);
-            animation: pulseBtn 2s infinite;
-        }
+/* BOTÃO GOOGLE */
+.btn-google{
+    background:#fbbc05;
+    color:#000;
+    animation:pulseGoogle 1.5s infinite;
+}
 
-        /* Efeito de Brilho Passando (Shine) */
-        .btn-google::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(
-                to right,
-                transparent,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            );
-            transform: skewX(-25deg);
-            animation: shine 3s infinite;
-        }
+@keyframes pulseGoogle{
+    0%{box-shadow:0 0 10px #fbbc05;}
+    50%{box-shadow:0 0 35px #fff176;}
+    100%{box-shadow:0 0 10px #fbbc05;}
+}
 
-        @keyframes shine {
-            0% { left: -100%; }
-            20% { left: 150%; }
-            100% { left: 150%; }
-        }
+/* BOTÃO WHATSAPP */
+.btn-whats{
+    background:#25D366;
+    color:white;
+    animation:pulseWhats 1.5s infinite;
+}
 
-        @keyframes pulseBtn {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); box-shadow: 0 15px 30px rgba(66, 133, 244, 0.6); }
-            100% { transform: scale(1); }
-        }
+@keyframes pulseWhats{
+    0%{box-shadow:0 0 10px #25D366;}
+    50%{box-shadow:0 0 35px #6eff9a;}
+    100%{box-shadow:0 0 10px #25D366;}
+}
 
-        /* QR Code Styling */
-        .qr-container {
-            margin: 30px 0 20px;
-            padding: 20px;
-            background: #f8fafc;
-            border-radius: 20px;
-            display: inline-block;
-            border: 1px solid #e2e8f0;
-        }
-        
-        #qrcode img {
-            margin: 0 auto;
-            border-radius: 8px;
-        }
+.btn:hover{
+    transform:scale(1.05);
+}
 
-        .qr-label {
-            display: block;
-            font-size: 0.7rem;
-            font-weight: 800;
-            color: #94a3b8;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Selos de Segurança */
-        .security {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            font-size: 0.7rem;
-            color: #94a3b8;
-            margin-top: 10px;
-        }
-
-        .security i { color: #22c55e; }
-
-        /* Rodapé Developer */
-        footer { margin-top: 40px; }
-        .dev-link {
-            text-decoration: none;
-            color: #94a3b8;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border-radius: 50px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-        }
-        .dev-link:hover {
-            background: #25D366;
-            color: white;
-            transform: translateY(-2px);
-        }
-    </style>
+footer{
+    margin-top:50px;
+    font-size:14px;
+    color:#94a3b8;
+}
+</style>
 </head>
+
 <body>
 
-    <div class="card">
-        <div class="stars">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-        </div>
+<div class="container">
 
-        <h1>Sua opinião vale muito!</h1>
-        <p>Toque no botão abaixo ou escaneie o código para deixar sua avaliação no Google.</p>
+    <!-- LOGO -->
+    <img src="./housesecure.jpg" class="logo" alt="House Secure">
 
-        <a href="https://impulsoweb10.github.io/Avaliacao/clientes/li&lidecor/" target="_blank" class="btn-google" id="googleLink">
-            <i class="fab fa-google"></i> AVALIAR AGORA
-        </a>
+    <h1>⭐ Sua opinião é muito importante!</h1>
+    <p>Se você ficou satisfeito com nosso serviço, deixe sua avaliação no Google ou fale conosco pelo WhatsApp.</p>
 
-        <div class="qr-container">
-            <span class="qr-label">Ou escaneie no balcão</span>
-            <div id="qrcode"></div>
-        </div>
+    <!-- BOTÃO GOOGLE -->
+    <a href="https://g.page/r/CeL4xMoSMFRqEAE/review" 
+       target="_blank" 
+       class="btn btn-google">
+        ⭐⭐⭐⭐⭐ Avaliar no Google
+    </a>
 
-        <div class="security">
-            <span><i class="fas fa-lock"></i> SSL SEGURO</span>
-            <span><i class="fas fa-shield-check"></i> SITE VERIFICADO</span>
-        </div>
-    </div>
+    <!-- BOTÃO WHATSAPP -->
+    <a href="https://wa.me/5511977788270" 
+       target="_blank" 
+       class="btn btn-whats">
+        📲 Falar no WhatsApp
+    </a>
 
     <footer>
-        <a href="https://wa.me/55119XXXXXXXX" target="_blank" class="dev-link">
-            Desenvolvido por <strong>Impulso Web 10</strong> <i class="fab fa-whatsapp"></i>
-        </a>
+        © 2026 House Secure - Segurança Eletrônica
     </footer>
 
-    <script>
-        // CONFIGURAÇÃO: https://impulsoweb10.github.io/Avaliacao/clientes/li&lidecor/
-        const googleReviewURL = "https://search.google.com/local/writereview?placeid=SEU_ID_AQUI";
+</div>
 
-        // Atualiza o link do botão
-        document.getElementById('https://impulsoweb10.github.io/Avaliacao/clientes/li&lidecor/').href = googleReviewURL;
-
-        // Gera o QR Code automaticamente para o link acima
-        new QRCode(document.getElementById("qrcode"), {
-            text: googleReviewURL,
-            width: 140,
-            height: 140,
-            colorDark : "#0f172a",
-            colorLight : "#f8fafc",
-            correctLevel : QRCode.CorrectLevel.H
-        });
-    </script>
 </body>
 </html>
