@@ -11,22 +11,24 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [{
-    "@type": "Question",
-    "name": "Como funciona o monitoramento por celular?",
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Através de um aplicativo seguro, você acessa as imagens do seu CFTV em tempo real de qualquer lugar do mundo."
-    }
-  }, {
-    "@type": "Question",
-    "name": "O sistema de alarme funciona sem energia?",
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Sim, nossos sistemas possuem baterias de backup que mantêm a proteção ativa mesmo em quedas de energia."
-    }
-  }]
+  "@type": "SecurityService",
+  "name": "House Secure Segurança Eletrônica",
+  "description": "Especialista em CFTV, Alarmes e Controle de Acesso em Itaquaquecetuba.",
+  "provider": {
+    "@type": "Organization",
+    "name": "ImpulsoWeb10",
+    "url": "https://wa.me/5511977788270"
+  },
+  "areaServed": "Itaquaquecetuba",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Serviços de Segurança",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "CFTV Monitoramento 24h" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Instalação de Alarmes" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Controle de Acesso Biométrico" } }
+    ]
+  }
 }
 </script>
 
@@ -34,95 +36,378 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:Arial, sans-serif; background:#f4f6f8; text-align:center; color: #333;}
-.container{max-width:1100px; margin:0 auto; padding:0 20px;}
+
+body{
+font-family:Arial, sans-serif;
+background:#f4f6f8;
+text-align:center;
+}
+
+.container{
+max-width:1100px;
+margin:0 auto;
+padding:0 20px;
+}
 
 /* HEADER */
 header{
 background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
 url('https://images.unsplash.com/photo-1581091215367-59ab6f7f3e6f') center/cover no-repeat;
-color:white; padding:120px 20px; position:relative;
+color:white;
+padding:120px 20px;
+position:relative;
 }
-header::before{content:""; position:absolute; inset:0; background:rgba(10,31,68,0.65);}
-header .container{position:relative; z-index:1;}
-.logo img{width:160px; max-width:90%; margin-bottom:25px;}
-header h1{margin-bottom:20px; font-size:38px; font-weight:800;}
-header p{margin-bottom:35px; font-size:20px;}
+header::before{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(10,31,68,0.65);
+}
+header .container{position:relative;z-index:1;}
 
-/* BOTÕES GERAIS */
+.logo{
+margin-bottom:25px;
+text-align:center;
+}
+.logo img{
+width:160px;
+max-width:90%;
+}
+
+header h1{
+margin-bottom:20px;
+font-size:38px;
+font-weight:800;
+}
+header p{
+margin-bottom:35px;
+font-size:20px;
+}
+
+/* BOTÃO WHATS */
 .btn-whatsapp{
-background:#25D366; color:white; padding:16px 35px; text-decoration:none; border-radius:50px;
-font-weight:bold; display:inline-block; position:relative; overflow:hidden;
-box-shadow:0 8px 25px rgba(0,0,0,0.3); animation:pulse 2s infinite; cursor: pointer; border: none;
+background:#25D366;
+color:white;
+padding:16px 35px;
+text-decoration:none;
+border-radius:50px;
+font-weight:bold;
+display:inline-block;
+position:relative;
+overflow:hidden;
+box-shadow:0 8px 25px rgba(0,0,0,0.3);
+animation:pulse 2s infinite;
+cursor: pointer;
+border: none;
 }
+
 .btn-whatsapp::before{
-content:""; position:absolute; top:0; left:-75%; width:50%; height:100%;
-background:rgba(255,255,255,0.4); transform:skewX(-20deg); animation:brilho 2.5s infinite;
+content:"";
+position:absolute;
+top:0;
+left:-75%;
+width:50%;
+height:100%;
+background:rgba(255,255,255,0.4);
+transform:skewX(-20deg);
+animation:brilho 2.5s infinite;
 }
-@keyframes brilho{ 0%{left:-75%;} 100%{left:125%;} }
-@keyframes pulse{ 0%{transform:scale(1);} 50%{transform:scale(1.05);} 100%{transform:scale(1);} }
 
-/* CARDS */
+@keyframes brilho{
+0%{left:-75%;}
+100%{left:125%;}
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.05);}
+100%{transform:scale(1);}
+}
+
+/* SECTION */
 section{padding:70px 20px;}
-.pergunta{font-size:24px; font-weight:bold; margin-bottom:40px;}
-.opcoes{display:flex; flex-wrap:wrap; justify-content:center; gap:25px;}
 
-.card{
-background:white; padding:30px 25px; border-radius:15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-transition:0.3s; width:280px; display: flex; flex-direction: column; align-items: center; border: 1px solid #f1f5f9;
+.pergunta{
+font-size:24px;
+font-weight:bold;
+margin-bottom:40px;
 }
-.card:hover{transform:translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,0.1);}
-.card h3 {cursor: pointer; color: #0a1f44; margin-bottom: 20px; font-size: 20px; font-weight: 800;}
+
+.opcoes{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+/* CARDS MANTIDOS CONFORME SEU INDEX */
+.card{
+background:white;
+padding:30px 25px;
+border-radius:15px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+transition:0.3s;
+width:280px;
+display: flex;
+flex-direction: column;
+align-items: center;
+border: 1px solid #f1f5f9;
+}
+
+.card:hover{
+transform:translateY(-8px);
+box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    cursor: pointer;
+    color: #0a1f44;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 800;
+}
 
 /* BOTÃO EXEMPLO MODERNO */
 .btn-ver-fotos {
-background: rgba(10, 31, 68, 0.04); color: #0a1f44; padding: 12px 20px; border-radius: 10px;
-font-size: 12px; font-weight: 800; text-decoration: none; display: flex; align-items: center;
-justify-content: center; gap: 8px; cursor: pointer; transition: all 0.3s ease;
-border: 1px solid rgba(10, 31, 68, 0.1); width: 100%; text-transform: uppercase; letter-spacing: 1px;
+    background: rgba(10, 31, 68, 0.04);
+    color: #0a1f44;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(10, 31, 68, 0.1);
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
-.btn-ver-fotos:hover {background: #0a1f44; color: white; border-color: #0a1f44; box-shadow: 0 8px 15px rgba(10, 31, 68, 0.2);}
-.btn-ver-fotos:hover i {color: #f4b400; transform: scale(1.2);}
 
-/* SEÇÃO FAQ */
-.faq-section {background: #fff; padding: 80px 20px;}
-.faq-container {max-width: 800px; margin: 0 auto; text-align: left;}
-.faq-item {margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;}
-.faq-pergunta {
-background: none; border: none; width: 100%; text-align: left; padding: 15px 0;
-font-size: 18px; font-weight: bold; color: #0a1f44; cursor: pointer;
-display: flex; justify-content: space-between; align-items: center;
+.btn-ver-fotos:hover {
+    background: #0a1f44;
+    color: white;
 }
-.faq-resposta {display: none; padding: 10px 0 20px; color: #666; line-height: 1.6;}
-.faq-item.active .faq-resposta {display: block;}
-.faq-item.active i {transform: rotate(180deg);}
+
+/* ESTILO DA SEÇÃO FAQ (ADICIONADO) */
+.faq-section {
+    background: #fff;
+    padding: 70px 20px;
+}
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+.faq-item {
+    margin-bottom: 10px;
+    border: 1px solid #f1f5f9;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.faq-pergunta {
+    width: 100%;
+    padding: 20px;
+    background: #fdfdfd;
+    border: none;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    color: #0a1f44;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+.faq-resposta {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.3s ease-out;
+    background: #fff;
+    color: #555;
+}
+.faq-item.active .faq-resposta {
+    padding: 10px 20px 20px;
+    max-height: 200px;
+}
 
 /* AVALIAÇÕES */
 .avaliacoes{
-background:linear-gradient(rgba(10,31,68,0.9),rgba(10,31,68,0.9)), url('https://images.unsplash.com/photo-1521791136064-7986c2920216');
-background-size:cover; background-position:center; color:white;
+background:linear-gradient(rgba(10,31,68,0.9),rgba(10,31,68,0.9)),
+url('https://images.unsplash.com/photo-1521791136064-7986c2920216');
+background-size:cover;
+background-position:center;
+color:white;
 }
-.estrelas{font-size:28px; color:#f4b400; margin:15px 0;}
-.estrelas span{display:inline-block; animation:loopEstrela 1.5s infinite;}
-@keyframes loopEstrela{ 0%{transform:scale(1);opacity:0.6;} 50%{transform:scale(1.4);opacity:1;} 100%{transform:scale(1);opacity:0.6;} }
+
+.estrelas{
+font-size:28px;
+color:#f4b400;
+margin:15px 0;
+}
+
+.estrelas span{
+display:inline-block;
+animation:loopEstrela 1.5s infinite;
+}
+
+.estrelas span:nth-child(1){animation-delay:0s;}
+.estrelas span:nth-child(2){animation-delay:0.2s;}
+.estrelas span:nth-child(3){animation-delay:0.4s;}
+.estrelas span:nth-child(4){animation-delay:0.6s;}
+.estrelas span:nth-child(5){animation-delay:0.8s;}
+
+@keyframes loopEstrela{
+0%{transform:scale(1);opacity:0.6;}
+50%{transform:scale(1.4);opacity:1;}
+100%{transform:scale(1);opacity:0.6;}
+}
+
+/* BOTÃO AVALIAÇÃO */
+.btn-avaliacoes{
+display:inline-block;
+margin-top:25px;
+background:#f4b400;
+color:#0a1f44;
+padding:16px 35px;
+text-decoration:none;
+border-radius:8px;
+font-weight:bold;
+transition:all 0.3s ease;
+animation:pulseBtn 1.8s infinite;
+box-shadow:0 6px 18px rgba(0,0,0,0.3);
+}
+
+@keyframes pulseBtn{
+0%{transform:scale(1);}
+50%{transform:scale(1.07);}
+100%{transform:scale(1);}
+}
 
 /* FOOTER */
-footer{background:#0a1f44; color:white; padding:50px 20px;}
-.footer-security {display: flex; justify-content: center; gap: 20px; margin-bottom: 25px; font-size: 13px; font-weight: 600;}
-.footer-security i {color: #25D366;}
-.dev-link {color: #25D366; text-decoration: none; font-weight: 800;}
+footer{
+background:#0a1f44;
+color:white;
+padding:50px 20px;
+}
 
-/* MODAIS */
-.modal, .modal-galeria {display:none; position:fixed; inset:0; justify-content:center; align-items:center; z-index:1000;}
-.modal {background:rgba(0,0,0,0.85);}
-.modal-galeria {background:rgba(0,0,0,0.96);}
-.modal-conteudo {background:white; padding:40px; border-radius:15px; max-width:500px; width:90%; position:relative;}
-.img-slider {width: 100%; height: 320px; object-fit: cover; border-radius: 12px; border: 4px solid #fff;}
-.controles {display: flex; justify-content: space-between; margin-top: 15px;}
-.btn-nav {background: #fff; border: none; padding: 10px 22px; border-radius: 8px; font-weight: bold; cursor: pointer;}
-.fechar{position:absolute; top:15px; right:20px; font-size:30px; cursor:pointer;}
+.footer-security {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 25px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.footer-security span { display: flex; align-items: center; gap: 6px; color: #fff; opacity: 0.9; }
+.footer-security i { color: #25D366; }
+
+.dev-link {
+    color: #25D366;
+    text-decoration: none;
+    font-weight: 800;
+    transition: 0.3s;
+}
+
+.dev-link:hover { text-shadow: 0 0 10px rgba(37, 211, 102, 0.5); }
+
+/* WHATS FLOAT */
+.whatsapp-float{
+position:fixed;
+width:60px;
+height:60px;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+border-radius:50%;
+text-align:center;
+font-size:30px;
+line-height:60px;
+text-decoration:none;
+box-shadow:0 4px 10px rgba(0,0,0,0.3);
+z-index: 99;
+}
+
+/* MODAIS MANTIDOS */
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.85);
+justify-content:center;
+align-items:center;
+z-index:1000;
+}
+
+.modal-conteudo{
+background:white;
+padding:40px;
+border-radius:15px;
+max-width:500px;
+width:90%;
+text-align:center;
+position:relative;
+color: #333;
+}
+
+.modal-galeria {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.96);
+    z-index: 1001;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.galeria-wrapper {
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.img-slider {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 4px solid #fff;
+}
+
+.controles {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.btn-nav {
+    background: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-nav:hover { background: #f4b400; }
+
+.fechar{
+position:absolute;
+top:15px;
+right:20px;
+font-size:30px;
+cursor:pointer;
+color: #333;
+}
+
 .fechar-galeria { color: white; top: 25px; right: 30px; position: absolute; font-size: 45px; cursor: pointer;}
-.whatsapp-float{position:fixed; width:60px; height:60px; bottom:20px; right:20px; background:#25D366; color:white; border-radius:50%; text-align:center; font-size:30px; line-height:60px; text-decoration:none; z-index: 99;}
 </style>
 </head>
 
@@ -130,28 +415,45 @@ footer{background:#0a1f44; color:white; padding:50px 20px;}
 
 <header>
 <div class="container">
-    <div class="logo"><img src="logo.png" alt="House Secure"></div>
+    <div class="logo">
+        <img src="logo.png" alt="House Secure">
+    </div>
+
     <h1>House Secure Segurança Eletrônica</h1>
     <p>Proteção inteligente para quem valoriza o que realmente importa.</p>
-    <a class="btn-whatsapp" href="https://wa.me/5511977788270?text=Olá,%20quero%20proteger%20meu%20patrimônio" target="_blank">FALAR NO WHATSAPP</a>
+
+    <a class="btn-whatsapp"
+    href="https://wa.me/5511977788270?text=Olá,%20quero%20proteger%20meu%20patrimônio"
+    target="_blank">
+    FALAR NO WHATSAPP
+    </a>
 </div>
 </header>
 
 <section>
 <div class="container">
     <p class="pergunta">Qual a melhor forma de proteger o que é importante para você hoje?</p>
+
     <div class="opcoes">
         <div class="card">
             <h3 onclick="abrirModal('controle')">Controle de Acesso</h3>
-            <div class="btn-ver-fotos" onclick="abrirGaleria('controle')"><i class="fas fa-camera-retro"></i> Ver Exemplos</div>
+            <div class="btn-ver-fotos" onclick="abrirGaleria('controle')">
+                <i class="fas fa-camera-retro"></i> Ver Exemplos
+            </div>
         </div>
+
         <div class="card">
             <h3 onclick="abrirModal('cftv')">CFTV</h3>
-            <div class="btn-ver-fotos" onclick="abrirGaleria('cftv')"><i class="fas fa-video"></i> Ver Exemplos</div>
+            <div class="btn-ver-fotos" onclick="abrirGaleria('cftv')">
+                <i class="fas fa-video"></i> Ver Exemplos
+            </div>
         </div>
+
         <div class="card">
             <h3 onclick="abrirModal('alarmes')">Alarmes</h3>
-            <div class="btn-ver-fotos" onclick="abrirGaleria('alarmes')"><i class="fas fa-shield-alt"></i> Ver Exemplos</div>
+            <div class="btn-ver-fotos" onclick="abrirGaleria('alarmes')">
+                <i class="fas fa-shield-alt"></i> Ver Exemplos
+            </div>
         </div>
     </div>
 </div>
@@ -162,16 +464,16 @@ footer{background:#0a1f44; color:white; padding:50px 20px;}
         <h2 style="margin-bottom: 40px; color: #0a1f44;">Dúvidas Frequentes</h2>
         <div class="faq-container">
             <div class="faq-item">
-                <button class="faq-pergunta" onclick="toggleFaq(this)">Como vejo as câmeras pelo celular? <i class="fas fa-chevron-down"></i></button>
-                <div class="faq-resposta">Instalamos um aplicativo oficial onde você monitora tudo em tempo real, com acesso a gravações e alertas de movimento de qualquer lugar.</div>
+                <button class="faq-pergunta" onclick="toggleFaq(this)">Como funciona o monitoramento por celular? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-resposta">Instalamos um aplicativo seguro no seu smartphone onde você acessa as câmeras em tempo real e recebe notificações de movimento.</div>
             </div>
             <div class="faq-item">
-                <button class="faq-pergunta" onclick="toggleFaq(this)">O alarme funciona se cortarem a luz? <i class="fas fa-chevron-down"></i></button>
-                <div class="faq-resposta">Sim! Nossos sistemas possuem bateria interna de longa duração que mantém o alarme ativo mesmo sem energia elétrica.</div>
+                <button class="faq-pergunta" onclick="toggleFaq(this)">O sistema de alarme funciona sem luz? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-resposta">Sim! Nossos alarmes possuem bateria interna de backup que mantém o sistema funcionando por várias horas mesmo sem energia elétrica.</div>
             </div>
             <div class="faq-item">
-                <button class="faq-pergunta" onclick="toggleFaq(this)">Vocês atendem empresas e condomínios? <i class="fas fa-chevron-down"></i></button>
-                <div class="faq-resposta">Com certeza. Temos projetos específicos para grandes perímetros, controle de acesso de funcionários e cercas virtuais.</div>
+                <button class="faq-pergunta" onclick="toggleFaq(this)">Vocês atendem em Itaquaquecetuba e região? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-resposta">Sim, atendemos Itaquaquecetuba e toda a região do Alto Tietê com suporte técnico rápido e especializado.</div>
             </div>
         </div>
     </div>
@@ -180,19 +482,25 @@ footer{background:#0a1f44; color:white; padding:50px 20px;}
 <section class="avaliacoes">
 <div class="container">
     <h2>Avaliação dos Clientes</h2>
-    <p class="estrelas"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></p>
+    <p class="estrelas">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+    </p>
     <p>5.0 de 5 estrelas no Google</p>
-    <a href="https://g.page/r/CeL4xMoSMFRqEAE/review" target="_blank" class="btn-avaliacoes">⭐ Ver Avaliações no Google</a>
+
+    <a href="https://g.page/r/CeL4xMoSMFRqEAE/review" target="_blank" id="btn-avaliacao" class="btn-avaliacoes">
+        ⭐ Ver Avaliações no Google
+    </a>
 </div>
 </section>
 
 <footer>
 <div class="container">
     <div class="footer-security">
-        <span><i class="fas fa-lock"></i> SSL Ativo</span>
+        <span><i class="fas fa-lock"></i> SSL Criptografado</span>
         <span><i class="fas fa-shield-check"></i> Site Seguro</span>
         <span><i class="fas fa-check-circle"></i> Verificado</span>
     </div>
+
     <p><strong>House Secure Segurança Eletrônica</strong></p>
     <p>📍 R. Francisco Alves, 109 - sala 2 - Itaquaquecetuba - SP</p>
     <p>📞 WhatsApp: (11) 97778-8270</p>
@@ -207,7 +515,9 @@ footer{background:#0a1f44; color:white; padding:50px 20px;}
 <div id="modal" class="modal">
     <div class="modal-conteudo">
         <span class="fechar" onclick="fecharModal()">×</span>
-        <h3 id="modal-titulo"></h3><p id="modal-texto"></p><br>
+        <h3 id="modal-titulo"></h3>
+        <p id="modal-texto"></p>
+        <br>
         <a id="modal-botao" target="_blank" class="btn-whatsapp">Falar no WhatsApp</a>
     </div>
 </div>
@@ -215,45 +525,80 @@ footer{background:#0a1f44; color:white; padding:50px 20px;}
 <div id="modal-galeria" class="modal-galeria">
     <span class="fechar-galeria" onclick="fecharGaleria()">×</span>
     <div class="galeria-wrapper">
-        <img id="img-slider" src="" class="img-slider">
+        <div class="img-container">
+            <img id="img-slider" src="" class="img-slider">
+        </div>
         <div class="controles">
             <button class="btn-nav" onclick="fotoAnterior()">❮ Anterior</button>
             <button class="btn-nav" onclick="proximaFoto()">Próxima ❯</button>
         </div>
-        <br><br><a id="galeria-whats" href="#" target="_blank" class="btn-whatsapp">ESTOU INTERESSADO</a>
+        <br><br>
+        <a id="galeria-whats" href="#" target="_blank" class="btn-whatsapp">ESTOU INTERESSADO</a>
     </div>
 </div>
 
 <script>
+// LÓGICA DO FAQ (ADICIONADO)
 function toggleFaq(btn) {
     const item = btn.parentElement;
     item.classList.toggle('active');
 }
 
+// LÓGICA DO MODAL ORIGINAL MANTIDA
 function abrirModal(tipo){
-    let t=document.getElementById("modal-titulo"), txt=document.getElementById("modal-texto"), b=document.getElementById("modal-botao");
-    if(tipo==="controle"){ t.innerText="Controle de Acesso"; txt.innerText="Gerencie entradas com biometria ou senha."; b.href="https://wa.me/5511977788270?text=Controle%20de%20Acesso"; }
-    if(tipo==="cftv"){ t.innerText="CFTV"; txt.innerText="Monitoramento HD 24h pelo seu celular."; b.href="https://wa.me/5511977788270?text=CFTV"; }
-    if(tipo==="alarmes"){ t.innerText="Alarmes"; txt.innerText="Sensores de alta precisão e sirenes potentes."; b.href="https://wa.me/5511977788270?text=Alarmes"; }
+    let titulo=document.getElementById("modal-titulo");
+    let texto=document.getElementById("modal-texto");
+    let botao=document.getElementById("modal-botao");
+
+    if(tipo==="controle"){
+        titulo.innerText="Controle de Acesso";
+        texto.innerText="Gerencie entradas com biometria, senha ou cartão, garantindo segurança total.";
+        botao.href="https://wa.me/5511977788270?text=Quero%20instalar%20Controle%20de%20Acesso";
+    }
+    if(tipo==="cftv"){
+        titulo.innerText="CFTV";
+        texto.innerText="Monitoramento 24h com câmeras em alta definição e acesso remoto.";
+        botao.href="https://wa.me/5511977788270?text=Quero%20instalar%20CFTV";
+    }
+    if(tipo==="alarmes"){
+        titulo.innerText="Alarmes";
+        texto.innerText="Sistema inteligente que detecta invasões e dispara alertas imediatos.";
+        botao.href="https://wa.me/5511977788270?text=Quero%20instalar%20Alarmes";
+    }
     document.getElementById("modal").style.display="flex";
 }
-function fecharModal(){ document.getElementById("modal").style.display="none"; }
 
+function fecharModal(){
+    document.getElementById("modal").style.display="none";
+}
+
+// LÓGICA DA GALERIA MANTIDA
 const fotosPorServico = {
     controle: ['controle-de-acesso1.jpeg', 'controle-de-acesso3.jpeg', 'controle-de-acesso4.jpeg'],
     cftv: ['cftv1.jpeg', 'cftv2.jpeg', 'cftv5.jpeg'],
     alarmes: ['alarme1.jpeg', 'https://images.unsplash.com/photo-1558002038-1055907df827?w=500', 'https://images.unsplash.com/photo-1518242047908-33e91307641d?w=500']
 };
-let fotosAtuais = [], indexFoto = 0;
-function abrirGaleria(s) {
-    fotosAtuais = fotosPorServico[s]; indexFoto = 0;
+
+let fotosAtuais = [];
+let indexFoto = 0;
+
+function abrirGaleria(servico) {
+    fotosAtuais = fotosPorServico[servico];
+    indexFoto = 0;
     document.getElementById("img-slider").src = fotosAtuais[indexFoto];
-    document.getElementById("galeria-whats").href = "https://wa.me/5511977788270?text=Vi%20as%20fotos%20de%20" + s;
+    document.getElementById("galeria-whats").href = "https://wa.me/5511977788270?text=Vi%20os%20exemplos%20de%20" + servico;
     document.getElementById("modal-galeria").style.display = "flex";
 }
-function fecharGaleria(){ document.getElementById("modal-galeria").style.display="none"; }
-function proximaFoto(){ indexFoto = (indexFoto + 1) % fotosAtuais.length; document.getElementById("img-slider").src = fotosAtuais[indexFoto]; }
-function fotoAnterior(){ indexFoto = (indexFoto - 1 + fotosAtuais.length) % fotosAtuais.length; document.getElementById("img-slider").src = fotosAtuais[indexFoto]; }
+
+function fecharGaleria() { document.getElementById("modal-galeria").style.display = "none"; }
+function proximaFoto() { indexFoto = (indexFoto + 1) % fotosAtuais.length; document.getElementById("img-slider").src = fotosAtuais[indexFoto]; }
+function fotoAnterior() { indexFoto = (indexFoto - 1 + fotosAtuais.length) % fotosAtuais.length; document.getElementById("img-slider").src = fotosAtuais[indexFoto]; }
+
+document.getElementById("btn-avaliacao").addEventListener("click", function(){
+    this.style.background = "#25D366";
+    this.style.color = "white";
+});
 </script>
+
 </body>
 </html>
