@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impulso Web 10 - CRM Inteligente</title>
+    <title>Impulso Web 10 - CRM Cortesia</title>
     <style>
         :root { --bg: #050707; --card: #0d1212; --green: #38e391; --blue: #007bff; --yellow: #ffcc00; --text: #f0f0f0; }
         body { font-family: sans-serif; background: var(--bg); color: var(--text); padding: 10px; margin: 0; padding-bottom: 120px; }
@@ -18,7 +18,7 @@
         .card-cliente { background: var(--card); border: 1px solid #1a2222; padding: 10px; border-radius: 8px; cursor: pointer; }
         .card-cliente h3 { margin: 0 0 8px 0; font-size: 0.8rem; color: var(--green); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
-        .card-split { display: flex; justify-content: flex-start; gap: 15px; font-size: 0.65rem; border-top: 1px solid #1a2222; padding-top: 6px; flex-wrap: wrap; }
+        .card-split { display: flex; justify-content: flex-start; gap: 10px; font-size: 0.65rem; border-top: 1px solid #1a2222; padding-top: 6px; flex-wrap: wrap; }
         .split-item { text-align: left; }
         .split-item span { display: block; font-weight: bold; margin-top: 2px; }
 
@@ -58,7 +58,7 @@
     </div>
 
     <script>
-        // Dados sincronizados com a imagem de 16 clientes
+        // Dados iniciais baseados na sua planilha de 16 clientes
         const dadosImagem = [
             { id: 1, cl: "Amor por Patinhas", lk: 50, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
             { id: 2, cl: "Itapuã Center", lk: 59.9, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
@@ -78,16 +78,16 @@
             { id: 16, cl: "Ocran", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 0, stM: "branco" }
         ];
 
-        let db = JSON.parse(localStorage.getItem('crm_v_inteligente')) || dadosImagem;
+        let db = JSON.parse(localStorage.getItem('crm_v_cortesia')) || dadosImagem;
 
         function salvarERender() {
-            localStorage.setItem('crm_v_inteligente', JSON.stringify(db));
+            localStorage.setItem('crm_v_cortesia', JSON.stringify(db));
             render();
         }
 
         function getSigla(st) {
             const siglas = { azul: "PG", amarelo: "AR", verde: "COR" };
-            return siglas[st] || "";
+            return siglas[st] || "Pendente";
         }
 
         function getColor(st) {
@@ -97,6 +97,7 @@
 
         function mudarCor(id, campo) {
             const i = db.findIndex(c => c.id === id);
+            // Ciclo: Branco -> Amarelo (AR) -> Azul (PG) -> Verde (COR)
             const ord = ["branco", "amarelo", "azul", "verde"];
             db[i][campo] = ord[(ord.indexOf(db[i][campo]) + 1) % ord.length];
             salvarERender();
@@ -120,7 +121,11 @@
             let p = 0, ar = 0, t = 0;
 
             db.forEach(i => {
-                const calc = (v, s) => { if(s === 'azul') p += v; if(s === 'amarelo') ar += v; t += v; };
+                const calc = (v, s) => { 
+                    if(s === 'azul') p += v; 
+                    if(s === 'amarelo') ar += v; 
+                    if(s !== 'verde') t += v; // Cortesia não soma no total financeiro real
+                };
                 calc(i.lk, i.stL); calc(i.ln, i.stLn); calc(i.mn, i.stM);
 
                 const card = document.createElement('div');
@@ -128,9 +133,9 @@
                 card.innerHTML = `
                     <h3>${i.cl}</h3>
                     <div class="card-split">
-                        ${i.lk > 0 || i.stL === 'verde' ? `<div class="split-item">LINK<span style="color:${getColor(i.stL)}">${i.lk} ${getSigla(i.stL)}</span></div>` : ''}
-                        ${i.ln > 0 || i.stLn === 'verde' ? `<div class="split-item">LAN<span style="color:${getColor(i.stLn)}">${i.ln} ${getSigla(i.stLn)}</span></div>` : ''}
-                        ${i.mn > 0 || i.stM === 'verde' ? `<div class="split-item">MAN<span style="color:${getColor(i.stM)}">${i.mn} ${getSigla(i.stM)}</span></div>` : ''}
+                        ${i.lk > 0 || i.stL === 'verde' ? `<div class="split-item">LINK<span style="color:${getColor(i.stL)}">${i.lk > 0 ? 'R$ '+i.lk : ''} ${getSigla(i.stL)}</span></div>` : ''}
+                        ${i.ln > 0 || i.stLn === 'verde' ? `<div class="split-item">LAN<span style="color:${getColor(i.stLn)}">${i.ln > 0 ? 'R$ '+i.ln : ''} ${getSigla(i.stLn)}</span></div>` : ''}
+                        ${i.mn > 0 || i.stM === 'verde' ? `<div class="split-item">MAN<span style="color:${getColor(i.stM)}">${i.mn > 0 ? 'R$ '+i.mn : ''} ${getSigla(i.stM)}</span></div>` : ''}
                     </div>
                 `;
                 card.onclick = () => abrirModal(i);
@@ -145,11 +150,11 @@
             const m = document.getElementById('modalInterno');
             m.innerHTML = `
                 <h3 style="margin:0 0 10px 0">${i.cl}</h3>
-                ${i.lk > 0 || i.stL === 'verde' ? `<button class="btn-status st-${i.stL}" onclick="mudarCor(${i.id}, 'stL')">LINK: ${i.lk} ${getSigla(i.stL)}</button>` : ''}
-                ${i.ln > 0 || i.stLn === 'verde' ? `<button class="btn-status st-${i.stLn}" onclick="mudarCor(${i.id}, 'stLn')">LANPAGE: ${i.ln} ${getSigla(i.stLn)}</button>` : ''}
-                ${i.mn > 0 || i.stM === 'verde' ? `<button class="btn-status st-${i.stM}" onclick="mudarCor(${i.id}, 'stM')">MANUTENÇÃO: ${i.mn} ${getSigla(i.stM)}</button>` : ''}
+                <p style="font-size:0.6rem; color:#888; margin-bottom:10px">Toque no botão para alternar entre:<br>Branco > Amarelo (AR) > Azul (PG) > Verde (CORTESIA)</p>
+                ${i.lk > 0 || i.stL === 'verde' ? `<button class="btn-status st-${i.stL}" onclick="mudarCor(${i.id}, 'stL')">LINK: ${i.lk > 0 ? 'R$ '+i.lk : ''} [${getSigla(i.stL)}]</button>` : ''}
+                ${i.ln > 0 || i.stLn === 'verde' ? `<button class="btn-status st-${i.stLn}" onclick="mudarCor(${i.id}, 'stLn')">LANPAGE: ${i.ln > 0 ? 'R$ '+i.ln : ''} [${getSigla(i.stLn)}]</button>` : ''}
+                ${i.mn > 0 || i.stM === 'verde' ? `<button class="btn-status st-${i.stM}" onclick="mudarCor(${i.id}, 'stM')">MANUTENÇÃO: ${i.mn > 0 ? 'R$ '+i.mn : ''} [${getSigla(i.stM)}]</button>` : ''}
                 <button class="btn-status" style="background:#222;color:#fff;margin-top:10px" onclick="document.getElementById('modalCtrl').style.display='none'">Fechar</button>
-                <button class="btn-status" style="background:#400;color:#fff;font-size:0.5rem" onclick="if(confirm('Excluir?')){db=db.filter(x=>x.id!==${i.id});salvarERender();document.getElementById('modalCtrl').style.display='none'}">EXCLUIR CLIENTE</button>
             `;
             document.getElementById('modalCtrl').style.display = 'flex';
         }
