@@ -3,97 +3,335 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard ImpulsoWeb10</title>
+    <meta name="google-site-verification" content="H0X_Y32S7UtBxajFIRBsI01P5COkoMmY9bC-Pm-4u7w" />
+    
+    <title>Avaliar Empresas e Fornecedores | ImpulsoWeb10</title>
+    <meta name="description" content="Encontre e avalie as melhores empresas e fornecedores. Veja avaliações reais e fortaleça a reputação da sua empresa no Google com a ImpulsoWeb10.">
+    <meta name="keywords" content="avaliar empresas, avaliação de fornecedores, reputação google, avaliações google maps, marketing local, impulsoweb10">
+    <meta name="author" content="ImpulsoWeb10">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Central de Avaliações - ImpulsoWeb10">
+    <meta property="og:description" content="Fortaleça sua reputação online. Veja avaliações reais e ajude o mercado a crescer.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://avaliar.impulsoweb10.com.br/">
+    <meta property="og:image" content="https://avaliar.impulsoweb10.com.br/imagem-preview.jpg">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "Como a ImpulsoWeb10 ajuda no Google Maps?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A ImpulsoWeb10 facilita o processo de coleta de avaliações reais, melhorando o ranqueamento local e a confiança de novos clientes através de links personalizados."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Por que avaliações de fornecedores são importantes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Avaliações geram prova social. Empresas com boas notas no Google aparecem 3x mais nos resultados de busca do que empresas sem feedback."
+        }
+      }]
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);} 
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
     <style>
         :root {
-            --bg: #050707;
-            --card: #0d1212;
-            --neon: #38e391;
-            --blue: #007bff;
-            --white: #ffffff;
+            --bg-dark: #050707;
+            --card-bg: #0d1212;
+            --neon-green: #38e391;
+            --neon-green-dim: rgba(56, 227, 145, 0.4);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a8a8;
+            --border-dim: #1a2222;
         }
 
-        body { font-family: sans-serif; background: var(--bg); color: #fff; padding: 20px; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        
-        .card { 
-            background: var(--card); border: 1px solid #1a2222; 
-            padding: 20px; border-radius: 15px; cursor: pointer; text-align: center;
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg-dark);
+            margin: 0;
+            color: var(--text-secondary);
+            overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Cores de Status */
-        .pago { background: var(--blue) !important; color: #fff; }
-        .cortesia { background: var(--neon) !important; color: #000; }
-        .pendente { background: var(--white) !important; color: #000; }
-
-        .btn-status { 
-            display: block; padding: 10px; margin: 5px 0; 
-            border-radius: 5px; font-weight: bold; font-size: 12px;
-            text-align: center; border: none;
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(56, 227, 145, 0.08) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
         }
 
-        .modal { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.9); align-items: center; justify-content: center; 
+        header { text-align: center; padding: 60px 20px 30px; }
+
+        h1 { margin: 0; font-size: 2.2rem; color: var(--text-primary); letter-spacing: -1px; font-weight: 800; }
+
+        .subtitle { font-size: 1.1rem; max-width: 500px; margin: 15px auto 25px; }
+
+        .cta-main {
+            display: inline-block;
+            background: var(--neon-green);
+            color: #000;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 900;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 20px var(--neon-green-dim);
         }
 
-        .modal-content { 
-            background: var(--card); padding: 30px; border-radius: 20px; 
-            width: 90%; max-width: 450px; border: 1px solid var(--neon);
+        .cta-main:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--neon-green); }
+
+        main { display: flex; flex-direction: column; align-items: center; padding: 20px; }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 650px;
+            margin-bottom: 60px;
         }
 
-        .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #1a2222; }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-dim);
+            border-radius: 20px;
+            padding: 25px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .card:hover { border-color: var(--neon-green); }
+
+        .card img {
+            max-height: 55px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 6px rgba(56, 227, 145, 0.3));
+        }
+
+        .card h3 { color: var(--text-primary); margin: 10px 0; font-size: 1.2rem; }
+
+        .btn-avaliar {
+            display: block;
+            background: rgba(56,227,145,0.1);
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            padding: 10px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-avaliar:hover { background: var(--neon-green); color: #000; }
+
+        /* FAQ OTIMIZADO */
+        .faq-item { border-bottom: 1px solid var(--border-dim); background: rgba(255,255,255,0.02); margin-bottom: 5px; border-radius: 8px; }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            color: var(--neon-green);
+            text-align: left;
+            padding: 18px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 18px;
+        }
+
+        .faq-answer p { color: #d1d5d5; padding-bottom: 15px; font-size: 0.95rem; }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            align-items: center; justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--neon-green);
+            padding: 40px 30px;
+            border-radius: 30px;
+            width: 85%; max-width: 400px;
+            text-align: center;
+            position: relative;
+            animation: modalPop 0.3s ease-out;
+        }
+
+        @keyframes modalPop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: var(--text-secondary);
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 1px solid var(--border-dim);
+            font-size: 0.9rem;
+        }
+
+        .footer-link { color: var(--neon-green); text-decoration: none; font-weight: bold; }
+        .badge-item { font-size: 11px; background: rgba(56, 227, 145, 0.05); border: 1px solid var(--border-dim); padding: 6px 14px; border-radius: 50px; margin: 0 5px; color: #fff; }
     </style>
 </head>
+
 <body>
+<div class="bg-glow"></div>
 
-    <h1 style="text-align:center; color:var(--neon)">Painel de Clientes 📈</h1>
-    <div class="grid" id="grid"></div>
+<header>
+    <h1>Avaliação de Empresas no Google</h1>
+    <p class="subtitle">Confira a reputação de nossos parceiros e ajude a fortalecer o mercado local com sua avaliação.</p>
+    <a href="https://wa.me/5511954950044" target="_blank" class="cta-main" aria-label="Falar com consultor via WhatsApp">QUERO MEU LINK DE AVALIAÇÃO 🚀</a>
+</header>
 
-    <div id="modal" class="modal">
-        <div class="modal-content" id="modal-corpo"></div>
+<main>
+    <div class="container" id="clientesContainer">
+        </div>
+
+    <section style="max-width:650px; width:100%; margin-bottom:80px;">
+        <h2 style="color:#fff; text-align:center; margin-bottom:30px;">Dúvidas Frequentes</h2>
+
+        <div class="faq-item">
+            <button class="faq-question">Como a ImpulsoWeb10 melhora meu Google? <span>+</span></button>
+            <div class="faq-answer"><p>Nós criamos uma ponte direta entre seu cliente e o seu perfil no Google Maps. Com nossa estratégia, você recebe avaliações reais de forma orgânica, o que aumenta sua nota e faz você aparecer para mais pessoas na sua região.</p></div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">As avaliações são de pessoas reais? <span>+</span></button>
+            <div class="faq-answer"><p>Sim! O sistema da ImpulsoWeb10 incentiva o seu cliente real a deixar um depoimento. Não utilizamos robôs, pois prezamos pelas diretrizes do Google para garantir a segurança da sua conta.</p></div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Como faço para cadastrar minha empresa? <span>+</span></button>
+            <div class="faq-answer"><p>Basta clicar no botão principal desta página ou entrar em contato via WhatsApp. Nossa equipe criará sua página personalizada de captura de feedbacks em poucos minutos.</p></div>
+        </div>
+    </section>
+</main>
+
+<div id="modalInfo" class="modal" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <span class="close-modal" aria-label="Fechar modal">&times;</span>
+        <div id="modalData"></div>
     </div>
+</div>
 
-    <script src="clientes.js"></script>
-    <script>
-        const grid = document.getElementById('grid');
-        const modal = document.getElementById('modal');
+<footer>
+    <div style="margin-bottom: 25px;">
+        <span class="badge-item">🔒 Conexão Criptografada</span>
+        <span class="badge-item">🛡️ Google Safe Browsing</span>
+    </div>
+    <p>© 2026 ImpulsoWeb10 - Todos os direitos reservados.</p>
+    <p>Tecnologia para <a href="https://wa.me/5511954950044" target="_blank" class="footer-link">Crescimento Digital</a></p>
+</footer>
 
-        clientes.forEach(c => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `<h3>${c.nome}</h3><p>${c.atividade}</p><strong>Total: R$ ${c.total.toFixed(2)}</strong>`;
-            card.onclick = () => mostrarDetalhes(c);
-            grid.appendChild(card);
-        });
+<script src="clientes.js?v=2"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const container = document.getElementById("clientesContainer");
+    const modal = document.getElementById("modalInfo");
+    const modalData = document.getElementById("modalData");
+    const closeBtn = document.querySelector(".close-modal");
 
-        function mostrarDetalhes(c) {
-            const corpo = document.getElementById('modal-corpo');
-            corpo.innerHTML = `
-                <h2>${c.nome}</h2>
-                <div class="row"><span>Data:</span> <span>${c.data}</span></div>
-                <div class="row"><span>Bairro:</span> <span>${c.bairro}</span></div>
-                <div class="row"><span>Contato:</span> <span>${c.contato}</span></div>
-                
-                <h4 style="margin-top:20px">Serviços e Pagamentos:</h4>
-                
-                ${c.linkAvaliacao > 0 || c.statusLink === 'cortesia' ? 
-                    `<div class="btn-status ${c.statusLink}">Link Avaliação: R$ ${c.linkAvaliacao.toFixed(2)}</div>` : ''}
-                
-                ${c.lanpages > 0 || c.statusLan === 'cortesia' ? 
-                    `<div class="btn-status ${c.statusLan}">Lanpage: R$ ${c.lanpages.toFixed(2)}</div>` : ''}
-                
-                ${c.mensal > 0 || c.statusMensal === 'cortesia' ? 
-                    `<div class="btn-status ${c.statusMensal}">Manutenção: R$ ${c.mensal.toFixed(2)}</div>` : ''}
+    // Gerador de cards
+    if (typeof clientes !== 'undefined') {
+        clientes.forEach(cliente => {
+            const card = document.createElement("article");
+            card.className = "card";
+            card.setAttribute("aria-label", `Empresa ${cliente.nome}`);
 
-                <div class="row" style="border:none; font-size:20px; font-weight:bold; margin-top:15px">
-                    <span>TOTAL:</span> <span>R$ ${c.total.toFixed(2)}</span>
-                </div>
-                <button onclick="modal.style.display='none'" style="width:100%; margin-top:20px; padding:10px; cursor:pointer">Fechar</button>
+            card.innerHTML = `
+                <img src="${cliente.pasta}/${cliente.logo}" alt="Logo da empresa ${cliente.nome}" loading="lazy">
+                <h3>${cliente.nome}</h3>
+                <a href="${cliente.pasta}/" class="btn-avaliar" aria-label="Avaliar agora a empresa ${cliente.nome}">Avaliar Agora ⭐</a>
             `;
-            modal.style.display = 'flex';
-        }
-    </script>
+
+            card.addEventListener("click", (e) => {
+                if (e.target.classList.contains('btn-avaliar')) return;
+
+                modalData.innerHTML = `
+                    <h2 style="color: var(--neon-green); margin-top:0;">${cliente.nome}</h2>
+                    <p style="color:#fff; font-size:1rem;">${cliente.descricao || 'Empresa parceira com foco em excelência e satisfação do cliente.'}</p>
+                    <div style="margin: 25px 0;">
+                        <span style="color: gold;">★★★★★</span>
+                        <p style="font-size:12px; color:var(--text-secondary);">Recomendado por ImpulsoWeb10</p>
+                    </div>
+                    <a href="${cliente.pasta}/" class="cta-main" style="font-size:14px; width:100%; box-sizing:border-box;">AVALIAR AGORA</a>
+                `;
+                modal.style.display = "flex";
+            });
+
+            container.appendChild(card);
+        });
+    }
+
+    closeBtn.onclick = () => modal.style.display = "none";
+    window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; }
+
+    // Logica FAQ
+    document.querySelectorAll(".faq-question").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const answer = btn.nextElementSibling;
+            const span = btn.querySelector("span");
+
+            document.querySelectorAll(".faq-answer").forEach(a => {
+                if (a !== answer) {
+                    a.style.maxHeight = null;
+                    a.previousElementSibling.querySelector("span").innerText = "+";
+                }
+            });
+
+            if (answer.style.maxHeight) {
+                answer.style.maxHeight = null;
+                span.innerText = "+";
+            } else {
+                answer.style.maxHeight = answer.scrollHeight + "px";
+                span.innerText = "-";
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>
