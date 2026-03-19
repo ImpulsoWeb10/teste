@@ -6,135 +6,112 @@
     <title>CRM ImpulsoWeb10</title>
     <style>
         :root {
-            --bg: #050707;
-            --card: #0d1212;
-            --neon-green: #38e391; /* Verde Cortesia */
-            --royal-blue: #007bff; /* Azul Pago */
-            --pure-white: #ffffff; /* Branco Pendente */
-            --text-main: #e0e0e0;
+            --bg: #050707; --card: #0d1212;
+            --neon: #38e391; --blue: #007bff; --white: #ffffff; --text: #e0e0e0;
         }
-
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text-main); margin: 0; padding: 10px; }
+        body { font-family: sans-serif; background: var(--bg); color: var(--text); padding: 10px; margin: 0; }
         
-        /* Resumo Topo Compacto */
-        .resumo-topo {
-            display: flex; gap: 10px; margin-bottom: 20px; justify-content: center;
+        /* Topo com 3 Contadores */
+        .resumo { display: flex; gap: 8px; margin-bottom: 15px; justify-content: center; flex-wrap: wrap; }
+        .box { 
+            background: var(--card); padding: 8px; border-radius: 8px; text-align: center; 
+            flex: 1; min-width: 100px; border-bottom: 3px solid #333; cursor: pointer;
         }
-        .box-valor {
-            background: var(--card); padding: 10px 20px; border-radius: 8px;
-            border-bottom: 3px solid #333; text-align: center; min-width: 150px;
-        }
-        .box-valor h2 { margin: 5px 0 0 0; font-size: 1.2rem; }
-        .box-valor small { font-size: 0.7rem; color: #888; }
-        .box-valor.pago { border-color: var(--royal-blue); }
+        .box h2 { margin: 2px 0; font-size: 1rem; }
+        .box small { font-size: 0.65rem; color: #888; text-transform: uppercase; }
+        .box.pago { border-color: var(--blue); }
+        .box.receber { border-color: var(--white); }
+        .box.cortesia { border-color: var(--neon); }
 
-        /* Grid de Cards Compactos */
-        .container-clientes { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
-            gap: 10px; 
-        }
-        
-        .card-cliente { 
-            background: var(--card); border: 1px solid #1a2222; 
-            padding: 12px; border-radius: 10px; cursor: pointer;
-            transition: 0.2s;
-        }
-        .card-cliente h3 { margin: 5px 0; font-size: 1rem; color: var(--neon-green); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .card-cliente p { margin: 0; font-size: 0.75rem; color: #777; }
-        .card-cliente .preco-total { margin-top: 8px; font-weight: bold; font-size: 1.1rem; }
+        /* Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+        .card { background: var(--card); border: 1px solid #1a2222; padding: 10px; border-radius: 8px; cursor: pointer; }
+        .card h3 { margin: 0; font-size: 0.9rem; color: var(--neon); }
+        .card p { margin: 2px 0; font-size: 0.7rem; color: #777; }
 
-        /* Modal e Botões 50% menores */
-        .modal-overlay { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.8); align-items: center; justify-content: center; z-index: 99;
+        /* Modal Compacto */
+        .modal { 
+            display: none; position: fixed; top:0; left:0; width:100%; height:100%; 
+            background: rgba(0,0,0,0.8); align-items: center; justify-content: center; 
         }
-        .modal-caixa { 
-            background: var(--card); padding: 15px; border-radius: 12px; 
-            width: 85%; max-width: 320px; border: 1px solid #252d2d;
-        }
-        .linha-info { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #1a2222; font-size: 0.85rem; }
-        
-        .btn-status { 
-            width: 100%; padding: 6px; border-radius: 4px; font-weight: bold; 
-            border: none; margin: 3px 0; font-size: 0.75rem; /* Botões menores */
-        }
-        .status-azul { background: var(--royal-blue); color: white; }
-        .status-verde { background: var(--neon-green); color: #000; }
-        .status-branco { background: var(--pure-white); color: #000; border: 1px solid #ccc; }
-
-        .btn-fechar { width: 100%; padding: 8px; margin-top: 15px; background: #222; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
+        .modal-content { background: var(--card); padding: 15px; border-radius: 12px; width: 280px; border: 1px solid #252d2d; }
+        .row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #1a2222; font-size: 0.8rem; }
+        .btn-st { width: 100%; padding: 5px; border-radius: 4px; font-weight: bold; border: none; margin: 2px 0; font-size: 0.7rem; }
+        .status-azul { background: var(--blue); color: #fff; }
+        .status-verde { background: var(--neon); color: #000; }
+        .status-branco { background: var(--white); color: #000; }
     </style>
 </head>
 <body>
 
-    <div class="resumo-topo">
-        <div class="box-valor pago">
-            <small>RECEBIDO</small>
-            <h2 id="totalGeral">R$ 0,00</h2>
+    <div class="resumo">
+        <div class="box pago" onclick="filtrar('todos')">
+            <small>Recebido</small><h2 id="somaPago">R$ 0</h2>
         </div>
-        <div class="box-valor">
-            <small>CORTESIAS</small>
-            <h2 id="totalCortesia">0</h2>
+        <div class="box receber" onclick="filtrar('branco')">
+            <small>A Receber</small><h2 id="somaPendente">R$ 0</h2>
+        </div>
+        <div class="box cortesia" onclick="filtrar('verde')">
+            <small>Cortesias</small><h2 id="qtdCortesia">0</h2>
         </div>
     </div>
 
-    <div class="container-clientes" id="grade"></div>
+    <div class="grid" id="grid"></div>
 
-    <div id="modalId" class="modal-overlay">
-        <div class="modal-caixa" id="conteudoModal"></div>
-    </div>
+    <div id="m" class="modal"><div class="modal-content" id="mc"></div></div>
 
     <script>
         const db = [
-            { data: "10/03/2026", atividade: "Pet", cliente: "Amor por Patinhas", link: 50, stL: "azul", lan: 0, stLa: "", mens: 0, stM: "", contato: "11-973051524", bairro: "Nova Louzada", total: 50 },
-            { data: "15/03/2026", atividade: "Construção", cliente: "Itapuã Center", link: 59.9, stL: "azul", lan: 0, stLa: "", mens: 0, stM: "", contato: "-", bairro: "-", total: 59.9 },
-            { data: "17/03/2026", atividade: "Decoração", cliente: "Li&LiDecor", link: 0, stL: "verde", lan: 0, stLa: "", mens: 0, stM: "", contato: "-", bairro: "-", total: 0 },
-            { data: "18/03/2026", atividade: "Segurança", cliente: "House Secury", link: 0, stL: "verde", lan: 80, stLa: "azul", mens: 0, stM: "", contato: "-", bairro: "Itaqua", total: 80 },
-            { data: "18/03/2026", atividade: "Construção", cliente: "Walisson", link: 50, stL: "azul", lan: 100, stLa: "azul", mens: 0, stM: "", contato: "-", bairro: "-", total: 150 },
-            { data: "18/03/2026", atividade: "Música", cliente: "Fabio Salão", link: 100, stL: "azul", lan: 0, stLa: "", mens: 20, stM: "branco", contato: "-", bairro: "-", total: 100 }
+            { d: "10/03", at: "Pet", cl: "Amor por Patinhas", lk: 50, stL: "azul", ln: 0, stLn: "", mn: 0, stM: "", ct: "11973051524", br: "N. Louzada" },
+            { d: "15/03", at: "Construção", cl: "Itapuã Center", lk: 59.9, stL: "azul", ln: 0, stLn: "", mn: 0, stM: "", ct: "-", br: "-" },
+            { d: "17/03", at: "Decoração", cl: "Li&LiDecor", lk: 0, stL: "verde", ln: 0, stLn: "", mn: 0, stM: "", ct: "-", br: "-" },
+            { d: "18/03", at: "Segurança", cl: "House Secury", lk: 0, stL: "verde", ln: 80, stLn: "azul", mn: 0, stM: "", ct: "-", br: "Itaqua" },
+            { d: "18/03", at: "Construção", cl: "Walisson", lk: 50, stL: "azul", ln: 100, stLn: "azul", mn: 0, stM: "", ct: "-", br: "-" },
+            { d: "18/03", at: "Música", cl: "Fabio Salão", lk: 100, stL: "azul", ln: 0, stLn: "", mn: 20, stM: "branco", ct: "-", br: "-" }
         ];
 
-        const grade = document.getElementById('grade');
-        let faturamento = 0, cortesias = 0;
+        function render(filtro = 'todos') {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            let pago = 0, pendente = 0, cort = 0;
 
-        db.forEach(item => {
-            if(item.stL === "azul") faturamento += item.link;
-            if(item.stLa === "azul") faturamento += item.lan;
-            if(item.stM === "azul") faturamento += item.mens;
-            if(item.stL === "verde") cortesias++;
+            db.forEach(i => {
+                // Lógica de Soma Individual
+                const somar = (val, st) => {
+                    if(st === 'azul') pago += val;
+                    if(st === 'branco') pendente += val;
+                    if(st === 'verde') cort++;
+                };
+                somar(i.lk, i.stL); somar(i.ln, i.stLn); somar(i.mn, i.stM);
 
-            const card = document.createElement('div');
-            card.className = 'card-cliente';
-            card.innerHTML = `
-                <p style="font-size: 10px;">${item.data}</p>
-                <h3>${item.cliente}</h3>
-                <p>${item.atividade} | ${item.bairro}</p>
-                <div class="preco-total">R$ ${item.total.toFixed(2)}</div>
-            `;
-            card.onclick = () => {
-                const corpo = document.getElementById('conteudoModal');
-                corpo.innerHTML = `
-                    <h3 style="margin:0; font-size:1.1rem;">${item.cliente}</h3>
-                    <div class="linha-info" style="margin-top:10px;"><span>Bairro:</span> <span>${item.bairro}</span></div>
-                    <div class="linha-info"><span>Contato:</span> <span>${item.contato}</span></div>
-                    <div style="margin-top:10px">
-                        ${item.link > 0 || item.stL === 'verde' ? `<div class="btn-status status-${item.stL}">Link: R$ ${item.link.toFixed(2)}</div>` : ''}
-                        ${item.lan > 0 || item.stLa === 'verde' ? `<div class="btn-status status-${item.stLa}">Lanpage: R$ ${item.lan.toFixed(2)}</div>` : ''}
-                        ${item.mens > 0 || item.stM === 'verde' ? `<div class="btn-status status-${item.stM}">Mensal: R$ ${item.mens.toFixed(2)}</div>` : ''}
-                    </div>
-                    <div class="linha-info" style="border:none; font-size:1.2rem; font-weight:bold; margin-top:10px">
-                        <span>TOTAL:</span> <span>R$ ${item.total.toFixed(2)}</span>
-                    </div>
-                    <button class="btn-fechar" onclick="document.getElementById('modalId').style.display='none'">Fechar</button>
-                `;
-                document.getElementById('modalId').style.display = 'flex';
-            };
-            grade.appendChild(card);
-        });
+                // Filtro (se clicar no topo)
+                if(filtro !== 'todos' && i.stL !== filtro && i.stLn !== filtro && i.stM !== filtro) return;
 
-        document.getElementById('totalGeral').innerText = `R$ ${faturamento.toFixed(2)}`;
-        document.getElementById('totalCortesia').innerText = cortesias;
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `<h3>${i.cl}</h3><p>${i.at}</p><p>Total: R$ ${(i.lk+i.ln+i.mn).toFixed(2)}</p>`;
+                card.onclick = () => {
+                    document.getElementById('mc').innerHTML = `
+                        <h3 style="margin:0">${i.cl}</h3>
+                        <div class="row"><span>Bairro:</span><span>${i.br}</span></div>
+                        <div style="margin:10px 0">
+                            ${i.lk>0 || i.stL=='verde' ? `<div class="btn-st status-${i.stL}">Link: R$ ${i.lk}</div>`:''}
+                            ${i.ln>0 || i.stLn=='verde' ? `<div class="btn-st status-${i.stLn}">Lanpage: R$ ${i.ln}</div>`:''}
+                            ${i.mn>0 || i.stM=='verde' ? `<div class="btn-st status-${i.stM}">Mensal: R$ ${i.mn}</div>`:''}
+                        </div>
+                        <button class="btn-st" style="background:#333;color:#fff" onclick="document.getElementById('m').style.display='none'">Fechar</button>
+                    `;
+                    document.getElementById('m').style.display='flex';
+                };
+                grid.appendChild(card);
+            });
+            document.getElementById('somaPago').innerText = `R$ ${pago.toFixed(2)}`;
+            document.getElementById('somaPendente').innerText = `R$ ${pendente.toFixed(2)}`;
+            document.getElementById('qtdCortesia').innerText = cort;
+        }
+
+        function filtrar(f) { render(f); }
+        render();
     </script>
 </body>
 </html>
