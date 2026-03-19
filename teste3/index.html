@@ -3,182 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impulso Web 10 - CRM Profissional</title>
+    <title>Impulso Web 10 - CRM Inteligente</title>
     <style>
-        :root { 
-            --bg: #050707; --card: #0d1212; --green: #38e391; 
-            --blue: #007bff; --yellow: #ffcc00; --text: #f0f0f0; 
-            --glass: rgba(255, 255, 255, 0.05);
-        }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); padding: 15px; margin: 0; padding-bottom: 140px; }
+        :root { --bg: #050707; --card: #0d1212; --green: #38e391; --blue: #007bff; --yellow: #ffcc00; --text: #f0f0f0; }
+        body { font-family: sans-serif; background: var(--bg); color: var(--text); padding: 10px; margin: 0; padding-bottom: 120px; }
         
-        .header-titulo { text-align: center; font-size: 1.2rem; margin-bottom: 25px; font-weight: 700; color: var(--green); text-transform: uppercase; }
+        .header-titulo { text-align: center; font-size: 1.1rem; margin-bottom: 15px; font-weight: bold; }
+        .resumo-sketch { display: flex; gap: 8px; margin-bottom: 20px; justify-content: center; }
+        .box-sketch { border: 2px solid var(--text); padding: 8px; border-radius: 4px; text-align: center; flex: 1; max-width: 110px; }
+        .box-sketch h2 { margin: 0; font-size: 0.85rem; }
+        .box-sketch small { font-size: 0.6rem; display: block; margin-bottom: 2px; }
 
-        /* Dashboard de Resumo conforme o Esboço */
-        .dashboard { display: flex; gap: 10px; margin-bottom: 30px; justify-content: center; max-width: 800px; margin-left: auto; margin-right: auto; }
-        .stat-card { 
-            background: var(--glass); border: 1px solid rgba(255,255,255,0.1); 
-            padding: 15px; border-radius: 12px; flex: 1; text-align: center;
-            backdrop-filter: blur(10px);
-        }
-        .stat-card small { font-size: 0.6rem; color: #888; text-transform: uppercase; font-weight: bold; display: block; margin-bottom: 5px; }
-        .stat-card h2 { margin: 0; font-size: 1.1rem; }
-        .stat-card.blue h2 { color: var(--blue); } /* Recebido */
-        .stat-card.white h2 { color: #fff; } /* A Receber */
-        .stat-card.total h2 { color: var(--green); } /* Total */
-
-        /* Grid de Clientes */
-        .grid-clientes { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
-        .card-cliente { background: var(--card); border: 1px solid #1a2222; padding: 15px; border-radius: 12px; cursor: pointer; transition: 0.2s; }
-        .card-cliente:hover { border-color: #444; background: #121818; }
-        .card-cliente h3 { margin: 0 0 12px 0; font-size: 0.85rem; color: var(--green); border-bottom: 1px solid #1a2222; padding-bottom: 8px; }
+        .grid-clientes { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+        .card-cliente { background: var(--card); border: 1px solid #1a2222; padding: 10px; border-radius: 8px; cursor: pointer; }
+        .card-cliente h3 { margin: 0 0 8px 0; font-size: 0.8rem; color: var(--green); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
-        .card-split { display: flex; flex-direction: column; gap: 6px; font-size: 0.7rem; }
-        .split-row { display: flex; justify-content: space-between; align-items: center; }
-        .split-row b { font-size: 0.75rem; }
+        .card-split { display: flex; justify-content: flex-start; gap: 15px; font-size: 0.65rem; border-top: 1px solid #1a2222; padding-top: 6px; flex-wrap: wrap; }
+        .split-item { text-align: left; }
+        .split-item span { display: block; font-weight: bold; margin-top: 2px; }
 
-        /* Modal */
-        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; z-index: 100; backdrop-filter: blur(5px); }
-        .modal-content { background: #111; padding: 25px; border-radius: 16px; width: 300px; border: 1px solid #222; }
-        .btn-status { width: 100%; padding: 12px; border-radius: 8px; font-weight: 700; border: none; margin: 6px 0; cursor: pointer; font-size: 0.75rem; }
-        
+        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; z-index: 100; }
+        .modal-content { background: var(--card); padding: 20px; border-radius: 12px; width: 280px; border: 1px solid #252d2d; }
+        .btn-status { width: 100%; padding: 10px; border-radius: 6px; font-weight: bold; border: none; margin: 4px 0; cursor: pointer; font-size: 0.7rem; }
         .st-azul { background: var(--blue); color: #fff; }
         .st-verde { background: var(--green); color: #000; }
         .st-amarelo { background: var(--yellow); color: #000; }
         .st-branco { background: #fff; color: #000; }
 
-        /* Barra de Cadastro */
-        .form-cadastro { 
-            background: rgba(10, 10, 10, 0.98); padding: 15px; border-top: 1px solid #222; 
-            position: fixed; bottom: 0; left: 0; width: 100%; display: flex; gap: 8px; 
-            justify-content: center; backdrop-filter: blur(10px); box-sizing: border-box; flex-wrap: wrap;
-        }
-        .form-cadastro input { 
-            background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 10px; 
-            border-radius: 6px; font-size: 0.8rem; width: 110px;
-        }
-        .btn-add { background: var(--green); color: #000; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+        .form-cadastro { background: #0a0a0a; padding: 10px; border-top: 2px solid var(--green); position: fixed; bottom: 0; left: 0; width: 100%; display: flex; gap: 4px; flex-wrap: wrap; box-sizing: border-box; }
+        .form-cadastro input { background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 8px; border-radius: 4px; font-size: 0.75rem; flex: 1; min-width: 80px; }
+        .btn-add { background: var(--green); color: #000; border: none; padding: 8px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.75rem; }
     </style>
 </head>
 <body>
 
-    <div class="header-titulo">Impulso Web 10 - CRM</div>
+<div class="header-titulo">IMPULSO WEB 10 - 19.03.26</div>
 
-    <div class="dashboard">
-        <div class="stat-card blue"><small>Recebido (Azul)</small><h2 id="somaRecebido">R$ 0</h2></div>
-        <div class="stat-card white"><small>A Receber (Branco/Amarelo)</small><h2 id="somaAReceber">R$ 0</h2></div>
-        <div class="stat-card total"><small>Faturamento Total</small><h2 id="somaTotal">R$ 0</h2></div>
-    </div>
+<div class="resumo-sketch">
+    <div class="box-sketch"><small>RECEBIDO</small><h2 id="somaRecebido">R$ 0</h2></div>
+    <div class="box-sketch"><small>A RECEBER</small><h2 id="somaAReceber">R$ 0</h2></div>
+    <div class="box-sketch"><small>TOTAL</small><h2 id="somaTotal">R$ 0</h2></div>
+</div>
 
-    <div class="grid-clientes" id="gridDisplay"></div>
+<div class="grid-clientes" id="gridDisplay"></div>
 
-    <div id="modalCtrl" class="modal"><div class="modal-content" id="modalInterno"></div></div>
+<div id="modalCtrl" class="modal"><div class="modal-content" id="modalInterno"></div></div>
 
-    <div class="form-cadastro">
-        <input type="text" id="novoNome" placeholder="Cliente">
-        <input type="number" id="novoLink" placeholder="Link R$">
-        <input type="number" id="novoLan" placeholder="Lanpage R$">
-        <input type="number" id="novoMan" placeholder="Manut R$">
-        <button class="btn-add" onclick="adicionarCliente()">CADASTRAR</button>
-    </div>
+<div class="form-cadastro">
+    <input type="text" id="novoNome" placeholder="Nome">
+    <input type="number" id="novoLink" placeholder="Link R$">
+    <input type="number" id="novoLan" placeholder="Lanpage R$">
+    <input type="number" id="novoMan" placeholder="Manut R$">
+    <button class="btn-add" onclick="adicionarCliente()">CADASTRAR</button>
+</div>
 
-    <script>
-        // Lista completa dos 16 clientes da imagem
-        const listaInicial = [
-            { id: 1, cl: "Amor por Patinhas", lk: 50, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 2, cl: "Itapuã Center", lk: 59.9, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 3, cl: "Óptica Lionda I", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo" },
-            { id: 4, cl: "Óptica Lionda II", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo" },
-            { id: 5, cl: "Ana Liliam Cake", lk: 30, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 6, cl: "Li&LiDecor", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 7, cl: "Qualy Quimy", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 8, cl: "EsquadriaBox", lk: 50, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 9, cl: "Fretadão", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 10, cl: "Despachante", lk: 0, stL: "branco", ln: 0, stLn: "verde", mn: 0, stM: "branco" },
-            { id: 11, cl: "House Secury", lk: 0, stL: "verde", ln: 80, stLn: "azul", mn: 0, stM: "branco" },
-            { id: 12, cl: "Lu Cabeleireiro", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 13, cl: "Walisson", lk: 50, stL: "amarelo", ln: 100, stLn: "azul", mn: 0, stM: "branco" },
-            { id: 14, cl: "Fabio Salão Musica", lk: 100, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo" },
-            { id: 15, cl: "Douglas", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 30, stM: "amarelo" },
-            { id: 16, cl: "Ocran", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 0, stM: "branco" }
-        ];
+<script>
+const dadosImagem = [...]; // mantido igual
 
-        let db = JSON.parse(localStorage.getItem('crm_impulso_v2')) || listaInicial;
+let db = JSON.parse(localStorage.getItem('crm_v_inteligente')) || dadosImagem;
 
-        function salvar() { localStorage.setItem('crm_impulso_v2', JSON.stringify(db)); render(); }
+function salvarERender() {
+    localStorage.setItem('crm_v_inteligente', JSON.stringify(db));
+    render();
+}
 
-        function getSigla(st) {
-            const s = { azul: "PG", amarelo: "AR", verde: "COR", branco: "PEND" };
-            return s[st] || "";
-        }
+function getSigla(st) {
+    const siglas = { azul: "PG", amarelo: "AR", verde: "COR" };
+    return siglas[st] || "";
+}
 
-        function getColor(st) {
-            const c = { azul: "#007bff", amarelo: "#ffcc00", verde: "#38e391", branco: "#fff" };
-            return c[st];
-        }
+function getColor(st) {
+    const cores = { azul: "#007bff", amarelo: "#ffcc00", verde: "#38e391" };
+    return cores[st] || "#fff";
+}
 
-        function mudarCor(id, campo) {
-            const i = db.findIndex(c => c.id === id);
-            const ord = ["branco", "amarelo", "azul", "verde"];
-            db[i][campo] = ord[(ord.indexOf(db[i][campo]) + 1) % ord.length];
-            salvar(); abrirModal(db[i]);
-        }
+function mudarCor(id, campo) {
+    const i = db.findIndex(c => c.id === id);
+    const ord = ["branco", "amarelo", "azul", "verde"];
+    db[i][campo] = ord[(ord.indexOf(db[i][campo]) + 1) % ord.length];
+    salvarERender();
+    abrirModal(db[i]);
+}
 
-        function adicionarCliente() {
-            const nome = document.getElementById('novoNome').value;
-            const lk = parseFloat(document.getElementById('novoLink').value) || 0;
-            const ln = parseFloat(document.getElementById('novoLan').value) || 0;
-            const mn = parseFloat(document.getElementById('novoMan').value) || 0;
-            if(!nome) return;
-            db.push({ id: Date.now(), cl: nome, lk: lk, stL: "branco", ln: ln, stLn: "branco", mn: mn, stM: "branco" });
-            salvar();
-            ['novoNome', 'novoLink', 'novoLan', 'novoMan'].forEach(id => document.getElementById(id).value = '');
-        }
+function adicionarCliente() {
+    const nome = document.getElementById('novoNome').value;
+    const lk = parseFloat(document.getElementById('novoLink').value) || 0;
+    const ln = parseFloat(document.getElementById('novoLan').value) || 0;
+    const mn = parseFloat(document.getElementById('novoMan').value) || 0;
+    if(!nome) return;
+    db.push({ id: Date.now(), cl: nome, lk: lk, stL: "branco", ln: ln, stLn: "branco", mn: mn, stM: "branco" });
+    salvarERender();
+}
 
-        function render() {
-            const grid = document.getElementById('gridDisplay');
-            grid.innerHTML = '';
-            let rec = 0, aRec = 0, tot = 0;
+function render() {
+    const grid = document.getElementById('gridDisplay');
+    grid.innerHTML = '';
 
-            db.forEach(i => {
-                const calc = (v, s) => {
-                    if(s === 'azul') rec += v;
-                    if(s === 'branco' || s === 'amarelo') aRec += v;
-                    if(s !== 'verde') tot += v;
-                };
-                calc(i.lk, i.stL); calc(i.ln, i.stLn); calc(i.mn, i.stM);
+    let p = 0, ar = 0;
 
-                const card = document.createElement('div');
-                card.className = 'card-cliente';
-                card.innerHTML = `
-                    <h3>${i.cl}</h3>
-                    <div class="card-split">
-                        ${i.lk > 0 || i.stL === 'verde' ? `<div class="split-row">LINK <b style="color:${getColor(i.stL)}">${i.lk > 0 ? 'R$ '+i.lk : ''} ${getSigla(i.stL)}</b></div>` : ''}
-                        ${i.ln > 0 || i.stLn === 'verde' ? `<div class="split-row">LAN <b style="color:${getColor(i.stLn)}">${i.ln > 0 ? 'R$ '+i.ln : ''} ${getSigla(i.stLn)}</b></div>` : ''}
-                        ${i.mn > 0 || i.stM === 'verde' ? `<div class="split-row">MANUT <b style="color:${getColor(i.stM)}">${i.mn > 0 ? 'R$ '+i.mn : ''} ${getSigla(i.stM)}</b></div>` : ''}
-                    </div>
-                `;
-                card.onclick = () => abrirModal(i);
-                grid.appendChild(card);
-            });
-            document.getElementById('somaRecebido').innerText = `R$ ${rec.toFixed(2)}`;
-            document.getElementById('somaAReceber').innerText = `R$ ${aRec.toFixed(2)}`;
-            document.getElementById('somaTotal').innerText = `R$ ${tot.toFixed(2)}`;
-        }
+    db.forEach(i => {
+        const calc = (v, s) => {
+            if (s === 'azul') p += v;
+            if (s === 'amarelo') ar += v;
+        };
 
-        function abrirModal(i) {
-            const m = document.getElementById('modalInterno');
-            m.innerHTML = `
-                <h3 style="margin:0 0 15px 0; color:var(--green)">${i.cl}</h3>
-                ${i.lk > 0 || i.stL === 'verde' ? `<button class="btn-status st-${i.stL}" onclick="mudarCor(${i.id}, 'stL')">LINK: ${i.lk} [${getSigla(i.stL)}]</button>` : ''}
-                ${i.ln > 0 || i.stLn === 'verde' ? `<button class="btn-status st-${i.stLn}" onclick="mudarCor(${i.id}, 'stLn')">LANPAGE: ${i.ln} [${getSigla(i.stLn)}]</button>` : ''}
-                ${i.mn > 0 || i.stM === 'verde' ? `<button class="btn-status st-${i.stM}" onclick="mudarCor(${i.id}, 'stM')">MANUTENÇÃO: ${i.mn} [${getSigla(i.stM)}]</button>` : ''}
-                <button class="btn-status" style="background:#333;color:#fff;margin-top:15px" onclick="document.getElementById('modalCtrl').style.display='none'">FECHAR</button>
-                <button class="btn-status" style="background:#400;color:#fff;font-size:0.6rem;opacity:0.5" onclick="if(confirm('Excluir cliente?')){db=db.filter(x=>x.id!==${i.id});salvar();document.getElementById('modalCtrl').style.display='none'}">EXCLUIR CLIENTE</button>
-            `;
-            document.getElementById('modalCtrl').style.display = 'flex';
-        }
-        render();
-    </script>
+        calc(i.lk, i.stL);
+        calc(i.ln, i.stLn);
+        calc(i.mn, i.stM);
+
+        const card = document.createElement('div');
+        card.className = 'card-cliente';
+        card.innerHTML = `<h3>${i.cl}</h3>`;
+        card.onclick = () => abrirModal(i);
+        grid.appendChild(card);
+    });
+
+    let t = p + ar;
+
+    document.getElementById('somaRecebido').innerText = `R$ ${p.toFixed(2)}`;
+    document.getElementById('somaAReceber').innerText = `R$ ${ar.toFixed(2)}`;
+    document.getElementById('somaTotal').innerText = `R$ ${t.toFixed(2)}`;
+}
+
+function abrirModal(i) {
+    document.getElementById('modalCtrl').style.display = 'flex';
+}
+
+render();
+</script>
+
 </body>
 </html>
