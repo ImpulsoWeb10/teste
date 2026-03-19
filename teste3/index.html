@@ -3,43 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impulso Web 10 - CRM</title>
+    <title>Impulso Web 10 - CRM Oficial</title>
     <style>
         :root { --bg: #050707; --card: #0d1212; --green: #38e391; --blue: #007bff; --yellow: #ffcc00; --text: #f0f0f0; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); padding: 10px; margin: 0; }
+        body { font-family: sans-serif; background: var(--bg); color: var(--text); padding: 10px; margin: 0; padding-bottom: 100px; }
         
-        /* Layout do Topo conforme o Desenho */
-        .header-titulo { text-align: center; font-size: 1.2rem; margin-bottom: 20px; color: var(--text); }
+        .header-titulo { text-align: center; font-size: 1.2rem; margin-bottom: 20px; }
         .resumo-sketch { display: flex; gap: 8px; margin-bottom: 25px; justify-content: center; }
-        .box-sketch { 
-            border: 2px solid var(--text); padding: 10px; border-radius: 4px; 
-            text-align: center; flex: 1; max-width: 120px; height: 60px;
-            display: flex; flex-direction: column; justify-content: center;
-        }
-        .box-sketch small { font-size: 0.6rem; font-weight: bold; text-transform: uppercase; margin-bottom: 4px; }
+        .box-sketch { border: 2px solid var(--text); padding: 10px; border-radius: 4px; text-align: center; flex: 1; max-width: 120px; }
         .box-sketch h2 { margin: 0; font-size: 0.9rem; }
 
-        /* Grid de Clientes */
         .grid-clientes { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
-        .card-cliente { 
-            background: var(--card); border: 1px solid #1a2222; 
-            padding: 12px; border-radius: 8px; cursor: pointer; position: relative;
-        }
+        .card-cliente { background: var(--card); border: 1px solid #1a2222; padding: 12px; border-radius: 8px; cursor: pointer; }
         .card-cliente h3 { margin: 0 0 10px 0; font-size: 0.9rem; color: var(--green); }
         
-        /* Divisão Link e Lanpage no Card */
-        .card-split { display: flex; justify-content: space-between; font-size: 0.7rem; color: #888; border-top: 1px solid #1a2222; pt: 8px; }
+        .card-split { display: flex; justify-content: space-between; font-size: 0.7rem; border-top: 1px solid #1a2222; padding-top: 8px; }
         .split-item { text-align: center; width: 48%; }
-        .split-item span { display: block; font-weight: bold; color: var(--text); margin-top: 2px; }
 
         /* Modal */
         .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; z-index: 100; }
         .modal-content { background: var(--card); padding: 20px; border-radius: 12px; width: 300px; border: 1px solid #252d2d; }
-        .btn-status { width: 100%; padding: 10px; border-radius: 6px; font-weight: bold; border: none; margin: 5px 0; cursor: pointer; font-size: 0.75rem; }
+        .btn-status { width: 100%; padding: 10px; border-radius: 6px; font-weight: bold; border: none; margin: 5px 0; cursor: pointer; }
         .st-azul { background: var(--blue); color: #fff; }
         .st-verde { background: var(--green); color: #000; }
         .st-amarelo { background: var(--yellow); color: #000; }
         .st-branco { background: #fff; color: #000; }
+
+        /* Formulário de Cadastro (Embaixo) */
+        .form-cadastro { background: #111; padding: 15px; border-top: 2px solid var(--green); position: fixed; bottom: 0; left: 0; width: 100%; display: flex; gap: 5px; flex-wrap: wrap; z-index: 50; }
+        .form-cadastro input { background: #222; border: 1px solid #444; color: #fff; padding: 8px; border-radius: 4px; font-size: 0.8rem; flex: 1; min-width: 100px; }
+        .btn-add { background: var(--green); color: #000; border: none; padding: 8px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -47,32 +40,41 @@
     <div class="header-titulo">Impulso Web 10 - 19.03.26</div>
 
     <div class="resumo-sketch">
-        <div class="box-sketch"><small>Recebido</small><h2 id="somaRecebido">R$ 0</h2></div>
-        <div class="box-sketch"><small>A Receber</small><h2 id="somaAReceber">R$ 0</h2></div>
-        <div class="box-sketch"><small>Total</small><h2 id="somaTotal">R$ 0</h2></div>
+        <div class="box-sketch"><small>RECEBIDO</small><h2 id="somaRecebido">R$ 0</h2></div>
+        <div class="box-sketch"><small>A RECEBER</small><h2 id="somaAReceber">R$ 0</h2></div>
+        <div class="box-sketch"><small>TOTAL</small><h2 id="somaTotal">R$ 0</h2></div>
     </div>
 
     <div class="grid-clientes" id="gridDisplay"></div>
 
     <div id="modalCtrl" class="modal"><div class="modal-content" id="modalInterno"></div></div>
 
+    <div class="form-cadastro">
+        <input type="text" id="novoNome" placeholder="Nome do Cliente">
+        <input type="number" id="novoLink" placeholder="Valor Link">
+        <input type="number" id="novoLan" placeholder="Valor Lanpage">
+        <button class="btn-add" onclick="adicionarCliente()">CADASTRAR</button>
+    </div>
+
     <script>
-        // Dados fiéis à sua última planilha
-        const dadosOriginais = [
-            { id: 1, cl: "Amor por Patinhas", lk: 50, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco", at: "Pet" },
-            { id: 2, cl: "Itapuã Center", lk: 59.9, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco", at: "Construção" },
-            { id: 3, cl: "Óptica Lionda I", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo", at: "Optica" },
-            { id: 4, cl: "Óptica Lionda II", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo", at: "Optica" },
-            { id: 5, cl: "Ana Liliam Cake", lk: 30, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco", at: "Doceria" },
-            { id: 11, cl: "House Secury", lk: 0, stL: "verde", ln: 80, stLn: "azul", mn: 0, stM: "branco", at: "Segurança" },
-            { id: 13, cl: "Walisson", lk: 50, stL: "amarelo", ln: 100, stLn: "azul", mn: 0, stM: "branco", at: "Construção" }
+        const dadosIniciais = [
+            { id: 1, cl: "Amor por Patinhas", lk: 50, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
+            { id: 2, cl: "Itapuã Center", lk: 59.9, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
+            { id: 3, cl: "Óptica Lionda I", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo" }
         ];
 
-        let db = JSON.parse(localStorage.getItem('crm_sketch')) || dadosOriginais;
+        let db = JSON.parse(localStorage.getItem('crm_final_v1')) || dadosIniciais;
 
         function salvarERender() {
-            localStorage.setItem('crm_sketch', JSON.stringify(db));
+            localStorage.setItem('crm_final_v1', JSON.stringify(db));
             render();
+        }
+
+        function getSigla(st) {
+            if(st === 'azul') return "PG";
+            if(st === 'amarelo') return "AR";
+            if(st === 'verde') return "COR";
+            return "";
         }
 
         function mudarCor(id, campo) {
@@ -82,6 +84,22 @@
             db[i][campo] = cores[proxima >= cores.length ? 0 : proxima];
             salvarERender();
             abrirModal(db[i]);
+        }
+
+        function adicionarCliente() {
+            const nome = document.getElementById('novoNome').value;
+            const link = parseFloat(document.getElementById('novoLink').value) || 0;
+            const lan = parseFloat(document.getElementById('novoLan').value) || 0;
+
+            if(!nome) return alert("Digite o nome do cliente!");
+
+            const novo = { id: Date.now(), cl: nome, lk: link, stL: "branco", ln: lan, stLn: "branco", mn: 0, stM: "branco" };
+            db.push(novo);
+            salvarERender();
+            
+            document.getElementById('novoNome').value = '';
+            document.getElementById('novoLink').value = '';
+            document.getElementById('novoLan').value = '';
         }
 
         function render() {
@@ -102,8 +120,8 @@
                 card.innerHTML = `
                     <h3>${i.cl}</h3>
                     <div class="card-split">
-                        <div class="split-item">LINK<span style="color:${getColor(i.stL)}">R$ ${i.lk}</span></div>
-                        <div class="split-item">LANPAGE<span style="color:${getColor(i.stLn)}">R$ ${i.ln}</span></div>
+                        <div class="split-item">LINK<br><span>R$ ${i.lk} ${getSigla(i.stL)}</span></div>
+                        <div class="split-item">LANPAGE<br><span>R$ ${i.ln} ${getSigla(i.stLn)}</span></div>
                     </div>
                 `;
                 card.onclick = () => abrirModal(i);
@@ -115,22 +133,15 @@
             document.getElementById('somaTotal').innerText = `R$ ${total.toFixed(2)}`;
         }
 
-        function getColor(st) {
-            if(st === 'azul') return '#007bff';
-            if(st === 'amarelo') return '#ffcc00';
-            if(st === 'verde') return '#38e391';
-            return '#fff';
-        }
-
         function abrirModal(i) {
             const corpo = document.getElementById('modalInterno');
             corpo.innerHTML = `
-                <h3 style="margin:0 0 15px 0">${i.cl}</h3>
-                <small>Clique nos botões para editar:</small>
-                <button class="btn-status st-${i.stL}" onclick="mudarCor(${i.id}, 'stL')">LINK: R$ ${i.lk}</button>
-                <button class="btn-status st-${i.stLn}" onclick="mudarCor(${i.id}, 'stLn')">LANPAGE: R$ ${i.ln}</button>
-                <button class="btn-status st-${i.stM}" onclick="mudarCor(${i.id}, 'stM')">MANUTENÇÃO: R$ ${i.mn}</button>
-                <button class="btn-status" style="background:#222;color:#fff;margin-top:15px" onclick="document.getElementById('modalCtrl').style.display='none'">Fechar</button>
+                <h3 style="margin:0 0 10px 0">${i.cl}</h3>
+                <button class="btn-status st-${i.stL}" onclick="mudarCor(${i.id}, 'stL')">LINK: R$ ${i.lk} ${getSigla(i.stL)}</button>
+                <button class="btn-status st-${i.stLn}" onclick="mudarCor(${i.id}, 'stLn')">LAN: R$ ${i.ln} ${getSigla(i.stLn)}</button>
+                <button class="btn-status st-${i.stM}" onclick="mudarCor(${i.id}, 'stM')">MANUT: R$ ${i.mn} ${getSigla(i.stM)}</button>
+                <button class="btn-status" style="background:#222;color:#fff" onclick="document.getElementById('modalCtrl').style.display='none'">Fechar</button>
+                <button class="btn-status" style="background:red;color:#fff;font-size:0.6rem" onclick="db = db.filter(x => x.id !== ${i.id}); salvarERender(); document.getElementById('modalCtrl').style.display='none'">EXCLUIR CLIENTE</button>
             `;
             document.getElementById('modalCtrl').style.display = 'flex';
         }
