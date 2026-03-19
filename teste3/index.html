@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impulso Web 10 - CRM NEON</title>
+    <title>Impulso Web 10 - CRM LUX</title>
     <style>
         :root { --bg: #050707; --card: #0d1212; --green: #38e391; --blue: #007bff; --yellow: #ffcc00; --text: #f0f0f0; }
         body { font-family: sans-serif; background: var(--bg); color: var(--text); padding: 10px; margin: 0; padding-top: 170px; padding-bottom: 110px; }
@@ -13,38 +13,35 @@
             background: #000; padding: 15px; border-bottom: 2px solid var(--green); 
             position: fixed; top: 0; left: 0; width: 100%; display: grid; 
             grid-template-columns: 1fr 1fr 1fr; gap: 8px; box-sizing: border-box; z-index: 10;
-            box-shadow: 0 4px 15px rgba(56, 227, 145, 0.2);
         }
         .header-cadastro input { background: #111; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 5px; font-size: 0.8rem; width: 100%; box-sizing: border-box; }
         .full { grid-column: span 3; }
-        .btn-add { grid-column: span 3; background: var(--green); color: #000; border: none; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        .btn-add { grid-column: span 3; background: var(--green); color: #000; border: none; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; box-shadow: 0 0 10px rgba(56, 227, 145, 0.4); }
 
         /* Grid Central */
         .grid-clientes { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px; }
-        .card-cliente { background: var(--card); border: 1px solid #1a2222; padding: 12px; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+        .card-cliente { background: var(--card); border: 1px solid #1a2222; padding: 12px; border-radius: 10px; cursor: pointer; }
         .card-cliente h3 { margin: 0 0 10px 0; font-size: 0.8rem; color: var(--green); border-bottom: 1px solid #222; padding-bottom: 5px; text-transform: uppercase; }
         
-        /* Linha Divisória e Estilo das Linhas */
+        /* Divisória interna do Card */
         .card-split { display: flex; flex-direction: column; gap: 6px; font-size: 0.7rem; }
-        .split-row { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 2px 0; border-bottom: 1px dashed #222; /* Linha que separa os lados */
-        }
+        .split-row { display: flex; justify-content: space-between; align-items: center; padding: 2px 0; border-bottom: 1px solid #1a2222; }
         .split-row:last-child { border-bottom: none; }
 
-        /* Somas no RODAPÉ com efeito NEON */
+        /* Somas no RODAPÉ - ESTILO RELUZENTE */
         .footer-somas { 
-            display: flex; gap: 8px; position: fixed; bottom: 0; left: 0; width: 100%; 
-            background: #000; padding: 15px; border-top: 1px solid #333; box-sizing: border-box; z-index: 10;
+            display: flex; gap: 10px; position: fixed; bottom: 0; left: 0; width: 100%; 
+            background: #000; padding: 15px; border-top: 1px solid #222; box-sizing: border-box; z-index: 10;
         }
         .stat-card { 
-            background: #0d1212; border-radius: 8px; flex: 1; text-align: center; padding: 8px;
-            border: 1px solid transparent; transition: 0.3s;
+            background: #080a0a; border-radius: 8px; flex: 1; text-align: center; padding: 8px;
+            border: 2px solid transparent; 
         }
-        /* Bordas Fluorescentes */
-        .stat-card.blue { border: 1px solid var(--blue); box-shadow: 0 0 8px rgba(0, 123, 255, 0.4); }
-        .stat-card.pend { border: 1px solid #fff; box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); }
-        .stat-card.total { border: 1px solid var(--green); box-shadow: 0 0 8px rgba(56, 227, 145, 0.4); }
+        
+        /* Efeito de Luz atrás de cada botão de soma */
+        .stat-card.blue { border-color: var(--blue); box-shadow: 0 0 15px rgba(0, 123, 255, 0.5); }
+        .stat-card.pend { border-color: #fff; box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
+        .stat-card.total { border-color: var(--green); box-shadow: 0 0 15px rgba(56, 227, 145, 0.5); }
         
         .stat-card small { font-size: 0.55rem; color: #888; display: block; text-transform: uppercase; }
         .stat-card h2 { margin: 3px 0 0 0; font-size: 0.9rem; font-weight: bold; }
@@ -55,17 +52,15 @@
         .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; z-index: 100; }
         .modal-content { background: #111; padding: 20px; border-radius: 15px; width: 310px; border: 1px solid #333; }
         .edit-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-        .edit-row input { background: #000; border: 1px solid #444; color: #fff; padding: 10px; border-radius: 5px; width: 90px; font-weight: bold; font-size: 1rem; }
+        .edit-row input { background: #000; border: 1px solid #444; color: #fff; padding: 10px; border-radius: 5px; width: 90px; font-weight: bold; }
         
-        /* Botões Fluorescentes no Modal */
-        .btn-st { 
-            flex: 1; padding: 10px; border-radius: 5px; border: 2px solid transparent; 
-            font-weight: bold; cursor: pointer; font-size: 0.7rem; text-transform: uppercase;
-        }
-        .st-azul { border-color: var(--blue); color: var(--blue); background: rgba(0,123,255,0.1); box-shadow: 0 0 10px rgba(0,123,255,0.3); }
-        .st-verde { border-color: var(--green); color: var(--green); background: rgba(56,227,145,0.1); box-shadow: 0 0 10px rgba(56,227,145,0.3); }
-        .st-amarelo { border-color: var(--yellow); color: var(--yellow); background: rgba(255,204,0,0.1); box-shadow: 0 0 10px rgba(255,204,0,0.3); }
-        .st-branco { border-color: #fff; color: #fff; background: rgba(255,255,255,0.1); box-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        /* Botões Reluzentes no Modal */
+        .btn-st { flex: 1; padding: 10px; border-radius: 5px; border: 2px solid transparent; font-weight: bold; cursor: pointer; font-size: 0.7rem; text-transform: uppercase; transition: 0.2s; }
+        
+        .st-azul { border-color: var(--blue); color: var(--blue); background: rgba(0,123,255,0.1); box-shadow: 0 0 12px rgba(0,123,255,0.4); }
+        .st-verde { border-color: var(--green); color: var(--green); background: rgba(56,227,145,0.1); box-shadow: 0 0 12px rgba(56,227,145,0.4); }
+        .st-amarelo { border-color: var(--yellow); color: var(--yellow); background: rgba(255,204,0,0.1); box-shadow: 0 0 12px rgba(255,204,0,0.4); }
+        .st-branco { border-color: #fff; color: #fff; background: rgba(255,255,255,0.05); box-shadow: 0 0 12px rgba(255,255,255,0.2); }
     </style>
 </head>
 <body>
@@ -89,7 +84,6 @@
     <div id="modalCtrl" class="modal"><div class="modal-content" id="modalInterno"></div></div>
 
     <script>
-        // CLIENTES DA SUA PLANILHA
         const listaInicial = [
             { id: 1, cl: "Amor por Patinhas", lk: 50, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
             { id: 2, cl: "Itapuã Center", lk: 59.9, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
@@ -109,25 +103,22 @@
             { id: 16, cl: "Ocran", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 0, stM: "branco" }
         ];
 
-        let db = JSON.parse(localStorage.getItem('crm_impulso_neon_v1')) || listaInicial;
+        let db = JSON.parse(localStorage.getItem('crm_impulso_lux_v1')) || listaInicial;
 
-        function salvar() { 
-            localStorage.setItem('crm_impulso_neon_v1', JSON.stringify(db)); 
-            render(); 
-        }
+        function salvar() { localStorage.setItem('crm_impulso_lux_v1', JSON.stringify(db)); render(); }
 
         function render() {
             const grid = document.getElementById('gridDisplay');
             grid.innerHTML = '';
-            let rec = 0, arec = 0;
+            let recebido = 0, aReceber = 0;
 
             db.forEach(i => {
-                const somar = (v, s) => {
-                    let valor = parseFloat(v) || 0;
-                    if(s === 'azul') rec += valor;
-                    if(s === 'branco' || s === 'amarelo') arec += valor;
+                const somarTudo = (v, s) => {
+                    let val = parseFloat(v) || 0;
+                    if(s === 'azul') recebido += val;
+                    if(s === 'branco' || s === 'amarelo') aReceber += val;
                 };
-                somar(i.lk, i.stL); somar(i.ln, i.stLn); somar(i.mn, i.stM);
+                somarTudo(i.lk, i.stL); somarTudo(i.ln, i.stLn); somarTudo(i.mn, i.stM);
 
                 const card = document.createElement('div');
                 card.className = 'card-cliente';
@@ -136,15 +127,15 @@
                     <div class="card-split">
                         ${i.lk > 0 || i.stL === 'verde' ? `<div class="split-row"><span>LINK</span><b style="color:${getCol(i.stL)}">${i.lk > 0 ? 'R$'+i.lk : ''} ${getS(i.stL)}</b></div>` : ''}
                         ${i.ln > 0 || i.stLn === 'verde' ? `<div class="split-row"><span>LAN</span><b style="color:${getCol(i.stLn)}">${i.ln > 0 ? 'R$'+i.ln : ''} ${getS(i.stLn)}</b></div>` : ''}
-                        ${i.mn > 0 || i.stM === 'verde' ? `<div class="split-row"><span>MAN</span><b style="color:${getCol(i.stM)}">${i.mn > 0 ? 'R$'+i.mn : ''} ${getS(i.stM)}</b></div>` : ''}
+                        ${(i.mn > 0 || i.stM === 'verde') ? `<div class="split-row"><span>MAN</span><b style="color:${getCol(i.stM)}">${i.mn > 0 ? 'R$'+i.mn : ''} ${getS(i.stM)}</b></div>` : ''}
                     </div>`;
                 card.onclick = () => abrirModal(i);
                 grid.appendChild(card);
             });
 
-            document.getElementById('somaRecebido').innerText = `R$ ${rec.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-            document.getElementById('somaAReceber').innerText = `R$ ${arec.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-            document.getElementById('somaTotal').innerText = `R$ ${(rec + arec).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+            document.getElementById('somaRecebido').innerText = `R$ ${recebido.toFixed(2)}`;
+            document.getElementById('somaAReceber').innerText = `R$ ${aReceber.toFixed(2)}`;
+            document.getElementById('somaTotal').innerText = `R$ ${(recebido + aReceber).toFixed(2)}`;
         }
 
         function getS(s) { return { azul: "PG", amarelo: "AR", verde: "CORTESIA", branco: "PEND" }[s]; }
@@ -179,7 +170,7 @@
                     <input type="number" value="${i.mn}" onchange="atualizarVal(${i.id}, 'mn', this.value)">
                     <button class="btn-st st-${i.stM}" onclick="mudarStatus(${i.id}, 'stM')">${getS(i.stM)}</button>
                 </div>
-                <button class="btn-st st-branco" style="width:100%; margin-top:10px" onclick="document.getElementById('modalCtrl').style.display='none'">FECHAR</button>
+                <button class="btn-st st-branco" style="width:100%; margin-top:10px; border:1px solid #444" onclick="document.getElementById('modalCtrl').style.display='none'">FECHAR</button>
             `;
             document.getElementById('modalCtrl').style.display = 'flex';
         }
