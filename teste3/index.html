@@ -3,51 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impulso Web 10 - CRM V3</title>
+    <title>Impulso Web 10 - CRM NEON</title>
     <style>
         :root { --bg: #050707; --card: #0d1212; --green: #38e391; --blue: #007bff; --yellow: #ffcc00; --text: #f0f0f0; }
-        body { font-family: sans-serif; background: var(--bg); color: var(--text); padding: 10px; margin: 0; padding-top: 160px; padding-bottom: 100px; }
+        body { font-family: sans-serif; background: var(--bg); color: var(--text); padding: 10px; margin: 0; padding-top: 170px; padding-bottom: 110px; }
         
         /* Cadastro no TOPO */
         .header-cadastro { 
             background: #000; padding: 15px; border-bottom: 2px solid var(--green); 
             position: fixed; top: 0; left: 0; width: 100%; display: grid; 
             grid-template-columns: 1fr 1fr 1fr; gap: 8px; box-sizing: border-box; z-index: 10;
+            box-shadow: 0 4px 15px rgba(56, 227, 145, 0.2);
         }
         .header-cadastro input { background: #111; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 5px; font-size: 0.8rem; width: 100%; box-sizing: border-box; }
         .full { grid-column: span 3; }
-        .btn-add { grid-column: span 3; background: var(--green); color: #000; border: none; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .btn-add { grid-column: span 3; background: var(--green); color: #000; border: none; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
 
         /* Grid Central */
-        .grid-clientes { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
-        .card-cliente { background: var(--card); border: 1px solid #1a2222; padding: 12px; border-radius: 10px; cursor: pointer; }
+        .grid-clientes { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px; }
+        .card-cliente { background: var(--card); border: 1px solid #1a2222; padding: 12px; border-radius: 10px; cursor: pointer; transition: 0.3s; }
         .card-cliente h3 { margin: 0 0 10px 0; font-size: 0.8rem; color: var(--green); border-bottom: 1px solid #222; padding-bottom: 5px; text-transform: uppercase; }
-        .card-split { display: flex; flex-direction: column; gap: 5px; font-size: 0.65rem; }
-        .split-row { display: flex; justify-content: space-between; align-items: center; }
+        
+        /* Linha Divisória e Estilo das Linhas */
+        .card-split { display: flex; flex-direction: column; gap: 6px; font-size: 0.7rem; }
+        .split-row { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 2px 0; border-bottom: 1px dashed #222; /* Linha que separa os lados */
+        }
+        .split-row:last-child { border-bottom: none; }
 
-        /* Somas no RODAPÉ */
+        /* Somas no RODAPÉ com efeito NEON */
         .footer-somas { 
             display: flex; gap: 8px; position: fixed; bottom: 0; left: 0; width: 100%; 
-            background: rgba(5, 7, 7, 0.95); backdrop-filter: blur(10px);
-            padding: 15px; border-top: 1px solid #333; box-sizing: border-box; z-index: 10;
+            background: #000; padding: 15px; border-top: 1px solid #333; box-sizing: border-box; z-index: 10;
         }
-        .stat-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 8px; flex: 1; text-align: center; }
-        .stat-card small { font-size: 0.55rem; color: #888; display: block; text-transform: uppercase; margin-bottom: 2px; }
-        .stat-card h2 { margin: 0; font-size: 0.85rem; }
+        .stat-card { 
+            background: #0d1212; border-radius: 8px; flex: 1; text-align: center; padding: 8px;
+            border: 1px solid transparent; transition: 0.3s;
+        }
+        /* Bordas Fluorescentes */
+        .stat-card.blue { border: 1px solid var(--blue); box-shadow: 0 0 8px rgba(0, 123, 255, 0.4); }
+        .stat-card.pend { border: 1px solid #fff; box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); }
+        .stat-card.total { border: 1px solid var(--green); box-shadow: 0 0 8px rgba(56, 227, 145, 0.4); }
+        
+        .stat-card small { font-size: 0.55rem; color: #888; display: block; text-transform: uppercase; }
+        .stat-card h2 { margin: 3px 0 0 0; font-size: 0.9rem; font-weight: bold; }
         .stat-card.blue h2 { color: var(--blue); }
         .stat-card.total h2 { color: var(--green); }
 
         /* Modal */
         .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; z-index: 100; }
-        .modal-content { background: #111; padding: 20px; border-radius: 15px; width: 300px; border: 1px solid #333; }
-        .edit-row { display: flex; align-items: center; gap: 5px; margin-bottom: 10px; }
-        .edit-row input { background: #222; border: 1px solid #444; color: #fff; padding: 8px; border-radius: 5px; width: 80px; font-weight: bold; }
-        .btn-st { flex: 1; padding: 8px; border-radius: 5px; border: none; font-weight: bold; cursor: pointer; font-size: 0.7rem; }
+        .modal-content { background: #111; padding: 20px; border-radius: 15px; width: 310px; border: 1px solid #333; }
+        .edit-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .edit-row input { background: #000; border: 1px solid #444; color: #fff; padding: 10px; border-radius: 5px; width: 90px; font-weight: bold; font-size: 1rem; }
         
-        .st-azul { background: var(--blue); color: #fff; }
-        .st-verde { background: var(--green); color: #000; }
-        .st-amarelo { background: var(--yellow); color: #000; }
-        .st-branco { background: #fff; color: #000; }
+        /* Botões Fluorescentes no Modal */
+        .btn-st { 
+            flex: 1; padding: 10px; border-radius: 5px; border: 2px solid transparent; 
+            font-weight: bold; cursor: pointer; font-size: 0.7rem; text-transform: uppercase;
+        }
+        .st-azul { border-color: var(--blue); color: var(--blue); background: rgba(0,123,255,0.1); box-shadow: 0 0 10px rgba(0,123,255,0.3); }
+        .st-verde { border-color: var(--green); color: var(--green); background: rgba(56,227,145,0.1); box-shadow: 0 0 10px rgba(56,227,145,0.3); }
+        .st-amarelo { border-color: var(--yellow); color: var(--yellow); background: rgba(255,204,0,0.1); box-shadow: 0 0 10px rgba(255,204,0,0.3); }
+        .st-branco { border-color: #fff; color: #fff; background: rgba(255,255,255,0.1); box-shadow: 0 0 10px rgba(255,255,255,0.2); }
     </style>
 </head>
 <body>
@@ -57,21 +75,22 @@
         <input type="number" id="novoLink" placeholder="Link R$">
         <input type="number" id="novoLan" placeholder="Lanpage R$">
         <input type="number" id="novoMan" placeholder="Manut R$">
-        <button class="btn-add" onclick="adicionarCliente()">CADASTRAR CLIENTE</button>
+        <button class="btn-add" onclick="adicionarCliente()">CADASTRAR NOVO</button>
     </div>
 
     <div class="grid-clientes" id="gridDisplay"></div>
 
     <div class="footer-somas">
-        <div class="stat-card blue"><small>Recebido</small><h2 id="somaRecebido">R$ 0</h2></div>
-        <div class="stat-card"><small>A Receber</small><h2 id="somaAReceber">R$ 0</h2></div>
-        <div class="stat-card total"><small>Total Bruto</small><h2 id="somaTotal">R$ 0</h2></div>
+        <div class="stat-card blue"><small>RECEBIDO</small><h2 id="somaRecebido">R$ 0,00</h2></div>
+        <div class="stat-card pend"><small>A RECEBER</small><h2 id="somaAReceber">R$ 0,00</h2></div>
+        <div class="stat-card total"><small>TOTAL GERAL</small><h2 id="somaTotal">R$ 0,00</h2></div>
     </div>
 
     <div id="modalCtrl" class="modal"><div class="modal-content" id="modalInterno"></div></div>
 
     <script>
-        const listaBase = [
+        // CLIENTES DA SUA PLANILHA
+        const listaInicial = [
             { id: 1, cl: "Amor por Patinhas", lk: 50, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
             { id: 2, cl: "Itapuã Center", lk: 59.9, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
             { id: 3, cl: "Óptica Lionda I", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo" },
@@ -90,76 +109,77 @@
             { id: 16, cl: "Ocran", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 0, stM: "branco" }
         ];
 
-        let db = JSON.parse(localStorage.getItem('crm_impulso_vFINAL_PRO')) || listaBase;
+        let db = JSON.parse(localStorage.getItem('crm_impulso_neon_v1')) || listaInicial;
 
-        function salvar() { localStorage.setItem('crm_impulso_vFINAL_PRO', JSON.stringify(db)); render(); }
+        function salvar() { 
+            localStorage.setItem('crm_impulso_neon_v1', JSON.stringify(db)); 
+            render(); 
+        }
 
         function render() {
             const grid = document.getElementById('gridDisplay');
             grid.innerHTML = '';
-            let recebido = 0, aReceber = 0;
+            let rec = 0, arec = 0;
 
             db.forEach(i => {
-                const check = (v, s) => {
-                    if(s === 'azul') recebido += v;
-                    if(s === 'branco' || s === 'amarelo') aReceber += v;
+                const somar = (v, s) => {
+                    let valor = parseFloat(v) || 0;
+                    if(s === 'azul') rec += valor;
+                    if(s === 'branco' || s === 'amarelo') arec += valor;
                 };
-                check(i.lk, i.stL); check(i.ln, i.stLn); check(i.mn, i.stM);
+                somar(i.lk, i.stL); somar(i.ln, i.stLn); somar(i.mn, i.stM);
 
                 const card = document.createElement('div');
                 card.className = 'card-cliente';
                 card.innerHTML = `
                     <h3>${i.cl}</h3>
                     <div class="card-split">
-                        ${i.lk > 0 || i.stL === 'verde' ? `<div class="split-row">LINK <b style="color:${getCol(i.stL)}">${i.lk > 0 ? 'R$'+i.lk : ''} ${getS(i.stL)}</b></div>` : ''}
-                        ${i.ln > 0 || i.stLn === 'verde' ? `<div class="split-row">LAN <b style="color:${getCol(i.stLn)}">${i.ln > 0 ? 'R$'+i.ln : ''} ${getS(i.stLn)}</b></div>` : ''}
-                        ${i.mn > 0 || i.stM === 'verde' ? `<div class="split-row">MAN <b style="color:${getCol(i.stM)}">${i.mn > 0 ? 'R$'+i.mn : ''} ${getS(i.stM)}</b></div>` : ''}
+                        ${i.lk > 0 || i.stL === 'verde' ? `<div class="split-row"><span>LINK</span><b style="color:${getCol(i.stL)}">${i.lk > 0 ? 'R$'+i.lk : ''} ${getS(i.stL)}</b></div>` : ''}
+                        ${i.ln > 0 || i.stLn === 'verde' ? `<div class="split-row"><span>LAN</span><b style="color:${getCol(i.stLn)}">${i.ln > 0 ? 'R$'+i.ln : ''} ${getS(i.stLn)}</b></div>` : ''}
+                        ${i.mn > 0 || i.stM === 'verde' ? `<div class="split-row"><span>MAN</span><b style="color:${getCol(i.stM)}">${i.mn > 0 ? 'R$'+i.mn : ''} ${getS(i.stM)}</b></div>` : ''}
                     </div>`;
                 card.onclick = () => abrirModal(i);
                 grid.appendChild(card);
             });
-            document.getElementById('somaRecebido').innerText = `R$ ${recebido.toFixed(2)}`;
-            document.getElementById('somaAReceber').innerText = `R$ ${aReceber.toFixed(2)}`;
-            document.getElementById('somaTotal').innerText = `R$ ${(recebido + aReceber).toFixed(2)}`;
+
+            document.getElementById('somaRecebido').innerText = `R$ ${rec.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+            document.getElementById('somaAReceber').innerText = `R$ ${arec.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+            document.getElementById('somaTotal').innerText = `R$ ${(rec + arec).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
         }
 
         function getS(s) { return { azul: "PG", amarelo: "AR", verde: "CORTESIA", branco: "PEND" }[s]; }
         function getCol(s) { return { azul: "#007bff", amarelo: "#ffcc00", verde: "#38e391", branco: "#fff" }[s]; }
 
         function mudarStatus(id, campo) {
-            const i = db.findIndex(x => x.id === id);
+            const idx = db.findIndex(x => x.id === id);
             const ord = ["branco", "amarelo", "azul", "verde"];
-            db[i][campo] = ord[(ord.indexOf(db[i][campo]) + 1) % 4];
-            salvar(); abrirModal(db[i]);
+            db[idx][campo] = ord[(ord.indexOf(db[idx][campo]) + 1) % 4];
+            salvar(); abrirModal(db[idx]);
         }
 
         function atualizarVal(id, campo, val) {
-            const i = db.findIndex(x => x.id === id);
-            db[i][campo] = parseFloat(val) || 0;
+            const idx = db.findIndex(x => x.id === id);
+            db[idx][campo] = parseFloat(val) || 0;
             salvar();
         }
 
         function abrirModal(i) {
             const m = document.getElementById('modalInterno');
             m.innerHTML = `
-                <h3 style="color:var(--green); text-align:center; margin-bottom:15px;">${i.cl}</h3>
-                <small style="color:#888">LINK R$</small>
+                <h3 style="color:var(--green); text-align:center; margin-bottom:20px;">${i.cl}</h3>
                 <div class="edit-row">
                     <input type="number" value="${i.lk}" onchange="atualizarVal(${i.id}, 'lk', this.value)">
                     <button class="btn-st st-${i.stL}" onclick="mudarStatus(${i.id}, 'stL')">${getS(i.stL)}</button>
                 </div>
-                <small style="color:#888">LANPAGE R$</small>
                 <div class="edit-row">
                     <input type="number" value="${i.ln}" onchange="atualizarVal(${i.id}, 'ln', this.value)">
                     <button class="btn-st st-${i.stLn}" onclick="mudarStatus(${i.id}, 'stLn')">${getS(i.stLn)}</button>
                 </div>
-                <small style="color:#888">MANUTENÇÃO R$</small>
                 <div class="edit-row">
                     <input type="number" value="${i.mn}" onchange="atualizarVal(${i.id}, 'mn', this.value)">
                     <button class="btn-st st-${i.stM}" onclick="mudarStatus(${i.id}, 'stM')">${getS(i.stM)}</button>
                 </div>
-                <button class="btn-st" style="background:#444; color:#fff; width:100%; margin-top:10px" onclick="document.getElementById('modalCtrl').style.display='none'">FECHAR</button>
-                <button class="btn-st" style="background:transparent; color:red; width:100%; font-size:10px; margin-top:10px" onclick="if(confirm('Excluir cliente?')){db=db.filter(x=>x.id!==${i.id});salvar();document.getElementById('modalCtrl').style.display='none'}">EXCLUIR CLIENTE</button>
+                <button class="btn-st st-branco" style="width:100%; margin-top:10px" onclick="document.getElementById('modalCtrl').style.display='none'">FECHAR</button>
             `;
             document.getElementById('modalCtrl').style.display = 'flex';
         }
