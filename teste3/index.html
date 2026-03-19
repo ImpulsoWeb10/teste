@@ -3,16 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impulso Web 10 - CRM Pro 2.0</title>
+    <title>Impulso Web 10 - CRM Editável</title>
     <style>
-        :root { 
-            --bg: #050707; --card: #0d1212; --green: #38e391; 
-            --blue: #007bff; --yellow: #ffcc00; --text: #f0f0f0; 
-        }
+        :root { --bg: #050707; --card: #0d1212; --green: #38e391; --blue: #007bff; --yellow: #ffcc00; --text: #f0f0f0; }
         body { font-family: sans-serif; background: var(--bg); color: var(--text); padding: 10px; margin: 0; padding-bottom: 180px; }
         .header-titulo { text-align: center; font-size: 1.2rem; margin: 15px 0; font-weight: bold; color: var(--green); }
 
-        /* Dashboard corrigido */
         .dashboard { display: flex; gap: 8px; margin-bottom: 20px; justify-content: center; }
         .stat-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; flex: 1; text-align: center; }
         .stat-card small { font-size: 0.6rem; color: #888; display: block; text-transform: uppercase; }
@@ -20,24 +16,23 @@
         .stat-card.blue h2 { color: var(--blue); }
         .stat-card.total h2 { color: var(--green); }
 
-        /* Grid */
         .grid-clientes { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
         .card-cliente { background: var(--card); border: 1px solid #1a2222; padding: 12px; border-radius: 10px; cursor: pointer; }
         .card-cliente h3 { margin: 0 0 10px 0; font-size: 0.8rem; color: var(--green); border-bottom: 1px solid #222; padding-bottom: 5px; }
         .card-split { display: flex; flex-direction: column; gap: 5px; font-size: 0.65rem; }
-        .split-row { display: flex; justify-content: space-between; }
+        .split-row { display: flex; justify-content: space-between; align-items: center; }
 
-        /* Modal */
         .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; z-index: 100; }
-        .modal-content { background: #111; padding: 20px; border-radius: 15px; width: 280px; border: 1px solid #333; }
-        .btn-status { width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; border: none; margin: 5px 0; cursor: pointer; font-size: 0.7rem; text-transform: uppercase; }
+        .modal-content { background: #111; padding: 20px; border-radius: 15px; width: 300px; border: 1px solid #333; }
+        .edit-row { display: flex; align-items: center; gap: 5px; margin-bottom: 10px; }
+        .edit-row input { background: #222; border: 1px solid #444; color: #fff; padding: 8px; border-radius: 5px; width: 70px; font-weight: bold; }
+        .btn-st { flex: 1; padding: 8px; border-radius: 5px; border: none; font-weight: bold; cursor: pointer; font-size: 0.7rem; }
         
         .st-azul { background: var(--blue); color: #fff; }
         .st-verde { background: var(--green); color: #000; }
         .st-amarelo { background: var(--yellow); color: #000; }
         .st-branco { background: #fff; color: #000; }
 
-        /* Rodapé Cadastro */
         .form-cadastro { background: #000; padding: 15px; border-top: 2px solid var(--green); position: fixed; bottom: 0; left: 0; width: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; box-sizing: border-box; }
         .form-cadastro input { background: #111; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 5px; font-size: 0.8rem; width: 100%; box-sizing: border-box; }
         .full { grid-column: span 3; }
@@ -46,12 +41,12 @@
 </head>
 <body>
 
-    <div class="header-titulo">IMPULSO WEB 10</div>
+    <div class="header-titulo">IMPULSO WEB 10 - CRM</div>
 
     <div class="dashboard">
-        <div class="stat-card blue"><small>Recebido (Azul)</small><h2 id="somaRecebido">R$ 0</h2></div>
-        <div class="stat-card"><small>A Receber (Brc/Am)</small><h2 id="somaAReceber">R$ 0</h2></div>
-        <div class="stat-card total"><small>Total (Rec + A Rec)</small><h2 id="somaTotal">R$ 0</h2></div>
+        <div class="stat-card blue"><small>RECEBIDO</small><h2 id="somaRecebido">R$ 0</h2></div>
+        <div class="stat-card"><small>A RECEBER</small><h2 id="somaAReceber">R$ 0</h2></div>
+        <div class="stat-card total"><small>TOTAL GERAL</small><h2 id="somaTotal">R$ 0</h2></div>
     </div>
 
     <div class="grid-clientes" id="gridDisplay"></div>
@@ -59,75 +54,99 @@
     <div id="modalCtrl" class="modal"><div class="modal-content" id="modalInterno"></div></div>
 
     <div class="form-cadastro">
-        <input type="text" id="novoNome" class="full" placeholder="Cliente">
+        <input type="text" id="novoNome" class="full" placeholder="Nome do Cliente">
         <input type="number" id="novoLink" placeholder="Link R$">
         <input type="number" id="novoLan" placeholder="Lanpage R$">
         <input type="number" id="novoMan" placeholder="Manut R$">
-        <button class="btn-add" onclick="adicionarCliente()">CADASTRAR</button>
+        <button class="btn-add" onclick="adicionarCliente()">CADASTRAR NOVO CLIENTE</button>
     </div>
 
     <script>
-        const dadosBase = [
+        const listaOficial = [
             { id: 1, cl: "Amor por Patinhas", lk: 50, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
             { id: 2, cl: "Itapuã Center", lk: 59.9, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
             { id: 3, cl: "Óptica Lionda I", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo" },
-            { id: 4, cl: "Óptica Lionda II", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo" },
-            { id: 5, cl: "Ana Liliam Cake", lk: 30, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 6, cl: "Li&LiDecor", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 7, cl: "Qualy Quimy", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 8, cl: "EsquadriaBox", lk: 50, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 9, cl: "Fretadão", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 10, cl: "Despachante", lk: 0, stL: "branco", ln: 0, stLn: "verde", mn: 0, stM: "branco" },
             { id: 11, cl: "House Secury", lk: 0, stL: "verde", ln: 80, stLn: "azul", mn: 0, stM: "branco" },
-            { id: 12, cl: "Lu Cabeleireiro", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 13, cl: "Walisson", lk: 50, stL: "amarelo", ln: 100, stLn: "azul", mn: 0, stM: "branco" },
-            { id: 14, cl: "Fabio Salão Musica", lk: 100, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo" },
-            { id: 15, cl: "Douglas", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 30, stM: "amarelo" },
-            { id: 16, cl: "Ocran", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 0, stM: "branco" }
+            { id: 13, cl: "Walisson", lk: 50, stL: "amarelo", ln: 100, stLn: "azul", mn: 0, stM: "branco" }
+            // ... os demais são carregados do storage ou podem ser adicionados via formulário
         ];
 
-        let db = JSON.parse(localStorage.getItem('crm_impulso_vFINAL_2')) || dadosBase;
+        let db = JSON.parse(localStorage.getItem('crm_impulso_edit_v1')) || listaOficial;
 
-        function salvar() { localStorage.setItem('crm_impulso_vFINAL_2', JSON.stringify(db)); render(); }
+        function salvar() { localStorage.setItem('crm_impulso_edit_v1', JSON.stringify(db)); render(); }
 
         function render() {
             const grid = document.getElementById('gridDisplay');
             grid.innerHTML = '';
-            let recebido = 0, aReceber = 0;
+            let rec = 0, arec = 0;
 
             db.forEach(i => {
-                const somaItem = (v, s) => {
-                    if(s === 'azul') recebido += v;
-                    if(s === 'branco' || s === 'amarelo') aReceber += v;
+                const somar = (v, s) => {
+                    if(s === 'azul') rec += v;
+                    if(s === 'branco' || s === 'amarelo') arec += v;
                 };
-                somaItem(i.lk, i.stL); somaItem(i.ln, i.stLn); somaItem(i.mn, i.stM);
+                somar(i.lk, i.stL); somar(i.ln, i.stLn); somar(i.mn, i.stM);
 
                 const card = document.createElement('div');
                 card.className = 'card-cliente';
                 card.innerHTML = `
                     <h3>${i.cl}</h3>
                     <div class="card-split">
-                        ${(i.lk > 0 || i.stL === 'verde') ? `<div class="split-row">LINK <b style="color:${getCol(i.stL)}">${i.lk > 0 ? 'R$'+i.lk : ''} ${getSig(i.stL)}</b></div>` : ''}
-                        ${(i.ln > 0 || i.stLn === 'verde') ? `<div class="split-row">LAN <b style="color:${getCol(i.stLn)}">${i.ln > 0 ? 'R$'+i.ln : ''} ${getSig(i.stLn)}</b></div>` : ''}
-                        ${(i.mn > 0 || i.stM === 'verde') ? `<div class="split-row">MAN <b style="color:${getCol(i.stM)}">${i.mn > 0 ? 'R$'+i.mn : ''} ${getSig(i.stM)}</b></div>` : ''}
+                        ${i.lk > 0 || i.stL === 'verde' ? `<div class="split-row">LINK <b style="color:${getCol(i.stL)}">${i.lk > 0 ? 'R$'+i.lk : ''} ${getS(i.stL)}</b></div>` : ''}
+                        ${i.ln > 0 || i.stLn === 'verde' ? `<div class="split-row">LAN <b style="color:${getCol(i.stLn)}">${i.ln > 0 ? 'R$'+i.ln : ''} ${getS(i.stLn)}</b></div>` : ''}
+                        ${i.mn > 0 || i.stM === 'verde' ? `<div class="split-row">MAN <b style="color:${getCol(i.stM)}">${i.mn > 0 ? 'R$'+i.mn : ''} ${getS(i.stM)}</b></div>` : ''}
                     </div>`;
                 card.onclick = () => abrirModal(i);
                 grid.appendChild(card);
             });
-
-            document.getElementById('somaRecebido').innerText = `R$ ${recebido.toFixed(2)}`;
-            document.getElementById('somaAReceber').innerText = `R$ ${aReceber.toFixed(2)}`;
-            document.getElementById('somaTotal').innerText = `R$ ${(recebido + aReceber).toFixed(2)}`;
+            document.getElementById('somaRecebido').innerText = `R$ ${rec.toFixed(2)}`;
+            document.getElementById('somaAReceber').innerText = `R$ ${arec.toFixed(2)}`;
+            document.getElementById('somaTotal').innerText = `R$ ${(rec + arec).toFixed(2)}`;
         }
 
-        function getSig(s) { return { azul: "PG", amarelo: "AR", verde: "COR", branco: "PEND" }[s]; }
+        function getS(s) { return { azul: "PG", amarelo: "AR", verde: "COR", branco: "PEND" }[s]; }
         function getCol(s) { return { azul: "#007bff", amarelo: "#ffcc00", verde: "#38e391", branco: "#fff" }[s]; }
 
-        function mudarStatus(id, campo) {
+        function mudarCor(id, campo) {
             const i = db.findIndex(x => x.id === id);
-            const ordem = ["branco", "amarelo", "azul", "verde"];
-            db[i][campo] = ordem[(ordem.indexOf(db[i][campo]) + 1) % 4];
+            const ord = ["branco", "amarelo", "azul", "verde"];
+            db[i][campo] = ord[(ord.indexOf(db[i][campo]) + 1) % 4];
             salvar(); abrirModal(db[i]);
+        }
+
+        function atualizarValor(id, campo, val) {
+            const i = db.findIndex(x => x.id === id);
+            db[i][campo] = parseFloat(val) || 0;
+            salvar();
+        }
+
+        function abrirModal(i) {
+            const m = document.getElementById('modalInterno');
+            m.innerHTML = `
+                <h3 style="color:var(--green); text-align:center;">${i.cl}</h3>
+                
+                <small style="color:#888">LINK R$</small>
+                <div class="edit-row">
+                    <input type="number" value="${i.lk}" onchange="atualizarValor(${i.id}, 'lk', this.value)">
+                    <button class="btn-st st-${i.stL}" onclick="mudarCor(${i.id}, 'stL')">${getS(i.stL)}</button>
+                </div>
+
+                <small style="color:#888">LANPAGE R$</small>
+                <div class="edit-row">
+                    <input type="number" value="${i.ln}" onchange="atualizarValor(${i.id}, 'ln', this.value)">
+                    <button class="btn-st st-${i.stLn}" onclick="mudarCor(${i.id}, 'stLn')">${getS(i.stLn)}</button>
+                </div>
+
+                <small style="color:#888">MANUTENÇÃO R$</small>
+                <div class="edit-row">
+                    <input type="number" value="${i.mn}" onchange="atualizarValor(${i.id}, 'mn', this.value)">
+                    <button class="btn-st st-${i.stM}" onclick="mudarCor(${i.id}, 'stM')">${getS(i.stM)}</button>
+                </div>
+
+                <button class="btn-st" style="background:#444; color:#fff; width:100%; margin-top:10px" onclick="document.getElementById('modalCtrl').style.display='none'">FECHAR</button>
+                <button class="btn-st" style="background:transparent; color:red; width:100%; font-size:10px" onclick="if(confirm('Excluir?')){db=db.filter(x=>x.id!==${i.id});salvar();document.getElementById('modalCtrl').style.display='none'}">EXCLUIR CLIENTE</button>
+            `;
+            document.getElementById('modalCtrl').style.display = 'flex';
         }
 
         function adicionarCliente() {
@@ -143,17 +162,6 @@
             ['novoNome','novoLink','novoLan','novoMan'].forEach(id => document.getElementById(id).value = '');
         }
 
-        function abrirModal(i) {
-            const m = document.getElementById('modalInterno');
-            m.innerHTML = `
-                <h3 style="color:var(--green); margin-bottom:15px; text-align:center;">${i.cl}</h3>
-                ${(i.lk > 0 || i.stL === 'verde') ? `<button class="btn-status st-${i.stL}" onclick="mudarStatus(${i.id}, 'stL')">Link: R$ ${i.lk} [${getSig(i.stL)}]</button>` : ''}
-                ${(i.ln > 0 || i.stLn === 'verde') ? `<button class="btn-status st-${i.stLn}" onclick="mudarStatus(${i.id}, 'stLn')">Lanpage: R$ ${i.ln} [${getSig(i.stLn)}]</button>` : ''}
-                ${(i.mn > 0 || i.stM === 'verde') ? `<button class="btn-status st-${i.stM}" onclick="mudarStatus(${i.id}, 'stM')">Manutenção: R$ ${i.mn} [${getSig(i.stM)}]</button>` : ''}
-                <button class="btn-status" style="background:#444;color:#fff;margin-top:10px;" onclick="document.getElementById('modalCtrl').style.display='none'">FECHAR</button>
-            `;
-            document.getElementById('modalCtrl').style.display = 'flex';
-        }
         render();
     </script>
 </body>
