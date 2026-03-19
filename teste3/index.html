@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impulso Web 10 - Total Lux White</title>
+    <title>Impulso Web 10 - CRM Final PRO</title>
     <style>
         :root { --bg: #050707; --card: #0d1212; --green: #38e391; --blue: #007bff; --yellow: #ffcc00; --text: #f0f0f0; }
         body { font-family: sans-serif; background: var(--bg); color: var(--text); padding: 10px; margin: 0; padding-top: 180px; padding-bottom: 120px; }
         
-        /* TOPO - CADASTRO RELUZENTE */
+        /* TOPO - CADASTRO RELUZENTE BRANCO */
         .header-cadastro { 
             background: #000; padding: 15px; border-bottom: 1px solid #444; 
             position: fixed; top: 0; left: 0; width: 100%; display: grid; 
@@ -26,23 +26,17 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
         }
 
-        /* GRID - CARDS DOS CLIENTES COM BORDAS RELUZENTES */
+        /* GRID - CARDS RELUZENTES */
         .grid-clientes { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 15px; }
         .card-cliente { 
-            background: var(--card); 
-            border: 2px solid #fff; /* Borda Branca */
-            padding: 12px; border-radius: 12px; cursor: pointer; 
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Brilho Branco */
-            transition: 0.3s;
+            background: var(--card); border: 2px solid #fff; padding: 12px; border-radius: 12px; 
+            cursor: pointer; box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); transition: 0.3s;
         }
-        .card-cliente:active { transform: scale(0.98); box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); }
         .card-cliente h3 { margin: 0 0 10px 0; font-size: 0.85rem; color: var(--green); border-bottom: 1px solid #222; padding-bottom: 5px; text-transform: uppercase; }
-        
-        /* LINHAS INTERNAS DO CARD */
         .card-split { display: flex; flex-direction: column; gap: 6px; font-size: 0.7rem; }
         .split-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 1px solid #1a2222; }
 
-        /* RODAPÉ - SOMAS */
+        /* RODAPÉ SOMAS */
         .footer-somas { 
             display: flex; gap: 10px; position: fixed; bottom: 0; left: 0; width: 100%; 
             background: #000; padding: 15px; border-top: 2px solid #222; box-sizing: border-box; z-index: 10;
@@ -55,35 +49,30 @@
         .stat-card.blue h2 { color: var(--blue); }
         .stat-card.total h2 { color: var(--green); }
 
-        /* MODAL COM BOTÕES RELUZENTES */
+        /* MODAL COM RÓTULOS */
         .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; z-index: 100; }
-        .modal-content { background: #111; padding: 25px; border-radius: 15px; width: 310px; border: 2px solid #fff; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
-        .edit-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-        .edit-row input { background: #000; border: 1px solid #fff; color: #fff; padding: 10px; border-radius: 5px; width: 90px; box-shadow: 0 0 5px rgba(255,255,255,0.2); }
-        
-        .btn-st { 
-            flex: 1; padding: 12px; border-radius: 5px; border: 2px solid #fff; 
-            font-weight: bold; cursor: pointer; font-size: 0.7rem; text-transform: uppercase; 
-            background: rgba(255,255,255,0.05); color: #fff;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        }
+        .modal-content { background: #111; padding: 25px; border-radius: 15px; width: 310px; border: 2px solid #fff; box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+        .modal-content label { display: block; font-size: 0.65rem; color: #888; margin-bottom: 4px; text-transform: uppercase; font-weight: bold; }
+        .edit-row { display: flex; align-items: center; gap: 8px; margin-bottom: 15px; }
+        .edit-row input { background: #000; border: 1px solid #fff; color: #fff; padding: 10px; border-radius: 5px; width: 90px; }
+        .btn-st { flex: 1; padding: 12px; border-radius: 5px; border: 2px solid #fff; font-weight: bold; cursor: pointer; font-size: 0.7rem; text-transform: uppercase; background: rgba(255,255,255,0.05); color: #fff; }
     </style>
 </head>
 <body>
 
     <div class="header-cadastro">
-        <input type="text" id="novoNome" class="full" placeholder="NOME DO NOVO CLIENTE">
+        <input type="text" id="novoNome" class="full" placeholder="NOME DO CLIENTE">
         <input type="number" id="novoLink" placeholder="LINK R$">
         <input type="number" id="novoLan" placeholder="LANPAGE R$">
         <input type="number" id="novoMan" placeholder="MANUT R$">
-        <button class="btn-add" onclick="adicionarCliente()">CADASTRAR</button>
+        <button class="btn-add" onclick="adicionarCliente()">CADASTRAR E SALVAR</button>
     </div>
 
     <div class="grid-clientes" id="gridDisplay"></div>
 
     <div class="footer-somas">
-        <div class="stat-card blue"><small style="color:#888; font-size:9px;">RECEBIDO</small><h2 id="somaRecebido">R$ 0,00</h2></div>
-        <div class="stat-card pend"><small style="color:#888; font-size:9px;">A RECEBER</small><h2 id="somaAReceber">R$ 0,00</h2></div>
+        <div class="stat-card blue"><small style="color:#888; font-size:9px;">RECEBIDO (AZUL)</small><h2 id="somaRecebido">R$ 0,00</h2></div>
+        <div class="stat-card pend"><small style="color:#888; font-size:9px;">A RECEBER (BR/AM)</small><h2 id="somaAReceber">R$ 0,00</h2></div>
         <div class="stat-card total"><small style="color:#888; font-size:9px;">TOTAL GERAL</small><h2 id="somaTotal">R$ 0,00</h2></div>
     </div>
 
@@ -99,19 +88,12 @@
             { id: 6, cl: "Li&LiDecor", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
             { id: 7, cl: "Qualy Quimy", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
             { id: 8, cl: "EsquadriaBox", lk: 50, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 9, cl: "Fretadão", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 10, cl: "Despachante", lk: 0, stL: "branco", ln: 0, stLn: "verde", mn: 0, stM: "branco" },
-            { id: 11, cl: "House Secury", lk: 0, stL: "verde", ln: 80, stLn: "azul", mn: 0, stM: "branco" },
-            { id: 12, cl: "Lu Cabeleireiro", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
-            { id: 13, cl: "Walisson", lk: 50, stL: "amarelo", ln: 100, stLn: "azul", mn: 0, stM: "branco" },
-            { id: 14, cl: "Fabio Salao Musica", lk: 100, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo" },
-            { id: 15, cl: "Douglas", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 30, stM: "amarelo" },
-            { id: 16, cl: "Ocran", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 0, stM: "branco" }
+            { id: 13, cl: "Walisson", lk: 50, stL: "amarelo", ln: 100, stLn: "azul", mn: 0, stM: "branco" }
         ];
 
-        let db = JSON.parse(localStorage.getItem('crm_impulso_white_neon')) || listaOficial;
+        let db = JSON.parse(localStorage.getItem('crm_impulso_final_v99')) || listaOficial;
 
-        function salvar() { localStorage.setItem('crm_impulso_white_neon', JSON.stringify(db)); render(); }
+        function salvar() { localStorage.setItem('crm_impulso_final_v99', JSON.stringify(db)); render(); }
 
         function render() {
             const grid = document.getElementById('gridDisplay');
@@ -164,18 +146,25 @@
             const m = document.getElementById('modalInterno');
             m.innerHTML = `
                 <h3 style="color:var(--green); text-align:center; margin-bottom:20px;">${i.cl}</h3>
+                
+                <label>LINK (R$)</label>
                 <div class="edit-row">
                     <input type="number" value="${i.lk}" onchange="atualizarVal(${i.id}, 'lk', this.value)">
                     <button class="btn-st" style="border-color:${getCol(i.stL)}; color:${getCol(i.stL)}" onclick="mudarStatus(${i.id}, 'stL')">${getS(i.stL)}</button>
                 </div>
+                
+                <label>LANPAGE (R$)</label>
                 <div class="edit-row">
                     <input type="number" value="${i.ln}" onchange="atualizarVal(${i.id}, 'ln', this.value)">
                     <button class="btn-st" style="border-color:${getCol(i.stLn)}; color:${getCol(i.stLn)}" onclick="mudarStatus(${i.id}, 'stLn')">${getS(i.stLn)}</button>
                 </div>
+                
+                <label>MANUTENÇÃO (R$)</label>
                 <div class="edit-row">
                     <input type="number" value="${i.mn}" onchange="atualizarVal(${i.id}, 'mn', this.value)">
                     <button class="btn-st" style="border-color:${getCol(i.stM)}; color:${getCol(i.stM)}" onclick="mudarStatus(${i.id}, 'stM')">${getS(i.stM)}</button>
                 </div>
+
                 <button class="btn-st" style="width:100%; margin-top:10px; border-color:#fff" onclick="document.getElementById('modalCtrl').style.display='none'">FECHAR</button>
                 <button class="btn-st" style="border:none; color:red; width:100%; margin-top:10px; font-size:10px" onclick="if(confirm('Excluir?')){db=db.filter(x=>x.id!==${i.id});salvar();document.getElementById('modalCtrl').style.display='none'}">EXCLUIR CLIENTE</button>
             `;
