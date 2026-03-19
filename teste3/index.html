@@ -3,70 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Controle - ImpulsoWeb10</title>
+    <title>CRM ImpulsoWeb10</title>
     <style>
         :root {
             --bg: #050707;
             --card: #0d1212;
-            --neon-green: #38e391; /* Verde (Cortesia) */
-            --royal-blue: #007bff; /* Azul (Pago) */
-            --pure-white: #ffffff; /* Branco (Pendente) */
-            --text-main: #f0f0f0;
+            --neon-green: #38e391; /* Verde Cortesia */
+            --royal-blue: #007bff; /* Azul Pago */
+            --pure-white: #ffffff; /* Branco Pendente */
+            --text-main: #e0e0e0;
         }
 
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); margin: 0; padding: 20px; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text-main); margin: 0; padding: 10px; }
         
-        /* Cabeçalho com Resumo Financeiro */
+        /* Resumo Topo Compacto */
         .resumo-topo {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px; margin-bottom: 40px;
+            display: flex; gap: 10px; margin-bottom: 20px; justify-content: center;
         }
         .box-valor {
-            background: var(--card); padding: 20px; border-radius: 12px;
-            border-bottom: 4px solid #333; text-align: center;
+            background: var(--card); padding: 10px 20px; border-radius: 8px;
+            border-bottom: 3px solid #333; text-align: center; min-width: 150px;
         }
+        .box-valor h2 { margin: 5px 0 0 0; font-size: 1.2rem; }
+        .box-valor small { font-size: 0.7rem; color: #888; }
         .box-valor.pago { border-color: var(--royal-blue); }
-        .box-valor.cortesia { border-color: var(--neon-green); }
 
-        /* Grid de Clientes */
-        .container-clientes { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        /* Grid de Cards Compactos */
+        .container-clientes { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 10px; 
+        }
         
         .card-cliente { 
             background: var(--card); border: 1px solid #1a2222; 
-            padding: 25px; border-radius: 18px; cursor: pointer;
-            transition: all 0.3s ease;
+            padding: 12px; border-radius: 10px; cursor: pointer;
+            transition: 0.2s;
         }
-        .card-cliente:hover { border-color: var(--neon-green); transform: scale(1.02); }
+        .card-cliente h3 { margin: 5px 0; font-size: 1rem; color: var(--neon-green); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card-cliente p { margin: 0; font-size: 0.75rem; color: #777; }
+        .card-cliente .preco-total { margin-top: 8px; font-weight: bold; font-size: 1.1rem; }
 
-        /* Estilo das Cores de Status */
-        .btn-status { width: 100%; padding: 10px; border-radius: 6px; font-weight: 700; border: none; margin: 5px 0; }
+        /* Modal e Botões 50% menores */
+        .modal-overlay { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.8); align-items: center; justify-content: center; z-index: 99;
+        }
+        .modal-caixa { 
+            background: var(--card); padding: 15px; border-radius: 12px; 
+            width: 85%; max-width: 320px; border: 1px solid #252d2d;
+        }
+        .linha-info { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #1a2222; font-size: 0.85rem; }
+        
+        .btn-status { 
+            width: 100%; padding: 6px; border-radius: 4px; font-weight: bold; 
+            border: none; margin: 3px 0; font-size: 0.75rem; /* Botões menores */
+        }
         .status-azul { background: var(--royal-blue); color: white; }
         .status-verde { background: var(--neon-green); color: #000; }
         .status-branco { background: var(--pure-white); color: #000; border: 1px solid #ccc; }
 
-        /* Modal Detalhado */
-        .modal-overlay { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.85); align-items: center; justify-content: center; z-index: 99;
-        }
-        .modal-caixa { 
-            background: var(--card); padding: 30px; border-radius: 20px; 
-            width: 90%; max-width: 400px; border: 1px solid #252d2d;
-        }
-        .linha-info { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a2222; }
+        .btn-fechar { width: 100%; padding: 8px; margin-top: 15px; background: #222; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
-    <h1 style="text-align:center; margin-bottom: 40px;">Dashboard de Vendas 📊</h1>
-
     <div class="resumo-topo">
         <div class="box-valor pago">
-            <small>TOTAL RECEBIDO (AZUL)</small>
+            <small>RECEBIDO</small>
             <h2 id="totalGeral">R$ 0,00</h2>
         </div>
-        <div class="box-valor cortesia">
-            <small>CORTESIAS (VERDE)</small>
+        <div class="box-valor">
+            <small>CORTESIAS</small>
             <h2 id="totalCortesia">0</h2>
         </div>
     </div>
@@ -78,22 +86,19 @@
     </div>
 
     <script>
-        // Dados REAIS baseados na sua planilha (sem Lidia, sem Prova Real)
         const db = [
-            { data: "10/03/2026", atividade: "Pet", cliente: "Amor por Patinhas", link: 50.00, stL: "azul", lan: 0, stLa: "", mens: 0, stM: "", contato: "11-973051524", bairro: "Nova Louzada", total: 50.00 },
-            { data: "15/03/2026", atividade: "Material de Construção", cliente: "Itapuã Center", link: 59.90, stL: "azul", lan: 0, stLa: "", mens: 0, stM: "", contato: "-", bairro: "-", total: 59.90 },
-            { data: "17/03/2026", atividade: "Decoração", cliente: "Li&LiDecor", link: 0, stL: "verde", lan: 0, stLa: "", mens: 0, stM: "", contato: "-", bairro: "-", total: 0.00 },
-            { data: "18/03/2026", atividade: "Segurança", cliente: "House Secury", link: 0, stL: "verde", lan: 80.00, stLa: "azul", mens: 0, stM: "", contato: "-", bairro: "Itaqua", total: 80.00 },
-            { data: "18/03/2026", atividade: "Construção", cliente: "Walisson", link: 50.00, stL: "azul", lan: 100.00, stLa: "azul", mens: 0, stM: "", contato: "-", bairro: "-", total: 150.00 },
-            { data: "18/03/2026", atividade: "Cultura", cliente: "Fabio Salao Musica", link: 100.00, stL: "azul", lan: 0, stLa: "", mens: 20.00, stM: "branco", contato: "-", bairro: "-", total: 100.00 }
+            { data: "10/03/2026", atividade: "Pet", cliente: "Amor por Patinhas", link: 50, stL: "azul", lan: 0, stLa: "", mens: 0, stM: "", contato: "11-973051524", bairro: "Nova Louzada", total: 50 },
+            { data: "15/03/2026", atividade: "Construção", cliente: "Itapuã Center", link: 59.9, stL: "azul", lan: 0, stLa: "", mens: 0, stM: "", contato: "-", bairro: "-", total: 59.9 },
+            { data: "17/03/2026", atividade: "Decoração", cliente: "Li&LiDecor", link: 0, stL: "verde", lan: 0, stLa: "", mens: 0, stM: "", contato: "-", bairro: "-", total: 0 },
+            { data: "18/03/2026", atividade: "Segurança", cliente: "House Secury", link: 0, stL: "verde", lan: 80, stLa: "azul", mens: 0, stM: "", contato: "-", bairro: "Itaqua", total: 80 },
+            { data: "18/03/2026", atividade: "Construção", cliente: "Walisson", link: 50, stL: "azul", lan: 100, stLa: "azul", mens: 0, stM: "", contato: "-", bairro: "-", total: 150 },
+            { data: "18/03/2026", atividade: "Música", cliente: "Fabio Salão", link: 100, stL: "azul", lan: 0, stLa: "", mens: 20, stM: "branco", contato: "-", bairro: "-", total: 100 }
         ];
 
         const grade = document.getElementById('grade');
-        let faturamento = 0;
-        let cortesias = 0;
+        let faturamento = 0, cortesias = 0;
 
         db.forEach(item => {
-            // Soma faturamento (tudo que for status azul)
             if(item.stL === "azul") faturamento += item.link;
             if(item.stLa === "azul") faturamento += item.lan;
             if(item.stM === "azul") faturamento += item.mens;
@@ -102,41 +107,34 @@
             const card = document.createElement('div');
             card.className = 'card-cliente';
             card.innerHTML = `
-                <small style="color: #666">${item.data}</small>
-                <h3 style="margin: 10px 0 5px 0; color: var(--neon-green)">${item.cliente}</h3>
-                <div style="font-size: 14px; color: #aaa; margin-bottom: 15px;">${item.atividade}</div>
-                <div style="font-size: 20px; font-weight: bold;">R$ ${item.total.toFixed(2)}</div>
+                <p style="font-size: 10px;">${item.data}</p>
+                <h3>${item.cliente}</h3>
+                <p>${item.atividade} | ${item.bairro}</p>
+                <div class="preco-total">R$ ${item.total.toFixed(2)}</div>
             `;
-            card.onclick = () => abrir(item);
+            card.onclick = () => {
+                const corpo = document.getElementById('conteudoModal');
+                corpo.innerHTML = `
+                    <h3 style="margin:0; font-size:1.1rem;">${item.cliente}</h3>
+                    <div class="linha-info" style="margin-top:10px;"><span>Bairro:</span> <span>${item.bairro}</span></div>
+                    <div class="linha-info"><span>Contato:</span> <span>${item.contato}</span></div>
+                    <div style="margin-top:10px">
+                        ${item.link > 0 || item.stL === 'verde' ? `<div class="btn-status status-${item.stL}">Link: R$ ${item.link.toFixed(2)}</div>` : ''}
+                        ${item.lan > 0 || item.stLa === 'verde' ? `<div class="btn-status status-${item.stLa}">Lanpage: R$ ${item.lan.toFixed(2)}</div>` : ''}
+                        ${item.mens > 0 || item.stM === 'verde' ? `<div class="btn-status status-${item.stM}">Mensal: R$ ${item.mens.toFixed(2)}</div>` : ''}
+                    </div>
+                    <div class="linha-info" style="border:none; font-size:1.2rem; font-weight:bold; margin-top:10px">
+                        <span>TOTAL:</span> <span>R$ ${item.total.toFixed(2)}</span>
+                    </div>
+                    <button class="btn-fechar" onclick="document.getElementById('modalId').style.display='none'">Fechar</button>
+                `;
+                document.getElementById('modalId').style.display = 'flex';
+            };
             grade.appendChild(card);
         });
 
         document.getElementById('totalGeral').innerText = `R$ ${faturamento.toFixed(2)}`;
         document.getElementById('totalCortesia').innerText = cortesias;
-
-        function abrir(i) {
-            const corpo = document.getElementById('conteudoModal');
-            corpo.innerHTML = `
-                <h2 style="margin:0">${i.cliente}</h2>
-                <p style="color:#666; margin-bottom:20px">${i.atividade}</p>
-                
-                <div class="linha-info"><span>Bairro:</span> <span>${i.bairro}</span></div>
-                <div class="linha-info"><span>Contato:</span> <span>${i.contato}</span></div>
-
-                <div style="margin-top:20px">
-                    ${i.link > 0 || i.stL === 'verde' ? `<div class="btn-status status-${i.stL}">Link: R$ ${i.link.toFixed(2)}</div>` : ''}
-                    ${i.lan > 0 || i.stLa === 'verde' ? `<div class="btn-status status-${i.stLa}">Lanpage: R$ ${i.lan.toFixed(2)}</div>` : ''}
-                    ${i.mens > 0 || i.stM === 'verde' ? `<div class="btn-status status-${i.stM}">Mensal: R$ ${i.mens.toFixed(2)}</div>` : ''}
-                </div>
-
-                <div class="linha-info" style="border:none; font-size:22px; font-weight:bold; margin-top:15px">
-                    <span>TOTAL:</span> <span>R$ ${i.total.toFixed(2)}</span>
-                </div>
-                
-                <button onclick="document.getElementById('modalId').style.display='none'" style="width:100%; padding:12px; margin-top:20px; cursor:pointer; background:#333; color:#fff; border:none; border-radius:8px">Fechar</button>
-            `;
-            document.getElementById('modalId').style.display = 'flex';
-        }
     </script>
 </body>
 </html>
