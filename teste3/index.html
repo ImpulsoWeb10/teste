@@ -1,30 +1,99 @@
-const clientes = [
-    {
-        data: "10/03/2026",
-        atividade: "Pet",
-        nome: "Amor por Patinhas",
-        linkAvaliacao: 50.00,
-        statusLink: "pago", // 🔵 Azul no Excel
-        lanpages: 0,
-        statusLan: "", 
-        mensal: 0,
-        statusMensal: "",
-        contato: "11-973051524",
-        bairro: "Nova Louzada",
-        total: 50.00
-    },
-    {
-        data: "17/03/2026",
-        atividade: "Decoração",
-        nome: "Li&LiDecor",
-        linkAvaliacao: 0,
-        statusLink: "cortesia", // 🟢 Verde no Excel
-        lanpages: 0,
-        statusLan: "",
-        mensal: 0,
-        statusMensal: "",
-        contato: "-",
-        bairro: "-",
-        total: 0
-    }
-];
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard ImpulsoWeb10</title>
+    <style>
+        :root {
+            --bg: #050707;
+            --card: #0d1212;
+            --neon: #38e391;
+            --blue: #007bff;
+            --white: #ffffff;
+        }
+
+        body { font-family: sans-serif; background: var(--bg); color: #fff; padding: 20px; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        
+        .card { 
+            background: var(--card); border: 1px solid #1a2222; 
+            padding: 20px; border-radius: 15px; cursor: pointer; text-align: center;
+        }
+
+        /* Cores de Status */
+        .pago { background: var(--blue) !important; color: #fff; }
+        .cortesia { background: var(--neon) !important; color: #000; }
+        .pendente { background: var(--white) !important; color: #000; }
+
+        .btn-status { 
+            display: block; padding: 10px; margin: 5px 0; 
+            border-radius: 5px; font-weight: bold; font-size: 12px;
+            text-align: center; border: none;
+        }
+
+        .modal { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.9); align-items: center; justify-content: center; 
+        }
+
+        .modal-content { 
+            background: var(--card); padding: 30px; border-radius: 20px; 
+            width: 90%; max-width: 450px; border: 1px solid var(--neon);
+        }
+
+        .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #1a2222; }
+    </style>
+</head>
+<body>
+
+    <h1 style="text-align:center; color:var(--neon)">Painel de Clientes 📈</h1>
+    <div class="grid" id="grid"></div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content" id="modal-corpo"></div>
+    </div>
+
+    <script src="clientes.js"></script>
+    <script>
+        const grid = document.getElementById('grid');
+        const modal = document.getElementById('modal');
+
+        clientes.forEach(c => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `<h3>${c.nome}</h3><p>${c.atividade}</p><strong>Total: R$ ${c.total.toFixed(2)}</strong>`;
+            card.onclick = () => mostrarDetalhes(c);
+            grid.appendChild(card);
+        });
+
+        function mostrarDetalhes(c) {
+            const corpo = document.getElementById('modal-corpo');
+            corpo.innerHTML = `
+                <h2>${c.nome}</h2>
+                <div class="row"><span>Data:</span> <span>${c.data}</span></div>
+                <div class="row"><span>Bairro:</span> <span>${c.bairro}</span></div>
+                <div class="row"><span>Contato:</span> <span>${c.contato}</span></div>
+                
+                <h4 style="margin-top:20px">Serviços e Pagamentos:</h4>
+                
+                ${c.linkAvaliacao > 0 || c.statusLink === 'cortesia' ? 
+                    `<div class="btn-status ${c.statusLink}">Link Avaliação: R$ ${c.linkAvaliacao.toFixed(2)}</div>` : ''}
+                
+                ${c.lanpages > 0 || c.statusLan === 'cortesia' ? 
+                    `<div class="btn-status ${c.statusLan}">Lanpage: R$ ${c.lanpages.toFixed(2)}</div>` : ''}
+                
+                ${c.mensal > 0 || c.statusMensal === 'cortesia' ? 
+                    `<div class="btn-status ${c.statusMensal}">Manutenção: R$ ${c.mensal.toFixed(2)}</div>` : ''}
+
+                <div class="row" style="border:none; font-size:20px; font-weight:bold; margin-top:15px">
+                    <span>TOTAL:</span> <span>R$ ${c.total.toFixed(2)}</span>
+                </div>
+                <button onclick="modal.style.display='none'" style="width:100%; margin-top:20px; padding:10px; cursor:pointer">Fechar</button>
+            `;
+            modal.style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
