@@ -3,114 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRM ImpulsoWeb10</title>
+    <title>CRM Editável - ImpulsoWeb10</title>
     <style>
-        :root {
-            --bg: #050707; --card: #0d1212;
-            --neon: #38e391; --blue: #007bff; --white: #ffffff; --text: #e0e0e0;
-        }
+        :root { --bg: #050707; --card: #0d1212; --neon: #38e391; --blue: #007bff; --white: #ffffff; --text: #e0e0e0; }
         body { font-family: sans-serif; background: var(--bg); color: var(--text); padding: 10px; margin: 0; }
         
-        /* Topo com 3 Contadores */
-        .resumo { display: flex; gap: 8px; margin-bottom: 15px; justify-content: center; flex-wrap: wrap; }
-        .box { 
-            background: var(--card); padding: 8px; border-radius: 8px; text-align: center; 
-            flex: 1; min-width: 100px; border-bottom: 3px solid #333; cursor: pointer;
-        }
+        .resumo { display: flex; gap: 8px; margin-bottom: 15px; justify-content: center; }
+        .box { background: var(--card); padding: 8px; border-radius: 8px; text-align: center; flex: 1; border-bottom: 3px solid #333; }
         .box h2 { margin: 2px 0; font-size: 1rem; }
-        .box small { font-size: 0.65rem; color: #888; text-transform: uppercase; }
         .box.pago { border-color: var(--blue); }
         .box.receber { border-color: var(--white); }
-        .box.cortesia { border-color: var(--neon); }
 
-        /* Grid */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
         .card { background: var(--card); border: 1px solid #1a2222; padding: 10px; border-radius: 8px; cursor: pointer; }
         .card h3 { margin: 0; font-size: 0.9rem; color: var(--neon); }
-        .card p { margin: 2px 0; font-size: 0.7rem; color: #777; }
 
-        /* Modal Compacto */
-        .modal { 
-            display: none; position: fixed; top:0; left:0; width:100%; height:100%; 
-            background: rgba(0,0,0,0.8); align-items: center; justify-content: center; 
-        }
+        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; z-index: 10; }
         .modal-content { background: var(--card); padding: 15px; border-radius: 12px; width: 280px; border: 1px solid #252d2d; }
-        .row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #1a2222; font-size: 0.8rem; }
-        .btn-st { width: 100%; padding: 5px; border-radius: 4px; font-weight: bold; border: none; margin: 2px 0; font-size: 0.7rem; }
-        .status-azul { background: var(--blue); color: #fff; }
-        .status-verde { background: var(--neon); color: #000; }
-        .status-branco { background: var(--white); color: #000; }
+        
+        /* Botões Editáveis */
+        .btn-edit { width: 100%; padding: 8px; border-radius: 4px; font-weight: bold; border: none; margin: 5px 0; cursor: pointer; font-size: 0.75rem; transition: 0.2s; }
+        .st-azul { background: var(--blue); color: #fff; }
+        .st-verde { background: var(--neon); color: #000; }
+        .st-branco { background: var(--white); color: #000; }
+        
+        .instrucao { font-size: 0.6rem; color: #666; text-align: center; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
     <div class="resumo">
-        <div class="box pago" onclick="filtrar('todos')">
-            <small>Recebido</small><h2 id="somaPago">R$ 0</h2>
-        </div>
-        <div class="box receber" onclick="filtrar('branco')">
-            <small>A Receber</small><h2 id="somaPendente">R$ 0</h2>
-        </div>
-        <div class="box cortesia" onclick="filtrar('verde')">
-            <small>Cortesias</small><h2 id="qtdCortesia">0</h2>
-        </div>
+        <div class="box pago"><small>Recebido</small><h2 id="somaPago">R$ 0</h2></div>
+        <div class="box receber"><small>A Receber</small><h2 id="somaPendente">R$ 0</h2></div>
     </div>
 
-    <div class="grid" id="grid"></div>
+    <div class="grid" id="mainGrid"></div>
 
-    <div id="m" class="modal"><div class="modal-content" id="mc"></div></div>
+    <div id="modal" class="modal">
+        <div class="modal-content" id="modalBody"></div>
+    </div>
 
     <script>
-        const db = [
-            { d: "10/03", at: "Pet", cl: "Amor por Patinhas", lk: 50, stL: "azul", ln: 0, stLn: "", mn: 0, stM: "", ct: "11973051524", br: "N. Louzada" },
-            { d: "15/03", at: "Construção", cl: "Itapuã Center", lk: 59.9, stL: "azul", ln: 0, stLn: "", mn: 0, stM: "", ct: "-", br: "-" },
-            { d: "17/03", at: "Decoração", cl: "Li&LiDecor", lk: 0, stL: "verde", ln: 0, stLn: "", mn: 0, stM: "", ct: "-", br: "-" },
-            { d: "18/03", at: "Segurança", cl: "House Secury", lk: 0, stL: "verde", ln: 80, stLn: "azul", mn: 0, stM: "", ct: "-", br: "Itaqua" },
-            { d: "18/03", at: "Construção", cl: "Walisson", lk: 50, stL: "azul", ln: 100, stLn: "azul", mn: 0, stM: "", ct: "-", br: "-" },
-            { d: "18/03", at: "Música", cl: "Fabio Salão", lk: 100, stL: "azul", ln: 0, stLn: "", mn: 20, stM: "branco", ct: "-", br: "-" }
+        // Dados Iniciais (Se não houver nada salvo, ele usa estes)
+        const dadosIniciais = [
+            { id: 1, cl: "Amor por Patinhas", lk: 50, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
+            { id: 2, cl: "Itapuã Center", lk: 59.9, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
+            { id: 3, cl: "Li&LiDecor", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
+            { id: 4, cl: "House Secury", lk: 0, stL: "verde", ln: 80, stLn: "azul", mn: 0, stM: "branco" },
+            { id: 5, cl: "Walisson", lk: 50, stL: "azul", ln: 100, stLn: "azul", mn: 0, stM: "branco" },
+            { id: 6, cl: "Fabio Salão", lk: 100, stL: "azul", ln: 0, stLn: "branco", mn: 20, stM: "branco" }
         ];
 
-        function render(filtro = 'todos') {
-            const grid = document.getElementById('grid');
+        // Carregar do LocalStorage ou usar iniciais
+        let db = JSON.parse(localStorage.getItem('crm_dados')) || dadosIniciais;
+
+        function salvar() {
+            localStorage.setItem('crm_dados', JSON.stringify(db));
+            render();
+        }
+
+        function mudarStatus(clienteId, campo) {
+            const index = db.findIndex(c => c.id === clienteId);
+            const statusAtual = db[index][campo];
+            
+            // Ciclo: branco -> azul -> verde -> branco
+            const novoStatus = statusAtual === "branco" ? "azul" : (statusAtual === "azul" ? "verde" : "branco");
+            db[index][campo] = novoStatus;
+            
+            salvar();
+            abrirModal(db[index]); // Atualiza o modal aberto
+        }
+
+        function render() {
+            const grid = document.getElementById('mainGrid');
             grid.innerHTML = '';
-            let pago = 0, pendente = 0, cort = 0;
+            let pago = 0, pendente = 0;
 
             db.forEach(i => {
-                // Lógica de Soma Individual
-                const somar = (val, st) => {
-                    if(st === 'azul') pago += val;
-                    if(st === 'branco') pendente += val;
-                    if(st === 'verde') cort++;
-                };
-                somar(i.lk, i.stL); somar(i.ln, i.stLn); somar(i.mn, i.stM);
-
-                // Filtro (se clicar no topo)
-                if(filtro !== 'todos' && i.stL !== filtro && i.stLn !== filtro && i.stM !== filtro) return;
+                // Somas
+                if(i.stL === 'azul') pago += i.lk; else if(i.stL === 'branco') pendente += i.lk;
+                if(i.stLn === 'azul') pago += i.ln; else if(i.stLn === 'branco') pendente += i.ln;
+                if(i.stM === 'azul') pago += i.mn; else if(i.stM === 'branco') pendente += i.mn;
 
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.innerHTML = `<h3>${i.cl}</h3><p>${i.at}</p><p>Total: R$ ${(i.lk+i.ln+i.mn).toFixed(2)}</p>`;
-                card.onclick = () => {
-                    document.getElementById('mc').innerHTML = `
-                        <h3 style="margin:0">${i.cl}</h3>
-                        <div class="row"><span>Bairro:</span><span>${i.br}</span></div>
-                        <div style="margin:10px 0">
-                            ${i.lk>0 || i.stL=='verde' ? `<div class="btn-st status-${i.stL}">Link: R$ ${i.lk}</div>`:''}
-                            ${i.ln>0 || i.stLn=='verde' ? `<div class="btn-st status-${i.stLn}">Lanpage: R$ ${i.ln}</div>`:''}
-                            ${i.mn>0 || i.stM=='verde' ? `<div class="btn-st status-${i.stM}">Mensal: R$ ${i.mn}</div>`:''}
-                        </div>
-                        <button class="btn-st" style="background:#333;color:#fff" onclick="document.getElementById('m').style.display='none'">Fechar</button>
-                    `;
-                    document.getElementById('m').style.display='flex';
-                };
+                card.innerHTML = `<h3>${i.cl}</h3><p>Total: R$ ${(i.lk+i.ln+i.mn).toFixed(2)}</p>`;
+                card.onclick = () => abrirModal(i);
                 grid.appendChild(card);
             });
+
             document.getElementById('somaPago').innerText = `R$ ${pago.toFixed(2)}`;
             document.getElementById('somaPendente').innerText = `R$ ${pendente.toFixed(2)}`;
-            document.getElementById('qtdCortesia').innerText = cort;
         }
 
-        function filtrar(f) { render(f); }
+        function abrirModal(i) {
+            const corpo = document.getElementById('modalBody');
+            corpo.innerHTML = `
+                <h3 style="margin:0">${i.cl}</h3>
+                <p class="instrucao">Clique no botão para mudar a cor</p>
+                
+                <small>Link:</small>
+                <button class="btn-edit st-${i.stL}" onclick="mudarStatus(${i.id}, 'stL')">R$ ${i.lk}</button>
+                
+                <small>Lanpage:</small>
+                <button class="btn-edit st-${i.stLn}" onclick="mudarStatus(${i.id}, 'stLn')">R$ ${i.ln}</button>
+                
+                <small>Mensal:</small>
+                <button class="btn-edit st-${i.stM}" onclick="mudarStatus(${i.id}, 'stM')">R$ ${i.mn}</button>
+
+                <button class="btn-edit" style="background:#333;color:#fff;margin-top:15px" onclick="document.getElementById('modal').style.display='none'">Fechar e Salvar</button>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
         render();
     </script>
 </body>
