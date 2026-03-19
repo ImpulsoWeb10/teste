@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impulso Web 10 - CRM 16 Clientes</title>
+    <title>Impulso Web 10 - CRM Final</title>
     <style>
         :root { --bg: #050707; --card: #0d1212; --green: #38e391; --blue: #007bff; --yellow: #ffcc00; --text: #f0f0f0; }
         body { font-family: sans-serif; background: var(--bg); color: var(--text); padding: 10px; margin: 0; padding-bottom: 180px; }
@@ -41,11 +41,11 @@
 </head>
 <body>
 
-    <div class="header-titulo">IMPULSO WEB 10 - CRM</div>
+    <div class="header-titulo">IMPULSO WEB 10</div>
 
     <div class="dashboard">
-        <div class="stat-card blue"><small>RECEBIDO</small><h2 id="somaRecebido">R$ 0</h2></div>
-        <div class="stat-card"><small>A RECEBER</small><h2 id="somaAReceber">R$ 0</h2></div>
+        <div class="stat-card blue"><small>RECEBIDO (AZUL)</small><h2 id="somaRecebido">R$ 0</h2></div>
+        <div class="stat-card"><small>A RECEBER (BRC/AM)</small><h2 id="somaAReceber">R$ 0</h2></div>
         <div class="stat-card total"><small>TOTAL GERAL</small><h2 id="somaTotal">R$ 0</h2></div>
     </div>
 
@@ -62,41 +62,40 @@
     </div>
 
     <script>
-        // LISTA DOS 16 CLIENTES EXTRAÍDA DA PLANILHA
         const listaOficial = [
-            { id: 1, cl: "Amor por Patinhas", lk: 50, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco", ct: "11-973051524" },
-            { id: 2, cl: "Itapuã Center", lk: 59.9, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco", ct: "" },
-            { id: 3, cl: "Óptica Lionda I", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo", ct: "" },
-            { id: 4, cl: "Óptica Lionda II", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo", ct: "" },
-            { id: 5, cl: "Ana Liliam Cake", lk: 30, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco", ct: "" },
-            { id: 6, cl: "Li&LiDecor", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco", ct: "" },
-            { id: 7, cl: "Qualy Quimy", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco", ct: "" },
-            { id: 8, cl: "EsquadriaBox", lk: 50, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco", ct: "" },
-            { id: 9, cl: "Fretadão", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco", ct: "" },
-            { id: 10, cl: "Despachante", lk: 0, stL: "branco", ln: 0, stLn: "verde", mn: 0, stM: "branco", ct: "" },
-            { id: 11, cl: "House Secury", lk: 0, stL: "verde", ln: 80, stLn: "azul", mn: 0, stM: "branco", ct: "" },
-            { id: 12, cl: "Lu Cabeleireiro", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 0, stM: "branco", ct: "" },
-            { id: 13, cl: "Walisson", lk: 50, stL: "amarelo", ln: 100, stLn: "azul", mn: 0, stM: "branco", ct: "" },
-            { id: 14, cl: "Fabio Salao Musica", lk: 100, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo", ct: "" },
-            { id: 15, cl: "Douglas", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 30, stM: "amarelo", ct: "" },
-            { id: 16, cl: "Ocran", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 0, stM: "branco", ct: "" }
+            { id: 1, cl: "Amor por Patinhas", lk: 50, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
+            { id: 2, cl: "Itapuã Center", lk: 59.9, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
+            { id: 3, cl: "Óptica Lionda I", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo" },
+            { id: 4, cl: "Óptica Lionda II", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo" },
+            { id: 5, cl: "Ana Liliam Cake", lk: 30, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
+            { id: 6, cl: "Li&LiDecor", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
+            { id: 7, cl: "Qualy Quimy", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
+            { id: 8, cl: "EsquadriaBox", lk: 50, stL: "azul", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
+            { id: 9, cl: "Fretadão", lk: 0, stL: "verde", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
+            { id: 10, cl: "Despachante", lk: 0, stL: "branco", ln: 0, stLn: "verde", mn: 0, stM: "branco" },
+            { id: 11, cl: "House Secury", lk: 0, stL: "verde", ln: 80, stLn: "azul", mn: 0, stM: "branco" },
+            { id: 12, cl: "Lu Cabeleireiro", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 0, stM: "branco" },
+            { id: 13, cl: "Walisson", lk: 50, stL: "amarelo", ln: 100, stLn: "azul", mn: 0, stM: "branco" },
+            { id: 14, cl: "Fabio Salao Musica", lk: 100, stL: "amarelo", ln: 0, stLn: "branco", mn: 20, stM: "amarelo" },
+            { id: 15, cl: "Douglas", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 30, stM: "amarelo" },
+            { id: 16, cl: "Ocran", lk: 50, stL: "amarelo", ln: 0, stLn: "branco", mn: 0, stM: "branco" }
         ];
 
-        let db = JSON.parse(localStorage.getItem('crm_impulso_16_v1')) || listaOficial;
+        let db = JSON.parse(localStorage.getItem('crm_impulso_vFINAL_CORRIGIDO')) || listaOficial;
 
-        function salvar() { localStorage.setItem('crm_impulso_16_v1', JSON.stringify(db)); render(); }
+        function salvar() { localStorage.setItem('crm_impulso_vFINAL_CORRIGIDO', JSON.stringify(db)); render(); }
 
         function render() {
             const grid = document.getElementById('gridDisplay');
             grid.innerHTML = '';
-            let rec = 0, arec = 0;
+            let recebido = 0, aReceber = 0;
 
             db.forEach(i => {
-                const somar = (v, s) => {
-                    if(s === 'azul') rec += v;
-                    if(s === 'branco' || s === 'amarelo') arec += v;
+                const calcular = (v, s) => {
+                    if(s === 'azul') recebido += v;
+                    if(s === 'branco' || s === 'amarelo') aReceber += v;
                 };
-                somar(i.lk, i.stL); somar(i.ln, i.stLn); somar(i.mn, i.stM);
+                calcular(i.lk, i.stL); calcular(i.ln, i.stLn); calcular(i.mn, i.stM);
 
                 const card = document.createElement('div');
                 card.className = 'card-cliente';
@@ -110,22 +109,22 @@
                 card.onclick = () => abrirModal(i);
                 grid.appendChild(card);
             });
-            document.getElementById('somaRecebido').innerText = `R$ ${rec.toFixed(2)}`;
-            document.getElementById('somaAReceber').innerText = `R$ ${arec.toFixed(2)}`;
-            document.getElementById('somaTotal').innerText = `R$ ${(rec + arec).toFixed(2)}`;
+            document.getElementById('somaRecebido').innerText = `R$ ${recebido.toFixed(2)}`;
+            document.getElementById('somaAReceber').innerText = `R$ ${aReceber.toFixed(2)}`;
+            document.getElementById('somaTotal').innerText = `R$ ${(recebido + aReceber).toFixed(2)}`;
         }
 
-        function getS(s) { return { azul: "PG", amarelo: "AR", verde: "COR", branco: "PEND" }[s]; }
+        function getS(s) { return { azul: "PG", amarelo: "AR", verde: "CORTESIA", branco: "PEND" }[s]; }
         function getCol(s) { return { azul: "#007bff", amarelo: "#ffcc00", verde: "#38e391", branco: "#fff" }[s]; }
 
-        function mudarCor(id, campo) {
+        function mudarStatus(id, campo) {
             const i = db.findIndex(x => x.id === id);
             const ord = ["branco", "amarelo", "azul", "verde"];
             db[i][campo] = ord[(ord.indexOf(db[i][campo]) + 1) % 4];
             salvar(); abrirModal(db[i]);
         }
 
-        function atualizarValor(id, campo, val) {
+        function atualizarVal(id, campo, val) {
             const i = db.findIndex(x => x.id === id);
             db[i][campo] = parseFloat(val) || 0;
             salvar();
@@ -135,25 +134,21 @@
             const m = document.getElementById('modalInterno');
             m.innerHTML = `
                 <h3 style="color:var(--green); text-align:center;">${i.cl}</h3>
-                
                 <small style="color:#888">LINK R$</small>
                 <div class="edit-row">
-                    <input type="number" value="${i.lk}" onchange="atualizarValor(${i.id}, 'lk', this.value)">
-                    <button class="btn-st st-${i.stL}" onclick="mudarCor(${i.id}, 'stL')">${getS(i.stL)}</button>
+                    <input type="number" value="${i.lk}" onchange="atualizarVal(${i.id}, 'lk', this.value)">
+                    <button class="btn-st st-${i.stL}" onclick="mudarStatus(${i.id}, 'stL')">${getS(i.stL)}</button>
                 </div>
-
                 <small style="color:#888">LANPAGE R$</small>
                 <div class="edit-row">
-                    <input type="number" value="${i.ln}" onchange="atualizarValor(${i.id}, 'ln', this.value)">
-                    <button class="btn-st st-${i.stLn}" onclick="mudarCor(${i.id}, 'stLn')">${getS(i.stLn)}</button>
+                    <input type="number" value="${i.ln}" onchange="atualizarVal(${i.id}, 'ln', this.value)">
+                    <button class="btn-st st-${i.stLn}" onclick="mudarStatus(${i.id}, 'stLn')">${getS(i.stLn)}</button>
                 </div>
-
                 <small style="color:#888">MANUTENÇÃO R$</small>
                 <div class="edit-row">
-                    <input type="number" value="${i.mn}" onchange="atualizarValor(${i.id}, 'mn', this.value)">
-                    <button class="btn-st st-${i.stM}" onclick="mudarCor(${i.id}, 'stM')">${getS(i.stM)}</button>
+                    <input type="number" value="${i.mn}" onchange="atualizarVal(${i.id}, 'mn', this.value)">
+                    <button class="btn-st st-${i.stM}" onclick="mudarStatus(${i.id}, 'stM')">${getS(i.stM)}</button>
                 </div>
-
                 <button class="btn-st" style="background:#444; color:#fff; width:100%; margin-top:10px" onclick="document.getElementById('modalCtrl').style.display='none'">FECHAR</button>
             `;
             document.getElementById('modalCtrl').style.display = 'flex';
@@ -166,13 +161,11 @@
                 id: Date.now(), cl, 
                 lk: parseFloat(document.getElementById('novoLink').value) || 0, stL: "branco",
                 ln: parseFloat(document.getElementById('novoLan').value) || 0, stLn: "branco",
-                mn: parseFloat(document.getElementById('novoMan').value) || 0, stM: "branco",
-                ct: ""
+                mn: parseFloat(document.getElementById('novoMan').value) || 0, stM: "branco"
             });
             salvar();
             ['novoNome','novoLink','novoLan','novoMan'].forEach(id => document.getElementById(id).value = '');
         }
-
         render();
     </script>
 </body>
