@@ -1,234 +1,205 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>QR Code Editor Pro</title>
+<title>Gerador QR PRO</title>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 body {
   font-family: Arial;
-  background: #0f172a;
-  color: white;
   text-align: center;
-  padding: 20px;
+  background: #f4f4f4;
 }
 
-input, button {
-  padding: 10px;
-  margin: 8px;
-  border-radius: 8px;
-  border: none;
-}
-
-button {
-  background: #22c55e;
-  color: white;
-  cursor: pointer;
-}
-
-#previewBox {
-  margin-top: 20px;
+#canvas {
+  margin: 20px auto;
+  border: 2px dashed #aaa;
   position: relative;
-  display: inline-block;
-}
-
-#fundo {
-  border-radius: 12px;
-  display: block;
-}
-
-#qrWrapper {
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  touch-action: none;
+  background-size: cover;
+  background-position: center;
+  width: 600px;
+  height: 600px;
+  overflow: hidden;
 }
 
 #qrcode {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  cursor: move;
+  border: 2px solid transparent;
 }
 
-.selected {
-  outline: 2px dashed #22c55e;
+#qrcode:focus {
+  border: 2px dashed red;
+}
+
+.resizer {
+  width: 15px;
+  height: 15px;
+  background: red;
+  position: absolute;
+  right: -8px;
+  bottom: -8px;
+  cursor: se-resize;
+}
+
+#galeria img {
+  width: 120px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 6px;
 }
 </style>
 </head>
 
 <body>
 
-<h2>🎨 QR Code Editor Pro</h2>
+<h2>🚀 Gerador de QR Code Inteligente</h2>
 
-<input type="text" id="link" placeholder="Cole seu link aqui">
-<br>
+<input type="text" id="link" placeholder="Cole seu link">
+<button onclick="gerarQR()">Gerar QR</button>
 
-<input type="file" id="uploadFundo" accept="image/*">
-<br>
+<br><br>
 
-<input type="color" id="cor" value="#000000">
-<label>Cor do QR</label>
-<br>
+<input type="text" id="tema" placeholder="Buscar imagem (ex: ônibus luxo)">
+<button onclick="buscarImagem()">Buscar Imagem</button>
 
-<button onclick="preview()">👁 Pré-visualizar</button>
-<button onclick="baixar()">⬇ Baixar</button>
+<div id="galeria"></div>
 
-<div id="previewBox">
-  <img id="fundo">
-  <div id="qrWrapper">
-    <canvas id="qrcode"></canvas>
-  </div>
+<div id="canvas">
+  <div id="qrcode" tabindex="0"></div>
 </div>
 
 <script>
-const fundo = document.getElementById("fundo");
-const qrWrapper = document.getElementById("qrWrapper");
-const canvasQR = document.getElementById("qrcode");
 
-let selecionado = null;
+// 🔑 SUA API AQUI
+const API_KEY = "qxw3nmA7rAhdZR232Zs9Iekpcp8c2uQrqSqtUFQNoy1lthAGSGw2LJor";
 
-/* ===== UPLOAD + AUTO AJUSTE ===== */
-document.getElementById("uploadFundo").addEventListener("change", function(e){
-  const file = e.target.files[0];
-  const reader = new FileReader();
+let qr = document.getElementById("qrcode");
 
-  reader.onload = function(event) {
-    fundo.src = event.target.result;
-
-    fundo.onload = function() {
-      const largura = fundo.naturalWidth;
-      const altura = fundo.naturalHeight;
-
-      if (largura > altura) {
-        fundo.style.width = "500px";
-        fundo.style.height = "auto";
-      } else {
-        fundo.style.height = "500px";
-        fundo.style.width = "auto";
-      }
-
-      // Centralizar QR
-      qrWrapper.style.left = "50%";
-      qrWrapper.style.top = "50%";
-      qrWrapper.style.transform = "translate(-50%, -50%)";
-      qrWrapper.setAttribute("data-x", 0);
-      qrWrapper.setAttribute("data-y", 0);
-    }
-  }
-
-  reader.readAsDataURL(file);
-});
-
-/* ===== GERAR QR ===== */
-function gerarQR(size = 300) {
+// ================= QR CODE =================
+function gerarQR() {
   const link = document.getElementById("link").value;
-  const cor = document.getElementById("cor").value;
 
-  if (!link) return;
+  qr.innerHTML = "";
 
-  QRCode.toCanvas(canvasQR, link, {
-    width: size,
-    margin: 1,
-    color: {
-      dark: cor,
-      light: "#ffffff"
-    }
+  new QRCode(qr, {
+    text: link,
+    width: 150,
+    height: 150
   });
 }
 
-function preview() {
-  gerarQR(300);
-}
+// ================= BUSCAR IMAGEM =================
+async function buscarImagem() {
+  const termo = document.getElementById("tema").value;
 
-/* ===== DOWNLOAD ===== */
-function baixar() {
-  html2canvas(document.getElementById("previewBox")).then(canvas => {
-    const link = document.createElement("a");
-    link.download = "qrcode.png";
-    link.href = canvas.toDataURL();
-    link.click();
+  const res = await fetch(`https://api.pexels.com/v1/search?query=${termo}&per_page=6`, {
+    headers: { Authorization: API_KEY }
+  });
+
+  const data = await res.json();
+
+  const galeria = document.getElementById("galeria");
+  galeria.innerHTML = "";
+
+  data.photos.forEach(foto => {
+    const img = document.createElement("img");
+    img.src = foto.src.medium;
+
+    img.onclick = () => {
+      const canvas = document.getElementById("canvas");
+
+      canvas.style.backgroundImage = `url(${foto.src.large})`;
+
+      ajustarCanvas(foto.width, foto.height);
+    };
+
+    galeria.appendChild(img);
   });
 }
 
-/* ===== SELEÇÃO ===== */
-qrWrapper.addEventListener("click", function(e) {
+// ================= AJUSTAR TELA =================
+function ajustarCanvas(w, h) {
+  const canvas = document.getElementById("canvas");
+
+  if (w > h) {
+    canvas.style.width = "800px";
+    canvas.style.height = "450px";
+  } else {
+    canvas.style.width = "450px";
+    canvas.style.height = "800px";
+  }
+}
+
+// ================= ARRASTAR QR =================
+let isDragging = false;
+let offsetX, offsetY;
+
+qr.addEventListener("mousedown", e => {
+  isDragging = true;
+  offsetX = e.offsetX;
+  offsetY = e.offsetY;
+});
+
+document.addEventListener("mousemove", e => {
+  if (!isDragging) return;
+
+  const canvas = document.getElementById("canvas");
+  const rect = canvas.getBoundingClientRect();
+
+  qr.style.left = (e.clientX - rect.left - offsetX) + "px";
+  qr.style.top = (e.clientY - rect.top - offsetY) + "px";
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+});
+
+// ================= REDIMENSIONAR =================
+const resizer = document.createElement("div");
+resizer.className = "resizer";
+qr.appendChild(resizer);
+
+let resizing = false;
+
+resizer.addEventListener("mousedown", e => {
   e.stopPropagation();
-  selecionado = qrWrapper;
-  qrWrapper.classList.add("selected");
+  resizing = true;
 });
 
-document.addEventListener("click", function() {
-  selecionado = null;
-  qrWrapper.classList.remove("selected");
-});
+document.addEventListener("mousemove", e => {
+  if (!resizing) return;
 
-/* ===== TECLADO ===== */
-document.addEventListener("keydown", function(e) {
-  if (!selecionado) return;
+  let size = e.clientX - qr.getBoundingClientRect().left;
 
-  let x = parseFloat(selecionado.getAttribute("data-x")) || 0;
-  let y = parseFloat(selecionado.getAttribute("data-y")) || 0;
-
-  let passo = 5;
-  if (e.shiftKey) passo = 15;
-  if (e.altKey) passo = 1;
-
-  if (e.key === "ArrowUp") y -= passo;
-  if (e.key === "ArrowDown") y += passo;
-  if (e.key === "ArrowLeft") x -= passo;
-  if (e.key === "ArrowRight") x += passo;
-
-  selecionado.style.transform = `translate(${x}px, ${y}px)`;
-  selecionado.setAttribute("data-x", x);
-  selecionado.setAttribute("data-y", y);
-});
-
-/* ===== DRAG ===== */
-interact(qrWrapper).draggable({
-  listeners: {
-    move (event) {
-      let x = (parseFloat(qrWrapper.getAttribute('data-x')) || 0) + event.dx;
-      let y = (parseFloat(qrWrapper.getAttribute('data-y')) || 0) + event.dy;
-
-      qrWrapper.style.transform = `translate(${x}px, ${y}px)`;
-      qrWrapper.setAttribute('data-x', x);
-      qrWrapper.setAttribute('data-y', y);
-    }
+  if (size > 50) {
+    qr.style.width = size + "px";
+    qr.style.height = size + "px";
   }
 });
 
-/* ===== RESIZE REAL (CORRIGIDO) ===== */
-interact(qrWrapper).resizable({
-  edges: { top: true, left: true, bottom: true, right: true },
-
-  listeners: {
-    move (event) {
-      let { x, y } = event.target.dataset;
-
-      x = parseFloat(x) || 0;
-      y = parseFloat(y) || 0;
-
-      const width = event.rect.width;
-
-      event.target.style.width = width + 'px';
-      event.target.style.height = width + 'px'; // mantém quadrado
-
-      x += event.deltaRect.left;
-      y += event.deltaRect.top;
-
-      event.target.style.transform = `translate(${x}px, ${y}px)`;
-
-      event.target.setAttribute('data-x', x);
-      event.target.setAttribute('data-y', y);
-
-      // 🔥 ATUALIZA QR DE VERDADE
-      gerarQR(width);
-    }
-  }
+document.addEventListener("mouseup", () => {
+  resizing = false;
 });
+
+// ================= TECLADO =================
+document.addEventListener("keydown", e => {
+  if (document.activeElement !== qr) return;
+
+  let top = qr.offsetTop;
+  let left = qr.offsetLeft;
+
+  if (e.key === "ArrowUp") top -= 5;
+  if (e.key === "ArrowDown") top += 5;
+  if (e.key === "ArrowLeft") left -= 5;
+  if (e.key === "ArrowRight") left += 5;
+
+  qr.style.top = top + "px";
+  qr.style.left = left + "px";
+});
+
 </script>
 
 </body>
