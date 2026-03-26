@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>QR Code Inteligente Pro</title>
+<title>QR Code Editor Pro</title>
 
 <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
@@ -30,14 +30,14 @@ button {
   cursor: pointer;
 }
 
-/* CONTAINER DINÂMICO */
+/* Preview */
 #previewBox {
   margin-top: 20px;
   position: relative;
   display: inline-block;
 }
 
-/* IMAGEM */
+/* Fundo */
 #fundo {
   border-radius: 12px;
   display: block;
@@ -51,29 +51,22 @@ button {
   touch-action: none;
 }
 
-/* CANVAS */
+/* Canvas */
 #qrcode {
   width: 100%;
   height: 100%;
 }
 
-/* HANDLE */
-.resize-handle {
-  width: 15px;
-  height: 15px;
-  background: #22c55e;
-  position: absolute;
-  right: -8px;
-  bottom: -8px;
-  cursor: se-resize;
-  border-radius: 50%;
+/* Seleção */
+.selected {
+  outline: 2px dashed #22c55e;
 }
 </style>
 </head>
 
 <body>
 
-<h2>🎨 QR Code Inteligente (Auto Ajuste)</h2>
+<h2>🎨 QR Code Editor Pro</h2>
 
 <input type="text" id="link" placeholder="Cole seu link aqui">
 <br>
@@ -90,7 +83,6 @@ button {
 
 <div id="previewBox">
   <img id="fundo">
-  
   <div id="qrWrapper">
     <canvas id="qrcode"></canvas>
   </div>
@@ -100,7 +92,9 @@ button {
 const fundo = document.getElementById("fundo");
 const qrWrapper = document.getElementById("qrWrapper");
 
-// Upload com ajuste automático
+let selecionado = null;
+
+/* ===== UPLOAD + AUTO AJUSTE ===== */
 document.getElementById("uploadFundo").addEventListener("change", function(e){
   const file = e.target.files[0];
   const reader = new FileReader();
@@ -112,18 +106,15 @@ document.getElementById("uploadFundo").addEventListener("change", function(e){
       const largura = fundo.naturalWidth;
       const altura = fundo.naturalHeight;
 
-      // Detecta formato
       if (largura > altura) {
-        // Horizontal
         fundo.style.width = "500px";
         fundo.style.height = "auto";
       } else {
-        // Vertical
         fundo.style.height = "500px";
         fundo.style.width = "auto";
       }
 
-      // Centraliza QR
+      // centraliza QR
       qrWrapper.style.left = "50%";
       qrWrapper.style.top = "50%";
       qrWrapper.style.transform = "translate(-50%, -50%)";
@@ -135,7 +126,7 @@ document.getElementById("uploadFundo").addEventListener("change", function(e){
   reader.readAsDataURL(file);
 });
 
-// Gerar QR
+/* ===== GERAR QR ===== */
 function preview() {
   const link = document.getElementById("link").value;
   const cor = document.getElementById("cor").value;
@@ -155,7 +146,7 @@ function preview() {
   });
 }
 
-// Baixar
+/* ===== DOWNLOAD ===== */
 function baixar() {
   html2canvas(document.getElementById("previewBox")).then(canvas => {
     const link = document.createElement("a");
@@ -165,12 +156,41 @@ function baixar() {
   });
 }
 
-// HANDLE
-const handle = document.createElement("div");
-handle.classList.add("resize-handle");
-qrWrapper.appendChild(handle);
+/* ===== SELEÇÃO ===== */
+qrWrapper.addEventListener("click", function(e) {
+  e.stopPropagation();
+  selecionado = qrWrapper;
+  qrWrapper.classList.add("selected");
+});
 
-// DRAG
+document.addEventListener("click", function() {
+  selecionado = null;
+  qrWrapper.classList.remove("selected");
+});
+
+/* ===== TECLADO ===== */
+document.addEventListener("keydown", function(e) {
+  if (!selecionado) return;
+
+  let x = parseFloat(selecionado.getAttribute("data-x")) || 0;
+  let y = parseFloat(selecionado.getAttribute("data-y")) || 0;
+
+  let passo = 5;
+
+  if (e.shiftKey) passo = 15; // mais rápido
+  if (e.altKey) passo = 1;    // ultra preciso
+
+  if (e.key === "ArrowUp") y -= passo;
+  if (e.key === "ArrowDown") y += passo;
+  if (e.key === "ArrowLeft") x -= passo;
+  if (e.key === "ArrowRight") x += passo;
+
+  selecionado.style.transform = `translate(${x}px, ${y}px)`;
+  selecionado.setAttribute("data-x", x);
+  selecionado.setAttribute("data-y", y);
+});
+
+/* ===== DRAG ===== */
 interact(qrWrapper).draggable({
   listeners: {
     move (event) {
@@ -180,15 +200,17 @@ interact(qrWrapper).draggable({
       let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
       target.style.transform = `translate(${x}px, ${y}px)`;
+
       target.setAttribute('data-x', x);
       target.setAttribute('data-y', y);
     }
   }
 });
 
-// RESIZE
+/* ===== RESIZE COMPLETO ===== */
 interact(qrWrapper).resizable({
-  edges: { right: true, bottom: true },
+  edges: { top: true, left: true, bottom: true, right: true },
+
   listeners: {
     move (event) {
       let { x, y } = event.target.dataset;
@@ -199,7 +221,13 @@ interact(qrWrapper).resizable({
       event.target.style.width = event.rect.width + 'px';
       event.target.style.height = event.rect.height + 'px';
 
+      x += event.deltaRect.left;
+      y += event.deltaRect.top;
+
       event.target.style.transform = `translate(${x}px, ${y}px)`;
+
+      event.target.setAttribute('data-x', x);
+      event.target.setAttribute('data-y', y);
     }
   }
 });
