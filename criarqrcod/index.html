@@ -1,81 +1,128 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Gerador de QR Code Inteligente</title>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-  <style>
-    body {
-      font-family: Arial;
-      text-align: center;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: white;
-      padding: 30px;
-    }
+<meta charset="UTF-8">
+<title>QR Code com Arte Personalizada</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
-    input, button {
-      padding: 12px;
-      margin: 10px;
-      border-radius: 8px;
-      border: none;
-      font-size: 16px;
-    }
+<style>
+  body {
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
 
-    input {
-      width: 300px;
-    }
+  input, button {
+    padding: 10px;
+    margin: 8px;
+    border-radius: 8px;
+    border: none;
+  }
 
-    button {
-      background: #22c55e;
-      color: white;
-      cursor: pointer;
-    }
+  button {
+    background: #22c55e;
+    color: white;
+    cursor: pointer;
+  }
 
-    canvas {
-      margin-top: 20px;
-      background: white;
-      padding: 10px;
-      border-radius: 12px;
-    }
-  </style>
+  #previewBox {
+    margin-top: 20px;
+    position: relative;
+    display: inline-block;
+  }
+
+  #fundo {
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  #qrcode {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+  }
+</style>
 </head>
+
 <body>
 
-  <h1>🔗 Gerador de QR Code Inteligente</h1>
+<h2>🎨 Criador de QR Code com Arte</h2>
 
-  <input type="text" id="link" placeholder="Cole seu link aqui">
-  <br>
-  <input type="color" id="cor" value="#000000">
-  <label>Cor do QR</label>
-  <br>
-  <button onclick="gerarQR()">Gerar QR Code</button>
+<input type="text" id="link" placeholder="Cole seu link aqui">
+<br>
 
-  <br>
+<input type="file" id="uploadFundo" accept="image/*">
+<br>
+
+<input type="color" id="cor" value="#000000">
+<label>Cor do QR</label>
+<br>
+
+<button onclick="preview()">👁 Pré-visualizar</button>
+<button onclick="baixar()">⬇ Baixar Imagem</button>
+
+<div id="previewBox">
+  <img id="fundo" src="">
   <canvas id="qrcode"></canvas>
+</div>
 
-  <script>
-    function gerarQR() {
-      const link = document.getElementById("link").value;
-      const cor = document.getElementById("cor").value;
-      const canvas = document.getElementById("qrcode");
+<script>
+let fundoBase64 = "";
 
-      if (!link) {
-        alert("Coloque um link primeiro!");
-        return;
-      }
+document.getElementById("uploadFundo").addEventListener("change", function(e){
+  const file = e.target.files[0];
+  const reader = new FileReader();
 
-      QRCode.toCanvas(canvas, link, {
-        width: 300,
-        margin: 2,
-        color: {
-          dark: cor,
-          light: "#ffffff"
-        }
-      }, function (error) {
-        if (error) console.error(error);
-      });
+  reader.onload = function(event) {
+    fundoBase64 = event.target.result;
+    document.getElementById("fundo").src = fundoBase64;
+  }
+
+  reader.readAsDataURL(file);
+});
+
+function preview() {
+  const link = document.getElementById("link").value;
+  const cor = document.getElementById("cor").value;
+  const canvas = document.getElementById("qrcode");
+
+  if (!link) {
+    alert("Coloque um link!");
+    return;
+  }
+
+  QRCode.toCanvas(canvas, link, {
+    width: 180,
+    margin: 1,
+    color: {
+      dark: cor,
+      light: "#ffffff"
     }
-  </script>
+  });
+}
+
+function baixar() {
+  const previewBox = document.getElementById("previewBox");
+
+  html2canvas(previewBox).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "qrcode.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+}
+</script>
+
+<!-- Biblioteca para exportar imagem -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 </body>
 </html>
