@@ -18,10 +18,6 @@ body {
   margin: 0;
 }
 
-.topo {
-  padding: 10px;
-}
-
 button, input, select {
   padding: 10px;
   margin: 5px;
@@ -35,7 +31,6 @@ button {
   cursor: pointer;
 }
 
-/* CANVAS */
 #canvas {
   width: 90vw;
   max-width: 900px;
@@ -46,14 +41,11 @@ button {
   background-position: center;
   border-radius: 12px;
   overflow: hidden;
-  border: 2px dashed #444;
 }
 
-/* QR */
 #qrcode {
   position: absolute;
   width: 25%;
-  aspect-ratio: 1/1;
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -61,18 +53,8 @@ button {
   resize: both;
   overflow: auto;
   min-width: 80px;
-  max-width: 90%;
 }
 
-/* MOLDURA */
-#moldura {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* GALERIA */
 #galeria {
   display: flex;
   overflow-x: auto;
@@ -85,20 +67,10 @@ button {
   border-radius: 8px;
   cursor: pointer;
 }
-
-/* LOADING */
-#loading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 </style>
 </head>
 
 <body>
-
-<div class="topo">
 
 <h2>🚀 QR PRO MAX</h2>
 
@@ -108,38 +80,24 @@ button {
 <br>
 
 <input id="tema" placeholder="Tema (ex: ônibus luxo)">
-<button onclick="buscarImagem()">Buscar</button>
+<button onclick="buscarImagem()">Buscar Imagens</button>
 <button onclick="autoIA()">🤖 IA Auto</button>
 
 <br>
 
-<select onchange="aplicarTemplate(this.value)">
-  <option value="">🎨 Template</option>
-  <option value="promo">Promoção</option>
-  <option value="luxo">Luxo</option>
-  <option value="dark">Dark</option>
-</select>
-
-<br>
-
-<button onclick="modoSmart()">📱 Smart</button>
-<button onclick="modoPC()">🖥️ PC</button>
-
-<br>
-
-<button onclick="baixar()">📥 Baixar PNG</button>
+<button onclick="baixar()">📥 Baixar</button>
 <button onclick="limpar()">🧹 Limpar</button>
-
-</div>
 
 <div id="canvas">
   <div id="qrcode"></div>
-  <div id="moldura"></div>
 </div>
 
 <div id="galeria"></div>
 
 <script>
+
+// 🔑 COLE SUA API AQUI
+const API_KEY = "COLE_SUA_API_PEXELS_AQUI";
 
 const canvas = document.getElementById("canvas");
 const qr = document.getElementById("qrcode");
@@ -147,11 +105,6 @@ const qr = document.getElementById("qrcode");
 // ================= QR =================
 function gerarQR() {
   const link = document.getElementById("link").value;
-
-  if (!link) {
-    alert("Coloque um link");
-    return;
-  }
 
   qr.innerHTML = "";
 
@@ -162,7 +115,7 @@ function gerarQR() {
   });
 }
 
-// ================= BUSCAR IMAGEM =================
+// ================= BUSCAR IMAGENS REAL =================
 async function buscarImagem() {
   const termo = document.getElementById("tema").value;
 
@@ -171,24 +124,37 @@ async function buscarImagem() {
     return;
   }
 
-  const url = `https://source.unsplash.com/400x400/?${encodeURIComponent(termo)}&${Date.now()}`;
-
   const galeria = document.getElementById("galeria");
-  galeria.innerHTML = "";
+  galeria.innerHTML = "Carregando...";
 
-  for (let i = 0; i < 5; i++) {
-    const img = document.createElement("img");
-    img.src = `https://source.unsplash.com/400x400/?${encodeURIComponent(termo)}&sig=${Math.random()}`;
+  try {
+    const res = await fetch(`https://api.pexels.com/v1/search?query=${termo}&per_page=8`, {
+      headers: {
+        Authorization: API_KEY
+      }
+    });
 
-    img.onclick = () => {
-      canvas.style.backgroundImage = `url(${img.src})`;
-    };
+    const data = await res.json();
 
-    galeria.appendChild(img);
+    galeria.innerHTML = "";
+
+    data.photos.forEach(photo => {
+      const img = document.createElement("img");
+      img.src = photo.src.medium;
+
+      img.onclick = () => {
+        canvas.style.backgroundImage = `url(${photo.src.large})`;
+      };
+
+      galeria.appendChild(img);
+    });
+
+  } catch (e) {
+    galeria.innerHTML = "Erro ao buscar imagens 😢";
   }
 }
 
-// ================= IA AUTO =================
+// ================= IA AUTO (SEM ERRO) =================
 function autoIA() {
   const termo = document.getElementById("tema").value;
 
@@ -197,69 +163,9 @@ function autoIA() {
     return;
   }
 
-  const loading = document.createElement("div");
-  loading.id = "loading";
-  loading.innerText = "Gerando imagem...";
-  canvas.appendChild(loading);
-
   const url = `https://source.unsplash.com/900x1600/?${encodeURIComponent(termo)}&${Date.now()}`;
 
-  canvas.style.backgroundImage = "none";
-
-  const img = new Image();
-
-  img.onload = () => {
-    canvas.style.backgroundImage = `url(${url})`;
-    loading.remove();
-  };
-
-  img.onerror = () => {
-    loading.innerText = "Erro ao carregar 😢";
-  };
-
-  img.src = url;
-}
-
-// ================= TEMPLATE =================
-function aplicarTemplate(tipo) {
-  const moldura = document.getElementById("moldura");
-
-  if (tipo === "promo") {
-    moldura.style.background = "linear-gradient(to top, rgba(0,0,0,0.7), transparent)";
-    qr.style.top = "75%";
-    qr.style.width = "30%";
-  }
-
-  if (tipo === "luxo") {
-    moldura.style.background = "linear-gradient(135deg, rgba(0,0,0,0.8), rgba(255,215,0,0.3))";
-    qr.style.top = "65%";
-    qr.style.width = "25%";
-  }
-
-  if (tipo === "dark") {
-    moldura.style.background = "rgba(0,0,0,0.6)";
-    qr.style.top = "70%";
-    qr.style.width = "28%";
-  }
-}
-
-// ================= RESET =================
-function resetQR() {
-  qr.style.left = "50%";
-  qr.style.top = "60%";
-  qr.style.width = "25%";
-  qr.style.transform = "translate(-50%, -50%)";
-}
-
-// ================= MODOS =================
-function modoSmart() {
-  canvas.style.aspectRatio = "9/16";
-  resetQR();
-}
-
-function modoPC() {
-  canvas.style.aspectRatio = "16/9";
-  resetQR();
+  canvas.style.backgroundImage = `url(${url})`;
 }
 
 // ================= DOWNLOAD =================
@@ -276,7 +182,6 @@ function baixar() {
 function limpar() {
   qr.innerHTML = "";
   canvas.style.backgroundImage = "";
-  document.getElementById("moldura").style.background = "";
   document.getElementById("galeria").innerHTML = "";
 }
 
