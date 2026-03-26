@@ -14,6 +14,239 @@ body {
   background: #111;
   color: #fff;
   text-align: center;
+}
+
+/* BOTÕES */
+.modos button {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.ativo {
+  background: #00c853;
+  color: #fff;
+}
+
+/* CANVAS */
+#canvas {
+  width: 90vw;
+  max-width: 900px;
+  aspect-ratio: 1 / 1;
+  margin: 20px auto;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* QR */
+#qrcode {
+  position: absolute;
+  width: 25%;
+  aspect-ratio: 1/1;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* RESIZER */
+.resizer {
+  width: 14px;
+  height: 14px;
+  background: #00c853;
+  position: absolute;
+  right: -7px;
+  bottom: -7px;
+  cursor: se-resize;
+}
+
+/* MOLDURA */
+#moldura {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-size: cover;
+  background-position: center;
+  z-index: 2;
+}
+
+/* GALERIA */
+#galeria {
+  display: flex;
+  overflow-x: auto;
+}
+
+#galeria img {
+  width: 120px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h2>🚀 QR Smart PRO</h2>
+
+<input id="link" placeholder="Seu link">
+<button onclick="gerarQR()">Gerar QR</button>
+
+<br><br>
+
+<input id="tema" placeholder="Buscar imagem">
+<button onclick="buscarImagem()">Buscar</button>
+
+<br><br>
+
+<div class="modos">
+  <button onclick="modoSmart(this)" class="ativo">📱 Smart</button>
+  <button onclick="modoPC(this)">🖥️ PC</button>
+</div>
+
+<div id="canvas">
+  <div id="qrcode"></div>
+  <div id="moldura"></div>
+</div>
+
+<div id="galeria"></div>
+
+<script>
+
+const API_KEY = "qxw3nmA7rAhdZR232Zs9Iekpcp8c2uQrqSqtUFQNoy1lthAGSGw2LJor";
+const qr = document.getElementById("qrcode");
+const canvas = document.getElementById("canvas");
+
+// ================= QR =================
+function gerarQR() {
+  qr.innerHTML = "";
+
+  new QRCode(qr, {
+    text: document.getElementById("link").value,
+    width: 200,
+    height: 200
+  });
+}
+
+// ================= BUSCAR IMAGEM =================
+async function buscarImagem() {
+  const termo = document.getElementById("tema").value;
+
+  const res = await fetch(`https://api.pexels.com/v1/search?query=${termo}&per_page=6`, {
+    headers: { Authorization: API_KEY }
+  });
+
+  const data = await res.json();
+  const galeria = document.getElementById("galeria");
+  galeria.innerHTML = "";
+
+  data.photos.forEach(f => {
+    const img = document.createElement("img");
+    img.src = f.src.medium;
+
+    img.onclick = () => {
+      canvas.style.backgroundImage = `url(${f.src.large})`;
+    };
+
+    galeria.appendChild(img);
+  });
+}
+
+// ================= MODOS =================
+function modoSmart(btn) {
+  canvas.style.aspectRatio = "9 / 16";
+
+  ativarBotao(btn);
+}
+
+function modoPC(btn) {
+  canvas.style.aspectRatio = "16 / 9";
+
+  ativarBotao(btn);
+}
+
+function ativarBotao(btn) {
+  document.querySelectorAll(".modos button").forEach(b => b.classList.remove("ativo"));
+  btn.classList.add("ativo");
+}
+
+// ================= MOLDURA =================
+
+// exemplo de moldura pronta (você pode trocar)
+document.getElementById("moldura").style.backgroundImage =
+  "url('https://i.imgur.com/8Km9tLL.png')";
+
+// ================= ARRASTAR =================
+let drag = false, offsetX, offsetY;
+
+qr.addEventListener("mousedown", e => {
+  drag = true;
+  offsetX = e.offsetX;
+  offsetY = e.offsetY;
+});
+
+document.addEventListener("mousemove", e => {
+  if (!drag) return;
+
+  const rect = canvas.getBoundingClientRect();
+
+  qr.style.left = (e.clientX - rect.left - offsetX) + "px";
+  qr.style.top = (e.clientY - rect.top - offsetY) + "px";
+});
+
+document.addEventListener("mouseup", () => drag = false);
+
+// ================= RESIZE =================
+const resizer = document.createElement("div");
+resizer.className = "resizer";
+qr.appendChild(resizer);
+
+let resizing = false;
+
+resizer.addEventListener("mousedown", e => {
+  e.stopPropagation();
+  resizing = true;
+});
+
+document.addEventListener("mousemove", e => {
+  if (!resizing) return;
+
+  const rect = qr.getBoundingClientRect();
+  const canvasRect = canvas.getBoundingClientRect();
+
+  let newWidth = (e.clientX - rect.left);
+  let percent = (newWidth / canvasRect.width) * 100;
+
+  if (percent > 10 && percent < 70) {
+    qr.style.width = percent + "%";
+  }
+});
+
+document.addEventListener("mouseup", () => resizing = false);
+
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>QR Smart PRO</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+body {
+  font-family: Arial;
+  background: #111;
+  color: #fff;
+  text-align: center;
   margin: 0;
 }
 
