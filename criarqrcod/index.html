@@ -15,10 +15,9 @@ body {
   background: #111;
   color: #fff;
   text-align: center;
-  margin: 0;
 }
 
-button, input, select {
+button, input {
   padding: 10px;
   margin: 5px;
   border-radius: 6px;
@@ -58,14 +57,17 @@ button {
 #galeria {
   display: flex;
   overflow-x: auto;
-  padding: 10px;
 }
 
 #galeria img {
   width: 120px;
   margin: 5px;
-  border-radius: 8px;
   cursor: pointer;
+  border-radius: 8px;
+}
+
+#preview {
+  margin-top: 20px;
 }
 </style>
 </head>
@@ -80,11 +82,12 @@ button {
 <br>
 
 <input id="tema" placeholder="Tema (ex: ônibus luxo)">
-<button onclick="buscarImagem()">Buscar Imagens</button>
-<button onclick="autoIA()">🤖 IA Auto</button>
+<button onclick="buscarImagem()">🔍 Buscar</button>
+<button onclick="autoIA()">🤖 IA</button>
 
 <br>
 
+<button onclick="preview()">👁️ Preview</button>
 <button onclick="baixar()">📥 Baixar</button>
 <button onclick="limpar()">🧹 Limpar</button>
 
@@ -94,10 +97,12 @@ button {
 
 <div id="galeria"></div>
 
+<div id="preview"></div>
+
 <script>
 
-// 🔑 COLE SUA API AQUI
-const API_KEY = "COLE_SUA_API_PEXELS_AQUI";
+// 🔑 SUA API
+const API_KEY = "qxw3nmA7rAhdZR232Zs9Iekpcp8c2uQrqSqtUFQNoy1lthAGSGw2LJor";
 
 const canvas = document.getElementById("canvas");
 const qr = document.getElementById("qrcode");
@@ -115,57 +120,78 @@ function gerarQR() {
   });
 }
 
-// ================= BUSCAR IMAGENS REAL =================
+// ================= BUSCAR IMAGEM =================
 async function buscarImagem() {
   const termo = document.getElementById("tema").value;
 
-  if (!termo) {
-    alert("Digite um tema");
-    return;
-  }
+  if (!termo) return alert("Digite um tema");
 
   const galeria = document.getElementById("galeria");
   galeria.innerHTML = "Carregando...";
 
   try {
-    const res = await fetch(`https://api.pexels.com/v1/search?query=${termo}&per_page=8`, {
-      headers: {
-        Authorization: API_KEY
-      }
+    const res = await fetch(`https://api.pexels.com/v1/search?query=${termo}&per_page=6`, {
+      headers: { Authorization: API_KEY }
     });
 
     const data = await res.json();
 
+    if (!data.photos || data.photos.length === 0) {
+      throw "sem resultado";
+    }
+
     galeria.innerHTML = "";
 
-    data.photos.forEach(photo => {
+    data.photos.forEach(p => {
       const img = document.createElement("img");
-      img.src = photo.src.medium;
+      img.src = p.src.medium;
 
       img.onclick = () => {
-        canvas.style.backgroundImage = `url(${photo.src.large})`;
+        canvas.style.backgroundImage = `url(${p.src.large})`;
       };
 
       galeria.appendChild(img);
     });
 
   } catch (e) {
-    galeria.innerHTML = "Erro ao buscar imagens 😢";
+    // 🔥 FALLBACK
+    galeria.innerHTML = "";
+
+    for (let i = 0; i < 5; i++) {
+      const img = document.createElement("img");
+      img.src = `https://source.unsplash.com/400x400/?${termo}&sig=${Math.random()}`;
+
+      img.onclick = () => {
+        canvas.style.backgroundImage = `url(${img.src})`;
+      };
+
+      galeria.appendChild(img);
+    }
   }
 }
 
-// ================= IA AUTO (SEM ERRO) =================
+// ================= IA =================
 function autoIA() {
   const termo = document.getElementById("tema").value;
 
-  if (!termo) {
-    alert("Digite um tema");
-    return;
-  }
+  if (!termo) return alert("Digite um tema");
 
-  const url = `https://source.unsplash.com/900x1600/?${encodeURIComponent(termo)}&${Date.now()}`;
+  const url = `https://source.unsplash.com/900x1600/?${termo},marketing,ads&${Date.now()}`;
 
   canvas.style.backgroundImage = `url(${url})`;
+}
+
+// ================= PREVIEW =================
+function preview() {
+  html2canvas(canvas).then(c => {
+    const img = document.createElement("img");
+    img.src = c.toDataURL();
+    img.style.width = "300px";
+
+    const prev = document.getElementById("preview");
+    prev.innerHTML = "";
+    prev.appendChild(img);
+  });
 }
 
 // ================= DOWNLOAD =================
@@ -183,6 +209,7 @@ function limpar() {
   qr.innerHTML = "";
   canvas.style.backgroundImage = "";
   document.getElementById("galeria").innerHTML = "";
+  document.getElementById("preview").innerHTML = "";
 }
 
 // ================= DRAG =================
