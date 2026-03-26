@@ -15,9 +15,14 @@ body {
   background: #111;
   color: #fff;
   text-align: center;
+  margin: 0;
 }
 
-button, select, input {
+.topo {
+  padding: 10px;
+}
+
+button, input, select {
   padding: 10px;
   margin: 5px;
   border-radius: 6px;
@@ -30,6 +35,7 @@ button {
   cursor: pointer;
 }
 
+/* CANVAS */
 #canvas {
   width: 90vw;
   max-width: 900px;
@@ -40,38 +46,33 @@ button {
   background-position: center;
   border-radius: 12px;
   overflow: hidden;
+  border: 2px dashed #444;
 }
 
+/* QR */
 #qrcode {
   position: absolute;
   width: 25%;
   aspect-ratio: 1/1;
-  top: 60%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
+  cursor: move;
 }
 
-/* encaixe automático */
-.template-qr {
-  top: 70% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  width: 30% !important;
-}
-
-/* moldura */
+/* MOLDURA */
 #moldura {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-size: cover;
   z-index: 2;
 }
 
-/* galeria */
+/* GALERIA */
 #galeria {
   display: flex;
   overflow-x: auto;
+  padding: 10px;
 }
 
 #galeria img {
@@ -80,26 +81,36 @@ button {
   border-radius: 8px;
   cursor: pointer;
 }
+
+/* LOADING */
+#loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 </style>
 </head>
 
 <body>
 
+<div class="topo">
+
 <h2>🚀 QR PRO MAX</h2>
 
-<input id="link" placeholder="Seu link">
+<input id="link" placeholder="Cole seu link">
 <button onclick="gerarQR()">Gerar QR</button>
 
 <br>
 
-<input id="tema" placeholder="Tema da arte">
+<input id="tema" placeholder="Tema (ex: ônibus luxo)">
 <button onclick="buscarImagem()">Buscar</button>
 <button onclick="autoIA()">🤖 IA Auto</button>
 
 <br>
 
 <select onchange="aplicarTemplate(this.value)">
-  <option value="">🎨 Escolher Template</option>
+  <option value="">🎨 Template</option>
   <option value="promo">Promoção</option>
   <option value="luxo">Luxo</option>
   <option value="dark">Dark</option>
@@ -114,6 +125,8 @@ button {
 
 <button onclick="baixar()">📥 Baixar PNG</button>
 <button onclick="limpar()">🧹 Limpar</button>
+
+</div>
 
 <div id="canvas">
   <div id="qrcode"></div>
@@ -130,17 +143,30 @@ const qr = document.getElementById("qrcode");
 
 // ================= QR =================
 function gerarQR() {
+  const link = document.getElementById("link").value;
+
+  if (!link) {
+    alert("Coloque um link");
+    return;
+  }
+
   qr.innerHTML = "";
+
   new QRCode(qr, {
-    text: document.getElementById("link").value,
+    text: link,
     width: 200,
     height: 200
   });
 }
 
-// ================= BUSCAR =================
+// ================= BUSCAR IMAGEM =================
 async function buscarImagem() {
   const termo = document.getElementById("tema").value;
+
+  if (!termo) {
+    alert("Digite um tema");
+    return;
+  }
 
   const res = await fetch(`https://api.pexels.com/v1/search?query=${termo}&per_page=6`, {
     headers: { Authorization: API_KEY }
@@ -148,6 +174,7 @@ async function buscarImagem() {
 
   const data = await res.json();
   const galeria = document.getElementById("galeria");
+
   galeria.innerHTML = "";
 
   data.photos.forEach(f => {
@@ -166,29 +193,49 @@ async function buscarImagem() {
 function autoIA() {
   const termo = document.getElementById("tema").value;
 
-  canvas.style.backgroundImage =
-    `url(https://source.unsplash.com/900x1600/?${termo},premium,marketing)`;
+  if (!termo) {
+    alert("Digite um tema");
+    return;
+  }
+
+  document.getElementById("loading")?.remove();
+
+  const loading = document.createElement("div");
+  loading.id = "loading";
+  loading.innerText = "Gerando imagem...";
+  canvas.appendChild(loading);
+
+  const url = `https://source.unsplash.com/900x1600/?${termo},marketing,business&sig=${Math.random()}`;
+
+  const img = new Image();
+  img.src = url;
+
+  img.onload = () => {
+    loading.remove();
+    canvas.style.backgroundImage = `url(${url})`;
+  };
 }
 
 // ================= TEMPLATE =================
 function aplicarTemplate(tipo) {
   const moldura = document.getElementById("moldura");
 
-  qr.classList.add("template-qr");
-
   if (tipo === "promo") {
-    moldura.style.backgroundImage =
-      "url('https://i.imgur.com/8Km9tLL.png')";
+    moldura.style.background = "linear-gradient(to top, rgba(0,0,0,0.7), transparent)";
+    qr.style.top = "75%";
+    qr.style.width = "30%";
   }
 
   if (tipo === "luxo") {
-    moldura.style.backgroundImage =
-      "url('https://i.imgur.com/QZ6FQYk.png')";
+    moldura.style.background = "linear-gradient(135deg, rgba(0,0,0,0.8), rgba(255,215,0,0.3))";
+    qr.style.top = "65%";
+    qr.style.width = "25%";
   }
 
   if (tipo === "dark") {
-    moldura.style.backgroundImage =
-      "url('https://i.imgur.com/3ZQ3Z6F.png')";
+    moldura.style.background = "rgba(0,0,0,0.6)";
+    qr.style.top = "70%";
+    qr.style.width = "28%";
   }
 }
 
@@ -215,8 +262,29 @@ function baixar() {
 function limpar() {
   qr.innerHTML = "";
   canvas.style.backgroundImage = "";
-  document.getElementById("moldura").style.backgroundImage = "";
+  document.getElementById("moldura").style.background = "";
+  document.getElementById("galeria").innerHTML = "";
 }
+
+// ================= ARRASTAR =================
+let drag = false, offsetX, offsetY;
+
+qr.addEventListener("mousedown", e => {
+  drag = true;
+  offsetX = e.offsetX;
+  offsetY = e.offsetY;
+});
+
+document.addEventListener("mousemove", e => {
+  if (!drag) return;
+
+  const rect = canvas.getBoundingClientRect();
+
+  qr.style.left = (e.clientX - rect.left - offsetX) + "px";
+  qr.style.top = (e.clientY - rect.top - offsetY) + "px";
+});
+
+document.addEventListener("mouseup", () => drag = false);
 
 </script>
 
