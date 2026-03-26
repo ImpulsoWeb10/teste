@@ -54,10 +54,14 @@ button {
   position: absolute;
   width: 25%;
   aspect-ratio: 1/1;
-  top: 65%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: move;
+  resize: both;
+  overflow: auto;
+  min-width: 80px;
+  max-width: 90%;
 }
 
 /* MOLDURA */
@@ -137,7 +141,6 @@ button {
 
 <script>
 
-const API_KEY = "SUA_API_KEY_AQUI";
 const canvas = document.getElementById("canvas");
 const qr = document.getElementById("qrcode");
 
@@ -168,25 +171,21 @@ async function buscarImagem() {
     return;
   }
 
-  const res = await fetch(`https://api.pexels.com/v1/search?query=${termo}&per_page=6`, {
-    headers: { Authorization: API_KEY }
-  });
+  const url = `https://source.unsplash.com/400x400/?${encodeURIComponent(termo)}&${Date.now()}`;
 
-  const data = await res.json();
   const galeria = document.getElementById("galeria");
-
   galeria.innerHTML = "";
 
-  data.photos.forEach(f => {
+  for (let i = 0; i < 5; i++) {
     const img = document.createElement("img");
-    img.src = f.src.medium;
+    img.src = `https://source.unsplash.com/400x400/?${encodeURIComponent(termo)}&sig=${Math.random()}`;
 
     img.onclick = () => {
-      canvas.style.backgroundImage = `url(${f.src.large})`;
+      canvas.style.backgroundImage = `url(${img.src})`;
     };
 
     galeria.appendChild(img);
-  });
+  }
 }
 
 // ================= IA AUTO =================
@@ -198,22 +197,27 @@ function autoIA() {
     return;
   }
 
-  document.getElementById("loading")?.remove();
-
   const loading = document.createElement("div");
   loading.id = "loading";
   loading.innerText = "Gerando imagem...";
   canvas.appendChild(loading);
 
-  const url = `https://source.unsplash.com/900x1600/?${termo},marketing,business&sig=${Math.random()}`;
+  const url = `https://source.unsplash.com/900x1600/?${encodeURIComponent(termo)}&${Date.now()}`;
+
+  canvas.style.backgroundImage = "none";
 
   const img = new Image();
-  img.src = url;
 
   img.onload = () => {
-    loading.remove();
     canvas.style.backgroundImage = `url(${url})`;
+    loading.remove();
   };
+
+  img.onerror = () => {
+    loading.innerText = "Erro ao carregar 😢";
+  };
+
+  img.src = url;
 }
 
 // ================= TEMPLATE =================
@@ -239,13 +243,23 @@ function aplicarTemplate(tipo) {
   }
 }
 
+// ================= RESET =================
+function resetQR() {
+  qr.style.left = "50%";
+  qr.style.top = "60%";
+  qr.style.width = "25%";
+  qr.style.transform = "translate(-50%, -50%)";
+}
+
 // ================= MODOS =================
 function modoSmart() {
   canvas.style.aspectRatio = "9/16";
+  resetQR();
 }
 
 function modoPC() {
   canvas.style.aspectRatio = "16/9";
+  resetQR();
 }
 
 // ================= DOWNLOAD =================
@@ -266,25 +280,24 @@ function limpar() {
   document.getElementById("galeria").innerHTML = "";
 }
 
-// ================= ARRASTAR =================
-let drag = false, offsetX, offsetY;
+// ================= DRAG =================
+let dragging = false;
 
-qr.addEventListener("mousedown", e => {
-  drag = true;
-  offsetX = e.offsetX;
-  offsetY = e.offsetY;
+qr.addEventListener("mousedown", () => {
+  dragging = true;
+  qr.style.transform = "none";
 });
 
-document.addEventListener("mousemove", e => {
-  if (!drag) return;
+document.addEventListener("mousemove", (e) => {
+  if (!dragging) return;
 
   const rect = canvas.getBoundingClientRect();
 
-  qr.style.left = (e.clientX - rect.left - offsetX) + "px";
-  qr.style.top = (e.clientY - rect.top - offsetY) + "px";
+  qr.style.left = (e.clientX - rect.left) + "px";
+  qr.style.top = (e.clientY - rect.top) + "px";
 });
 
-document.addEventListener("mouseup", () => drag = false);
+document.addEventListener("mouseup", () => dragging = false);
 
 </script>
 
