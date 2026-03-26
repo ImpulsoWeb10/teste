@@ -2,83 +2,116 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Gerador QR PRO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>QR Smart PRO</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 body {
   font-family: Arial;
+  background: #111;
+  color: #fff;
   text-align: center;
-  background: #f4f4f4;
+  margin: 0;
 }
 
+/* TOPO */
+.topo {
+  padding: 15px;
+}
+
+input, button {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 6px;
+  border: none;
+}
+
+button {
+  background: #00c853;
+  color: white;
+  cursor: pointer;
+}
+
+/* CANVAS RESPONSIVO */
 #canvas {
+  width: 90vw;
+  max-width: 900px;
+  aspect-ratio: 1 / 1;
   margin: 20px auto;
-  border: 2px dashed #aaa;
+  border-radius: 12px;
+  overflow: hidden;
   position: relative;
   background-size: cover;
   background-position: center;
-  width: 600px;
-  height: 600px;
-  overflow: hidden;
+  border: 2px dashed #444;
 }
 
+/* QR */
 #qrcode {
   position: absolute;
+  width: 25%;
+  aspect-ratio: 1 / 1;
   cursor: move;
-  border: 2px solid transparent;
 }
 
-#qrcode:focus {
-  border: 2px dashed red;
-}
-
+/* RESIZER */
 .resizer {
-  width: 15px;
-  height: 15px;
-  background: red;
+  width: 14px;
+  height: 14px;
+  background: #00c853;
   position: absolute;
-  right: -8px;
-  bottom: -8px;
+  right: -7px;
+  bottom: -7px;
   cursor: se-resize;
+}
+
+/* GALERIA */
+#galeria {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px;
 }
 
 #galeria img {
   width: 120px;
+  border-radius: 8px;
   margin: 5px;
   cursor: pointer;
-  border-radius: 6px;
 }
 </style>
 </head>
 
 <body>
 
-<h2>🚀 Gerador de QR Code Inteligente</h2>
+<div class="topo">
+  <h2>🚀 QR Smart PRO</h2>
 
-<input type="text" id="link" placeholder="Cole seu link">
-<button onclick="gerarQR()">Gerar QR</button>
+  <input id="link" placeholder="Cole seu link">
+  <button onclick="gerarQR()">Gerar QR</button>
 
-<br><br>
+  <br>
 
-<input type="text" id="tema" placeholder="Buscar imagem (ex: ônibus luxo)">
-<button onclick="buscarImagem()">Buscar Imagem</button>
+  <input id="tema" placeholder="Buscar imagem">
+  <button onclick="buscarImagem()">Buscar</button>
+</div>
+
+<div id="canvas">
+  <div id="qrcode"></div>
+</div>
 
 <div id="galeria"></div>
 
-<div id="canvas">
-  <div id="qrcode" tabindex="0"></div>
-</div>
-
 <script>
 
-// 🔑 SUA API AQUI
+// 🔑 SUA API
 const API_KEY = "qxw3nmA7rAhdZR232Zs9Iekpcp8c2uQrqSqtUFQNoy1lthAGSGw2LJor";
 
-let qr = document.getElementById("qrcode");
+const qr = document.getElementById("qrcode");
 
-// ================= QR CODE =================
+// ================= QR =================
 function gerarQR() {
   const link = document.getElementById("link").value;
 
@@ -86,8 +119,8 @@ function gerarQR() {
 
   new QRCode(qr, {
     text: link,
-    width: 150,
-    height: 150
+    width: 200,
+    height: 200
   });
 }
 
@@ -95,7 +128,7 @@ function gerarQR() {
 async function buscarImagem() {
   const termo = document.getElementById("tema").value;
 
-  const res = await fetch(`https://api.pexels.com/v1/search?query=${termo}&per_page=6`, {
+  const res = await fetch(`https://api.pexels.com/v1/search?query=${termo}&per_page=8`, {
     headers: { Authorization: API_KEY }
   });
 
@@ -110,7 +143,6 @@ async function buscarImagem() {
 
     img.onclick = () => {
       const canvas = document.getElementById("canvas");
-
       canvas.style.backgroundImage = `url(${foto.src.large})`;
 
       ajustarCanvas(foto.width, foto.height);
@@ -120,44 +152,38 @@ async function buscarImagem() {
   });
 }
 
-// ================= AJUSTAR TELA =================
+// ================= AJUSTE INTELIGENTE =================
 function ajustarCanvas(w, h) {
   const canvas = document.getElementById("canvas");
 
   if (w > h) {
-    canvas.style.width = "800px";
-    canvas.style.height = "450px";
+    canvas.style.aspectRatio = "16 / 9";
   } else {
-    canvas.style.width = "450px";
-    canvas.style.height = "800px";
+    canvas.style.aspectRatio = "9 / 16";
   }
 }
 
-// ================= ARRASTAR QR =================
-let isDragging = false;
-let offsetX, offsetY;
+// ================= ARRASTAR =================
+let drag = false, offsetX, offsetY;
 
 qr.addEventListener("mousedown", e => {
-  isDragging = true;
+  drag = true;
   offsetX = e.offsetX;
   offsetY = e.offsetY;
 });
 
 document.addEventListener("mousemove", e => {
-  if (!isDragging) return;
+  if (!drag) return;
 
-  const canvas = document.getElementById("canvas");
   const rect = canvas.getBoundingClientRect();
 
   qr.style.left = (e.clientX - rect.left - offsetX) + "px";
   qr.style.top = (e.clientY - rect.top - offsetY) + "px";
 });
 
-document.addEventListener("mouseup", () => {
-  isDragging = false;
-});
+document.addEventListener("mouseup", () => drag = false);
 
-// ================= REDIMENSIONAR =================
+// ================= RESIZE =================
 const resizer = document.createElement("div");
 resizer.className = "resizer";
 qr.appendChild(resizer);
@@ -172,33 +198,19 @@ resizer.addEventListener("mousedown", e => {
 document.addEventListener("mousemove", e => {
   if (!resizing) return;
 
-  let size = e.clientX - qr.getBoundingClientRect().left;
+  const rect = qr.getBoundingClientRect();
+  const canvasRect = canvas.getBoundingClientRect();
 
-  if (size > 50) {
-    qr.style.width = size + "px";
-    qr.style.height = size + "px";
+  let newWidth = (e.clientX - rect.left);
+
+  let percent = (newWidth / canvasRect.width) * 100;
+
+  if (percent > 10 && percent < 80) {
+    qr.style.width = percent + "%";
   }
 });
 
-document.addEventListener("mouseup", () => {
-  resizing = false;
-});
-
-// ================= TECLADO =================
-document.addEventListener("keydown", e => {
-  if (document.activeElement !== qr) return;
-
-  let top = qr.offsetTop;
-  let left = qr.offsetLeft;
-
-  if (e.key === "ArrowUp") top -= 5;
-  if (e.key === "ArrowDown") top += 5;
-  if (e.key === "ArrowLeft") left -= 5;
-  if (e.key === "ArrowRight") left += 5;
-
-  qr.style.top = top + "px";
-  qr.style.left = left + "px";
-});
+document.addEventListener("mouseup", () => resizing = false);
 
 </script>
 
