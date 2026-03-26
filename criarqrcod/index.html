@@ -30,20 +30,17 @@ button {
   cursor: pointer;
 }
 
-/* Preview */
 #previewBox {
   margin-top: 20px;
   position: relative;
   display: inline-block;
 }
 
-/* Fundo */
 #fundo {
   border-radius: 12px;
   display: block;
 }
 
-/* QR */
 #qrWrapper {
   position: absolute;
   width: 150px;
@@ -51,13 +48,11 @@ button {
   touch-action: none;
 }
 
-/* Canvas */
 #qrcode {
   width: 100%;
   height: 100%;
 }
 
-/* Seleção */
 .selected {
   outline: 2px dashed #22c55e;
 }
@@ -91,6 +86,7 @@ button {
 <script>
 const fundo = document.getElementById("fundo");
 const qrWrapper = document.getElementById("qrWrapper");
+const canvasQR = document.getElementById("qrcode");
 
 let selecionado = null;
 
@@ -114,7 +110,7 @@ document.getElementById("uploadFundo").addEventListener("change", function(e){
         fundo.style.width = "auto";
       }
 
-      // centraliza QR
+      // Centralizar QR
       qrWrapper.style.left = "50%";
       qrWrapper.style.top = "50%";
       qrWrapper.style.transform = "translate(-50%, -50%)";
@@ -127,23 +123,24 @@ document.getElementById("uploadFundo").addEventListener("change", function(e){
 });
 
 /* ===== GERAR QR ===== */
-function preview() {
+function gerarQR(size = 300) {
   const link = document.getElementById("link").value;
   const cor = document.getElementById("cor").value;
 
-  if (!link) {
-    alert("Coloque um link!");
-    return;
-  }
+  if (!link) return;
 
-  QRCode.toCanvas(document.getElementById("qrcode"), link, {
-    width: 300,
+  QRCode.toCanvas(canvasQR, link, {
+    width: size,
     margin: 1,
     color: {
       dark: cor,
       light: "#ffffff"
     }
   });
+}
+
+function preview() {
+  gerarQR(300);
 }
 
 /* ===== DOWNLOAD ===== */
@@ -176,9 +173,8 @@ document.addEventListener("keydown", function(e) {
   let y = parseFloat(selecionado.getAttribute("data-y")) || 0;
 
   let passo = 5;
-
-  if (e.shiftKey) passo = 15; // mais rápido
-  if (e.altKey) passo = 1;    // ultra preciso
+  if (e.shiftKey) passo = 15;
+  if (e.altKey) passo = 1;
 
   if (e.key === "ArrowUp") y -= passo;
   if (e.key === "ArrowDown") y += passo;
@@ -194,20 +190,17 @@ document.addEventListener("keydown", function(e) {
 interact(qrWrapper).draggable({
   listeners: {
     move (event) {
-      const target = event.target;
+      let x = (parseFloat(qrWrapper.getAttribute('data-x')) || 0) + event.dx;
+      let y = (parseFloat(qrWrapper.getAttribute('data-y')) || 0) + event.dy;
 
-      let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
-      let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
-      target.style.transform = `translate(${x}px, ${y}px)`;
-
-      target.setAttribute('data-x', x);
-      target.setAttribute('data-y', y);
+      qrWrapper.style.transform = `translate(${x}px, ${y}px)`;
+      qrWrapper.setAttribute('data-x', x);
+      qrWrapper.setAttribute('data-y', y);
     }
   }
 });
 
-/* ===== RESIZE COMPLETO ===== */
+/* ===== RESIZE REAL (CORRIGIDO) ===== */
 interact(qrWrapper).resizable({
   edges: { top: true, left: true, bottom: true, right: true },
 
@@ -218,8 +211,10 @@ interact(qrWrapper).resizable({
       x = parseFloat(x) || 0;
       y = parseFloat(y) || 0;
 
-      event.target.style.width = event.rect.width + 'px';
-      event.target.style.height = event.rect.height + 'px';
+      const width = event.rect.width;
+
+      event.target.style.width = width + 'px';
+      event.target.style.height = width + 'px'; // mantém quadrado
 
       x += event.deltaRect.left;
       y += event.deltaRect.top;
@@ -228,6 +223,9 @@ interact(qrWrapper).resizable({
 
       event.target.setAttribute('data-x', x);
       event.target.setAttribute('data-y', y);
+
+      // 🔥 ATUALIZA QR DE VERDADE
+      gerarQR(width);
     }
   }
 });
