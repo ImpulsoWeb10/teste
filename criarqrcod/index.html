@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>QR Smart PRO</title>
+<title>QR PRO MAX</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
 body {
@@ -14,45 +15,33 @@ body {
   background: #111;
   color: #fff;
   text-align: center;
-  margin: 0;
 }
 
-.topo {
+button, select, input {
   padding: 10px;
+  margin: 5px;
+  border-radius: 6px;
+  border: none;
 }
 
 button {
-  padding: 10px;
-  margin: 5px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
   background: #00c853;
   color: white;
+  cursor: pointer;
 }
 
-input {
-  padding: 10px;
-  margin: 5px;
-  border-radius: 6px;
-  border: none;
-}
-
-/* CANVAS */
 #canvas {
   width: 90vw;
   max-width: 900px;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1/1;
   margin: 20px auto;
   position: relative;
   background-size: cover;
   background-position: center;
   border-radius: 12px;
   overflow: hidden;
-  border: 2px dashed #444;
 }
 
-/* QR */
 #qrcode {
   position: absolute;
   width: 25%;
@@ -60,35 +49,29 @@ input {
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
-  cursor: move;
 }
 
-/* RESIZER */
-.resizer {
-  width: 14px;
-  height: 14px;
-  background: #00c853;
-  position: absolute;
-  right: -7px;
-  bottom: -7px;
-  cursor: se-resize;
+/* encaixe automático */
+.template-qr {
+  top: 70% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 30% !important;
 }
 
-/* MOLDURA */
+/* moldura */
 #moldura {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background-size: cover;
-  background-position: center;
   z-index: 2;
 }
 
-/* GALERIA */
+/* galeria */
 #galeria {
   display: flex;
   overflow-x: auto;
-  padding: 10px;
 }
 
 #galeria img {
@@ -102,27 +85,35 @@ input {
 
 <body>
 
-<div class="topo">
-  <h2>🚀 QR Smart PRO</h2>
+<h2>🚀 QR PRO MAX</h2>
 
-  <input id="link" placeholder="Cole seu link">
-  <button onclick="gerarQR()">Gerar QR</button>
+<input id="link" placeholder="Seu link">
+<button onclick="gerarQR()">Gerar QR</button>
 
-  <br>
+<br>
 
-  <input id="tema" placeholder="Buscar imagem">
-  <button onclick="buscarImagem()">Buscar</button>
+<input id="tema" placeholder="Tema da arte">
+<button onclick="buscarImagem()">Buscar</button>
+<button onclick="autoIA()">🤖 IA Auto</button>
 
-  <br>
+<br>
 
-  <button onclick="modoSmart()">📱 Smart</button>
-  <button onclick="modoPC()">🖥️ PC</button>
+<select onchange="aplicarTemplate(this.value)">
+  <option value="">🎨 Escolher Template</option>
+  <option value="promo">Promoção</option>
+  <option value="luxo">Luxo</option>
+  <option value="dark">Dark</option>
+</select>
 
-  <br>
+<br>
 
-  <button onclick="preVisualizar()">👁️ Pré-visualizar</button>
-  <button onclick="limparTudo()">🧹 Limpar</button>
-</div>
+<button onclick="modoSmart()">📱 Smart</button>
+<button onclick="modoPC()">🖥️ PC</button>
+
+<br>
+
+<button onclick="baixar()">📥 Baixar PNG</button>
+<button onclick="limpar()">🧹 Limpar</button>
 
 <div id="canvas">
   <div id="qrcode"></div>
@@ -133,14 +124,13 @@ input {
 
 <script>
 
-const API_KEY = "SUA_API_KEY_AQUI"; // coloque sua chave aqui
-const qr = document.getElementById("qrcode");
+const API_KEY = "SUA_API_KEY_AQUI";
 const canvas = document.getElementById("canvas");
+const qr = document.getElementById("qrcode");
 
 // ================= QR =================
 function gerarQR() {
   qr.innerHTML = "";
-
   new QRCode(qr, {
     text: document.getElementById("link").value,
     width: 200,
@@ -148,7 +138,7 @@ function gerarQR() {
   });
 }
 
-// ================= BUSCAR IMAGEM =================
+// ================= BUSCAR =================
 async function buscarImagem() {
   const termo = document.getElementById("tema").value;
 
@@ -172,87 +162,61 @@ async function buscarImagem() {
   });
 }
 
+// ================= IA AUTO =================
+function autoIA() {
+  const termo = document.getElementById("tema").value;
+
+  canvas.style.backgroundImage =
+    `url(https://source.unsplash.com/900x1600/?${termo},premium,marketing)`;
+}
+
+// ================= TEMPLATE =================
+function aplicarTemplate(tipo) {
+  const moldura = document.getElementById("moldura");
+
+  qr.classList.add("template-qr");
+
+  if (tipo === "promo") {
+    moldura.style.backgroundImage =
+      "url('https://i.imgur.com/8Km9tLL.png')";
+  }
+
+  if (tipo === "luxo") {
+    moldura.style.backgroundImage =
+      "url('https://i.imgur.com/QZ6FQYk.png')";
+  }
+
+  if (tipo === "dark") {
+    moldura.style.backgroundImage =
+      "url('https://i.imgur.com/3ZQ3Z6F.png')";
+  }
+}
+
 // ================= MODOS =================
 function modoSmart() {
-  canvas.style.aspectRatio = "9 / 16";
+  canvas.style.aspectRatio = "9/16";
 }
 
 function modoPC() {
-  canvas.style.aspectRatio = "16 / 9";
+  canvas.style.aspectRatio = "16/9";
 }
 
-// ================= PREVIEW =================
-function preVisualizar() {
-  const novaJanela = window.open("");
-
-  novaJanela.document.write(`
-    <html>
-      <head>
-        <title>Preview</title>
-      </head>
-      <body style="margin:0;display:flex;justify-content:center;align-items:center;background:#000;">
-        ${canvas.outerHTML}
-      </body>
-    </html>
-  `);
+// ================= DOWNLOAD =================
+function baixar() {
+  html2canvas(canvas).then(c => {
+    const link = document.createElement("a");
+    link.download = "qr.png";
+    link.href = c.toDataURL();
+    link.click();
+  });
 }
 
 // ================= LIMPAR =================
-function limparTudo() {
+function limpar() {
   qr.innerHTML = "";
   canvas.style.backgroundImage = "";
-  document.getElementById("galeria").innerHTML = "";
-  document.getElementById("link").value = "";
-  document.getElementById("tema").value = "";
+  document.getElementById("moldura").style.backgroundImage = "";
 }
-
-// ================= ARRASTAR =================
-let drag = false, offsetX, offsetY;
-
-qr.addEventListener("mousedown", e => {
-  drag = true;
-  offsetX = e.offsetX;
-  offsetY = e.offsetY;
-});
-
-document.addEventListener("mousemove", e => {
-  if (!drag) return;
-
-  const rect = canvas.getBoundingClientRect();
-
-  qr.style.left = (e.clientX - rect.left - offsetX) + "px";
-  qr.style.top = (e.clientY - rect.top - offsetY) + "px";
-});
-
-document.addEventListener("mouseup", () => drag = false);
-
-// ================= RESIZE =================
-const resizer = document.createElement("div");
-resizer.className = "resizer";
-qr.appendChild(resizer);
-
-let resizing = false;
-
-resizer.addEventListener("mousedown", e => {
-  e.stopPropagation();
-  resizing = true;
-});
-
-document.addEventListener("mousemove", e => {
-  if (!resizing) return;
-
-  const rect = qr.getBoundingClientRect();
-  const canvasRect = canvas.getBoundingClientRect();
-
-  let newWidth = (e.clientX - rect.left);
-  let percent = (newWidth / canvasRect.width) * 100;
-
-  if (percent > 10 && percent < 70) {
-    qr.style.width = percent + "%";
-  }
-});
-
-document.addEventListener("mouseup", () => resizing = false);
 
 </script>
 
