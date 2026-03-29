@@ -6,105 +6,149 @@
 <title>Salgados Delícia</title>
 
 <style>
-body {margin:0;font-family:Arial;background:#f2f2f2;}
-
-header {
-  background:#111;
-  color:gold;
-  padding:15px;
-  text-align:center;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
 }
 
-.container {padding:15px;}
+/* HEADER COM LOGO */
+header {
+  background: linear-gradient(45deg, #111, #222);
+  color: gold;
+  padding: 15px;
+  text-align: center;
+}
+
+header img {
+  max-height: 50px;
+  display: block;
+  margin: 0 auto 5px;
+}
+
+.container {
+  padding: 15px;
+}
 
 .card {
-  background:white;
-  border-radius:12px;
-  padding:10px;
-  margin-bottom:10px;
-  display:flex;
-  justify-content:space-between;
+  background: white;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
 button {
-  background:#ff6600;
-  color:white;
-  border:none;
-  padding:5px 10px;
-  border-radius:6px;
+  background: #ff6600;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
 }
 
 .resumo {
-  background:black;
-  color:#00ff88;
-  padding:10px;
-  border-radius:10px;
-  margin-top:10px;
-  font-family:monospace;
+  background: #111;
+  color: #00ff88;
+  padding: 15px;
+  border-radius: 15px;
+  margin-top: 15px;
+  font-family: monospace;
 }
 
-input,select {
-  width:100%;
-  padding:10px;
-  margin-top:8px;
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
 }
 
 .finalizar {
-  width:100%;
-  padding:12px;
-  background:#25d366;
+  width: 100%;
+  padding: 15px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 12px;
+  background: #25d366;
+  color: white;
+  font-size: 16px;
 }
 
-/* MODAL PRETO DOURADO */
+/* MODAL LUXO */
 .modal {
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:rgba(0,0,0,0.9);
-  display:none;
-  align-items:center;
-  justify-content:center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
 }
 
 .modal-content {
-  background:#000;
-  color:gold;
-  padding:30px;
-  border-radius:15px;
-  text-align:center;
-  border:2px solid gold;
-  box-shadow:0 0 30px gold,0 0 60px rgba(255,215,0,0.5);
+  background: #000;
+  color: gold;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  width: 90%;
+  max-width: 320px;
+
+  border: 2px solid gold;
+  box-shadow: 0 0 25px gold, 0 0 60px rgba(255,215,0,0.5);
+
+  animation: zoom 0.3s ease;
 }
 
+.check {
+  font-size: 40px;
+  color: gold;
+  margin-bottom: 10px;
+}
+
+/* BARRA ANIMADA */
 .barra {
-  width:100%;
-  height:5px;
-  background:#222;
-  margin-top:15px;
-  overflow:hidden;
+  width: 100%;
+  height: 6px;
+  background: #222;
+  border-radius: 10px;
+  margin-top: 20px;
+  overflow: hidden;
 }
 
 #progresso {
-  height:100%;
-  width:0%;
-  background:gold;
-  animation:carregar 5s linear forwards;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, gold, #ffd700);
+  animation: carregar 5s linear forwards;
 }
 
 @keyframes carregar {
-  from{width:0%;}
-  to{width:100%;}
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+@keyframes zoom {
+  from {transform: scale(0.8); opacity: 0;}
+  to {transform: scale(1); opacity: 1;}
 }
 </style>
 </head>
 
 <body>
 
-<header>🍟 Salgados Delícia</header>
+<header>
+  <!-- 🔥 TROQUE PELO SEU LOGO -->
+  <img src="logo.png">
+  Salgados Delícia
+</header>
 
 <div class="container">
-
-<div id="infoPedido"></div>
 
 <div id="produtos"></div>
 
@@ -112,24 +156,26 @@ input,select {
 <pre id="recibo"></pre>
 </div>
 
+<h3>📦 Tipo de pedido</h3>
 <select id="tipo" onchange="toggleEntrega()">
-<option value="Retirada">Retirada</option>
-<option value="Entrega">Entrega</option>
+  <option value="Retirada">Retirada</option>
+  <option value="Entrega">Entrega</option>
 </select>
 
 <div id="campoEndereco" style="display:none;">
-<input id="endereco" placeholder="Endereço">
-<input id="taxa" type="number" placeholder="Taxa" oninput="gerarRecibo()">
+  <input type="text" id="endereco" placeholder="Endereço">
+  <input type="number" id="taxa" placeholder="Taxa entrega" oninput="gerarRecibo()">
 </div>
 
-<input id="nome" placeholder="Nome">
+<input type="text" id="nome" placeholder="Seu nome">
 
 <select id="pagamento">
-<option>Dinheiro</option>
-<option>Pix</option>
+  <option>Dinheiro</option>
+  <option>Pix</option>
+  <option>Cartão</option>
 </select>
 
-<input id="desconto" type="number" placeholder="Desconto" oninput="gerarRecibo()">
+<input type="number" id="desconto" placeholder="Desconto" oninput="gerarRecibo()">
 
 <button class="finalizar" onclick="enviar()">Finalizar Pedido</button>
 
@@ -138,82 +184,161 @@ input,select {
 <!-- MODAL -->
 <div id="modal" class="modal">
   <div class="modal-content">
-    <h2>Obrigado!</h2>
-    <p>Seu pedido está sendo criado! ✨</p>
-    <div class="barra"><div id="progresso"></div></div>
+    <div class="check">✔</div>
+    <h2>Pedido confirmado</h2>
+    <p>
+      Estamos preparando seu pedido com qualidade premium ✨
+    </p>
+
+    <div class="barra">
+      <div id="progresso"></div>
+    </div>
   </div>
 </div>
 
 <script>
-let produtos=[
-{nome:"Coxinha",preco:5},
-{nome:"Kibe",preco:5},
-{nome:"Esfiha",preco:6}
+let produtos = [
+  {nome: "Coxinha", preco: 5},
+  {nome: "Kibe", preco: 5},
+  {nome: "Esfiha", preco: 6},
+  {nome: "Enroladinho", preco: 4}
 ];
 
-let carrinho={};
-let numeroPedido=null;
-let dataPedido=null;
+let carrinho = {};
 
-function iniciarPedido(){
-  let salvo=localStorage.getItem("pedidoAberto");
-
-  if(salvo){
-    let dados=JSON.parse(salvo);
-    carrinho=dados.carrinho;
-    numeroPedido=dados.numero;
-    dataPedido=dados.data;
-  }else{
-    numeroPedido=(localStorage.getItem("numero")||0);
-    numeroPedido++;
-    localStorage.setItem("numero",numeroPedido);
-
-    dataPedido=new Date().toLocaleString();
-  }
-
-  mostrarInfo();
-}
-
-function salvarPedido(){
-  localStorage.setItem("pedidoAberto",JSON.stringify({
-    carrinho,
-    numero:numeroPedido,
-    data:dataPedido
-  }));
-}
-
-function mostrarInfo(){
-  document.getElementById("infoPedido").innerHTML=
-  `📦 Pedido Nº: ${numeroPedido}<br>📅 ${dataPedido}`;
-}
-
-function renderProdutos(){
-  let html="";
-  produtos.forEach((p,i)=>{
-    let qtd=carrinho[i]||0;
-    html+=`
+function renderProdutos() {
+  let html = "";
+  produtos.forEach((p, i) => {
+    html += `
     <div class="card">
-      ${p.nome} R$${p.preco}
+      ${p.nome} - R$${p.preco}
       <div>
-        <button onclick="alterar(${i},-1)">-</button>
-        <span>${qtd}</span>
-        <button onclick="alterar(${i},1)">+</button>
+        <button onclick="alterar(${i}, -1)">-</button>
+        <span id="qtd-${i}">0</span>
+        <button onclick="alterar(${i}, 1)">+</button>
       </div>
     </div>`;
   });
-  document.getElementById("produtos").innerHTML=html;
+  document.getElementById("produtos").innerHTML = html;
 }
 
-function alterar(i,d){
-  if(!carrinho[i])carrinho[i]=0;
-  carrinho[i]+=d;
-  if(carrinho[i]<0)carrinho[i]=0;
+function alterar(i, delta) {
+  if (!carrinho[i]) carrinho[i] = 0;
+  carrinho[i] += delta;
+  if (carrinho[i] < 0) carrinho[i] = 0;
 
-  salvarPedido();
-  renderProdutos();
+  document.getElementById(`qtd-${i}`).innerText = carrinho[i];
   gerarRecibo();
 }
 
-function toggleEntrega(){
-  let tipo=document.getElementById("tipo").value;
-  document.getElementById("campoEndereco")
+function toggleEntrega() {
+  let tipo = document.getElementById("tipo").value;
+  document.getElementById("campoEndereco").style.display =
+    tipo === "Entrega" ? "block" : "none";
+  gerarRecibo();
+}
+
+function formatarLinha(nome, qtd, subtotal) {
+  let linha = `${nome} x${qtd}`;
+  let valor = `R$${subtotal}`;
+  let espacos = 25 - linha.length;
+  if (espacos < 1) espacos = 1;
+  return linha + " ".repeat(espacos) + valor;
+}
+
+function gerarRecibo() {
+  let texto = "=== PEDIDO ===\n";
+  let total = 0;
+
+  produtos.forEach((p, i) => {
+    let qtd = carrinho[i] || 0;
+    if (qtd > 0) {
+      let subtotal = qtd * p.preco;
+      total += subtotal;
+      texto += formatarLinha(p.nome, qtd, subtotal) + "\n";
+    }
+  });
+
+  let taxa = parseFloat(document.getElementById("taxa").value) || 0;
+  let desconto = parseFloat(document.getElementById("desconto").value) || 0;
+
+  if (taxa > 0) {
+    texto += `Entrega .......... R$${taxa}\n`;
+    total += taxa;
+  }
+
+  if (desconto > 0) {
+    texto += `Desconto ......... -R$${desconto}\n`;
+    total -= desconto;
+  }
+
+  texto += "-------------------------\n";
+  texto += `TOTAL: R$ ${total}`;
+
+  document.getElementById("recibo").innerText = texto;
+}
+
+function enviar() {
+  let nome = document.getElementById("nome").value;
+  let tipo = document.getElementById("tipo").value;
+  let endereco = document.getElementById("endereco").value;
+  let pagamento = document.getElementById("pagamento").value;
+  let taxa = parseFloat(document.getElementById("taxa").value) || 0;
+  let desconto = parseFloat(document.getElementById("desconto").value) || 0;
+
+  let mensagem = `🍟 *Salgados Delícia*%0A`;
+  mensagem += `Cliente: ${nome}%0A`;
+  mensagem += `Tipo: ${tipo}%0A`;
+
+  if (tipo === "Entrega") {
+    mensagem += `Endereço: ${endereco}%0A`;
+  }
+
+  mensagem += `Pagamento: ${pagamento}%0A%0A`;
+  mensagem += `🧾 *Recibo*%0A`;
+
+  let total = 0;
+
+  produtos.forEach((p, i) => {
+    let qtd = carrinho[i] || 0;
+    if (qtd > 0) {
+      let subtotal = qtd * p.preco;
+      total += subtotal;
+      mensagem += formatarLinha(p.nome, qtd, subtotal) + "%0A";
+    }
+  });
+
+  if (taxa > 0) {
+    mensagem += `Entrega .......... R$${taxa}%0A`;
+    total += taxa;
+  }
+
+  if (desconto > 0) {
+    mensagem += `Desconto ......... -R$${desconto}%0A`;
+    total -= desconto;
+  }
+
+  mensagem += "--------------------%0A";
+  mensagem += `💰 *TOTAL: R$ ${total}*`;
+
+  let numero = "5511954950044";
+
+  document.getElementById("modal").style.display = "flex";
+
+  // reinicia animação da barra
+  let barra = document.getElementById("progresso");
+  barra.style.animation = "none";
+  barra.offsetHeight;
+  barra.style.animation = "carregar 5s linear forwards";
+
+  setTimeout(() => {
+    window.open(`https://wa.me/${numero}?text=${mensagem}`);
+    document.getElementById("modal").style.display = "none";
+  }, 5000);
+}
+
+renderProdutos();
+</script>
+
+</body>
+</html>
