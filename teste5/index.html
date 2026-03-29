@@ -346,12 +346,26 @@ select option { background: #1e1710; }
 
 </main>
 
-<!-- MODAL -->
+<!-- MODAL COUNTDOWN -->
 <div id="modal" class="modal">
+  <div class="modal-box">
+    <div class="modal-icon">🍟</div>
+    <div class="modal-title">Preparando pedido...</div>
+    <div class="modal-sub" style="margin-bottom:16px">Abrindo o WhatsApp em instantes!</div>
+    <div style="background:var(--surface);border-radius:10px;height:8px;overflow:hidden;">
+      <div id="progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--green-wa),var(--gold));border-radius:10px;transition:width .1s linear;"></div>
+    </div>
+    <div id="modal-countdown" style="margin-top:10px;font-size:13px;color:var(--text-muted);">Abrindo em 3s...</div>
+    <button class="modal-btn" onclick="cancelarEnvio()" style="margin-top:14px;background:transparent;border:1px solid var(--border);color:var(--text-muted);font-size:13px;padding:10px;">✕ Cancelar</button>
+  </div>
+</div>
+
+<!-- MODAL SUCESSO -->
+<div id="modal-ok" class="modal">
   <div class="modal-box">
     <div class="modal-icon">✅</div>
     <div class="modal-title">Pedido Enviado!</div>
-    <div class="modal-sub">Seu pedido foi enviado pelo WhatsApp.<br>Aguarde a confirmação da <strong style="color:var(--gold)">Aline</strong>! 🍟</div>
+    <div class="modal-sub">Aguarde a confirmação da <strong style="color:var(--gold)">Aline</strong>! 🍟</div>
     <button class="modal-btn" onclick="fecharModal()">Fazer novo pedido</button>
   </div>
 </div>
@@ -514,19 +528,50 @@ function buildRecibo({ nome, consumo, itens, total }) {
   return "```\n" + linhas.join("\n") + "\n```";
 }
 
+let _countdownInterval = null;
+let _cancelado = false;
+
 function finalizar() {
   const nome = document.getElementById("nome").value.trim();
   if (!nome)     { showToast("⚠️ Informe seu nome antes de continuar."); return; }
   if (!pagamento){ showToast("⚠️ Selecione a forma de pagamento."); return; }
 
-  // Vai direto pro WhatsApp, sem delay
-  const msg = encodeURIComponent(window._msgWA || "");
-  window.open(`https://wa.me/5511954950044?text=${msg}`, "_blank");
-  document.getElementById("modal").classList.add("show");
+  _cancelado = false;
+  const modal = document.getElementById("modal");
+  const bar   = document.getElementById("progress-bar");
+  const cd    = document.getElementById("modal-countdown");
+  modal.classList.add("show");
+  bar.style.width = "0%";
+
+  let t = 3;
+  cd.textContent = `Abrindo em ${t}s...`;
+
+  _countdownInterval = setInterval(() => {
+    if (_cancelado) { clearInterval(_countdownInterval); return; }
+    t--;
+    bar.style.width = `${((3-t)/3)*100}%`;
+    cd.textContent = t > 0 ? `Abrindo em ${t}s...` : "Abrindo WhatsApp...";
+    if (t <= 0) {
+      clearInterval(_countdownInterval);
+      modal.classList.remove("show");
+      // location.href evita bloqueio de popup
+      const msg = encodeURIComponent(window._msgWA || "");
+      location.href = `https://wa.me/5511954950044?text=${msg}`;
+      setTimeout(() => document.getElementById("modal-ok").classList.add("show"), 1500);
+    }
+  }, 1000);
+}
+
+function cancelarEnvio() {
+  _cancelado = true;
+  clearInterval(_countdownInterval);
+  document.getElementById("modal").classList.remove("show");
+  document.getElementById("progress-bar").style.width = "0%";
+  showToast("Pedido cancelado.");
 }
 
 function fecharModal() {
-  document.getElementById("modal").classList.remove("show");
+  document.getElementById("modal-ok").classList.remove("show");
   carrinho  = {};
   pagamento = "";
   document.getElementById("nome").value     = "";
