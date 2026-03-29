@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Salgados Delícia PRO</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Salgados Delícia — Aline</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #0d0a06;
@@ -17,420 +17,273 @@
   --orange: #e85d20;
   --green-wa: #25d366;
   --green-wa-dark: #1da851;
+  --pix: #32bcad;
   --text: #f0e8d8;
   --text-muted: #8a7d68;
   --border: #2e2518;
   --radius: 16px;
   --shadow: 0 4px 24px rgba(0,0,0,0.5);
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  min-height: 100vh;
-  overflow-x: hidden;
+  background: var(--bg); color: var(--text);
+  font-family: 'DM Sans', sans-serif; font-size: 15px;
+  min-height: 100vh; overflow-x: hidden;
 }
 
-/* ── TELA DE BOAS-VINDAS ── */
+/* SPLASH */
 #splash {
-  position: fixed; inset: 0;
-  background: var(--bg);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  z-index: 999;
-  gap: 20px;
-  animation: splashFade 0.5s ease 2.8s forwards;
+  position: fixed; inset: 0; background: var(--bg);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  z-index: 999; gap: 16px;
+  animation: splashFade 0.5s ease 2.6s forwards;
 }
 @keyframes splashFade { to { opacity:0; pointer-events:none; } }
-
-.splash-logo {
+.splash-nome {
   font-family: 'Playfair Display', serif;
-  font-size: 52px;
-  font-weight: 900;
-  color: var(--gold);
-  letter-spacing: -1px;
-  animation: logoIn 0.7s cubic-bezier(.22,1,.36,1) both;
-  text-shadow: 0 0 60px rgba(232,169,53,0.4);
+  font-size: 70px; font-weight: 900; font-style: italic;
+  color: var(--gold); letter-spacing: -2px;
+  text-shadow: 0 0 80px rgba(232,169,53,0.5);
+  animation: logoIn 0.8s cubic-bezier(.22,1,.36,1) both;
 }
-@keyframes logoIn { from { opacity:0; transform:translateY(30px) scale(.9); } }
-
-.splash-sub {
-  font-size: 13px;
-  color: var(--text-muted);
-  letter-spacing: 4px;
-  text-transform: uppercase;
+.splash-tag {
+  font-size: 11px; color: var(--text-muted);
+  letter-spacing: 5px; text-transform: uppercase;
   animation: logoIn 0.7s 0.2s cubic-bezier(.22,1,.36,1) both;
 }
-
 .splash-dots {
   display: flex; gap: 8px;
-  animation: logoIn 0.7s 0.5s cubic-bezier(.22,1,.36,1) both;
+  animation: logoIn 0.7s 0.4s cubic-bezier(.22,1,.36,1) both;
 }
 .splash-dots span {
-  width: 8px; height: 8px; border-radius: 50%;
+  width: 7px; height: 7px; border-radius: 50%;
   background: var(--gold-dim);
-  animation: dotPulse 1s ease-in-out infinite;
+  animation: dotPulse 1.1s ease-in-out infinite;
 }
-.splash-dots span:nth-child(2) { animation-delay: 0.2s; }
-.splash-dots span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes dotPulse { 0%,100%{opacity:.3;transform:scale(.8)} 50%{opacity:1;transform:scale(1)} }
+.splash-dots span:nth-child(2){animation-delay:.2s}
+.splash-dots span:nth-child(3){animation-delay:.4s}
+@keyframes logoIn { from{opacity:0;transform:translateY(28px) scale(.92)} }
+@keyframes dotPulse{0%,100%{opacity:.25;transform:scale(.75)}50%{opacity:1;transform:scale(1)}}
 
-/* ── HEADER ── */
+/* HEADER */
 header {
-  background: linear-gradient(135deg, #110e07 0%, #1c1608 100%);
+  background: linear-gradient(160deg,#110e07 0%,#1c1608 100%);
   border-bottom: 1px solid var(--border);
-  padding: 20px 20px 16px;
-  position: sticky; top: 0; z-index: 50;
-  display: flex; flex-direction: column; align-items: center;
-  gap: 4px;
+  padding: 16px 20px 12px;
+  position: sticky; top:0; z-index:50;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
 }
-
-.header-logo {
+.header-nome {
   font-family: 'Playfair Display', serif;
-  font-size: 28px;
-  font-weight: 900;
-  color: var(--gold);
-  letter-spacing: -0.5px;
-  display: flex; align-items: center; gap: 10px;
+  font-size: 32px; font-weight: 900; font-style: italic;
+  color: var(--gold); letter-spacing: -1px; line-height: 1;
 }
-
-.header-sub {
-  font-size: 11px;
-  color: var(--text-muted);
-  letter-spacing: 3px;
-  text-transform: uppercase;
+.header-sub-line {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 10px; color: var(--text-muted);
+  letter-spacing: 3px; text-transform: uppercase;
 }
-
+.header-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--gold-dim); }
 .pedido-badge {
-  position: absolute; right: 18px; top: 50%;
-  transform: translateY(-50%);
-  background: var(--orange);
-  color: #fff;
-  font-size: 11px; font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 20px;
-  letter-spacing: 0.5px;
-  line-height: 1.5;
-  text-align: center;
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  background: var(--orange); color: #fff;
+  font-size: 10px; font-weight: 700;
+  padding: 5px 10px; border-radius: 20px;
+  text-align: center; line-height: 1.5;
 }
 
-/* ── MAIN ── */
+/* MAIN */
 main {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 20px 16px 100px;
-  display: flex; flex-direction: column; gap: 20px;
+  max-width: 480px; margin: 0 auto;
+  padding: 20px 16px 110px;
+  display: flex; flex-direction: column; gap: 18px;
 }
 
-/* ── CARD ── */
+/* CARD */
 .card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 18px;
-  transition: border-color 0.2s;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px;
 }
-
 .card-title {
   font-family: 'Playfair Display', serif;
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--gold);
-  margin-bottom: 14px;
-  display: flex; align-items: center; gap: 8px;
+  font-size: 17px; font-weight: 700; color: var(--gold);
+  margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
 }
 
-/* ── INPUTS ── */
-.input-group {
-  display: flex; flex-direction: column; gap: 10px;
-}
-
-.input-wrap {
-  position: relative;
-}
-
+/* INPUTS */
+.input-group { display: flex; flex-direction: column; gap: 10px; }
+.input-wrap { position: relative; }
 .input-wrap input, .input-wrap select {
-  width: 100%;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  width: 100%; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 10px;
   padding: 13px 14px 13px 42px;
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  appearance: none;
+  color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px;
+  outline: none; transition: border-color .2s, box-shadow .2s; appearance: none;
 }
-
-.input-wrap input:focus,
-.input-wrap select:focus {
-  border-color: var(--gold-dim);
-  box-shadow: 0 0 0 3px rgba(232,169,53,0.1);
+.input-wrap input:focus, .input-wrap select:focus {
+  border-color: var(--gold-dim); box-shadow: 0 0 0 3px rgba(232,169,53,.1);
 }
-
 .input-wrap input::placeholder { color: var(--text-muted); }
-
 .input-icon {
   position: absolute; left: 14px; top: 50%;
-  transform: translateY(-50%);
-  font-size: 16px;
-  pointer-events: none;
+  transform: translateY(-50%); font-size: 16px; pointer-events: none;
 }
+select option { background: #1e1710; }
 
-/* ── SEÇÃO DE PRODUTOS ── */
-.section-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 10px;
-  display: flex; align-items: center; gap: 8px;
+/* PAGAMENTO */
+.pagamento-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.pay-btn {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 6px; padding: 14px 8px;
+  background: var(--surface); border: 2px solid var(--border);
+  border-radius: 12px; cursor: pointer;
+  transition: border-color .2s, background .2s, transform .1s;
+  -webkit-tap-highlight-color: transparent;
 }
-.section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
+.pay-btn:active { transform: scale(.95); }
+.pay-btn .pay-icon { font-size: 26px; }
+.pay-btn .pay-label {
+  font-size: 11px; font-weight: 600;
+  color: var(--text-muted); letter-spacing: .5px; text-transform: uppercase;
 }
+.pay-btn.ativo-dinheiro { border-color: #4caf50; background: #0e1f0e; }
+.pay-btn.ativo-dinheiro .pay-label { color: #4caf50; }
+.pay-btn.ativo-pix { border-color: var(--pix); background: #071a19; }
+.pay-btn.ativo-pix .pay-label { color: var(--pix); }
+.pay-btn.ativo-cartao { border-color: var(--gold-dim); background: #1f1a0e; }
+.pay-btn.ativo-cartao .pay-label { color: var(--gold); }
 
+/* PRODUTOS */
 .item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px 14px;
-  margin-bottom: 8px;
-  transition: border-color 0.2s, background 0.2s;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 12px 14px; margin-bottom: 8px;
+  transition: border-color .2s, background .2s;
 }
-
-.item.ativo {
-  border-color: var(--gold-dim);
-  background: #1f1a0e;
-}
-
-.item-nome {
-  font-weight: 500;
-  font-size: 14px;
-  color: var(--text);
-}
-
-.item-preco {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
-
-.item-controle {
-  display: flex; align-items: center; gap: 10px;
-}
-
+.item.ativo { border-color: var(--gold-dim); background: #1f1a0e; }
+.item-nome { font-weight: 500; font-size: 14px; }
+.item-preco { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.item-controle { display: flex; align-items: center; gap: 10px; }
 .btn-qty {
-  width: 30px; height: 30px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  color: var(--gold);
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
+  width: 30px; height: 30px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--card);
+  color: var(--gold); font-size: 18px; font-weight: 600; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  transition: background 0.15s, border-color 0.15s;
-  line-height: 1;
+  transition: background .15s, border-color .15s; line-height: 1;
 }
-.btn-qty:active { transform: scale(0.92); }
+.btn-qty:active { transform: scale(.91); }
 .btn-qty.plus { background: var(--gold); color: #0d0a06; border-color: var(--gold); }
 .btn-qty.plus:hover { background: var(--gold-light); }
 .btn-qty.minus:hover { background: var(--card-hover); }
+.qty-display { min-width: 24px; text-align: center; font-weight: 700; font-size: 15px; }
 
-.qty-display {
-  min-width: 24px;
-  text-align: center;
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--text);
-}
-
-/* ── RESUMO ── */
-.resumo-vazio {
-  color: var(--text-muted);
-  font-size: 13px;
-  text-align: center;
-  padding: 10px 0;
-}
-
+/* RESUMO */
+.resumo-vazio { color: var(--text-muted); font-size: 13px; text-align: center; padding: 10px 0; }
 .resumo-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 7px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 14px;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 14px;
 }
 .resumo-item:last-of-type { border-bottom: none; }
 .resumo-item-nome { color: var(--text-muted); }
-.resumo-item-preco { font-weight: 600; color: var(--text); }
-
+.resumo-item-preco { font-weight: 600; }
 .resumo-total {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 2px solid var(--gold-dim);
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 12px; padding-top: 12px; border-top: 2px solid var(--gold-dim);
 }
-.resumo-total-label {
-  font-family: 'Playfair Display', serif;
-  font-size: 16px;
-  color: var(--text-muted);
-}
-.resumo-total-valor {
-  font-family: 'Playfair Display', serif;
-  font-size: 24px;
-  font-weight: 900;
-  color: var(--gold);
-}
+.resumo-total-label { font-family:'Playfair Display',serif; font-size:16px; color:var(--text-muted); }
+.resumo-total-valor { font-family:'Playfair Display',serif; font-size:26px; font-weight:900; color:var(--gold); }
 
-/* ── BOTÃO FINALIZAR ── */
+/* BOTÃO */
 #btn-finalizar {
-  width: 100%;
-  padding: 18px;
-  border: none;
-  border-radius: var(--radius);
-  background: var(--green-wa);
-  color: #fff;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  letter-spacing: 0.3px;
-  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-  box-shadow: 0 4px 20px rgba(37,211,102,0.25);
+  width: 100%; padding: 18px; border: none; border-radius: var(--radius);
+  background: var(--green-wa); color: #fff;
+  font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 700;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: background .2s, transform .1s, box-shadow .2s;
+  box-shadow: 0 4px 20px rgba(37,211,102,.25);
 }
-#btn-finalizar:hover { background: var(--green-wa-dark); box-shadow: 0 6px 28px rgba(37,211,102,0.35); }
-#btn-finalizar:active { transform: scale(0.98); }
-#btn-finalizar:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+#btn-finalizar:hover { background: var(--green-wa-dark); box-shadow: 0 6px 28px rgba(37,211,102,.35); }
+#btn-finalizar:active { transform: scale(.98); }
+#btn-finalizar:disabled { opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
 
-/* ── MODAL ── */
+/* MODAL */
 .modal {
-  position: fixed; inset: 0;
-  display: none;
+  position: fixed; inset: 0; display: none;
   align-items: center; justify-content: center;
-  background: rgba(0,0,0,0.85);
-  backdrop-filter: blur(6px);
-  z-index: 200;
+  background: rgba(0,0,0,.85); backdrop-filter: blur(6px); z-index: 200;
 }
 .modal.show { display: flex; }
-
 .modal-box {
-  background: var(--card);
-  border: 1px solid var(--gold-dim);
-  border-radius: 20px;
-  padding: 32px 28px;
-  text-align: center;
-  max-width: 320px;
-  width: 90%;
-  box-shadow: 0 0 60px rgba(232,169,53,0.15);
-  animation: modalIn 0.35s cubic-bezier(.22,1,.36,1) both;
+  background: var(--card); border: 1px solid var(--gold-dim);
+  border-radius: 20px; padding: 32px 28px;
+  text-align: center; max-width: 320px; width: 90%;
+  box-shadow: 0 0 60px rgba(232,169,53,.15);
+  animation: modalIn .35s cubic-bezier(.22,1,.36,1) both;
 }
-@keyframes modalIn { from { opacity:0; transform:scale(.85) translateY(20px); } }
-
+@keyframes modalIn { from{opacity:0;transform:scale(.85) translateY(20px)} }
 .modal-icon { font-size: 52px; margin-bottom: 12px; }
-.modal-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 24px; font-weight: 900;
-  color: var(--gold);
-  margin-bottom: 6px;
+.modal-title { font-family:'Playfair Display',serif; font-size:22px; font-weight:900; color:var(--gold); margin-bottom:6px; }
+.modal-sub { color:var(--text-muted); font-size:13px; line-height:1.6; }
+.modal-btn {
+  margin-top: 22px; width: 100%; padding: 13px; border: none;
+  border-radius: 10px; background: var(--gold); color: #0d0a06;
+  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 14px;
+  cursor: pointer; transition: background .15s;
 }
-.modal-sub { color: var(--text-muted); font-size: 13px; margin-bottom: 20px; }
+.modal-btn:hover { background: var(--gold-light); }
 
-.progress-track {
-  background: var(--surface);
-  border-radius: 10px;
-  height: 6px;
-  overflow: hidden;
-}
-.progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, var(--green-wa), var(--gold));
-  border-radius: 10px;
-  width: 0;
-  transition: width 0.1s linear;
-}
-.modal-countdown {
-  margin-top: 10px;
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-/* ── TOAST ── */
+/* TOAST */
 #toast {
   position: fixed; bottom: 24px; left: 50%;
   transform: translateX(-50%) translateY(80px);
-  background: var(--card);
-  border: 1px solid var(--border);
-  color: var(--text);
-  padding: 12px 20px;
-  border-radius: 30px;
-  font-size: 13px;
-  white-space: nowrap;
-  transition: transform 0.3s cubic-bezier(.22,1,.36,1), opacity 0.3s;
-  opacity: 0; z-index: 300;
-  box-shadow: var(--shadow);
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--text); padding: 12px 20px; border-radius: 30px;
+  font-size: 13px; white-space: nowrap;
+  transition: transform .3s cubic-bezier(.22,1,.36,1), opacity .3s;
+  opacity: 0; z-index: 300; box-shadow: var(--shadow);
 }
 #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-/* ── ESTILO DO SELECT ── */
-select option { background: #1e1710; }
-
-/* ── ANIMAÇÃO DE ENTRADA ── */
-.fade-in { animation: fadeIn 0.5s ease both; }
-@keyframes fadeIn { from { opacity:0; transform:translateY(14px); } }
-.fade-in:nth-child(1){animation-delay:0.1s}
-.fade-in:nth-child(2){animation-delay:0.18s}
-.fade-in:nth-child(3){animation-delay:0.26s}
-.fade-in:nth-child(4){animation-delay:0.34s}
-.fade-in:nth-child(5){animation-delay:0.42s}
+/* FADE IN */
+.fade-in { animation: fadeIn .5s ease both; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(14px)} }
+.fade-in:nth-child(1){animation-delay:.08s}
+.fade-in:nth-child(2){animation-delay:.16s}
+.fade-in:nth-child(3){animation-delay:.24s}
+.fade-in:nth-child(4){animation-delay:.32s}
+.fade-in:nth-child(5){animation-delay:.40s}
+.fade-in:nth-child(6){animation-delay:.48s}
 </style>
 </head>
 <body>
 
 <!-- SPLASH -->
 <div id="splash">
-  <div class="splash-logoaline">🍟 Delícia</div>
-  <div class="splash-sub">Salgados & Bebidas</div>
-  <div class="splash-dots">
-    <span></span><span></span><span></span>
-  </div>
+  <div class="splash-nome">Aline</div>
+  <div class="splash-tag">Salgados &amp; Bebidas</div>
+  <div class="splash-dots"><span></span><span></span><span></span></div>
 </div>
 
 <!-- HEADER -->
 <header>
-  <div class="header-logoaline">🍟 Salgados Delícia</div>
-  <div class="header-sub">Faça seu pedido</div>
-  <div class="pedido-badge" id="pedido-badge">
-    Pedido #—<br><span id="data-hora" style="font-weight:400;font-size:10px;color:rgba(255,255,255,.7)"></span>
+  <div class="header-nome">Aline</div>
+  <div class="header-sub-line">
+    <span>Salgados</span><div class="header-dot"></div>
+    <span>Bebidas</span><div class="header-dot"></div>
+    <span>Delícia</span>
   </div>
+  <div class="pedido-badge" id="pedido-badge">#—</div>
 </header>
 
-<!-- MAIN -->
 <main>
 
-  <!-- DADOS DO CLIENTE -->
+  <!-- DADOS -->
   <div class="card fade-in">
     <div class="card-title">👤 Seus Dados</div>
     <div class="input-group">
       <div class="input-wrap">
         <span class="input-icon">🙍</span>
-        <input id="nome" type="text" placeholder="Seu nome" oninput="recibo()">
+        <input id="nome" type="text" placeholder="Seu nome completo" oninput="recibo()">
       </div>
       <div class="input-wrap">
         <span class="input-icon">📱</span>
@@ -440,7 +293,7 @@ select option { background: #1e1710; }
         <span class="input-icon">🛵</span>
         <select id="consumo" onchange="recibo()">
           <option value="Consumir no local">Consumir no local</option>
-          <option value="Viagem">Viagem / Para levar</option>
+          <option value="Para levar / Viagem">Para levar / Viagem</option>
         </select>
       </div>
     </div>
@@ -458,8 +311,27 @@ select option { background: #1e1710; }
     <div id="bebidas"></div>
   </div>
 
+  <!-- PAGAMENTO -->
+  <div class="card fade-in">
+    <div class="card-title">💳 Forma de Pagamento</div>
+    <div class="pagamento-grid">
+      <div class="pay-btn" id="pay-dinheiro" onclick="selecionarPag('dinheiro')">
+        <div class="pay-icon">💵</div>
+        <div class="pay-label">Dinheiro</div>
+      </div>
+      <div class="pay-btn" id="pay-pix" onclick="selecionarPag('pix')">
+        <div class="pay-icon">⚡</div>
+        <div class="pay-label">PIX</div>
+      </div>
+      <div class="pay-btn" id="pay-cartao" onclick="selecionarPag('cartao')">
+        <div class="pay-icon">💳</div>
+        <div class="pay-label">Cartão</div>
+      </div>
+    </div>
+  </div>
+
   <!-- RESUMO -->
-  <div class="card fade-in" id="card-resumo">
+  <div class="card fade-in">
     <div class="card-title">🧾 Resumo do Pedido</div>
     <div id="resumo-corpo">
       <div class="resumo-vazio">Nenhum item selecionado ainda.</div>
@@ -477,13 +349,10 @@ select option { background: #1e1710; }
 <!-- MODAL -->
 <div id="modal" class="modal">
   <div class="modal-box">
-    <div class="modal-icon">🎉</div>
+    <div class="modal-icon">✅</div>
     <div class="modal-title">Pedido Enviado!</div>
-    <div class="modal-sub">Abrindo o WhatsApp...<br>Aguarde um momento.</div>
-    <div class="progress-track">
-      <div class="progress-bar" id="progress-bar"></div>
-    </div>
-    <div class="modal-countdown" id="modal-countdown">Redirecionando em 5s...</div>
+    <div class="modal-sub">Seu pedido foi enviado pelo WhatsApp.<br>Aguarde a confirmação da <strong style="color:var(--gold)">Aline</strong>! 🍟</div>
+    <button class="modal-btn" onclick="fecharModal()">Fazer novo pedido</button>
   </div>
 </div>
 
@@ -491,174 +360,189 @@ select option { background: #1e1710; }
 <div id="toast"></div>
 
 <script>
-// ── DADOS ──
 const SALGADOS = [
-  { n: "Coxinha", p: 5.00, emoji: "🍗" },
-  { n: "Kibe",    p: 5.00, emoji: "🥙" },
-  { n: "Esfiha",  p: 6.00, emoji: "🫓" },
+  { n:"Coxinha",  p:5.00, emoji:"🍗" },
+  { n:"Kibe",     p:5.00, emoji:"🥙" },
+  { n:"Esfiha",   p:6.00, emoji:"🫓" },
 ];
 const BEBIDAS = [
-  { n: "Refrigerante", p: 6.00, emoji: "🥤" },
-  { n: "Suco Natural", p: 5.00, emoji: "🍊" },
+  { n:"Refrigerante", p:6.00, emoji:"🥤" },
+  { n:"Suco Natural", p:5.00, emoji:"🍊" },
 ];
+const PAGAMENTOS = {
+  dinheiro: { label:"DINHEIRO EM ESPECIE", emoji:"💵" },
+  pix:      { label:"PIX",                 emoji:"⚡" },
+  cartao:   { label:"CARTAO",              emoji:"💳" },
+};
 
-let carrinho = {};
-let numero = 0;
+let carrinho  = {};
+let pagamento = "";
+let numero    = 0;
 let dataAtual = "";
 
-// ── INIT ──
 function init() {
-  setTimeout(() => {
-    document.getElementById("splash").style.display = "none";
-  }, 3200);
-
+  setTimeout(() => { document.getElementById("splash").style.display = "none"; }, 2900);
   numero = parseInt(localStorage.getItem("num") || "0") + 1;
   localStorage.setItem("num", numero);
   dataAtual = new Date().toLocaleString("pt-br");
-
-  document.getElementById("pedido-badge").innerHTML =
-    `#${String(numero).padStart(3, "0")}<br><span style="font-weight:400;font-size:10px;color:rgba(255,255,255,.7)">${new Date().toLocaleDateString("pt-br")}</span>`;
-
-  render();
-  recibo();
+  document.getElementById("pedido-badge").textContent = `#${String(numero).padStart(3,"0")}`;
+  render(); recibo();
 }
 
-// ── RENDER PRODUTOS ──
 function render() {
-  document.getElementById("salgados").innerHTML = renderLista(SALGADOS, "s");
-  document.getElementById("bebidas").innerHTML  = renderLista(BEBIDAS,  "b");
+  document.getElementById("salgados").innerHTML = renderLista(SALGADOS,"s");
+  document.getElementById("bebidas").innerHTML  = renderLista(BEBIDAS,"b");
 }
 
-function renderLista(lista, prefixo) {
-  return lista.map((p, i) => {
-    const key = prefixo + i;
-    const q = carrinho[key] || 0;
-    const ativo = q > 0 ? " ativo" : "";
-    return `
-      <div class="item${ativo}" id="item-${key}">
-        <div>
-          <div class="item-nome">${p.emoji} ${p.n}</div>
-          <div class="item-preco">R$ ${p.p.toFixed(2)}</div>
-        </div>
-        <div class="item-controle">
-          <button class="btn-qty minus" onclick="alt('${key}',-1)" aria-label="Remover">−</button>
-          <span class="qty-display" id="qty-${key}">${q}</span>
-          <button class="btn-qty plus" onclick="alt('${key}',1)" aria-label="Adicionar">+</button>
-        </div>
-      </div>`;
+function renderLista(lista, pref) {
+  return lista.map((p,i) => {
+    const key = pref+i, q = carrinho[key]||0;
+    return `<div class="item${q>0?" ativo":""}" id="item-${key}">
+      <div><div class="item-nome">${p.emoji} ${p.n}</div><div class="item-preco">R$ ${p.p.toFixed(2)}</div></div>
+      <div class="item-controle">
+        <button class="btn-qty minus" onclick="alt('${key}',-1)">−</button>
+        <span class="qty-display" id="qty-${key}">${q}</span>
+        <button class="btn-qty plus" onclick="alt('${key}',1)">+</button>
+      </div></div>`;
   }).join("");
 }
 
-// ── ALTERAR QTDE ──
 function alt(key, delta) {
-  carrinho[key] = Math.max(0, (carrinho[key] || 0) + delta);
-  // Atualiza só o necessário (sem re-render total)
+  carrinho[key] = Math.max(0,(carrinho[key]||0)+delta);
   const el = document.getElementById(`qty-${key}`);
-  const item = document.getElementById(`item-${key}`);
+  const it = document.getElementById(`item-${key}`);
   if (el) el.textContent = carrinho[key];
-  if (item) {
-    item.classList.toggle("ativo", carrinho[key] > 0);
-  }
+  if (it) it.classList.toggle("ativo", carrinho[key]>0);
   recibo();
 }
 
-// ── RECIBO / RESUMO ──
-function recibo() {
-  let itens = [];
-  let total = 0;
+function selecionarPag(tipo) {
+  pagamento = tipo;
+  document.querySelectorAll(".pay-btn").forEach(b => b.className = "pay-btn");
+  document.getElementById(`pay-${tipo}`).classList.add(`ativo-${tipo}`);
+  recibo();
+}
 
-  SALGADOS.forEach((p, i) => {
-    const q = carrinho["s" + i] || 0;
-    if (q > 0) { const s = q * p.p; total += s; itens.push({ n: p.n, q, s }); }
-  });
-  BEBIDAS.forEach((p, i) => {
-    const q = carrinho["b" + i] || 0;
-    if (q > 0) { const s = q * p.p; total += s; itens.push({ n: p.n, q, s }); }
-  });
+function recibo() {
+  let itens = [], total = 0;
+  SALGADOS.forEach((p,i) => { const q=carrinho["s"+i]||0; if(q>0){const s=q*p.p;total+=s;itens.push({n:p.n,q,s});} });
+  BEBIDAS.forEach((p,i)  => { const q=carrinho["b"+i]||0; if(q>0){const s=q*p.p;total+=s;itens.push({n:p.n,q,s});} });
 
   const nome    = document.getElementById("nome").value.trim();
-  const tel     = document.getElementById("telefone").value.trim();
   const consumo = document.getElementById("consumo").value;
+  const corp    = document.getElementById("resumo-corpo");
 
-  // Resumo visual
-  const corp = document.getElementById("resumo-corpo");
   if (itens.length === 0) {
     corp.innerHTML = `<div class="resumo-vazio">Nenhum item selecionado ainda.</div>`;
   } else {
-    corp.innerHTML =
-      itens.map(it => `
-        <div class="resumo-item">
-          <span class="resumo-item-nome">${it.n} × ${it.q}</span>
-          <span class="resumo-item-preco">R$ ${it.s.toFixed(2)}</span>
-        </div>`).join("") +
+    corp.innerHTML = itens.map(it =>
+      `<div class="resumo-item">
+        <span class="resumo-item-nome">${it.n} × ${it.q}</span>
+        <span class="resumo-item-preco">R$ ${it.s.toFixed(2)}</span>
+       </div>`).join("") +
       `<div class="resumo-total">
         <span class="resumo-total-label">Total</span>
         <span class="resumo-total-valor">R$ ${total.toFixed(2)}</span>
        </div>`;
   }
 
-  // Habilitar botão
-  const btn = document.getElementById("btn-finalizar");
-  btn.disabled = itens.length === 0 || !nome;
-
-  // Texto do WhatsApp
-  window._msgWA = composeMsg({ nome, tel, consumo, itens, total });
+  document.getElementById("btn-finalizar").disabled = !(itens.length>0 && nome && pagamento);
+  window._msgWA = buildRecibo({ nome, consumo, itens, total });
 }
 
-function composeMsg({ nome, tel, consumo, itens, total }) {
-  const linhaItens = itens.map(it => `  • ${it.n} x${it.q} — R$ ${it.s.toFixed(2)}`).join("\n");
-  return [
-    `🍟 *SALGADOS DELÍCIA — PEDIDO #${String(numero).padStart(3,"0")}*`,
-    `📅 ${dataAtual}`,
-    ``,
-    `👤 *Cliente:* ${nome || "—"}`,
-    `📱 *Telefone:* ${tel || "—"}`,
-    `🛵 *Tipo:* ${consumo}`,
-    ``,
-    `*Itens do Pedido:*`,
-    linhaItens,
-    ``,
-    `💰 *TOTAL: R$ ${total.toFixed(2)}*`,
-    ``,
-    `_Pedido enviado pelo site._`
-  ].join("\n");
+function pad(str, len) {
+  // centraliza texto numa linha de 'len' chars
+  const s = String(str);
+  const spaces = Math.max(0, len - s.length);
+  const l = Math.floor(spaces/2), r = spaces - l;
+  return " ".repeat(l) + s + " ".repeat(r);
 }
 
-// ── FINALIZAR ──
+function buildRecibo({ nome, consumo, itens, total }) {
+  const W   = 32; // largura do recibo
+  const sep = "=".repeat(W);
+  const sep2= "-".repeat(W);
+  const num = String(numero).padStart(6,"0");
+  const tel = document.getElementById("telefone").value.trim() || "NAO INFORMADO";
+  const pag = PAGAMENTOS[pagamento] || { label:"---", emoji:"" };
+  const now = new Date();
+  const data = now.toLocaleDateString("pt-br");
+  const hora = now.toLocaleTimeString("pt-br",{hour:"2-digit",minute:"2-digit"});
+
+  const fmtItem = (it) => {
+    const esq = `${it.n} x${it.q}`;
+    const dir = `R$${it.s.toFixed(2)}`;
+    const sp  = " ".repeat(Math.max(1, W - esq.length - dir.length));
+    return esq + sp + dir;
+  };
+
+  const totDir  = `R$${total.toFixed(2)}`;
+  const totEsp  = " ".repeat(Math.max(1, W - "TOTAL".length - totDir.length));
+
+  const linhas = [
+    sep,
+    pad("🍟 SALGADOS DELICIA 🍟", W),
+    pad("Aline", W),
+    sep,
+    "",
+    `CUPOM Nº: ${num}`,
+    `DATA:     ${data}`,
+    `HORA:     ${hora}`,
+    "",
+    sep2,
+    `CLIENTE:  ${nome}`,
+    `FONE:     ${tel}`,
+    `PEDIDO:   ${consumo}`,
+    sep2,
+    "",
+    pad("-- ITENS DO PEDIDO --", W),
+    sep2,
+    ...itens.map(fmtItem),
+    sep2,
+    `TOTAL${totEsp}*R$${total.toFixed(2)}*`,
+    sep2,
+    "",
+    `${pag.emoji} PAGAMENTO: *${pag.label}*`,
+    "",
+    sep,
+    pad("Obrigada pela preferencia!", W),
+    pad("Volte sempre! 😊", W),
+    sep,
+  ];
+
+  // Formata em bloco de código para WhatsApp
+  return "```\n" + linhas.join("\n") + "\n```";
+}
+
 function finalizar() {
   const nome = document.getElementById("nome").value.trim();
-  if (!nome) { showToast("⚠️ Por favor, informe seu nome."); return; }
+  if (!nome)     { showToast("⚠️ Informe seu nome antes de continuar."); return; }
+  if (!pagamento){ showToast("⚠️ Selecione a forma de pagamento."); return; }
 
-  const modal = document.getElementById("modal");
-  const bar   = document.getElementById("progress-bar");
-  const cd    = document.getElementById("modal-countdown");
-  modal.classList.add("show");
-
-  let t = 5;
-  bar.style.width = "0%";
-  cd.textContent = `Redirecionando em ${t}s...`;
-
-  const interval = setInterval(() => {
-    t--;
-    bar.style.width = `${((5 - t) / 5) * 100}%`;
-    cd.textContent = t > 0 ? `Redirecionando em ${t}s...` : "Abrindo WhatsApp...";
-    if (t <= 0) {
-      clearInterval(interval);
-      const msg = encodeURIComponent(window._msgWA || "");
-      window.open(`https://wa.me/5511954950044?text=${msg}`, "_blank");
-      setTimeout(() => {
-        modal.classList.remove("show");
-        bar.style.width = "0%";
-      }, 800);
-    }
-  }, 1000);
+  // Vai direto pro WhatsApp, sem delay
+  const msg = encodeURIComponent(window._msgWA || "");
+  window.open(`https://wa.me/5511954950044?text=${msg}`, "_blank");
+  document.getElementById("modal").classList.add("show");
 }
 
-// ── TOAST ──
+function fecharModal() {
+  document.getElementById("modal").classList.remove("show");
+  carrinho  = {};
+  pagamento = "";
+  document.getElementById("nome").value     = "";
+  document.getElementById("telefone").value = "";
+  document.getElementById("consumo").value  = "Consumir no local";
+  document.querySelectorAll(".pay-btn").forEach(b => b.className = "pay-btn");
+  numero = parseInt(localStorage.getItem("num")||"0") + 1;
+  localStorage.setItem("num", numero);
+  dataAtual = new Date().toLocaleString("pt-br");
+  document.getElementById("pedido-badge").textContent = `#${String(numero).padStart(3,"0")}`;
+  render(); recibo();
+}
+
 function showToast(msg) {
   const t = document.getElementById("toast");
-  t.textContent = msg;
-  t.classList.add("show");
+  t.textContent = msg; t.classList.add("show");
   setTimeout(() => t.classList.remove("show"), 2800);
 }
 
