@@ -3,341 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Salgados Delícia</title>
+<title>Salgados Delícia PRO</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
-}
+body{margin:0;font-family:Arial;background:#f2f2f2}
+header{background:#000;color:gold;text-align:center;padding:15px}
+.container{padding:15px}
+input,select{width:100%;padding:10px;margin-top:8px}
+button{border:none;padding:8px 12px;border-radius:6px;background:#ff6600;color:#fff}
+.finalizar{width:100%;padding:14px;background:#25d366;margin-top:10px}
 
-/* HEADER COM LOGO */
-header {
-  background: linear-gradient(45deg, #111, #222);
-  color: gold;
-  padding: 15px;
-  text-align: center;
-}
+.resumo{background:#000;color:#00ff88;padding:10px;border-radius:10px;margin-top:10px;font-family:monospace}
 
-header img {
-  max-height: 50px;
-  display: block;
-  margin: 0 auto 5px;
-}
+/* MODAL */
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.9)}
+.modal-box{background:#000;color:gold;padding:25px;border-radius:15px;border:2px solid gold;box-shadow:0 0 30px gold}
+.barra{height:5px;background:#222;margin-top:10px}
+#bar{height:5px;width:0;background:gold;animation:load 5s linear forwards}
+@keyframes load{from{width:0}to{width:100%}}
 
-.container {
-  padding: 15px;
-}
-
-.card {
-  background: white;
-  border-radius: 15px;
-  padding: 15px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-}
-
-button {
-  background: #ff6600;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 8px;
-}
-
-.resumo {
-  background: #111;
-  color: #00ff88;
-  padding: 15px;
-  border-radius: 15px;
-  margin-top: 15px;
-  font-family: monospace;
-}
-
-input, select {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-}
-
-.finalizar {
-  width: 100%;
-  padding: 15px;
-  margin-top: 15px;
-  border: none;
-  border-radius: 12px;
-  background: #25d366;
-  color: white;
-  font-size: 16px;
-}
-
-/* MODAL LUXO */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.85);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-
-.modal-content {
-  background: #000;
-  color: gold;
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-  width: 90%;
-  max-width: 320px;
-
-  border: 2px solid gold;
-  box-shadow: 0 0 25px gold, 0 0 60px rgba(255,215,0,0.5);
-
-  animation: zoom 0.3s ease;
-}
-
-.check {
-  font-size: 40px;
-  color: gold;
-  margin-bottom: 10px;
-}
-
-/* BARRA ANIMADA */
-.barra {
-  width: 100%;
-  height: 6px;
-  background: #222;
-  border-radius: 10px;
-  margin-top: 20px;
-  overflow: hidden;
-}
-
-#progresso {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, gold, #ffd700);
-  animation: carregar 5s linear forwards;
-}
-
-@keyframes carregar {
-  from { width: 0%; }
-  to { width: 100%; }
-}
-
-@keyframes zoom {
-  from {transform: scale(0.8); opacity: 0;}
-  to {transform: scale(1); opacity: 1;}
-}
+/* LISTA */
+.item{display:flex;justify-content:space-between;background:#fff;margin-top:8px;padding:10px;border-radius:10px}
 </style>
 </head>
 
 <body>
-
-<header>
-  <!-- 🔥 TROQUE PELO SEU LOGO -->
-  <img src="logoaline.png">
-  Salgados Delícia
-</header>
+<header>🍟 Salgados Delícia</header>
 
 <div class="container">
 
-<div id="produtos"></div>
+<!-- INFO -->
+<div id="info"></div>
 
-<div class="resumo">
-<pre id="recibo"></pre>
-</div>
+<input id="nome" placeholder="Nome do Cliente">
+<input id="telefone" placeholder="Telefone">
 
-<h3>📦 Tipo de pedido</h3>
-<select id="tipo" onchange="toggleEntrega()">
-  <option value="Retirada">Retirada</option>
-  <option value="Entrega">Entrega</option>
+<select id="consumo">
+<option>Consumir no local</option>
+<option>Viagem</option>
 </select>
 
-<div id="campoEndereco" style="display:none;">
-  <input type="text" id="endereco" placeholder="Endereço">
-  <input type="number" id="taxa" placeholder="Taxa entrega" oninput="gerarRecibo()">
-</div>
+<h3>🍟 Salgados</h3>
+<div id="salgados"></div>
 
-<input type="text" id="nome" placeholder="Seu nome">
+<h3>🥤 Bebidas</h3>
+<div id="bebidas"></div>
 
-<select id="pagamento">
-  <option>Dinheiro</option>
-  <option>Pix</option>
-  <option>Cartão</option>
-</select>
+<div class="resumo"><pre id="recibo"></pre></div>
 
-<input type="number" id="desconto" placeholder="Desconto" oninput="gerarRecibo()">
-
-<button class="finalizar" onclick="enviar()">Finalizar Pedido</button>
+<button class="finalizar" onclick="finalizar()">Finalizar Pedido</button>
 
 </div>
 
 <!-- MODAL -->
 <div id="modal" class="modal">
-  <div class="modal-content">
-    <div class="check">✔</div>
-    <h2>Pedido confirmado</h2>
-    <p>
-      Estamos preparando seu pedido com qualidade premium ✨
-    </p>
-
-    <div class="barra">
-      <div id="progresso"></div>
-    </div>
-  </div>
+<div class="modal-box">
+<h2>Obrigado!</h2>
+<p>Seu pedido está sendo criado!</p>
+<div class="barra"><div id="bar"></div></div>
+</div>
 </div>
 
 <script>
-let produtos = [
-  {nome: "Coxinha", preco: 5},
-  {nome: "Kibe", preco: 5},
-  {nome: "Esfiha", preco: 6},
-  {nome: "Enroladinho", preco: 4}
-];
+let salgados=[{n:"Coxinha",p:5},{n:"Kibe",p:5},{n:"Esfiha",p:6}];
+let bebidas=[{n:"Refrigerante",p:6},{n:"Suco",p:5}];
 
-let carrinho = {};
+let carrinho={};
+let numero=0;
+let data="";
 
-function renderProdutos() {
-  let html = "";
-  produtos.forEach((p, i) => {
-    html += `
-    <div class="card">
-      ${p.nome} - R$${p.preco}
-      <div>
-        <button onclick="alterar(${i}, -1)">-</button>
-        <span id="qtd-${i}">0</span>
-        <button onclick="alterar(${i}, 1)">+</button>
-      </div>
-    </div>`;
-  });
-  document.getElementById("produtos").innerHTML = html;
+function init(){
+numero=(localStorage.getItem("num")||0);numero++;
+localStorage.setItem("num",numero);
+data=new Date().toLocaleString();
+
+info();render();recibo();}
+
+function info(){
+document.getElementById("info").innerHTML=`📦 Pedido Nº ${numero}<br>📅 ${data}`}
+
+function render(){
+let h1="";
+salgados.forEach((p,i)=>{
+let q=carrinho["s"+i]||0;
+h1+=`<div class='item'>${p.n} R$${p.p}<div><button onclick='alt("s${i}",-1)'>-</button> ${q} <button onclick='alt("s${i}",1)'>+</button></div></div>`});
+
+document.getElementById("salgados").innerHTML=h1;
+
+let h2="";
+bebidas.forEach((p,i)=>{
+let q=carrinho["b"+i]||0;
+h2+=`<div class='item'>${p.n} R$${p.p}<div><button onclick='alt("b${i}",-1)'>-</button> ${q} <button onclick='alt("b${i}",1)'>+</button></div></div>`});
+
+document.getElementById("bebidas").innerHTML=h2;
 }
 
-function alterar(i, delta) {
-  if (!carrinho[i]) carrinho[i] = 0;
-  carrinho[i] += delta;
-  if (carrinho[i] < 0) carrinho[i] = 0;
+function alt(id,d){
+if(!carrinho[id])carrinho[id]=0;
+carrinho[id]+=d;
+if(carrinho[id]<0)carrinho[id]=0;
+render();recibo();}
 
-  document.getElementById(`qtd-${i}`).innerText = carrinho[i];
-  gerarRecibo();
+function recibo(){
+let txt="";
+let total=0;
+
+salgados.forEach((p,i)=>{
+let q=carrinho["s"+i]||0;
+if(q>0){let s=q*p.p;total+=s;txt+=`${p.n} x${q} R$${s}\n`}});
+
+bebidas.forEach((p,i)=>{
+let q=carrinho["b"+i]||0;
+if(q>0){let s=q*p.p;total+=s;txt+=`${p.n} x${q} R$${s}\n`}});
+
+let nome=document.getElementById("nome").value;
+let tel=document.getElementById("telefone").value;
+let consumo=document.getElementById("consumo").value;
+
+let topo=`Cliente: ${nome}\nTel: ${tel}\nTipo: ${consumo}\n\n`;
+
+document.getElementById("recibo").innerText=topo+txt+`\nTOTAL R$${total}`}
+
+function finalizar(){
+
+document.getElementById("modal").style.display="flex";
+
+setTimeout(()=>{
+let msg=encodeURIComponent(document.getElementById("recibo").innerText);
+window.open(`https://wa.me/5511954950044?text=${msg}`);
+document.getElementById("modal").style.display="none";
+},5000);
 }
 
-function toggleEntrega() {
-  let tipo = document.getElementById("tipo").value;
-  document.getElementById("campoEndereco").style.display =
-    tipo === "Entrega" ? "block" : "none";
-  gerarRecibo();
-}
-
-function formatarLinha(nome, qtd, subtotal) {
-  let linha = `${nome} x${qtd}`;
-  let valor = `R$${subtotal}`;
-  let espacos = 25 - linha.length;
-  if (espacos < 1) espacos = 1;
-  return linha + " ".repeat(espacos) + valor;
-}
-
-function gerarRecibo() {
-  let texto = "=== PEDIDO ===\n";
-  let total = 0;
-
-  produtos.forEach((p, i) => {
-    let qtd = carrinho[i] || 0;
-    if (qtd > 0) {
-      let subtotal = qtd * p.preco;
-      total += subtotal;
-      texto += formatarLinha(p.nome, qtd, subtotal) + "\n";
-    }
-  });
-
-  let taxa = parseFloat(document.getElementById("taxa").value) || 0;
-  let desconto = parseFloat(document.getElementById("desconto").value) || 0;
-
-  if (taxa > 0) {
-    texto += `Entrega .......... R$${taxa}\n`;
-    total += taxa;
-  }
-
-  if (desconto > 0) {
-    texto += `Desconto ......... -R$${desconto}\n`;
-    total -= desconto;
-  }
-
-  texto += "-------------------------\n";
-  texto += `TOTAL: R$ ${total}`;
-
-  document.getElementById("recibo").innerText = texto;
-}
-
-function enviar() {
-  let nome = document.getElementById("nome").value;
-  let tipo = document.getElementById("tipo").value;
-  let endereco = document.getElementById("endereco").value;
-  let pagamento = document.getElementById("pagamento").value;
-  let taxa = parseFloat(document.getElementById("taxa").value) || 0;
-  let desconto = parseFloat(document.getElementById("desconto").value) || 0;
-
-  let mensagem = `🍟 *Salgados Delícia*%0A`;
-  mensagem += `Cliente: ${nome}%0A`;
-  mensagem += `Tipo: ${tipo}%0A`;
-
-  if (tipo === "Entrega") {
-    mensagem += `Endereço: ${endereco}%0A`;
-  }
-
-  mensagem += `Pagamento: ${pagamento}%0A%0A`;
-  mensagem += `🧾 *Recibo*%0A`;
-
-  let total = 0;
-
-  produtos.forEach((p, i) => {
-    let qtd = carrinho[i] || 0;
-    if (qtd > 0) {
-      let subtotal = qtd * p.preco;
-      total += subtotal;
-      mensagem += formatarLinha(p.nome, qtd, subtotal) + "%0A";
-    }
-  });
-
-  if (taxa > 0) {
-    mensagem += `Entrega .......... R$${taxa}%0A`;
-    total += taxa;
-  }
-
-  if (desconto > 0) {
-    mensagem += `Desconto ......... -R$${desconto}%0A`;
-    total -= desconto;
-  }
-
-  mensagem += "--------------------%0A";
-  mensagem += `💰 *TOTAL: R$ ${total}*`;
-
-  let numero = "5511954950044";
-
-  document.getElementById("modal").style.display = "flex";
-
-  // reinicia animação da barra
-  let barra = document.getElementById("progresso");
-  barra.style.animation = "none";
-  barra.offsetHeight;
-  barra.style.animation = "carregar 5s linear forwards";
-
-  setTimeout(() => {
-    window.open(`https://wa.me/${numero}?text=${mensagem}`);
-    document.getElementById("modal").style.display = "none";
-  }, 5000);
-}
-
-renderProdutos();
+init();
 </script>
 
 </body>
