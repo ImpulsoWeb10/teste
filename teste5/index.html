@@ -18,7 +18,6 @@ header {
   padding: 20px;
   text-align: center;
   font-size: 22px;
-  font-weight: bold;
 }
 
 .container {
@@ -32,17 +31,7 @@ header {
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-}
-
-.nome {
-  font-weight: bold;
-}
-
-.preco {
-  color: #666;
-  font-size: 14px;
 }
 
 .controls button {
@@ -51,12 +40,6 @@ header {
   border: none;
   padding: 6px 10px;
   border-radius: 8px;
-  font-size: 16px;
-}
-
-.controls span {
-  margin: 0 8px;
-  font-weight: bold;
 }
 
 .resumo {
@@ -66,7 +49,6 @@ header {
   border-radius: 15px;
   margin-top: 15px;
   font-family: monospace;
-  font-size: 14px;
 }
 
 input, select {
@@ -86,7 +68,6 @@ button.finalizar {
   background: #25d366;
   color: white;
   font-size: 16px;
-  font-weight: bold;
 }
 </style>
 
@@ -103,14 +84,27 @@ button.finalizar {
 <pre id="recibo"></pre>
 </div>
 
+<h3>📦 Tipo de pedido</h3>
+<select id="tipo" onchange="toggleEntrega()">
+  <option value="Retirada">Retirada no local</option>
+  <option value="Entrega">Entrega</option>
+</select>
+
+<div id="campoEndereco" style="display:none;">
+  <input type="text" id="endereco" placeholder="Endereço de entrega">
+  <input type="number" id="taxa" placeholder="Taxa de entrega (R$)" oninput="gerarRecibo()">
+</div>
+
+<h3>📋 Dados</h3>
 <input type="text" id="nome" placeholder="Seu nome">
-<input type="text" id="endereco" placeholder="Endereço">
 
 <select id="pagamento">
   <option>Dinheiro</option>
   <option>Pix</option>
   <option>Cartão</option>
 </select>
+
+<input type="number" id="desconto" placeholder="Desconto (R$)" oninput="gerarRecibo()">
 
 <button class="finalizar" onclick="enviar()">Finalizar Pedido</button>
 
@@ -131,11 +125,8 @@ function renderProdutos() {
   produtos.forEach((p, i) => {
     html += `
     <div class="card">
+      ${p.nome} - R$${p.preco}
       <div>
-        <div class="nome">${p.nome}</div>
-        <div class="preco">R$ ${p.preco}</div>
-      </div>
-      <div class="controls">
         <button onclick="alterar(${i}, -1)">-</button>
         <span id="qtd-${i}">0</span>
         <button onclick="alterar(${i}, 1)">+</button>
@@ -151,6 +142,13 @@ function alterar(i, delta) {
   if (carrinho[i] < 0) carrinho[i] = 0;
 
   document.getElementById(`qtd-${i}`).innerText = carrinho[i];
+  gerarRecibo();
+}
+
+function toggleEntrega() {
+  let tipo = document.getElementById("tipo").value;
+  document.getElementById("campoEndereco").style.display =
+    tipo === "Entrega" ? "block" : "none";
   gerarRecibo();
 }
 
@@ -175,6 +173,19 @@ function gerarRecibo() {
     }
   });
 
+  let taxa = parseFloat(document.getElementById("taxa").value) || 0;
+  let desconto = parseFloat(document.getElementById("desconto").value) || 0;
+
+  if (taxa > 0) {
+    texto += `Entrega${" ".repeat(18)}R$${taxa}\n`;
+    total += taxa;
+  }
+
+  if (desconto > 0) {
+    texto += `Desconto${" ".repeat(17)}-R$${desconto}\n`;
+    total -= desconto;
+  }
+
   texto += "-------------------------\n";
   texto += `TOTAL: R$ ${total}`;
 
@@ -183,12 +194,20 @@ function gerarRecibo() {
 
 function enviar() {
   let nome = document.getElementById("nome").value;
+  let tipo = document.getElementById("tipo").value;
   let endereco = document.getElementById("endereco").value;
   let pagamento = document.getElementById("pagamento").value;
+  let taxa = parseFloat(document.getElementById("taxa").value) || 0;
+  let desconto = parseFloat(document.getElementById("desconto").value) || 0;
 
   let mensagem = `🍟 *Salgados Delícia*%0A`;
   mensagem += `Cliente: ${nome}%0A`;
-  mensagem += `Endereço: ${endereco}%0A`;
+  mensagem += `Tipo: ${tipo}%0A`;
+
+  if (tipo === "Entrega") {
+    mensagem += `Endereço: ${endereco}%0A`;
+  }
+
   mensagem += `Pagamento: ${pagamento}%0A%0A`;
   mensagem += `🧾 *Recibo*%0A`;
 
@@ -203,10 +222,20 @@ function enviar() {
     }
   });
 
+  if (taxa > 0) {
+    mensagem += `Entrega .......... R$${taxa}%0A`;
+    total += taxa;
+  }
+
+  if (desconto > 0) {
+    mensagem += `Desconto ......... -R$${desconto}%0A`;
+    total -= desconto;
+  }
+
   mensagem += "--------------------%0A";
   mensagem += `💰 *TOTAL: R$ ${total}*`;
 
-  let numero = "5511954950044"; // TROCAR
+  let numero = "5511954950044";
 
   window.open(`https://wa.me/${numero}?text=${mensagem}`);
 }
