@@ -1,1 +1,1020 @@
 
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aline Salgados</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fdf8f2;
+  --bg2: #f7f0e6;
+  --card: #ffffff;
+  --brown: #3d2b1f;
+  --brown2: #5c3d2e;
+  --amber: #c8792a;
+  --amber-light: #e8a24a;
+  --amber-dim: #f0c882;
+  --cream: #fdf4e3;
+  --green: #2d6a4f;
+  --green-light: #40916c;
+  --red-soft: #c0392b;
+  --text: #2c1a0e;
+  --text2: #6b4c36;
+  --text3: #a07850;
+  --border: #e8d8c0;
+  --border2: #d4b896;
+  --shadow: 0 2px 20px rgba(61,43,31,.08);
+  --shadow-md: 0 8px 40px rgba(61,43,31,.14);
+  --r: 14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Outfit',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.6;
+}
+
+/* ── SPLASH ── */
+#splash{
+  position:fixed;inset:0;z-index:999;
+  background:var(--brown);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  animation:splashOut .6s ease 2.8s forwards;
+}
+@keyframes splashOut{to{opacity:0;pointer-events:none;}}
+.splash-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:62px;font-weight:700;font-style:italic;
+  color:var(--amber-light);letter-spacing:-1px;
+  animation:riseUp .9s cubic-bezier(.22,1,.36,1) both;
+}
+.splash-subtitle{
+  font-size:11px;letter-spacing:6px;text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+  animation:riseUp .7s .2s cubic-bezier(.22,1,.36,1) both;
+}
+.splash-line{
+  width:60px;height:1px;background:var(--amber);opacity:.5;
+  animation:riseUp .7s .35s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes riseUp{from{opacity:0;transform:translateY(24px);}}
+
+/* ── HEADER ── */
+header{
+  background:var(--brown);
+  padding:18px 20px 14px;
+  position:sticky;top:0;z-index:50;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  box-shadow:0 2px 20px rgba(0,0,0,.2);
+}
+.h-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:34px;font-weight:700;font-style:italic;
+  color:var(--amber-light);letter-spacing:-.5px;line-height:1;
+}
+.h-sub{
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:rgba(255,255,255,.35);
+}
+.h-badge{
+  position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  background:var(--amber);color:#fff;
+  font-size:10px;font-weight:600;padding:5px 11px;border-radius:20px;
+  text-align:center;letter-spacing:.3px;
+}
+
+/* ── MAIN ── */
+main{
+  max-width:480px;margin:0 auto;
+  padding:22px 16px 120px;
+  display:flex;flex-direction:column;gap:16px;
+  position:relative;z-index:1;
+}
+
+/* ── CARD ── */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:18px;
+  box-shadow:var(--shadow);
+}
+.card-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:700;color:var(--brown);
+  margin-bottom:14px;display:flex;align-items:center;gap:8px;
+}
+.card-title-sm{font-size:17px;}
+
+/* ── INPUTS ── */
+.inp-group{display:flex;flex-direction:column;gap:10px;}
+.inp-wrap{position:relative;}
+.inp-wrap input,.inp-wrap select{
+  width:100%;background:var(--bg2);
+  border:1px solid var(--border);border-radius:10px;
+  padding:12px 14px 12px 42px;
+  color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;
+  outline:none;transition:border-color .2s,box-shadow .2s;appearance:none;
+}
+.inp-wrap input:focus,.inp-wrap select:focus{
+  border-color:var(--amber);box-shadow:0 0 0 3px rgba(200,121,42,.12);
+}
+.inp-wrap input::placeholder{color:var(--text3);}
+.inp-icon{
+  position:absolute;left:13px;top:50%;transform:translateY(-50%);
+  font-size:16px;pointer-events:none;
+}
+select option{background:#fff;}
+
+/* ── ENTREGA TOGGLE ── */
+.entrega-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.entrega-btn{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;padding:16px 8px;
+  background:var(--bg2);border:2px solid var(--border);
+  border-radius:12px;cursor:pointer;
+  transition:all .2s;-webkit-tap-highlight-color:transparent;
+}
+.entrega-btn:active{transform:scale(.96);}
+.entrega-btn .eb-icon{font-size:28px;}
+.entrega-btn .eb-label{font-size:12px;font-weight:600;color:var(--text2);letter-spacing:.5px;text-transform:uppercase;}
+.entrega-btn.ativo-retirar{border-color:var(--green);background:#f0faf5;}
+.entrega-btn.ativo-retirar .eb-label{color:var(--green);}
+.entrega-btn.ativo-entregar{border-color:var(--amber);background:#fdf4e3;}
+.entrega-btn.ativo-entregar .eb-label{color:var(--amber);}
+
+/* ── ENDERECO (hidden by default) ── */
+#wrap-endereco{
+  overflow:hidden;max-height:0;opacity:0;
+  transition:max-height .3s ease,opacity .25s ease,margin .3s ease;
+  margin-top:0;
+}
+#wrap-endereco.visivel{max-height:100px;opacity:1;margin-top:10px;}
+
+/* ── BOTAO SALGADO ── */
+#btn-salgado{
+  width:100%;padding:20px;border:none;
+  border-radius:var(--r);
+  background:linear-gradient(135deg,var(--brown) 0%,var(--brown2) 100%);
+  color:var(--amber-light);
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:700;font-style:italic;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  letter-spacing:.3px;
+  box-shadow:0 6px 24px rgba(61,43,31,.25);
+  transition:transform .15s,box-shadow .2s,filter .2s;
+  position:relative;overflow:hidden;
+}
+#btn-salgado::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.08) 0%,transparent 60%);
+}
+#btn-salgado:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(61,43,31,.32);}
+#btn-salgado:active{transform:scale(.98);}
+.btn-salgado-badge{
+  background:var(--amber);color:#fff;
+  font-family:'Outfit',sans-serif;
+  font-size:11px;font-weight:700;
+  padding:3px 9px;border-radius:20px;letter-spacing:.3px;
+  position:absolute;right:18px;top:50%;transform:translateY(-50%);
+}
+
+/* ── LISTA DE PEDIDOS ── */
+#lista-pedidos{display:flex;flex-direction:column;gap:10px;}
+.pedido-item{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:12px;padding:12px 14px;
+  animation:fadeSlide .3s ease both;
+}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(8px);}}
+.pedido-info{}
+.pedido-nome{font-weight:600;font-size:14px;color:var(--brown);}
+.pedido-sub{font-size:12px;color:var(--text3);margin-top:2px;}
+.pedido-preco{font-weight:700;font-size:14px;color:var(--amber);}
+.pedido-del{
+  background:none;border:none;cursor:pointer;
+  color:var(--text3);font-size:18px;padding:4px 8px;
+  transition:color .15s;border-radius:6px;
+}
+.pedido-del:hover{color:var(--red-soft);background:rgba(192,57,43,.08);}
+
+.lista-vazia{
+  text-align:center;color:var(--text3);font-size:14px;
+  padding:20px 0;font-style:italic;
+}
+
+/* ── RESUMO ── */
+.resumo-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:6px 0;border-bottom:1px solid var(--border);font-size:14px;
+}
+.resumo-row:last-of-type{border-bottom:none;}
+.resumo-row-label{color:var(--text2);}
+.resumo-row-val{font-weight:600;color:var(--text);}
+.resumo-total-row{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:12px;padding-top:12px;
+  border-top:2px solid var(--brown);
+}
+.resumo-total-label{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--text2);}
+.resumo-total-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--brown);}
+
+/* ── DESCONTO ── */
+.desc-badge{
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  background:rgba(200,121,42,.14);color:var(--amber);
+  font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.5px;
+}
+
+/* ── PAGAMENTO ── */
+.pag-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.pay-btn{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:5px;padding:13px 6px;
+  background:var(--bg2);border:2px solid var(--border);
+  border-radius:12px;cursor:pointer;
+  transition:all .2s;-webkit-tap-highlight-color:transparent;
+}
+.pay-btn:active{transform:scale(.95);}
+.pay-icon{font-size:24px;}
+.pay-label{font-size:10px;font-weight:600;color:var(--text2);letter-spacing:.5px;text-transform:uppercase;}
+.pay-btn.ativo-dinheiro{border-color:var(--green-light);background:#f0faf5;}
+.pay-btn.ativo-dinheiro .pay-label{color:var(--green);}
+.pay-btn.ativo-pix{border-color:#00b4d8;background:#f0faff;}
+.pay-btn.ativo-pix .pay-label{color:#0077b6;}
+.pay-btn.ativo-cartao{border-color:var(--amber);background:#fdf4e3;}
+.pay-btn.ativo-cartao .pay-label{color:var(--amber);}
+
+/* ── BTN FINALIZAR ── */
+#btn-finalizar{
+  width:100%;padding:18px;border:none;border-radius:var(--r);
+  background:var(--green);color:#fff;
+  font-family:'Outfit',sans-serif;font-size:16px;font-weight:600;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:background .2s,transform .1s,box-shadow .2s;
+  box-shadow:0 4px 20px rgba(45,106,79,.3);
+}
+#btn-finalizar:hover{background:var(--green-light);box-shadow:0 6px 28px rgba(45,106,79,.38);}
+#btn-finalizar:active{transform:scale(.98);}
+#btn-finalizar:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none;}
+
+/* ── MODAL SALGADO ── */
+.modal-overlay{
+  position:fixed;inset:0;display:none;
+  align-items:flex-end;justify-content:center;
+  background:rgba(30,15,5,.7);
+  backdrop-filter:blur(4px);
+  z-index:100;
+}
+.modal-overlay.show{display:flex;}
+
+.modal-sheet{
+  background:var(--card);
+  border-radius:24px 24px 0 0;
+  width:100%;max-width:480px;
+  padding:0 0 32px;
+  max-height:92vh;overflow-y:auto;
+  box-shadow:0 -8px 60px rgba(0,0,0,.25);
+  animation:sheetUp .35s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes sheetUp{from{transform:translateY(100%);}}
+
+.sheet-handle{
+  width:40px;height:4px;border-radius:2px;
+  background:var(--border2);margin:12px auto 0;
+}
+.sheet-header{
+  padding:20px 22px 16px;
+  border-bottom:1px solid var(--border);
+}
+.sheet-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;font-weight:700;color:var(--brown);
+}
+.sheet-sub{font-size:13px;color:var(--text3);margin-top:3px;}
+
+.sheet-body{padding:20px 22px 0;}
+
+/* TIPO SELECTOR */
+.tipo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.tipo-btn{
+  padding:14px 10px;border:2px solid var(--border);
+  border-radius:12px;background:var(--bg2);
+  cursor:pointer;text-align:center;
+  transition:all .2s;-webkit-tap-highlight-color:transparent;
+}
+.tipo-btn:active{transform:scale(.96);}
+.tipo-btn .tipo-icon{font-size:28px;display:block;margin-bottom:5px;}
+.tipo-btn .tipo-nome{font-size:13px;font-weight:600;color:var(--brown);}
+.tipo-btn .tipo-preco{font-size:11px;color:var(--text3);margin-top:2px;}
+.tipo-btn.ativo{border-color:var(--amber);background:var(--cream);}
+.tipo-btn.ativo .tipo-nome{color:var(--amber);}
+
+/* SABORES */
+.sabores-wrap{margin-bottom:18px;}
+.sabores-label{
+  font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;
+  color:var(--text3);margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.sabores-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.sabores-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.sabor-btn{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 13px;
+  background:var(--bg2);border:1.5px solid var(--border);
+  border-radius:10px;cursor:pointer;
+  transition:all .2s;-webkit-tap-highlight-color:transparent;
+}
+.sabor-btn:active{transform:scale(.96);}
+.sabor-emoji{font-size:20px;}
+.sabor-nome{font-size:13px;font-weight:500;color:var(--brown);flex:1;}
+.sabor-check{
+  width:18px;height:18px;border-radius:5px;
+  border:2px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;transition:all .15s;flex-shrink:0;
+}
+.sabor-btn.ativo{border-color:var(--amber);background:var(--cream);}
+.sabor-btn.ativo .sabor-check{background:var(--amber);border-color:var(--amber);color:#fff;}
+.sabor-btn.bloqueado{opacity:.4;cursor:not-allowed;}
+
+/* QTD centenas */
+.qtd-wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:12px;padding:12px 16px;margin-bottom:18px;
+}
+.qtd-label{font-size:14px;font-weight:500;color:var(--brown);}
+.qtd-preco{font-size:12px;color:var(--text3);margin-top:2px;}
+.qtd-ctrl{display:flex;align-items:center;gap:12px;}
+.qtd-btn{
+  width:32px;height:32px;border-radius:9px;
+  border:1.5px solid var(--border2);background:var(--card);
+  color:var(--brown);font-size:18px;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.qtd-btn:active{transform:scale(.88);}
+.qtd-btn.plus{background:var(--amber);border-color:var(--amber);color:#fff;}
+.qtd-btn.plus:hover{background:var(--amber-light);}
+.qtd-num{min-width:28px;text-align:center;font-weight:700;font-size:16px;color:var(--brown);}
+
+/* AVISO MISTURA */
+.aviso-mistura{
+  font-size:12px;color:var(--text3);
+  background:var(--cream);border:1px solid var(--amber-dim);
+  border-radius:8px;padding:8px 12px;margin-bottom:14px;
+  display:none;
+}
+.aviso-mistura.show{display:block;}
+
+/* BTN ADICIONAR */
+#btn-add{
+  width:100%;padding:15px;border:none;border-radius:12px;
+  background:var(--brown);color:var(--amber-light);
+  font-family:'Cormorant Garamond',serif;
+  font-size:19px;font-weight:700;font-style:italic;
+  cursor:pointer;margin-top:4px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:all .2s;
+  box-shadow:0 4px 18px rgba(61,43,31,.2);
+}
+#btn-add:hover{background:var(--brown2);transform:translateY(-1px);}
+#btn-add:active{transform:scale(.97);}
+#btn-add:disabled{opacity:.35;cursor:not-allowed;transform:none;}
+
+/* MODAL COUNTDOWN */
+.modal-cnt{
+  position:fixed;inset:0;display:none;
+  align-items:center;justify-content:center;
+  background:rgba(20,10,0,.85);backdrop-filter:blur(6px);z-index:200;
+}
+.modal-cnt.show{display:flex;}
+.cnt-box{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:20px;padding:30px 26px;
+  text-align:center;max-width:300px;width:90%;
+  box-shadow:var(--shadow-md);
+  animation:popIn .35s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes popIn{from{opacity:0;transform:scale(.84) translateY(20px);}}
+.cnt-icon{font-size:48px;margin-bottom:10px;}
+.cnt-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--brown);margin-bottom:5px;}
+.cnt-sub{font-size:13px;color:var(--text3);margin-bottom:16px;}
+.cnt-bar-wrap{background:var(--bg2);border-radius:8px;height:6px;overflow:hidden;}
+.cnt-bar{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--amber));border-radius:8px;transition:width .1s linear;}
+.cnt-cd{margin-top:8px;font-size:12px;color:var(--text3);}
+.cnt-cancel{
+  margin-top:14px;width:100%;padding:10px;
+  border:1px solid var(--border);border-radius:9px;
+  background:transparent;color:var(--text3);
+  font-family:'Outfit',sans-serif;font-size:13px;cursor:pointer;
+  transition:background .15s;
+}
+.cnt-cancel:hover{background:var(--bg2);}
+
+/* MODAL OK */
+.modal-ok-box{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:20px;padding:30px 26px;
+  text-align:center;max-width:300px;width:90%;
+  box-shadow:var(--shadow-md);
+  animation:popIn .35s cubic-bezier(.22,1,.36,1) both;
+}
+.ok-btn{
+  margin-top:20px;width:100%;padding:13px;border:none;
+  border-radius:10px;background:var(--amber);color:#fff;
+  font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;
+  cursor:pointer;transition:background .15s;
+}
+.ok-btn:hover{background:var(--amber-light);}
+
+/* TOAST */
+#toast{
+  position:fixed;bottom:24px;left:50%;
+  transform:translateX(-50%) translateY(80px);
+  background:var(--brown);color:var(--cream);
+  padding:11px 20px;border-radius:30px;
+  font-size:13px;white-space:nowrap;
+  transition:transform .3s cubic-bezier(.22,1,.36,1),opacity .3s;
+  opacity:0;z-index:999;box-shadow:var(--shadow-md);
+}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+
+/* FADE IN */
+.fi{animation:fi .45s ease both;}
+@keyframes fi{from{opacity:0;transform:translateY(12px);}}
+.fi:nth-child(1){animation-delay:.06s}.fi:nth-child(2){animation-delay:.12s}
+.fi:nth-child(3){animation-delay:.18s}.fi:nth-child(4){animation-delay:.24s}
+.fi:nth-child(5){animation-delay:.30s}.fi:nth-child(6){animation-delay:.36s}
+.fi:nth-child(7){animation-delay:.42s}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-title">Aline</div>
+  <div class="splash-line"></div>
+  <div class="splash-subtitle">Salgados Artesanais</div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="h-title">Aline Salgados</div>
+  <div class="h-sub">Feito com carinho · Pedido online</div>
+  <div class="h-badge" id="h-badge">#—</div>
+</header>
+
+<main>
+
+  <!-- DADOS -->
+  <div class="card fi">
+    <div class="card-title card-title-sm">👤 Seus Dados</div>
+    <div class="inp-group">
+      <div class="inp-wrap">
+        <span class="inp-icon">🙍</span>
+        <input id="nome" type="text" placeholder="Nome completo" oninput="atualizarResumo()">
+      </div>
+      <div class="inp-wrap">
+        <span class="inp-icon">📱</span>
+        <input id="telefone" type="tel" placeholder="WhatsApp (ex: 11 9xxxx-xxxx)" oninput="atualizarResumo()">
+      </div>
+    </div>
+  </div>
+
+  <!-- ENTREGA -->
+  <div class="card fi">
+    <div class="card-title card-title-sm">🚚 Como deseja receber?</div>
+    <div class="entrega-grid">
+      <div class="entrega-btn" id="eb-retirar" onclick="selecionarEntrega('retirar')">
+        <div class="eb-icon">🏠</div>
+        <div class="eb-label">Retirar</div>
+      </div>
+      <div class="entrega-btn" id="eb-entregar" onclick="selecionarEntrega('entregar')">
+        <div class="eb-icon">🛵</div>
+        <div class="eb-label">Entregar</div>
+      </div>
+    </div>
+    <div id="wrap-endereco">
+      <div class="inp-wrap" style="margin-top:0">
+        <span class="inp-icon">📍</span>
+        <input id="endereco" type="text" placeholder="Endereço para entrega" oninput="atualizarResumo()">
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTÃO SALGADO -->
+  <div class="fi">
+    <button id="btn-salgado" onclick="abrirModal()">
+      <span>🍟</span>
+      <span>Escolher Salgados</span>
+      <span class="btn-salgado-badge" id="badge-qtd" style="display:none">0 un.</span>
+    </button>
+  </div>
+
+  <!-- LISTA DE PEDIDOS -->
+  <div class="card fi" id="card-lista" style="display:none">
+    <div class="card-title card-title-sm">🛒 Meu Pedido</div>
+    <div id="lista-pedidos"></div>
+  </div>
+
+  <!-- DESCONTO -->
+  <div class="card fi">
+    <div class="card-title card-title-sm">🏷️ Desconto</div>
+    <div class="inp-wrap" style="position:relative">
+      <span class="inp-icon">%</span>
+      <input id="desconto" type="number" min="0" placeholder="Valor do desconto (ex: 10.00)" oninput="atualizarResumo()" style="padding-right:90px">
+      <span class="desc-badge" id="desc-badge" style="display:none"></span>
+    </div>
+  </div>
+
+  <!-- PAGAMENTO -->
+  <div class="card fi">
+    <div class="card-title card-title-sm">💳 Pagamento</div>
+    <div class="pag-grid">
+      <div class="pay-btn" id="pay-dinheiro" onclick="selecionarPag('dinheiro')">
+        <div class="pay-icon">💵</div>
+        <div class="pay-label">Dinheiro</div>
+      </div>
+      <div class="pay-btn" id="pay-pix" onclick="selecionarPag('pix')">
+        <div class="pay-icon">⚡</div>
+        <div class="pay-label">PIX</div>
+      </div>
+      <div class="pay-btn" id="pay-cartao" onclick="selecionarPag('cartao')">
+        <div class="pay-icon">💳</div>
+        <div class="pay-label">Cartão</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESUMO -->
+  <div class="card fi" id="card-resumo" style="display:none">
+    <div class="card-title card-title-sm">🧾 Resumo</div>
+    <div id="resumo-corpo"></div>
+  </div>
+
+  <!-- FINALIZAR -->
+  <button id="btn-finalizar" onclick="finalizar()" disabled class="fi">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.533 5.854L0 24l6.302-1.513A11.947 11.947 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.374l-.359-.214-3.739.897.943-3.633-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+    Enviar pelo WhatsApp
+  </button>
+
+</main>
+
+<!-- ══ MODAL SALGADO (bottom sheet) ══ -->
+<div id="modal-salgado" class="modal-overlay" onclick="fecharSheetFora(event)">
+  <div class="modal-sheet" id="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div class="sheet-title">Escolha seu Salgado</div>
+      <div class="sheet-sub">1 centena = 100 unidades · R$ 80,00</div>
+    </div>
+    <div class="sheet-body">
+
+      <!-- TIPO: simples ou misto -->
+      <div class="tipo-grid">
+        <div class="tipo-btn" id="tipo-simples" onclick="selecionarTipo('simples')">
+          <span class="tipo-icon">🎯</span>
+          <div class="tipo-nome">Um sabor</div>
+          <div class="tipo-preco">100 un. · R$ 80</div>
+        </div>
+        <div class="tipo-btn" id="tipo-misto" onclick="selecionarTipo('misto')">
+          <span class="tipo-icon">🎨</span>
+          <div class="tipo-nome">Mistura</div>
+          <div class="tipo-preco">Até 3 sabores</div>
+        </div>
+      </div>
+
+      <!-- AVISO MISTURA -->
+      <div class="aviso-mistura" id="aviso-mistura">
+        🎨 Escolha até <strong>3 sabores</strong> para a centena mista. Os sabores serão divididos em partes iguais.
+      </div>
+
+      <!-- SABORES -->
+      <div class="sabores-wrap">
+        <div class="sabores-label">Sabores</div>
+        <div class="sabores-grid" id="sabores-grid"></div>
+      </div>
+
+      <!-- QUANTIDADE -->
+      <div class="qtd-wrap">
+        <div>
+          <div class="qtd-label">Quantidade de centenas</div>
+          <div class="qtd-preco" id="qtd-preco-label">1 centena · R$ 80,00</div>
+        </div>
+        <div class="qtd-ctrl">
+          <button class="qtd-btn minus" onclick="alterarQtd(-1)">−</button>
+          <span class="qtd-num" id="qtd-num">1</span>
+          <button class="qtd-btn plus" onclick="alterarQtd(1)">+</button>
+        </div>
+      </div>
+
+      <button id="btn-add" onclick="adicionarPedido()">
+        <span>✚</span> Adicionar ao Pedido
+      </button>
+
+    </div><!-- /sheet-body -->
+  </div><!-- /modal-sheet -->
+</div><!-- /modal-overlay -->
+
+<!-- MODAL COUNTDOWN -->
+<div id="modal-cnt" class="modal-cnt">
+  <div class="cnt-box">
+    <div class="cnt-icon">🍟</div>
+    <div class="cnt-title">Preparando pedido...</div>
+    <div class="cnt-sub">Abrindo WhatsApp em instantes!</div>
+    <div class="cnt-bar-wrap"><div class="cnt-bar" id="cnt-bar"></div></div>
+    <div class="cnt-cd" id="cnt-cd">Abrindo em 3s...</div>
+    <button class="cnt-cancel" onclick="cancelarEnvio()">✕ Cancelar</button>
+  </div>
+</div>
+
+<!-- MODAL OK -->
+<div id="modal-ok" class="modal-cnt">
+  <div class="modal-ok-box">
+    <div class="cnt-icon">✅</div>
+    <div class="cnt-title">Pedido Enviado!</div>
+    <div class="cnt-sub">Aguarde a confirmação da <strong>Aline</strong>! 🍟</div>
+    <button class="ok-btn" onclick="fecharOk()">Fazer novo pedido</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+// ── DADOS ──
+const SABORES = [
+  { id:"coxinha",  nome:"Coxinha",          emoji:"🍗" },
+  { id:"kibe",     nome:"Kibe",             emoji:"🥙" },
+  { id:"queijo",   nome:"Bolinho de Queijo", emoji:"🧀" },
+  { id:"bacalhau", nome:"Bolinho de Bacalhau",emoji:"🐟" },
+];
+const PRECO_CENTENA = 80;
+const PAGAMENTOS = {
+  dinheiro:{ label:"DINHEIRO EM ESPECIE", emoji:"💵" },
+  pix:     { label:"PIX",                 emoji:"⚡" },
+  cartao:  { label:"CARTAO",              emoji:"💳" },
+};
+
+// ── ESTADO ──
+let pedidos    = [];   // [{tipo, sabores:[], qtd, total}]
+let entrega    = "";
+let pagamento  = "";
+let numero     = 0;
+let dataAtual  = "";
+
+// modal state
+let tipoAtual   = "";       // 'simples' | 'misto'
+let saboresSel  = new Set();
+let qtdAtual    = 1;
+
+// ── INIT ──
+function init() {
+  setTimeout(()=>{ document.getElementById("splash").style.display="none"; }, 3000);
+  numero = parseInt(localStorage.getItem("numAS")||"0") + 1;
+  localStorage.setItem("numAS", numero);
+  dataAtual = new Date().toLocaleString("pt-br");
+  document.getElementById("h-badge").textContent = `#${String(numero).padStart(3,"0")}`;
+  renderSabores();
+  atualizarResumo();
+}
+
+// ── ENTREGA ──
+function selecionarEntrega(tipo) {
+  entrega = tipo;
+  document.getElementById("eb-retirar").className  = "entrega-btn" + (tipo==="retirar"  ? " ativo-retirar"  : "");
+  document.getElementById("eb-entregar").className = "entrega-btn" + (tipo==="entregar" ? " ativo-entregar" : "");
+  const wrap = document.getElementById("wrap-endereco");
+  wrap.classList.toggle("visivel", tipo==="entregar");
+  atualizarResumo();
+}
+
+// ── PAGAMENTO ──
+function selecionarPag(tipo) {
+  pagamento = tipo;
+  document.querySelectorAll(".pay-btn").forEach(b=>b.className="pay-btn");
+  document.getElementById(`pay-${tipo}`).classList.add(`ativo-${tipo}`);
+  atualizarResumo();
+}
+
+// ── MODAL SALGADO ──
+function abrirModal() {
+  // reset estado modal
+  tipoAtual  = "";
+  saboresSel = new Set();
+  qtdAtual   = 1;
+  document.getElementById("tipo-simples").classList.remove("ativo");
+  document.getElementById("tipo-misto").classList.remove("ativo");
+  document.getElementById("aviso-mistura").classList.remove("show");
+  document.getElementById("qtd-num").textContent = "1";
+  atualizarQtdLabel();
+  renderSabores();
+  document.getElementById("btn-add").disabled = true;
+  document.getElementById("modal-salgado").classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+
+function fecharModal() {
+  document.getElementById("modal-salgado").classList.remove("show");
+  document.body.style.overflow = "";
+}
+
+function fecharSheetFora(e) {
+  if (e.target === document.getElementById("modal-salgado")) fecharModal();
+}
+
+function selecionarTipo(tipo) {
+  tipoAtual = tipo;
+  saboresSel = new Set();
+  document.getElementById("tipo-simples").classList.toggle("ativo", tipo==="simples");
+  document.getElementById("tipo-misto").classList.toggle("ativo",   tipo==="misto");
+  document.getElementById("aviso-mistura").classList.toggle("show", tipo==="misto");
+  renderSabores();
+  validarAdd();
+}
+
+function renderSabores() {
+  const grid = document.getElementById("sabores-grid");
+  const max  = tipoAtual === "misto" ? 3 : 1;
+  grid.innerHTML = SABORES.map(s => {
+    const sel     = saboresSel.has(s.id);
+    const cheio   = saboresSel.size >= max && !sel;
+    const bloq    = tipoAtual === "" || cheio ? " bloqueado" : "";
+    const ativo   = sel ? " ativo" : "";
+    return `<div class="sabor-btn${ativo}${bloq}" onclick="toggleSabor('${s.id}')">
+      <span class="sabor-emoji">${s.emoji}</span>
+      <span class="sabor-nome">${s.nome}</span>
+      <span class="sabor-check">${sel?"✓":""}</span>
+    </div>`;
+  }).join("");
+}
+
+function toggleSabor(id) {
+  if (!tipoAtual) { showToast("Escolha primeiro: Um sabor ou Mistura"); return; }
+  const max = tipoAtual === "misto" ? 3 : 1;
+  if (saboresSel.has(id)) {
+    saboresSel.delete(id);
+  } else {
+    if (saboresSel.size >= max) {
+      showToast(tipoAtual==="simples" ? "Escolha apenas 1 sabor" : "Máximo 3 sabores na mistura");
+      return;
+    }
+    saboresSel.add(id);
+  }
+  renderSabores();
+  validarAdd();
+}
+
+function alterarQtd(d) {
+  qtdAtual = Math.max(1, qtdAtual + d);
+  document.getElementById("qtd-num").textContent = qtdAtual;
+  atualizarQtdLabel();
+}
+
+function atualizarQtdLabel() {
+  const total = qtdAtual * PRECO_CENTENA;
+  document.getElementById("qtd-preco-label").textContent =
+    `${qtdAtual} centena${qtdAtual>1?"s":""} · R$ ${total.toFixed(2)}`;
+}
+
+function validarAdd() {
+  const ok = tipoAtual !== "" && saboresSel.size > 0;
+  document.getElementById("btn-add").disabled = !ok;
+}
+
+function adicionarPedido() {
+  const saboresArr = [...saboresSel].map(id => SABORES.find(s=>s.id===id));
+  const total = qtdAtual * PRECO_CENTENA;
+  const descricaoSabores = saboresArr.map(s=>`${s.emoji} ${s.nome}`).join(" + ");
+  const tipoLabel = tipoAtual === "misto" ? "Mistura" : "Um sabor";
+
+  pedidos.push({
+    tipo: tipoLabel,
+    sabores: saboresArr,
+    descricaoSabores,
+    qtd: qtdAtual,
+    total,
+  });
+
+  fecharModal();
+  renderLista();
+  atualizarResumo();
+  showToast(`✅ ${qtdAtual} centena${qtdAtual>1?"s":""} adicionada${qtdAtual>1?"s":""}!`);
+}
+
+function removerPedido(i) {
+  pedidos.splice(i, 1);
+  renderLista();
+  atualizarResumo();
+}
+
+// ── LISTA ──
+function renderLista() {
+  const card = document.getElementById("card-lista");
+  const div  = document.getElementById("lista-pedidos");
+
+  if (pedidos.length === 0) {
+    card.style.display = "none";
+    div.innerHTML = "";
+  } else {
+    card.style.display = "";
+    div.innerHTML = pedidos.map((p,i) => `
+      <div class="pedido-item">
+        <div class="pedido-info">
+          <div class="pedido-nome">${p.descricaoSabores}</div>
+          <div class="pedido-sub">${p.tipo} · ${p.qtd} centena${p.qtd>1?"s":""}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="pedido-preco">R$ ${p.total.toFixed(2)}</span>
+          <button class="pedido-del" onclick="removerPedido(${i})">×</button>
+        </div>
+      </div>`).join("");
+  }
+
+  // badge no botão
+  const totalUn = pedidos.reduce((a,p)=>a+p.qtd*100,0);
+  const badge = document.getElementById("badge-qtd");
+  if (pedidos.length > 0) {
+    badge.style.display = "";
+    badge.textContent   = `${totalUn} un.`;
+  } else {
+    badge.style.display = "none";
+  }
+}
+
+// ── RESUMO / RECIBO ──
+function atualizarResumo() {
+  const nome    = document.getElementById("nome").value.trim();
+  const tel     = document.getElementById("telefone").value.trim();
+  const end     = document.getElementById("endereco").value.trim();
+  const descRaw = parseFloat(document.getElementById("desconto").value)||0;
+
+  const subtotal = pedidos.reduce((a,p)=>a+p.total,0);
+  const descVal  = Math.min(descRaw, subtotal);
+  const total    = Math.max(0, subtotal - descVal);
+
+  // badge desconto
+  const badge = document.getElementById("desc-badge");
+  if (descVal > 0) { badge.style.display=""; badge.textContent=`- R$ ${descVal.toFixed(2)}`; }
+  else             { badge.style.display="none"; }
+
+  // resumo card
+  const cardRes = document.getElementById("card-resumo");
+  const corpo   = document.getElementById("resumo-corpo");
+
+  if (pedidos.length === 0) {
+    cardRes.style.display = "none";
+  } else {
+    cardRes.style.display = "";
+    let rows = pedidos.map(p =>
+      `<div class="resumo-row">
+        <span class="resumo-row-label">${p.descricaoSabores} ×${p.qtd}</span>
+        <span class="resumo-row-val">R$ ${p.total.toFixed(2)}</span>
+       </div>`).join("");
+    if (descVal > 0) {
+      rows += `<div class="resumo-row"><span style="color:var(--amber)">🏷️ Desconto</span><span style="color:var(--amber);font-weight:600">- R$ ${descVal.toFixed(2)}</span></div>`;
+    }
+    rows += `<div class="resumo-total-row">
+      <span class="resumo-total-label">Total</span>
+      <span class="resumo-total-val">R$ ${total.toFixed(2)}</span>
+     </div>`;
+    corpo.innerHTML = rows;
+  }
+
+  // habilitar finalizar
+  const endOk = entrega === "retirar" || (entrega === "entregar" && end);
+  document.getElementById("btn-finalizar").disabled =
+    !(pedidos.length > 0 && nome && entrega && pagamento && endOk);
+
+  // montar mensagem WA
+  window._msgWA = buildRecibo({ nome, tel, end, pedidos, subtotal, descVal, total });
+}
+
+function buildRecibo({ nome, tel, end, pedidos, subtotal, descVal, total }) {
+  const W   = 28;
+  const sep = "=".repeat(W);
+  const sep2= "-".repeat(W);
+  const num = String(numero).padStart(6,"0");
+  const pag = PAGAMENTOS[pagamento] || { label:"---", emoji:"" };
+  const now = new Date();
+  const row = (a,b) => { const sp=" ".repeat(Math.max(1,W-a.length-b.length)); return a+sp+b; };
+  const pad = (s) => { const sp=Math.max(0,W-s.length); return " ".repeat(Math.floor(sp/2))+s; };
+
+  const linhas = [
+    sep,
+    pad("ALINE SALGADOS"),
+    pad("Salgados Artesanais"),
+    pad(now.toLocaleDateString("pt-br")+"  "+now.toLocaleTimeString("pt-br",{hour:"2-digit",minute:"2-digit"})),
+    pad("Nº "+num),
+    sep2,
+    row("Cliente:", nome),
+    row("Fone:", tel||"N/I"),
+    row("Entrega:", entrega==="retirar"?"Retirar na loja":"Entregar"),
+  ];
+  if (entrega==="entregar" && end) linhas.push(row("Endereço:", end));
+  linhas.push(sep2);
+  pedidos.forEach(p => {
+    linhas.push(row(p.descricaoSabores, ""));
+    linhas.push(row(` ${p.tipo} x${p.qtd} cen.`, `R$${p.total.toFixed(2)}`));
+  });
+  linhas.push(sep2);
+  if (descVal>0) {
+    linhas.push(row("Subtotal", `R$${subtotal.toFixed(2)}`));
+    linhas.push(row("Desconto", `-R$${descVal.toFixed(2)}`));
+    linhas.push(sep2);
+  }
+  linhas.push(row("*TOTAL*", `*R$${total.toFixed(2)}*`));
+  linhas.push(sep2);
+  linhas.push(row(`${pag.emoji} Pgto:`, pag.label));
+  linhas.push(sep);
+  linhas.push(pad("Obrigada! Volte sempre 😊"));
+
+  return "```\n" + linhas.join("\n") + "\n```";
+}
+
+// ── FINALIZAR ──
+let _interval = null, _cancelado = false;
+
+function finalizar() {
+  const nome    = document.getElementById("nome").value.trim();
+  const entOk   = entrega==="retirar" || document.getElementById("endereco").value.trim();
+  if (!nome)    { showToast("⚠️ Informe seu nome."); return; }
+  if (!entrega) { showToast("⚠️ Escolha retirar ou entregar."); return; }
+  if (!entOk)   { showToast("⚠️ Informe o endereço de entrega."); return; }
+  if (!pagamento){ showToast("⚠️ Selecione a forma de pagamento."); return; }
+
+  _cancelado = false;
+  const modal = document.getElementById("modal-cnt");
+  const bar   = document.getElementById("cnt-bar");
+  const cd    = document.getElementById("cnt-cd");
+  modal.classList.add("show");
+  bar.style.width = "0%";
+  let t = 3;
+  cd.textContent = `Abrindo em ${t}s...`;
+
+  _interval = setInterval(()=>{
+    if (_cancelado) { clearInterval(_interval); return; }
+    t--;
+    bar.style.width = `${((3-t)/3)*100}%`;
+    cd.textContent = t>0 ? `Abrindo em ${t}s...` : "Abrindo WhatsApp...";
+    if (t<=0) {
+      clearInterval(_interval);
+      modal.classList.remove("show");
+      location.href = `https://wa.me/5511954950044?text=${encodeURIComponent(window._msgWA||"")}`;
+      setTimeout(()=>document.getElementById("modal-ok").classList.add("show"), 1500);
+    }
+  }, 1000);
+}
+
+function cancelarEnvio() {
+  _cancelado = true;
+  clearInterval(_interval);
+  document.getElementById("modal-cnt").classList.remove("show");
+  document.getElementById("cnt-bar").style.width = "0%";
+  showToast("Pedido cancelado.");
+}
+
+function fecharOk() {
+  document.getElementById("modal-ok").classList.remove("show");
+  pedidos = []; entrega = ""; pagamento = "";
+  document.getElementById("nome").value      = "";
+  document.getElementById("telefone").value  = "";
+  document.getElementById("endereco").value  = "";
+  document.getElementById("desconto").value  = "";
+  document.getElementById("eb-retirar").className  = "entrega-btn";
+  document.getElementById("eb-entregar").className = "entrega-btn";
+  document.getElementById("wrap-endereco").classList.remove("visivel");
+  document.querySelectorAll(".pay-btn").forEach(b=>b.className="pay-btn");
+  numero = parseInt(localStorage.getItem("numAS")||"0")+1;
+  localStorage.setItem("numAS", numero);
+  document.getElementById("h-badge").textContent = `#${String(numero).padStart(3,"0")}`;
+  renderLista(); atualizarResumo();
+}
+
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"), 2600);
+}
+
+init();
+</script>
+</body>
+</html>
