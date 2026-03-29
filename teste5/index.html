@@ -3,287 +3,130 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Salgados Delícia</title>
+<title>Sistema PRO+ Salgados</title>
 
 <style>
-body {margin:0;font-family:Arial;background:#f2f2f2;}
+body{margin:0;font-family:Arial;background:#0f0f0f;color:#fff}
+header{background:#000;color:gold;text-align:center;padding:15px;font-size:20px}
+.container{padding:15px}
+.card{background:#1a1a1a;margin:10px 0;padding:12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center}
+button{border:none;padding:6px 12px;border-radius:6px;background:#ff6600;color:#fff;cursor:pointer}
+.finalizar{width:100%;padding:14px;background:#25d366;font-size:16px}
+.resumo{background:#000;color:#00ff88;padding:10px;border-radius:10px;font-family:monospace}
+.badge{padding:4px 8px;border-radius:6px;font-size:12px}
+.preparo{background:orange}
+.pronto{background:green}
+.entregue{background:blue}
+.floating{position:fixed;bottom:20px;right:20px;background:#000;color:gold;padding:15px;border-radius:50%;box-shadow:0 0 15px gold;cursor:pointer}
 
-header {
-  background:#111;
-  color:gold;
-  padding:15px;
-  text-align:center;
-}
+/* MODAL LUXO */
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.9)}
+.modal-box{background:#000;color:gold;padding:25px;border-radius:15px;border:2px solid gold;box-shadow:0 0 30px gold,0 0 60px rgba(255,215,0,0.4)}
+.barra{height:5px;background:#222;margin-top:10px}
+#bar{height:5px;width:0;background:gold;animation:load 5s linear forwards}
+@keyframes load{from{width:0}to{width:100%}}
 
-.container {padding:15px;}
-
-.card {
-  background:white;
-  border-radius:12px;
-  padding:10px;
-  margin-bottom:10px;
-  display:flex;
-  justify-content:space-between;
-}
-
-button {
-  background:#ff6600;
-  color:white;
-  border:none;
-  padding:5px 10px;
-  border-radius:6px;
-}
-
-.resumo {
-  background:black;
-  color:#00ff88;
-  padding:10px;
-  border-radius:10px;
-  margin-top:10px;
-  font-family:monospace;
-}
-
-input,select {
-  width:100%;
-  padding:10px;
-  margin-top:8px;
-}
-
-.finalizar {
-  width:100%;
-  padding:12px;
-  background:#25d366;
-}
-
-/* 🔥 MODAL LUXO */
-.modal {
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:rgba(0,0,0,0.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-
-.modal-content {
-  background:#000;
-  color:gold;
-  padding:25px;
-  border-radius:15px;
-  text-align:center;
-  border:2px solid gold;
-  box-shadow:0 0 25px gold,0 0 60px rgba(255,215,0,0.5);
-}
-
-.barra {
-  width:100%;
-  height:5px;
-  background:#222;
-  margin-top:15px;
-  overflow:hidden;
-}
-
-#progresso {
-  height:100%;
-  width:0%;
-  background:gold;
-  animation:carregar 5s linear forwards;
-}
-
-@keyframes carregar {
-  from{width:0%;}
-  to{width:100%;}
-}
+.painel{background:#111;padding:10px;margin-top:15px;border-radius:10px}
+.pedido-item{border-bottom:1px solid #333;padding:8px}
 </style>
 </head>
 
 <body>
-
-<header>🍟 Salgados Delícia</header>
+<header>🍟 Sistema Profissional</header>
 
 <div class="container">
-
-<div id="infoPedido"></div>
-
+<div id="info"></div>
 <div id="produtos"></div>
 
-<div class="resumo">
-<pre id="recibo"></pre>
-</div>
-
-<select id="tipo" onchange="toggleEntrega()">
-<option value="Retirada">Retirada</option>
-<option value="Entrega">Entrega</option>
-</select>
-
-<div id="campoEndereco" style="display:none;">
-<input id="endereco" placeholder="Endereço">
-<input id="taxa" type="number" placeholder="Taxa" oninput="gerarRecibo()">
-</div>
+<div class="resumo"><pre id="recibo"></pre></div>
 
 <input id="nome" placeholder="Nome">
-
-<select id="pagamento">
-<option>Dinheiro</option>
-<option>Pix</option>
+<select id="tipo" onchange="toggle()">
+<option>Retirada</option>
+<option>Entrega</option>
 </select>
+<div id="end" style="display:none">
+<input id="endereco" placeholder="Endereço">
+<input id="taxa" type="number" placeholder="Taxa" oninput="recibo()">
+</div>
+<input id="desconto" type="number" placeholder="Desconto" oninput="recibo()">
 
-<input id="desconto" type="number" placeholder="Desconto" oninput="gerarRecibo()">
+<button class="finalizar" onclick="finalizar()">Finalizar Pedido</button>
 
-<button class="finalizar" onclick="enviar()">Finalizar Pedido</button>
+<div class="painel">
+<h3>📊 Painel de Pedidos</h3>
+<div id="listaPedidos"></div>
+</div>
 
 </div>
 
-<!-- MODAL -->
+<div class="floating" onclick="abrirPainel()">📋</div>
+
 <div id="modal" class="modal">
-  <div class="modal-content">
-    <h2>Pedido registrado</h2>
-    <p>Estamos preparando seu pedido ✨</p>
-    <div class="barra"><div id="progresso"></div></div>
-  </div>
+<div class="modal-box">
+<h2>Pedido registrado</h2>
+<div class="barra"><div id="bar"></div></div>
+</div>
 </div>
 
 <script>
-let produtos=[
-{nome:"Coxinha",preco:5},
-{nome:"Kibe",preco:5},
-{nome:"Esfiha",preco:6}
-];
-
+let produtos=[{n:"Coxinha",p:5},{n:"Kibe",p:5},{n:"Esfiha",p:6}];
 let carrinho={};
-let numeroPedido=null;
-let dataPedido=null;
+let numero=0;
+let data="";
 
-// 🔥 INICIAR OU CONTINUAR PEDIDO
-function iniciarPedido(){
-  let salvo=localStorage.getItem("pedidoAberto");
+function init(){
+let salvo=localStorage.getItem("aberto");
+if(salvo){let d=JSON.parse(salvo);carrinho=d.c;numero=d.n;data=d.dt}
+else{numero=(localStorage.getItem("num")||0);numero++;localStorage.setItem("num",numero);data=new Date().toLocaleString()}
+info();render();recibo();listarPedidos();}
 
-  if(salvo){
-    let dados=JSON.parse(salvo);
-    carrinho=dados.carrinho;
-    numeroPedido=dados.numero;
-    dataPedido=dados.data;
-  }else{
-    numeroPedido=(localStorage.getItem("numero")||0);
-    numeroPedido++;
-    localStorage.setItem("numero",numeroPedido);
+function save(){localStorage.setItem("aberto",JSON.stringify({c:carrinho,n:numero,dt:data}))}
 
-    dataPedido=new Date().toLocaleString();
-  }
+function info(){document.getElementById("info").innerHTML=`📦 Pedido #${numero}<br>${data}`}
 
-  mostrarInfo();
-}
+function render(){let h="";produtos.forEach((p,i)=>{let q=carrinho[i]||0;h+=`<div class='card'>${p.n} R$${p.p}<div><button onclick='alt(${i},-1)'>-</button> ${q} <button onclick='alt(${i},1)'>+</button></div></div>`});document.getElementById("produtos").innerHTML=h}
 
-// 🔥 SALVAR
-function salvarPedido(){
-  localStorage.setItem("pedidoAberto",JSON.stringify({
-    carrinho,
-    numero:numeroPedido,
-    data:dataPedido
-  }));
-}
+function alt(i,d){if(!carrinho[i])carrinho[i]=0;carrinho[i]+=d;if(carrinho[i]<0)carrinho[i]=0;save();render();recibo()}
 
-// 🔥 MOSTRAR INFO
-function mostrarInfo(){
-  document.getElementById("infoPedido").innerHTML=
-  `📦 Pedido Nº: ${numeroPedido}<br>📅 ${dataPedido}`;
-}
+function toggle(){document.getElementById("end").style.display=document.getElementById("tipo").value=="Entrega"?"block":"none"}
 
-// PRODUTOS
-function renderProdutos(){
-  let html="";
-  produtos.forEach((p,i)=>{
-    let qtd=carrinho[i]||0;
-    html+=`
-    <div class="card">
-      ${p.nome} R$${p.preco}
-      <div>
-        <button onclick="alterar(${i},-1)">-</button>
-        <span>${qtd}</span>
-        <button onclick="alterar(${i},1)">+</button>
-      </div>
-    </div>`;
-  });
-  document.getElementById("produtos").innerHTML=html;
-}
+function recibo(){let t="";let total=0;produtos.forEach((p,i)=>{let q=carrinho[i]||0;if(q>0){let s=q*p.p;total+=s;t+=`${p.n} x${q} R$${s}\n`}});
+let taxa=parseFloat(document.getElementById("taxa").value)||0;
+let desc=parseFloat(document.getElementById("desconto").value)||0;
+total=total+taxa-desc;
 
-function alterar(i,d){
-  if(!carrinho[i])carrinho[i]=0;
-  carrinho[i]+=d;
-  if(carrinho[i]<0)carrinho[i]=0;
+document.getElementById("recibo").innerText=t+`\nTOTAL R$${total}`}
 
-  salvarPedido();
-  renderProdutos();
-  gerarRecibo();
-}
+function finalizar(){
+document.getElementById("modal").style.display="flex";
+setTimeout(()=>{
+let msg=`📦 Pedido #${numero}%0A${data}%0A`;
+produtos.forEach((p,i)=>{let q=carrinho[i]||0;if(q>0){msg+=`${p.n} x${q}%0A`}});
+window.open(`https://wa.me/5511954950044?text=${msg}`);
 
-function toggleEntrega(){
-  let tipo=document.getElementById("tipo").value;
-  document.getElementById("campoEndereco").style.display=
-  tipo==="Entrega"?"block":"none";
-}
+let hist=JSON.parse(localStorage.getItem("hist")||"[]");
+hist.push({n:numero,dt:data,status:"preparo"});
+localStorage.setItem("hist",JSON.stringify(hist));
 
-function gerarRecibo(){
-  let texto="";
-  let total=0;
+localStorage.removeItem("aberto");carrinho={};init();document.getElementById("modal").style.display="none";
+},5000)}
 
-  produtos.forEach((p,i)=>{
-    let qtd=carrinho[i]||0;
-    if(qtd>0){
-      let sub=qtd*p.preco;
-      total+=sub;
-      texto+=`${p.nome} x${qtd} .... R$${sub}\n`;
-    }
-  });
+function listarPedidos(){
+let hist=JSON.parse(localStorage.getItem("hist")||"[]");
+let html="";
+hist.forEach((p,i)=>{
+html+=`<div class='pedido-item'>
+Pedido #${p.n} - ${p.dt}<br>
+<span class='badge ${p.status}'>${p.status}</span>
+<button onclick='mudar(${i},"preparo")'>🟡</button>
+<button onclick='mudar(${i},"pronto")'>🟢</button>
+<button onclick='mudar(${i},"entregue")'>🔵</button>
+</div>`});
+document.getElementById("listaPedidos").innerHTML=html}
 
-  document.getElementById("recibo").innerText=texto+"\nTOTAL: R$"+total;
-}
-
-// 🔥 FINALIZAR
-function enviar(){
-
-  document.getElementById("modal").style.display="flex";
-
-  let mensagem=`📦 Pedido Nº: ${numeroPedido}%0A📅 ${dataPedido}%0A%0A`;
-
-  let total=0;
-
-  produtos.forEach((p,i)=>{
-    let qtd=carrinho[i]||0;
-    if(qtd>0){
-      let sub=qtd*p.preco;
-      total+=sub;
-      mensagem+=`${p.nome} x${qtd} R$${sub}%0A`;
-    }
-  });
-
-  mensagem+=`%0A💰 TOTAL: R$${total}`;
-
-  let barra=document.getElementById("progresso");
-  barra.style.animation="none";
-  barra.offsetHeight;
-  barra.style.animation="carregar 5s linear forwards";
-
-  setTimeout(()=>{
-    window.open(`https://wa.me/5511954950044?text=${mensagem}`);
-
-    // LIMPA PEDIDO
-    localStorage.removeItem("pedidoAberto");
-    carrinho={};
-    iniciarPedido();
-    renderProdutos();
-    gerarRecibo();
-
-    document.getElementById("modal").style.display="none";
-  },5000);
-}
-
-// INIT
-iniciarPedido();
-renderProdutos();
-gerarRecibo();
-</script>
-
-</body>
-</html>
+function mudar(i,status){
+let hist=JSON.parse(localStorage.getItem("hist")||"[]");
+hist[i].status=status;
+localStorage.setItem("hist",JSON.stringify(hist));
+listarPedi
