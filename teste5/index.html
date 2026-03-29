@@ -2,69 +2,94 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Salgados Delícia</title>
 
 <style>
 body {
-  font-family: monospace;
-  background: #f5f5f5;
   margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
 }
 
 header {
-  background: #ff6600;
+  background: linear-gradient(45deg, #ff6600, #ff3300);
   color: white;
+  padding: 20px;
   text-align: center;
-  padding: 15px;
+  font-size: 22px;
+  font-weight: bold;
 }
 
 .container {
   padding: 15px;
 }
 
-.produto {
+.card {
   background: white;
-  padding: 10px;
+  border-radius: 15px;
+  padding: 15px;
   margin-bottom: 10px;
-  border-radius: 10px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
-.controls button {
-  padding: 5px 10px;
-}
-
-.resumo {
-  background: #000;
-  color: #00ff88;
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 15px;
-  font-size: 14px;
-}
-
-.total {
-  margin-top: 10px;
+.nome {
   font-weight: bold;
 }
 
-button.finalizar {
-  width: 100%;
-  padding: 12px;
-  background: #25d366;
+.preco {
+  color: #666;
+  font-size: 14px;
+}
+
+.controls button {
+  background: #ff6600;
   color: white;
   border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.controls span {
+  margin: 0 8px;
+  font-weight: bold;
+}
+
+.resumo {
+  background: #111;
+  color: #00ff88;
+  padding: 15px;
+  border-radius: 15px;
   margin-top: 15px;
+  font-family: monospace;
+  font-size: 14px;
 }
 
 input, select {
   width: 100%;
-  padding: 8px;
-  margin-top: 5px;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
 }
 
+button.finalizar {
+  width: 100%;
+  padding: 15px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 12px;
+  background: #25d366;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
 </style>
+
 </head>
 <body>
 
@@ -78,7 +103,6 @@ input, select {
 <pre id="recibo"></pre>
 </div>
 
-<h3>📋 Dados</h3>
 <input type="text" id="nome" placeholder="Seu nome">
 <input type="text" id="endereco" placeholder="Endereço">
 
@@ -106,8 +130,11 @@ function renderProdutos() {
   let html = "";
   produtos.forEach((p, i) => {
     html += `
-    <div class="produto">
-      ${p.nome} - R$${p.preco}
+    <div class="card">
+      <div>
+        <div class="nome">${p.nome}</div>
+        <div class="preco">R$ ${p.preco}</div>
+      </div>
       <div class="controls">
         <button onclick="alterar(${i}, -1)">-</button>
         <span id="qtd-${i}">0</span>
@@ -127,14 +154,11 @@ function alterar(i, delta) {
   gerarRecibo();
 }
 
-function formatarLinha(nome, qtd, preco, subtotal) {
+function formatarLinha(nome, qtd, subtotal) {
   let linha = `${nome} x${qtd}`;
   let valor = `R$${subtotal}`;
-
-  // espaçamento tipo recibo
   let espacos = 25 - linha.length;
   if (espacos < 1) espacos = 1;
-
   return linha + " ".repeat(espacos) + valor;
 }
 
@@ -147,8 +171,7 @@ function gerarRecibo() {
     if (qtd > 0) {
       let subtotal = qtd * p.preco;
       total += subtotal;
-
-      texto += formatarLinha(p.nome, qtd, p.preco, subtotal) + "\n";
+      texto += formatarLinha(p.nome, qtd, subtotal) + "\n";
     }
   });
 
@@ -167,7 +190,6 @@ function enviar() {
   mensagem += `Cliente: ${nome}%0A`;
   mensagem += `Endereço: ${endereco}%0A`;
   mensagem += `Pagamento: ${pagamento}%0A%0A`;
-
   mensagem += `🧾 *Recibo*%0A`;
 
   let total = 0;
@@ -177,9 +199,7 @@ function enviar() {
     if (qtd > 0) {
       let subtotal = qtd * p.preco;
       total += subtotal;
-
-      let linha = formatarLinha(p.nome, qtd, p.preco, subtotal);
-      mensagem += linha + "%0A";
+      mensagem += formatarLinha(p.nome, qtd, subtotal) + "%0A";
     }
   });
 
