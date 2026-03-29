@@ -6,60 +6,94 @@
 <title>Salgados Delícia</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #f2f2f2;
-}
+body {margin:0;font-family:Arial;background:#f2f2f2;}
 
 header {
-  background: #111;
-  color: gold;
-  padding: 15px;
-  text-align: center;
+  background:#111;
+  color:gold;
+  padding:15px;
+  text-align:center;
 }
 
-.container { padding: 15px; }
+.container {padding:15px;}
 
 .card {
-  background: white;
-  border-radius: 12px;
-  padding: 10px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
+  background:white;
+  border-radius:12px;
+  padding:10px;
+  margin-bottom:10px;
+  display:flex;
+  justify-content:space-between;
 }
 
 button {
-  background: #ff6600;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 6px;
+  background:#ff6600;
+  color:white;
+  border:none;
+  padding:5px 10px;
+  border-radius:6px;
 }
 
 .resumo {
-  background: black;
-  color: #00ff88;
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 10px;
-  font-family: monospace;
+  background:black;
+  color:#00ff88;
+  padding:10px;
+  border-radius:10px;
+  margin-top:10px;
+  font-family:monospace;
 }
 
-input, select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 8px;
+input,select {
+  width:100%;
+  padding:10px;
+  margin-top:8px;
 }
 
 .finalizar {
-  width: 100%;
-  padding: 12px;
-  background: #25d366;
-  color: white;
-  border: none;
-  margin-top: 10px;
+  width:100%;
+  padding:12px;
+  background:#25d366;
+}
+
+/* 🔥 MODAL LUXO */
+.modal {
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-content {
+  background:#000;
+  color:gold;
+  padding:25px;
+  border-radius:15px;
+  text-align:center;
+  border:2px solid gold;
+  box-shadow:0 0 25px gold,0 0 60px rgba(255,215,0,0.5);
+}
+
+.barra {
+  width:100%;
+  height:5px;
+  background:#222;
+  margin-top:15px;
+  overflow:hidden;
+}
+
+#progresso {
+  height:100%;
+  width:0%;
+  background:gold;
+  animation:carregar 5s linear forwards;
+}
+
+@keyframes carregar {
+  from{width:0%;}
+  to{width:100%;}
 }
 </style>
 </head>
@@ -70,6 +104,8 @@ input, select {
 
 <div class="container">
 
+<div id="infoPedido"></div>
+
 <div id="produtos"></div>
 
 <div class="resumo">
@@ -77,20 +113,20 @@ input, select {
 </div>
 
 <select id="tipo" onchange="toggleEntrega()">
-  <option value="Retirada">Retirada</option>
-  <option value="Entrega">Entrega</option>
+<option value="Retirada">Retirada</option>
+<option value="Entrega">Entrega</option>
 </select>
 
 <div id="campoEndereco" style="display:none;">
-  <input id="endereco" placeholder="Endereço">
-  <input id="taxa" type="number" placeholder="Taxa" oninput="gerarRecibo()">
+<input id="endereco" placeholder="Endereço">
+<input id="taxa" type="number" placeholder="Taxa" oninput="gerarRecibo()">
 </div>
 
 <input id="nome" placeholder="Nome">
 
 <select id="pagamento">
-  <option>Dinheiro</option>
-  <option>Pix</option>
+<option>Dinheiro</option>
+<option>Pix</option>
 </select>
 
 <input id="desconto" type="number" placeholder="Desconto" oninput="gerarRecibo()">
@@ -99,143 +135,152 @@ input, select {
 
 </div>
 
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <h2>Pedido registrado</h2>
+    <p>Estamos preparando seu pedido ✨</p>
+    <div class="barra"><div id="progresso"></div></div>
+  </div>
+</div>
+
 <script>
-let produtos = [
-  {nome: "Coxinha", preco: 5},
-  {nome: "Kibe", preco: 5},
-  {nome: "Esfiha", preco: 6}
+let produtos=[
+{nome:"Coxinha",preco:5},
+{nome:"Kibe",preco:5},
+{nome:"Esfiha",preco:6}
 ];
 
-let carrinho = {};
+let carrinho={};
+let numeroPedido=null;
+let dataPedido=null;
 
-// 🔥 NUMERO PEDIDO
-function gerarNumeroPedido() {
-  let numero = localStorage.getItem("pedidoNumero") || 0;
-  numero++;
-  localStorage.setItem("pedidoNumero", numero);
-  return numero;
-}
+// 🔥 INICIAR OU CONTINUAR PEDIDO
+function iniciarPedido(){
+  let salvo=localStorage.getItem("pedidoAberto");
 
-// 📅 DATA
-function gerarData() {
-  return new Date().toLocaleString();
-}
+  if(salvo){
+    let dados=JSON.parse(salvo);
+    carrinho=dados.carrinho;
+    numeroPedido=dados.numero;
+    dataPedido=dados.data;
+  }else{
+    numeroPedido=(localStorage.getItem("numero")||0);
+    numeroPedido++;
+    localStorage.setItem("numero",numeroPedido);
 
-// 🔥 CARREGAR PEDIDO ABERTO
-function carregarPedido() {
-  let salvo = localStorage.getItem("pedidoAberto");
-  if (salvo) {
-    carrinho = JSON.parse(salvo);
+    dataPedido=new Date().toLocaleString();
   }
+
+  mostrarInfo();
 }
 
 // 🔥 SALVAR
-function salvarPedido() {
-  localStorage.setItem("pedidoAberto", JSON.stringify(carrinho));
+function salvarPedido(){
+  localStorage.setItem("pedidoAberto",JSON.stringify({
+    carrinho,
+    numero:numeroPedido,
+    data:dataPedido
+  }));
 }
 
-function renderProdutos() {
-  let html = "";
+// 🔥 MOSTRAR INFO
+function mostrarInfo(){
+  document.getElementById("infoPedido").innerHTML=
+  `📦 Pedido Nº: ${numeroPedido}<br>📅 ${dataPedido}`;
+}
+
+// PRODUTOS
+function renderProdutos(){
+  let html="";
   produtos.forEach((p,i)=>{
-    let qtd = carrinho[i] || 0;
-    html += `
+    let qtd=carrinho[i]||0;
+    html+=`
     <div class="card">
       ${p.nome} R$${p.preco}
       <div>
         <button onclick="alterar(${i},-1)">-</button>
-        <span id="qtd-${i}">${qtd}</span>
+        <span>${qtd}</span>
         <button onclick="alterar(${i},1)">+</button>
       </div>
     </div>`;
   });
-  document.getElementById("produtos").innerHTML = html;
+  document.getElementById("produtos").innerHTML=html;
 }
 
-function alterar(i, delta) {
-  if (!carrinho[i]) carrinho[i] = 0;
-  carrinho[i] += delta;
-  if (carrinho[i] < 0) carrinho[i] = 0;
+function alterar(i,d){
+  if(!carrinho[i])carrinho[i]=0;
+  carrinho[i]+=d;
+  if(carrinho[i]<0)carrinho[i]=0;
 
   salvarPedido();
   renderProdutos();
   gerarRecibo();
 }
 
-function toggleEntrega() {
-  let tipo = document.getElementById("tipo").value;
-  document.getElementById("campoEndereco").style.display =
-    tipo === "Entrega" ? "block" : "none";
+function toggleEntrega(){
+  let tipo=document.getElementById("tipo").value;
+  document.getElementById("campoEndereco").style.display=
+  tipo==="Entrega"?"block":"none";
 }
 
-function formatarLinha(nome,qtd,sub) {
-  let linha = `${nome} x${qtd}`;
-  let valor = `R$${sub}`;
-  let espacos = 25 - linha.length;
-  return linha + " ".repeat(espacos>1?espacos:1) + valor;
-}
-
-function gerarRecibo() {
-  let texto = "";
-  let total = 0;
+function gerarRecibo(){
+  let texto="";
+  let total=0;
 
   produtos.forEach((p,i)=>{
-    let qtd = carrinho[i]||0;
+    let qtd=carrinho[i]||0;
     if(qtd>0){
-      let sub = qtd*p.preco;
+      let sub=qtd*p.preco;
       total+=sub;
-      texto+=formatarLinha(p.nome,qtd,sub)+"\n";
+      texto+=`${p.nome} x${qtd} .... R$${sub}\n`;
     }
   });
 
-  let taxa = parseFloat(document.getElementById("taxa").value)||0;
-  let desconto = parseFloat(document.getElementById("desconto").value)||0;
-
-  if(taxa>0){ texto+=`Entrega .... R$${taxa}\n`; total+=taxa; }
-  if(desconto>0){ texto+=`Desconto ... -R$${desconto}\n`; total-=desconto; }
-
-  texto+="----------------\n";
-  texto+=`TOTAL: R$${total}`;
-
-  document.getElementById("recibo").innerText = texto;
+  document.getElementById("recibo").innerText=texto+"\nTOTAL: R$"+total;
 }
 
-function enviar() {
+// 🔥 FINALIZAR
+function enviar(){
 
-  if(Object.keys(carrinho).length===0){
-    alert("Adicione itens");
-    return;
-  }
+  document.getElementById("modal").style.display="flex";
 
-  let numeroPedido = gerarNumeroPedido();
-  let data = gerarData();
+  let mensagem=`📦 Pedido Nº: ${numeroPedido}%0A📅 ${dataPedido}%0A%0A`;
 
-  let mensagem = `📦 Pedido Nº: ${numeroPedido}%0A`;
-  mensagem += `📅 ${data}%0A%0A`;
-
-  let total = 0;
+  let total=0;
 
   produtos.forEach((p,i)=>{
-    let qtd = carrinho[i]||0;
+    let qtd=carrinho[i]||0;
     if(qtd>0){
-      let sub = qtd*p.preco;
+      let sub=qtd*p.preco;
       total+=sub;
-      mensagem+=formatarLinha(p.nome,qtd,sub)+"%0A";
+      mensagem+=`${p.nome} x${qtd} R$${sub}%0A`;
     }
   });
 
   mensagem+=`%0A💰 TOTAL: R$${total}`;
 
-  window.open(`https://wa.me/5511954950044?text=${mensagem}`);
+  let barra=document.getElementById("progresso");
+  barra.style.animation="none";
+  barra.offsetHeight;
+  barra.style.animation="carregar 5s linear forwards";
 
-  // 🔥 LIMPA
-  carrinho = {};
-  localStorage.removeItem("pedidoAberto");
-  renderProdutos();
-  gerarRecibo();
+  setTimeout(()=>{
+    window.open(`https://wa.me/5511954950044?text=${mensagem}`);
+
+    // LIMPA PEDIDO
+    localStorage.removeItem("pedidoAberto");
+    carrinho={};
+    iniciarPedido();
+    renderProdutos();
+    gerarRecibo();
+
+    document.getElementById("modal").style.display="none";
+  },5000);
 }
 
 // INIT
-carregarPedido();
+iniciarPedido();
 renderProdutos();
 gerarRecibo();
 </script>
