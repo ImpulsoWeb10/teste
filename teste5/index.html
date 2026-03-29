@@ -12,12 +12,18 @@ body {
   background: #f2f2f2;
 }
 
+/* HEADER COM LOGO */
 header {
-  background: linear-gradient(45deg, #ff6600, #ff3300);
-  color: white;
-  padding: 20px;
+  background: linear-gradient(45deg, #111, #222);
+  color: gold;
+  padding: 15px;
   text-align: center;
-  font-size: 22px;
+}
+
+header img {
+  max-height: 50px;
+  display: block;
+  margin: 0 auto 5px;
 }
 
 .container {
@@ -34,7 +40,7 @@ header {
   box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
-.controls button {
+button {
   background: #ff6600;
   color: white;
   border: none;
@@ -59,7 +65,7 @@ input, select {
   border: 1px solid #ddd;
 }
 
-button.finalizar {
+.finalizar {
   width: 100%;
   padding: 15px;
   margin-top: 15px;
@@ -70,14 +76,14 @@ button.finalizar {
   font-size: 16px;
 }
 
-/* MODAL PREMIUM */
+/* MODAL LUXO */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.85);
   display: none;
   align-items: center;
   justify-content: center;
@@ -85,25 +91,31 @@ button.finalizar {
 }
 
 .modal-content {
-  background: white;
+  background: #000;
+  color: gold;
   padding: 30px;
   border-radius: 20px;
   text-align: center;
   width: 90%;
   max-width: 320px;
+
+  border: 2px solid gold;
+  box-shadow: 0 0 25px gold, 0 0 60px rgba(255,215,0,0.5);
+
   animation: zoom 0.3s ease;
 }
 
 .check {
   font-size: 40px;
-  color: #25d366;
+  color: gold;
   margin-bottom: 10px;
 }
 
+/* BARRA ANIMADA */
 .barra {
   width: 100%;
   height: 6px;
-  background: #eee;
+  background: #222;
   border-radius: 10px;
   margin-top: 20px;
   overflow: hidden;
@@ -112,7 +124,13 @@ button.finalizar {
 #progresso {
   height: 100%;
   width: 0%;
-  background: #25d366;
+  background: linear-gradient(90deg, gold, #ffd700);
+  animation: carregar 5s linear forwards;
+}
+
+@keyframes carregar {
+  from { width: 0%; }
+  to { width: 100%; }
 }
 
 @keyframes zoom {
@@ -124,7 +142,11 @@ button.finalizar {
 
 <body>
 
-<header>🍟 Salgados Delícia</header>
+<header>
+  <!-- 🔥 TROQUE PELO SEU LOGO -->
+  <img src="logo.png">
+  Salgados Delícia
+</header>
 
 <div class="container">
 
@@ -136,7 +158,7 @@ button.finalizar {
 
 <h3>📦 Tipo de pedido</h3>
 <select id="tipo" onchange="toggleEntrega()">
-  <option value="Retirada">Retirada no local</option>
+  <option value="Retirada">Retirada</option>
   <option value="Entrega">Entrega</option>
 </select>
 
@@ -145,7 +167,6 @@ button.finalizar {
   <input type="number" id="taxa" placeholder="Taxa entrega" oninput="gerarRecibo()">
 </div>
 
-<h3>📋 Dados</h3>
 <input type="text" id="nome" placeholder="Seu nome">
 
 <select id="pagamento">
@@ -163,20 +184,15 @@ button.finalizar {
 <!-- MODAL -->
 <div id="modal" class="modal">
   <div class="modal-content">
-
     <div class="check">✔</div>
-
-    <h2>Pedido confirmado!</h2>
-
+    <h2>Pedido confirmado</h2>
     <p>
-      Estamos preparando tudo com carinho ❤️<br>
-      Você será atendido agora mesmo no WhatsApp.
+      Estamos preparando seu pedido com qualidade premium ✨
     </p>
 
     <div class="barra">
       <div id="progresso"></div>
     </div>
-
   </div>
 </div>
 
@@ -309,10 +325,11 @@ function enviar() {
 
   document.getElementById("modal").style.display = "flex";
 
+  // reinicia animação da barra
   let barra = document.getElementById("progresso");
-  barra.style.width = "0%";
-
-  setTimeout(() => barra.style.width = "100%", 100);
+  barra.style.animation = "none";
+  barra.offsetHeight;
+  barra.style.animation = "carregar 5s linear forwards";
 
   setTimeout(() => {
     window.open(`https://wa.me/${numero}?text=${mensagem}`);
