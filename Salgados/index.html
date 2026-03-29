@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aline Salgados</title>
+<title>Leca Salgados — Pedido Online</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -38,8 +37,6 @@ body{
   min-height:100vh;
   overflow-x:hidden;
 }
-
-/* ── GRAIN OVERLAY ── */
 body::before{
   content:'';
   position:fixed;inset:0;
@@ -47,64 +44,100 @@ body::before{
   pointer-events:none;z-index:0;opacity:.6;
 }
 
-/* ── SPLASH ── */
+/* SPLASH */
 #splash{
   position:fixed;inset:0;z-index:999;
   background:var(--brown);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
   animation:splashOut .6s ease 2.8s forwards;
 }
 @keyframes splashOut{to{opacity:0;pointer-events:none;}}
 .splash-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:62px;font-weight:700;font-style:italic;
+  font-size:58px;font-weight:700;font-style:italic;
   color:var(--amber-light);letter-spacing:-1px;
   animation:riseUp .9s cubic-bezier(.22,1,.36,1) both;
 }
 .splash-subtitle{
-  font-size:11px;letter-spacing:6px;text-transform:uppercase;
+  font-size:11px;letter-spacing:5px;text-transform:uppercase;
   color:rgba(255,255,255,.4);
   animation:riseUp .7s .2s cubic-bezier(.22,1,.36,1) both;
 }
-.splash-line{
-  width:60px;height:1px;background:var(--amber);opacity:.5;
-  animation:riseUp .7s .35s cubic-bezier(.22,1,.36,1) both;
-}
+.splash-line{width:56px;height:1px;background:var(--amber);opacity:.5;animation:riseUp .7s .35s cubic-bezier(.22,1,.36,1) both;}
 @keyframes riseUp{from{opacity:0;transform:translateY(24px);}}
 
-/* ── HEADER ── */
+/* INFO BANNER */
+.info-banner{
+  background:linear-gradient(135deg,#2d6a4f,#1b4332);
+  color:#d8f3dc;
+  font-size:12px;
+  padding:8px 16px;
+  text-align:center;
+  letter-spacing:.3px;
+  position:relative;z-index:2;
+}
+.info-banner strong{color:#95d5b2;}
+
+/* HEADER */
 header{
   background:var(--brown);
-  padding:18px 20px 14px;
+  padding:16px 20px 12px;
   position:sticky;top:0;z-index:50;
-  display:flex;flex-direction:column;align-items:center;gap:3px;
+  display:flex;flex-direction:column;align-items:center;gap:2px;
   box-shadow:0 2px 20px rgba(0,0,0,.2);
 }
 .h-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:34px;font-weight:700;font-style:italic;
+  font-size:32px;font-weight:700;font-style:italic;
   color:var(--amber-light);letter-spacing:-.5px;line-height:1;
 }
-.h-sub{
-  font-size:10px;letter-spacing:4px;text-transform:uppercase;
-  color:rgba(255,255,255,.35);
-}
+.h-sub{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.35);}
 .h-badge{
   position:absolute;right:16px;top:50%;transform:translateY(-50%);
   background:var(--amber);color:#fff;
-  font-size:10px;font-weight:600;padding:5px 11px;border-radius:20px;
-  text-align:center;letter-spacing:.3px;
+  font-size:10px;font-weight:600;padding:5px 10px;border-radius:20px;
+  letter-spacing:.3px;
 }
 
-/* ── MAIN ── */
+/* MAIN */
 main{
   max-width:480px;margin:0 auto;
-  padding:22px 16px 120px;
-  display:flex;flex-direction:column;gap:16px;
+  padding:20px 16px 120px;
+  display:flex;flex-direction:column;gap:14px;
   position:relative;z-index:1;
 }
 
-/* ── CARD ── */
+/* HORARIO CARD */
+.horario-card{
+  background:var(--cream);
+  border:1px solid var(--amber-dim);
+  border-radius:var(--r);
+  padding:14px 16px;
+  display:flex;flex-direction:column;gap:6px;
+}
+.horario-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;}
+.horario-label{color:var(--text2);font-weight:500;}
+.horario-val{color:var(--brown);font-weight:600;}
+.horario-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:15px;font-weight:700;color:var(--brown);
+  display:flex;align-items:center;gap:6px;margin-bottom:4px;
+}
+.horario-div{height:1px;background:var(--border);margin:4px 0;}
+
+/* ATENCAO CARD */
+.atencao-card{
+  background:#fff8f0;
+  border:1px solid #f0c882;
+  border-radius:var(--r);
+  padding:12px 16px;
+  font-size:13px;
+  color:var(--brown2);
+  display:flex;align-items:flex-start;gap:10px;
+}
+.atencao-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
+
+/* CARD */
 .card{
   background:var(--card);
   border:1px solid var(--border);
@@ -119,7 +152,7 @@ main{
 }
 .card-title-sm{font-size:17px;}
 
-/* ── INPUTS ── */
+/* INPUTS */
 .inp-group{display:flex;flex-direction:column;gap:10px;}
 .inp-wrap{position:relative;}
 .inp-wrap input,.inp-wrap select{
@@ -133,38 +166,22 @@ main{
   border-color:var(--amber);box-shadow:0 0 0 3px rgba(200,121,42,.12);
 }
 .inp-wrap input::placeholder{color:var(--text3);}
-.inp-icon{
-  position:absolute;left:13px;top:50%;transform:translateY(-50%);
-  font-size:16px;pointer-events:none;
-}
-select option{background:#fff;}
+.inp-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none;}
 
-/* ── ENTREGA TOGGLE ── */
-.entrega-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.entrega-btn{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:6px;padding:16px 8px;
-  background:var(--bg2);border:2px solid var(--border);
-  border-radius:12px;cursor:pointer;
-  transition:all .2s;-webkit-tap-highlight-color:transparent;
+/* ENTREGA — só retirar (sem entrega) */
+.retirar-info{
+  background:#f0faf5;
+  border:2px solid var(--green);
+  border-radius:12px;
+  padding:16px;
+  display:flex;align-items:center;gap:12px;
 }
-.entrega-btn:active{transform:scale(.96);}
-.entrega-btn .eb-icon{font-size:28px;}
-.entrega-btn .eb-label{font-size:12px;font-weight:600;color:var(--text2);letter-spacing:.5px;text-transform:uppercase;}
-.entrega-btn.ativo-retirar{border-color:var(--green);background:#f0faf5;}
-.entrega-btn.ativo-retirar .eb-label{color:var(--green);}
-.entrega-btn.ativo-entregar{border-color:var(--amber);background:#fdf4e3;}
-.entrega-btn.ativo-entregar .eb-label{color:var(--amber);}
+.retirar-icon{font-size:28px;}
+.retirar-text{}
+.retirar-title{font-size:13px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.5px;}
+.retirar-addr{font-size:13px;color:var(--text2);margin-top:3px;line-height:1.4;}
 
-/* ── ENDERECO (hidden by default) ── */
-#wrap-endereco{
-  overflow:hidden;max-height:0;opacity:0;
-  transition:max-height .3s ease,opacity .25s ease,margin .3s ease;
-  margin-top:0;
-}
-#wrap-endereco.visivel{max-height:100px;opacity:1;margin-top:10px;}
-
-/* ── BOTAO SALGADO ── */
+/* BOTÃO SALGADO */
 #btn-salgado{
   width:100%;padding:20px;border:none;
   border-radius:var(--r);
@@ -174,15 +191,11 @@ select option{background:#fff;}
   font-size:22px;font-weight:700;font-style:italic;
   cursor:pointer;
   display:flex;align-items:center;justify-content:center;gap:12px;
-  letter-spacing:.3px;
   box-shadow:0 6px 24px rgba(61,43,31,.25);
-  transition:transform .15s,box-shadow .2s,filter .2s;
+  transition:transform .15s,box-shadow .2s;
   position:relative;overflow:hidden;
 }
-#btn-salgado::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,.08) 0%,transparent 60%);
-}
+#btn-salgado::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.08) 0%,transparent 60%);}
 #btn-salgado:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(61,43,31,.32);}
 #btn-salgado:active{transform:scale(.98);}
 .btn-salgado-badge{
@@ -193,7 +206,7 @@ select option{background:#fff;}
   position:absolute;right:18px;top:50%;transform:translateY(-50%);
 }
 
-/* ── LISTA DE PEDIDOS ── */
+/* LISTA PEDIDOS */
 #lista-pedidos{display:flex;flex-direction:column;gap:10px;}
 .pedido-item{
   display:flex;align-items:center;justify-content:space-between;
@@ -202,7 +215,6 @@ select option{background:#fff;}
   animation:fadeSlide .3s ease both;
 }
 @keyframes fadeSlide{from{opacity:0;transform:translateY(8px);}}
-.pedido-info{}
 .pedido-nome{font-weight:600;font-size:14px;color:var(--brown);}
 .pedido-sub{font-size:12px;color:var(--text3);margin-top:2px;}
 .pedido-preco{font-weight:700;font-size:14px;color:var(--amber);}
@@ -213,12 +225,7 @@ select option{background:#fff;}
 }
 .pedido-del:hover{color:var(--red-soft);background:rgba(192,57,43,.08);}
 
-.lista-vazia{
-  text-align:center;color:var(--text3);font-size:14px;
-  padding:20px 0;font-style:italic;
-}
-
-/* ── RESUMO ── */
+/* RESUMO */
 .resumo-row{
   display:flex;justify-content:space-between;align-items:center;
   padding:6px 0;border-bottom:1px solid var(--border);font-size:14px;
@@ -234,14 +241,14 @@ select option{background:#fff;}
 .resumo-total-label{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--text2);}
 .resumo-total-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--brown);}
 
-/* ── DESCONTO ── */
+/* DESCONTO */
 .desc-badge{
   position:absolute;right:10px;top:50%;transform:translateY(-50%);
   background:rgba(200,121,42,.14);color:var(--amber);
   font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.5px;
 }
 
-/* ── PAGAMENTO ── */
+/* PAGAMENTO */
 .pag-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
 .pay-btn{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -260,7 +267,7 @@ select option{background:#fff;}
 .pay-btn.ativo-cartao{border-color:var(--amber);background:#fdf4e3;}
 .pay-btn.ativo-cartao .pay-label{color:var(--amber);}
 
-/* ── BTN FINALIZAR ── */
+/* BTN FINALIZAR */
 #btn-finalizar{
   width:100%;padding:18px;border:none;border-radius:var(--r);
   background:var(--green);color:#fff;
@@ -273,7 +280,16 @@ select option{background:#fff;}
 #btn-finalizar:active{transform:scale(.98);}
 #btn-finalizar:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none;}
 
-/* ── MODAL SALGADO ── */
+/* PEDIDO MINIMO BADGE */
+.min-badge{
+  background:var(--brown);color:var(--amber-light);
+  border-radius:10px;padding:10px 14px;
+  font-size:12px;text-align:center;
+  display:none;
+}
+.min-badge.show{display:block;}
+
+/* MODAL SALGADO */
 .modal-overlay{
   position:fixed;inset:0;display:none;
   align-items:flex-end;justify-content:center;
@@ -282,7 +298,6 @@ select option{background:#fff;}
   z-index:100;
 }
 .modal-overlay.show{display:flex;}
-
 .modal-sheet{
   background:var(--card);
   border-radius:24px 24px 0 0;
@@ -293,24 +308,13 @@ select option{background:#fff;}
   animation:sheetUp .35s cubic-bezier(.22,1,.36,1) both;
 }
 @keyframes sheetUp{from{transform:translateY(100%);}}
-
-.sheet-handle{
-  width:40px;height:4px;border-radius:2px;
-  background:var(--border2);margin:12px auto 0;
-}
-.sheet-header{
-  padding:20px 22px 16px;
-  border-bottom:1px solid var(--border);
-}
-.sheet-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:26px;font-weight:700;color:var(--brown);
-}
+.sheet-handle{width:40px;height:4px;border-radius:2px;background:var(--border2);margin:12px auto 0;}
+.sheet-header{padding:20px 22px 16px;border-bottom:1px solid var(--border);}
+.sheet-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--brown);}
 .sheet-sub{font-size:13px;color:var(--text3);margin-top:3px;}
-
 .sheet-body{padding:20px 22px 0;}
 
-/* TIPO SELECTOR */
+/* TIPO */
 .tipo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
 .tipo-btn{
   padding:14px 10px;border:2px solid var(--border);
@@ -353,7 +357,7 @@ select option{background:#fff;}
 .sabor-btn.ativo .sabor-check{background:var(--amber);border-color:var(--amber);color:#fff;}
 .sabor-btn.bloqueado{opacity:.4;cursor:not-allowed;}
 
-/* QTD centenas */
+/* QTD */
 .qtd-wrap{
   display:flex;align-items:center;justify-content:space-between;
   background:var(--bg2);border:1px solid var(--border);
@@ -383,7 +387,7 @@ select option{background:#fff;}
 }
 .aviso-mistura.show{display:block;}
 
-/* BTN ADICIONAR */
+/* BTN ADD */
 #btn-add{
   width:100%;padding:15px;border:none;border-radius:12px;
   background:var(--brown);color:var(--amber-light);
@@ -456,32 +460,56 @@ select option{background:#fff;}
 }
 #toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
 
-/* FADE IN */
 .fi{animation:fi .45s ease both;}
 @keyframes fi{from{opacity:0;transform:translateY(12px);}}
 .fi:nth-child(1){animation-delay:.06s}.fi:nth-child(2){animation-delay:.12s}
 .fi:nth-child(3){animation-delay:.18s}.fi:nth-child(4){animation-delay:.24s}
 .fi:nth-child(5){animation-delay:.30s}.fi:nth-child(6){animation-delay:.36s}
-.fi:nth-child(7){animation-delay:.42s}
+.fi:nth-child(7){animation-delay:.42s}.fi:nth-child(8){animation-delay:.48s}
 </style>
 </head>
 <body>
 
 <!-- SPLASH -->
 <div id="splash">
-  <div class="splash-title">Aline</div>
+  <div class="splash-title">Leca Salgados</div>
   <div class="splash-line"></div>
-  <div class="splash-subtitle">Salgados Artesanais</div>
+  <div class="splash-subtitle">Salgados Fritos Artesanais · Itaquá</div>
+</div>
+
+<!-- INFO BANNER -->
+<div class="info-banner">
+  📍 <strong>Jd. Paineira – Itaquá</strong> &nbsp;·&nbsp; Estrada Miguel Cápua, 290 &nbsp;·&nbsp; Somente retirada no local
 </div>
 
 <!-- HEADER -->
 <header>
-  <div class="h-title">Aline Salgados</div>
-  <div class="h-sub">Feito com carinho · Pedido online</div>
+  <div class="h-title">Leca Salgados</div>
+  <div class="h-sub">Salgados Fritos · Pedido Online</div>
   <div class="h-badge" id="h-badge">#—</div>
 </header>
 
 <main>
+
+  <!-- HORÁRIOS -->
+  <div class="horario-card fi">
+    <div class="horario-title">🕐 Horários de Atendimento</div>
+    <div class="horario-row">
+      <span class="horario-label">Seg a Sáb</span>
+      <span class="horario-val">09:00 às 20:00</span>
+    </div>
+    <div class="horario-div"></div>
+    <div class="horario-row">
+      <span class="horario-label">Domingo</span>
+      <span class="horario-val">10:00 às 19:00</span>
+    </div>
+  </div>
+
+  <!-- AVISO RETIRADA -->
+  <div class="atencao-card fi">
+    <div class="atencao-icon">🏠</div>
+    <div>Não trabalhamos com <strong>entrega</strong>. Pedidos somente para <strong>retirada</strong> na loja: Estrada Miguel Cápua, 290 — Jd. Paineira, Itaquá.</div>
+  </div>
 
   <!-- DADOS -->
   <div class="card fi">
@@ -498,28 +526,19 @@ select option{background:#fff;}
     </div>
   </div>
 
-  <!-- ENTREGA -->
+  <!-- RETIRADA -->
   <div class="card fi">
-    <div class="card-title card-title-sm">🚚 Como deseja receber?</div>
-    <div class="entrega-grid">
-      <div class="entrega-btn" id="eb-retirar" onclick="selecionarEntrega('retirar')">
-        <div class="eb-icon">🏠</div>
-        <div class="eb-label">Retirar</div>
-      </div>
-      <div class="entrega-btn" id="eb-entregar" onclick="selecionarEntrega('entregar')">
-        <div class="eb-icon">🛵</div>
-        <div class="eb-label">Entregar</div>
-      </div>
-    </div>
-    <div id="wrap-endereco">
-      <div class="inp-wrap" style="margin-top:0">
-        <span class="inp-icon">📍</span>
-        <input id="endereco" type="text" placeholder="Endereço para entrega" oninput="atualizarResumo()">
+    <div class="card-title card-title-sm">📍 Retirada</div>
+    <div class="retirar-info">
+      <div class="retirar-icon">🏠</div>
+      <div class="retirar-text">
+        <div class="retirar-title">Retirar na loja</div>
+        <div class="retirar-addr">Estrada Miguel Cápua, 290<br>Jd. Paineira — Itaquá</div>
       </div>
     </div>
   </div>
 
-  <!-- BOTÃO SALGADO -->
+  <!-- BOTÃO ESCOLHER SALGADOS -->
   <div class="fi">
     <button id="btn-salgado" onclick="abrirModal()">
       <span>🍟</span>
@@ -528,10 +547,15 @@ select option{background:#fff;}
     </button>
   </div>
 
-  <!-- LISTA DE PEDIDOS -->
+  <!-- LISTA PEDIDOS -->
   <div class="card fi" id="card-lista" style="display:none">
     <div class="card-title card-title-sm">🛒 Meu Pedido</div>
     <div id="lista-pedidos"></div>
+  </div>
+
+  <!-- PEDIDO MÍNIMO -->
+  <div class="min-badge fi" id="min-badge">
+    ⚠️ Pedido mínimo: <strong>R$ 10,00</strong>
   </div>
 
   <!-- DESCONTO -->
@@ -558,7 +582,7 @@ select option{background:#fff;}
       </div>
       <div class="pay-btn" id="pay-cartao" onclick="selecionarPag('cartao')">
         <div class="pay-icon">💳</div>
-        <div class="pay-label">Cartão</div>
+        <div class="pay-label">Débito</div>
       </div>
     </div>
   </div>
@@ -577,22 +601,21 @@ select option{background:#fff;}
 
 </main>
 
-<!-- ══ MODAL SALGADO (bottom sheet) ══ -->
+<!-- MODAL SALGADO -->
 <div id="modal-salgado" class="modal-overlay" onclick="fecharSheetFora(event)">
   <div class="modal-sheet" id="sheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
       <div class="sheet-title">Escolha seu Salgado</div>
-      <div class="sheet-sub">1 centena = 100 unidades · R$ 80,00</div>
+      <div class="sheet-sub">1 centena = 100 unid. · R$ 70,00 &nbsp;|&nbsp; Mín. R$ 10,00</div>
     </div>
     <div class="sheet-body">
 
-      <!-- TIPO: simples ou misto -->
       <div class="tipo-grid">
         <div class="tipo-btn" id="tipo-simples" onclick="selecionarTipo('simples')">
           <span class="tipo-icon">🎯</span>
           <div class="tipo-nome">Um sabor</div>
-          <div class="tipo-preco">100 un. · R$ 80</div>
+          <div class="tipo-preco">100 un. · R$ 70</div>
         </div>
         <div class="tipo-btn" id="tipo-misto" onclick="selecionarTipo('misto')">
           <span class="tipo-icon">🎨</span>
@@ -601,22 +624,19 @@ select option{background:#fff;}
         </div>
       </div>
 
-      <!-- AVISO MISTURA -->
       <div class="aviso-mistura" id="aviso-mistura">
-        🎨 Escolha até <strong>3 sabores</strong> para a centena mista. Os sabores serão divididos em partes iguais.
+        🎨 Escolha até <strong>3 sabores</strong> para a centena mista. Serão divididos em partes iguais.
       </div>
 
-      <!-- SABORES -->
       <div class="sabores-wrap">
-        <div class="sabores-label">Sabores</div>
+        <div class="sabores-label">Sabores disponíveis</div>
         <div class="sabores-grid" id="sabores-grid"></div>
       </div>
 
-      <!-- QUANTIDADE -->
       <div class="qtd-wrap">
         <div>
           <div class="qtd-label">Quantidade de centenas</div>
-          <div class="qtd-preco" id="qtd-preco-label">1 centena · R$ 80,00</div>
+          <div class="qtd-preco" id="qtd-preco-label">1 centena · R$ 70,00</div>
         </div>
         <div class="qtd-ctrl">
           <button class="qtd-btn minus" onclick="alterarQtd(-1)">−</button>
@@ -625,13 +645,13 @@ select option{background:#fff;}
         </div>
       </div>
 
-      <button id="btn-add" onclick="adicionarPedido()">
+      <button id="btn-add" onclick="adicionarPedido()" disabled>
         <span>✚</span> Adicionar ao Pedido
       </button>
 
-    </div><!-- /sheet-body -->
-  </div><!-- /modal-sheet -->
-</div><!-- /modal-overlay -->
+    </div>
+  </div>
+</div>
 
 <!-- MODAL COUNTDOWN -->
 <div id="modal-cnt" class="modal-cnt">
@@ -650,7 +670,7 @@ select option{background:#fff;}
   <div class="modal-ok-box">
     <div class="cnt-icon">✅</div>
     <div class="cnt-title">Pedido Enviado!</div>
-    <div class="cnt-sub">Aguarde a confirmação da <strong>Aline</strong>! 🍟</div>
+    <div class="cnt-sub">Aguarde a confirmação da <strong>Aline</strong>! 🍟<br><small style="color:#a07850">11 98072-2347</small></div>
     <button class="ok-btn" onclick="fecharOk()">Fazer novo pedido</button>
   </div>
 </div>
@@ -659,50 +679,46 @@ select option{background:#fff;}
 <div id="toast"></div>
 
 <script>
-// ── DADOS ──
+// ── DADOS REAIS LECA SALGADOS ──
 const SABORES = [
-  { id:"coxinha",  nome:"Coxinha",          emoji:"🍗" },
-  { id:"kibe",     nome:"Kibe",             emoji:"🥙" },
-  { id:"queijo",   nome:"Bolinho de Queijo", emoji:"🧀" },
-  { id:"bacalhau", nome:"Bolinho de Bacalhau",emoji:"🐟" },
+  { id:"coxinha",   nome:"Coxinha de frango",      emoji:"🍗" },
+  { id:"queijo",    nome:"Bolinha de queijo",       emoji:"🧀" },
+  { id:"risole",    nome:"Risole presunto/queijo",  emoji:"🥐" },
+  { id:"calabresa", nome:"Calabresa",               emoji:"🌶️" },
+  { id:"carne",     nome:"Carne",                   emoji:"🥩" },
+  { id:"salsicha",  nome:"Salsicha",                emoji:"🌭" },
+  { id:"kibe",      nome:"Kibe",                    emoji:"🥙" },
+  { id:"churros",   nome:"Mini Churros doce leite", emoji:"🍬" },
 ];
-const PRECO_CENTENA = 80;
+
+const PRECO_CENTENA = 70;   // R$ 70,00 por centena
+const PEDIDO_MINIMO = 10;   // R$ 10,00
+
+// WhatsApp da Aline (pedidos)
+const WA_ALINE = "5511980722347";
+
 const PAGAMENTOS = {
   dinheiro:{ label:"DINHEIRO EM ESPECIE", emoji:"💵" },
   pix:     { label:"PIX",                 emoji:"⚡" },
-  cartao:  { label:"CARTAO",              emoji:"💳" },
+  cartao:  { label:"CARTAO DEBITO",       emoji:"💳" },
 };
 
 // ── ESTADO ──
-let pedidos    = [];   // [{tipo, sabores:[], qtd, total}]
-let entrega    = "";
-let pagamento  = "";
-let numero     = 0;
-let dataAtual  = "";
+let pedidos   = [];
+let pagamento = "";
+let numero    = 0;
 
-// modal state
-let tipoAtual   = "";       // 'simples' | 'misto'
-let saboresSel  = new Set();
-let qtdAtual    = 1;
+let tipoAtual  = "";
+let saboresSel = new Set();
+let qtdAtual   = 1;
 
 // ── INIT ──
 function init() {
   setTimeout(()=>{ document.getElementById("splash").style.display="none"; }, 3000);
-  numero = parseInt(localStorage.getItem("numAS")||"0") + 1;
-  localStorage.setItem("numAS", numero);
-  dataAtual = new Date().toLocaleString("pt-br");
+  numero = parseInt(localStorage.getItem("numLS")||"0") + 1;
+  localStorage.setItem("numLS", numero);
   document.getElementById("h-badge").textContent = `#${String(numero).padStart(3,"0")}`;
   renderSabores();
-  atualizarResumo();
-}
-
-// ── ENTREGA ──
-function selecionarEntrega(tipo) {
-  entrega = tipo;
-  document.getElementById("eb-retirar").className  = "entrega-btn" + (tipo==="retirar"  ? " ativo-retirar"  : "");
-  document.getElementById("eb-entregar").className = "entrega-btn" + (tipo==="entregar" ? " ativo-entregar" : "");
-  const wrap = document.getElementById("wrap-endereco");
-  wrap.classList.toggle("visivel", tipo==="entregar");
   atualizarResumo();
 }
 
@@ -714,12 +730,9 @@ function selecionarPag(tipo) {
   atualizarResumo();
 }
 
-// ── MODAL SALGADO ──
+// ── MODAL ──
 function abrirModal() {
-  // reset estado modal
-  tipoAtual  = "";
-  saboresSel = new Set();
-  qtdAtual   = 1;
+  tipoAtual  = ""; saboresSel = new Set(); qtdAtual = 1;
   document.getElementById("tipo-simples").classList.remove("ativo");
   document.getElementById("tipo-misto").classList.remove("ativo");
   document.getElementById("aviso-mistura").classList.remove("show");
@@ -730,34 +743,28 @@ function abrirModal() {
   document.getElementById("modal-salgado").classList.add("show");
   document.body.style.overflow = "hidden";
 }
-
 function fecharModal() {
   document.getElementById("modal-salgado").classList.remove("show");
   document.body.style.overflow = "";
 }
-
 function fecharSheetFora(e) {
   if (e.target === document.getElementById("modal-salgado")) fecharModal();
 }
-
 function selecionarTipo(tipo) {
-  tipoAtual = tipo;
-  saboresSel = new Set();
+  tipoAtual = tipo; saboresSel = new Set();
   document.getElementById("tipo-simples").classList.toggle("ativo", tipo==="simples");
   document.getElementById("tipo-misto").classList.toggle("ativo",   tipo==="misto");
   document.getElementById("aviso-mistura").classList.toggle("show", tipo==="misto");
-  renderSabores();
-  validarAdd();
+  renderSabores(); validarAdd();
 }
-
 function renderSabores() {
   const grid = document.getElementById("sabores-grid");
   const max  = tipoAtual === "misto" ? 3 : 1;
   grid.innerHTML = SABORES.map(s => {
-    const sel     = saboresSel.has(s.id);
-    const cheio   = saboresSel.size >= max && !sel;
-    const bloq    = tipoAtual === "" || cheio ? " bloqueado" : "";
-    const ativo   = sel ? " ativo" : "";
+    const sel   = saboresSel.has(s.id);
+    const cheio = saboresSel.size >= max && !sel;
+    const bloq  = tipoAtual==="" || cheio ? " bloqueado" : "";
+    const ativo = sel ? " ativo" : "";
     return `<div class="sabor-btn${ativo}${bloq}" onclick="toggleSabor('${s.id}')">
       <span class="sabor-emoji">${s.emoji}</span>
       <span class="sabor-nome">${s.nome}</span>
@@ -765,79 +772,49 @@ function renderSabores() {
     </div>`;
   }).join("");
 }
-
 function toggleSabor(id) {
   if (!tipoAtual) { showToast("Escolha primeiro: Um sabor ou Mistura"); return; }
   const max = tipoAtual === "misto" ? 3 : 1;
-  if (saboresSel.has(id)) {
-    saboresSel.delete(id);
-  } else {
-    if (saboresSel.size >= max) {
-      showToast(tipoAtual==="simples" ? "Escolha apenas 1 sabor" : "Máximo 3 sabores na mistura");
-      return;
-    }
+  if (saboresSel.has(id)) { saboresSel.delete(id); }
+  else {
+    if (saboresSel.size >= max) { showToast(tipoAtual==="simples" ? "Escolha apenas 1 sabor" : "Máximo 3 sabores na mistura"); return; }
     saboresSel.add(id);
   }
-  renderSabores();
-  validarAdd();
+  renderSabores(); validarAdd();
 }
-
 function alterarQtd(d) {
   qtdAtual = Math.max(1, qtdAtual + d);
   document.getElementById("qtd-num").textContent = qtdAtual;
   atualizarQtdLabel();
 }
-
 function atualizarQtdLabel() {
   const total = qtdAtual * PRECO_CENTENA;
   document.getElementById("qtd-preco-label").textContent =
     `${qtdAtual} centena${qtdAtual>1?"s":""} · R$ ${total.toFixed(2)}`;
 }
-
 function validarAdd() {
-  const ok = tipoAtual !== "" && saboresSel.size > 0;
-  document.getElementById("btn-add").disabled = !ok;
+  document.getElementById("btn-add").disabled = !(tipoAtual !== "" && saboresSel.size > 0);
 }
-
 function adicionarPedido() {
   const saboresArr = [...saboresSel].map(id => SABORES.find(s=>s.id===id));
   const total = qtdAtual * PRECO_CENTENA;
   const descricaoSabores = saboresArr.map(s=>`${s.emoji} ${s.nome}`).join(" + ");
-  const tipoLabel = tipoAtual === "misto" ? "Mistura" : "Um sabor";
-
-  pedidos.push({
-    tipo: tipoLabel,
-    sabores: saboresArr,
-    descricaoSabores,
-    qtd: qtdAtual,
-    total,
-  });
-
-  fecharModal();
-  renderLista();
-  atualizarResumo();
+  pedidos.push({ tipo: tipoAtual==="misto"?"Mistura":"Um sabor", sabores:saboresArr, descricaoSabores, qtd:qtdAtual, total });
+  fecharModal(); renderLista(); atualizarResumo();
   showToast(`✅ ${qtdAtual} centena${qtdAtual>1?"s":""} adicionada${qtdAtual>1?"s":""}!`);
 }
-
-function removerPedido(i) {
-  pedidos.splice(i, 1);
-  renderLista();
-  atualizarResumo();
-}
+function removerPedido(i) { pedidos.splice(i,1); renderLista(); atualizarResumo(); }
 
 // ── LISTA ──
 function renderLista() {
   const card = document.getElementById("card-lista");
   const div  = document.getElementById("lista-pedidos");
-
-  if (pedidos.length === 0) {
-    card.style.display = "none";
-    div.innerHTML = "";
-  } else {
-    card.style.display = "";
+  if (pedidos.length === 0) { card.style.display="none"; div.innerHTML=""; }
+  else {
+    card.style.display="";
     div.innerHTML = pedidos.map((p,i) => `
       <div class="pedido-item">
-        <div class="pedido-info">
+        <div>
           <div class="pedido-nome">${p.descricaoSabores}</div>
           <div class="pedido-sub">${p.tipo} · ${p.qtd} centena${p.qtd>1?"s":""}</div>
         </div>
@@ -847,50 +824,43 @@ function renderLista() {
         </div>
       </div>`).join("");
   }
-
-  // badge no botão
   const totalUn = pedidos.reduce((a,p)=>a+p.qtd*100,0);
   const badge = document.getElementById("badge-qtd");
-  if (pedidos.length > 0) {
-    badge.style.display = "";
-    badge.textContent   = `${totalUn} un.`;
-  } else {
-    badge.style.display = "none";
-  }
+  if (pedidos.length>0) { badge.style.display=""; badge.textContent=`${totalUn} un.`; }
+  else { badge.style.display="none"; }
 }
 
-// ── RESUMO / RECIBO ──
+// ── RESUMO ──
 function atualizarResumo() {
   const nome    = document.getElementById("nome").value.trim();
   const tel     = document.getElementById("telefone").value.trim();
-  const end     = document.getElementById("endereco").value.trim();
   const descRaw = parseFloat(document.getElementById("desconto").value)||0;
-
   const subtotal = pedidos.reduce((a,p)=>a+p.total,0);
   const descVal  = Math.min(descRaw, subtotal);
   const total    = Math.max(0, subtotal - descVal);
 
   // badge desconto
   const badge = document.getElementById("desc-badge");
-  if (descVal > 0) { badge.style.display=""; badge.textContent=`- R$ ${descVal.toFixed(2)}`; }
-  else             { badge.style.display="none"; }
+  if (descVal>0) { badge.style.display=""; badge.textContent=`- R$ ${descVal.toFixed(2)}`; }
+  else { badge.style.display="none"; }
 
-  // resumo card
+  // aviso pedido mínimo
+  const minBadge = document.getElementById("min-badge");
+  if (pedidos.length>0 && total < PEDIDO_MINIMO) minBadge.classList.add("show");
+  else minBadge.classList.remove("show");
+
+  // resumo
   const cardRes = document.getElementById("card-resumo");
   const corpo   = document.getElementById("resumo-corpo");
-
-  if (pedidos.length === 0) {
-    cardRes.style.display = "none";
-  } else {
-    cardRes.style.display = "";
-    let rows = pedidos.map(p =>
+  if (pedidos.length===0) { cardRes.style.display="none"; }
+  else {
+    cardRes.style.display="";
+    let rows = pedidos.map(p=>
       `<div class="resumo-row">
         <span class="resumo-row-label">${p.descricaoSabores} ×${p.qtd}</span>
         <span class="resumo-row-val">R$ ${p.total.toFixed(2)}</span>
        </div>`).join("");
-    if (descVal > 0) {
-      rows += `<div class="resumo-row"><span style="color:var(--amber)">🏷️ Desconto</span><span style="color:var(--amber);font-weight:600">- R$ ${descVal.toFixed(2)}</span></div>`;
-    }
+    if (descVal>0) rows += `<div class="resumo-row"><span style="color:var(--amber)">🏷️ Desconto</span><span style="color:var(--amber);font-weight:600">- R$ ${descVal.toFixed(2)}</span></div>`;
     rows += `<div class="resumo-total-row">
       <span class="resumo-total-label">Total</span>
       <span class="resumo-total-val">R$ ${total.toFixed(2)}</span>
@@ -899,119 +869,108 @@ function atualizarResumo() {
   }
 
   // habilitar finalizar
-  const endOk = entrega === "retirar" || (entrega === "entregar" && end);
   document.getElementById("btn-finalizar").disabled =
-    !(pedidos.length > 0 && nome && entrega && pagamento && endOk);
+    !(pedidos.length>0 && nome && pagamento && total >= PEDIDO_MINIMO);
 
-  // montar mensagem WA
-  window._msgWA = buildRecibo({ nome, tel, end, pedidos, subtotal, descVal, total });
+  window._msgWA = buildRecibo({ nome, tel, pedidos, subtotal, descVal, total });
 }
 
-function buildRecibo({ nome, tel, end, pedidos, subtotal, descVal, total }) {
-  const W   = 28;
-  const sep = "=".repeat(W);
-  const sep2= "-".repeat(W);
-  const num = String(numero).padStart(6,"0");
-  const pag = PAGAMENTOS[pagamento] || { label:"---", emoji:"" };
-  const now = new Date();
-  const row = (a,b) => { const sp=" ".repeat(Math.max(1,W-a.length-b.length)); return a+sp+b; };
-  const pad = (s) => { const sp=Math.max(0,W-s.length); return " ".repeat(Math.floor(sp/2))+s; };
+function buildRecibo({ nome, tel, pedidos, subtotal, descVal, total }) {
+  const W = 28;
+  const sep  = "=".repeat(W);
+  const sep2 = "-".repeat(W);
+  const num  = String(numero).padStart(6,"0");
+  const pag  = PAGAMENTOS[pagamento] || { label:"---", emoji:"" };
+  const now  = new Date();
+  const row  = (a,b) => { const sp=" ".repeat(Math.max(1,W-a.length-b.length)); return a+sp+b; };
+  const pad  = (s)   => { const sp=Math.max(0,W-s.length); return " ".repeat(Math.floor(sp/2))+s; };
 
   const linhas = [
     sep,
-    pad("ALINE SALGADOS"),
-    pad("Salgados Artesanais"),
+    pad("LECA SALGADOS"),
+    pad("Salgados Fritos - Itaqua"),
+    pad("Estrada Miguel Capua, 290"),
     pad(now.toLocaleDateString("pt-br")+"  "+now.toLocaleTimeString("pt-br",{hour:"2-digit",minute:"2-digit"})),
-    pad("Nº "+num),
+    pad("Pedido Nº "+num),
     sep2,
     row("Cliente:", nome),
     row("Fone:", tel||"N/I"),
-    row("Entrega:", entrega==="retirar"?"Retirar na loja":"Entregar"),
+    row("Retirada:", "Na loja"),
+    sep2,
   ];
-  if (entrega==="entregar" && end) linhas.push(row("Endereço:", end));
-  linhas.push(sep2);
   pedidos.forEach(p => {
-    linhas.push(row(p.descricaoSabores, ""));
-    linhas.push(row(` ${p.tipo} x${p.qtd} cen.`, `R$${p.total.toFixed(2)}`));
+    linhas.push(row(p.descricaoSabores,""));
+    linhas.push(row(` ${p.tipo} x${p.qtd} cen.`,`R$${p.total.toFixed(2)}`));
   });
   linhas.push(sep2);
   if (descVal>0) {
-    linhas.push(row("Subtotal", `R$${subtotal.toFixed(2)}`));
-    linhas.push(row("Desconto", `-R$${descVal.toFixed(2)}`));
+    linhas.push(row("Subtotal",`R$${subtotal.toFixed(2)}`));
+    linhas.push(row("Desconto",`-R$${descVal.toFixed(2)}`));
     linhas.push(sep2);
   }
-  linhas.push(row("*TOTAL*", `*R$${total.toFixed(2)}*`));
+  linhas.push(row("*TOTAL*",`*R$${total.toFixed(2)}*`));
   linhas.push(sep2);
   linhas.push(row(`${pag.emoji} Pgto:`, pag.label));
   linhas.push(sep);
-  linhas.push(pad("Obrigada! Volte sempre 😊"));
+  linhas.push(pad("Obrigada! Volte sempre 🍟"));
 
   return "```\n" + linhas.join("\n") + "\n```";
 }
 
 // ── FINALIZAR ──
-let _interval = null, _cancelado = false;
+let _interval=null, _cancelado=false;
 
 function finalizar() {
-  const nome    = document.getElementById("nome").value.trim();
-  const entOk   = entrega==="retirar" || document.getElementById("endereco").value.trim();
-  if (!nome)    { showToast("⚠️ Informe seu nome."); return; }
-  if (!entrega) { showToast("⚠️ Escolha retirar ou entregar."); return; }
-  if (!entOk)   { showToast("⚠️ Informe o endereço de entrega."); return; }
-  if (!pagamento){ showToast("⚠️ Selecione a forma de pagamento."); return; }
+  const nome = document.getElementById("nome").value.trim();
+  if (!nome)      { showToast("⚠️ Informe seu nome."); return; }
+  if (!pagamento) { showToast("⚠️ Selecione a forma de pagamento."); return; }
 
-  _cancelado = false;
-  const modal = document.getElementById("modal-cnt");
-  const bar   = document.getElementById("cnt-bar");
-  const cd    = document.getElementById("cnt-cd");
+  _cancelado=false;
+  const modal=document.getElementById("modal-cnt");
+  const bar  =document.getElementById("cnt-bar");
+  const cd   =document.getElementById("cnt-cd");
   modal.classList.add("show");
-  bar.style.width = "0%";
-  let t = 3;
-  cd.textContent = `Abrindo em ${t}s...`;
+  bar.style.width="0%"; let t=3;
+  cd.textContent=`Abrindo em ${t}s...`;
 
-  _interval = setInterval(()=>{
+  _interval=setInterval(()=>{
     if (_cancelado) { clearInterval(_interval); return; }
     t--;
-    bar.style.width = `${((3-t)/3)*100}%`;
-    cd.textContent = t>0 ? `Abrindo em ${t}s...` : "Abrindo WhatsApp...";
+    bar.style.width=`${((3-t)/3)*100}%`;
+    cd.textContent=t>0?`Abrindo em ${t}s...`:"Abrindo WhatsApp...";
     if (t<=0) {
       clearInterval(_interval);
       modal.classList.remove("show");
-      location.href = `https://wa.me/5511954950044?text=${encodeURIComponent(window._msgWA||"")}`;
-      setTimeout(()=>document.getElementById("modal-ok").classList.add("show"), 1500);
+      location.href=`https://wa.me/${WA_ALINE}?text=${encodeURIComponent(window._msgWA||"")}`;
+      setTimeout(()=>document.getElementById("modal-ok").classList.add("show"),1500);
     }
-  }, 1000);
+  },1000);
 }
 
 function cancelarEnvio() {
-  _cancelado = true;
-  clearInterval(_interval);
+  _cancelado=true; clearInterval(_interval);
   document.getElementById("modal-cnt").classList.remove("show");
-  document.getElementById("cnt-bar").style.width = "0%";
+  document.getElementById("cnt-bar").style.width="0%";
   showToast("Pedido cancelado.");
 }
 
 function fecharOk() {
   document.getElementById("modal-ok").classList.remove("show");
-  pedidos = []; entrega = ""; pagamento = "";
-  document.getElementById("nome").value      = "";
-  document.getElementById("telefone").value  = "";
-  document.getElementById("endereco").value  = "";
-  document.getElementById("desconto").value  = "";
-  document.getElementById("eb-retirar").className  = "entrega-btn";
-  document.getElementById("eb-entregar").className = "entrega-btn";
-  document.getElementById("wrap-endereco").classList.remove("visivel");
+  pedidos=[]; pagamento="";
+  document.getElementById("nome").value="";
+  document.getElementById("telefone").value="";
+  document.getElementById("desconto").value="";
   document.querySelectorAll(".pay-btn").forEach(b=>b.className="pay-btn");
-  numero = parseInt(localStorage.getItem("numAS")||"0")+1;
-  localStorage.setItem("numAS", numero);
-  document.getElementById("h-badge").textContent = `#${String(numero).padStart(3,"0")}`;
+  numero=parseInt(localStorage.getItem("numLS")||"0")+1;
+  localStorage.setItem("numLS",numero);
+  document.getElementById("h-badge").textContent=`#${String(numero).padStart(3,"0")}`;
   renderLista(); atualizarResumo();
 }
 
 function showToast(msg) {
-  const t = document.getElementById("toast");
-  t.textContent = msg; t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"), 2600);
+  const t=document.getElementById("toast");
+  t.textContent=msg; t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2600);
 }
 
 init();
