@@ -2,68 +2,90 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Pedidos de Salgados</title>
+<title>Salgados Delícia</title>
 
 <style>
 body {
   font-family: Arial;
-  background: #fff8f0;
-  padding: 15px;
+  background: #f5f5f5;
+  margin: 0;
 }
 
-h1 {
+header {
+  background: #ff6600;
+  color: white;
   text-align: center;
+  padding: 15px;
+  font-size: 20px;
+}
+
+.container {
+  padding: 15px;
 }
 
 .produto {
   background: white;
   padding: 10px;
-  margin: 10px 0;
+  margin-bottom: 10px;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-button {
-  background: #ff6600;
+.controls button {
+  padding: 5px 10px;
+  margin: 0 2px;
+}
+
+.resumo {
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+.total {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+button.finalizar {
+  width: 100%;
+  padding: 12px;
+  background: #25d366;
   color: white;
   border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 15px;
+  border-radius: 8px;
 }
 
 input, select {
   width: 100%;
   padding: 8px;
-  margin: 5px 0;
-}
-
-.total {
-  font-size: 18px;
-  text-align: center;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.finalizar {
-  width: 100%;
-  padding: 12px;
-  margin-top: 15px;
-  font-size: 16px;
+  margin-top: 5px;
 }
 </style>
 
 </head>
 <body>
 
-<h1>🍟 Salgados Delícia</h1>
+<header>🍟 Salgados Delícia</header>
 
-<div id="lista"></div>
+<div class="container">
 
-<div class="total">Total: R$ <span id="total">0</span></div>
+<div id="produtos"></div>
 
-<h3>Seus dados:</h3>
+<div class="resumo">
+  <h3>🧾 Resumo do Pedido</h3>
+  <div id="resumo"></div>
+  <div class="total">Total: R$ <span id="total">0</span></div>
+</div>
+
+<h3>📋 Seus dados</h3>
 <input type="text" id="nome" placeholder="Seu nome">
 <input type="text" id="endereco" placeholder="Endereço">
 
@@ -73,7 +95,9 @@ input, select {
   <option>Cartão</option>
 </select>
 
-<button class="finalizar" onclick="enviarPedido()">Finalizar no WhatsApp</button>
+<button class="finalizar" onclick="enviar()">Finalizar Pedido</button>
+
+</div>
 
 <script>
 let produtos = [
@@ -83,55 +107,86 @@ let produtos = [
   {nome: "Enroladinho", preco: 4}
 ];
 
-let carrinho = [];
+let carrinho = {};
 
-function render() {
+function renderProdutos() {
   let html = "";
   produtos.forEach((p, i) => {
     html += `
     <div class="produto">
       ${p.nome} - R$${p.preco}
-      <button onclick="add(${i})">+</button>
+      <div class="controls">
+        <button onclick="alterar(${i}, -1)">-</button>
+        <span id="qtd-${i}">0</span>
+        <button onclick="alterar(${i}, 1)">+</button>
+      </div>
     </div>`;
   });
-  document.getElementById("lista").innerHTML = html;
+  document.getElementById("produtos").innerHTML = html;
 }
 
-function add(i) {
-  carrinho.push(produtos[i]);
-  calcular();
+function alterar(i, delta) {
+  if (!carrinho[i]) carrinho[i] = 0;
+  carrinho[i] += delta;
+  if (carrinho[i] < 0) carrinho[i] = 0;
+
+  document.getElementById(`qtd-${i}`).innerText = carrinho[i];
+  atualizarResumo();
 }
 
-function calcular() {
-  let total = carrinho.reduce((s, p) => s + p.preco, 0);
+function atualizarResumo() {
+  let resumo = "";
+  let total = 0;
+
+  produtos.forEach((p, i) => {
+    let qtd = carrinho[i] || 0;
+    if (qtd > 0) {
+      let subtotal = qtd * p.preco;
+      total += subtotal;
+
+      resumo += `${p.nome} x${qtd} = R$${subtotal}<br>`;
+    }
+  });
+
+  document.getElementById("resumo").innerHTML = resumo || "Nenhum item ainda";
   document.getElementById("total").innerText = total;
 }
 
-function enviarPedido() {
+function enviar() {
   let nome = document.getElementById("nome").value;
   let endereco = document.getElementById("endereco").value;
   let pagamento = document.getElementById("pagamento").value;
 
-  let resumo = "";
-  carrinho.forEach(p => {
-    resumo += `- ${p.nome} (R$${p.preco})%0A`;
+  let mensagem = `🍟 *Salgados Delícia*%0A`;
+  mensagem += `📋 *Pedido do Cliente*%0A`;
+  mensagem += `Nome: ${nome}%0A`;
+  mensagem += `Endereço: ${endereco}%0A`;
+  mensagem += `Pagamento: ${pagamento}%0A%0A`;
+
+  mensagem += `🧾 *Itens do Pedido:*%0A`;
+
+  let total = 0;
+
+  produtos.forEach((p, i) => {
+    let qtd = carrinho[i] || 0;
+    if (qtd > 0) {
+      let subtotal = qtd * p.preco;
+      total += subtotal;
+
+      mensagem += `➡️ ${p.nome}%0A`;
+      mensagem += `Qtd: ${qtd} | Unit: R$${p.preco}%0A`;
+      mensagem += `Subtotal: R$${subtotal}%0A%0A`;
+    }
   });
 
-  let total = document.getElementById("total").innerText;
-
-  let mensagem = `🍟 *Pedido de Salgados*%0A
-Nome: ${nome}%0A
-Endereço: ${endereco}%0A
-Pagamento: ${pagamento}%0A
-%0AItens:%0A${resumo}
-%0ATotal: R$ ${total}`;
+  mensagem += `💰 *TOTAL: R$ ${total}*`;
 
   let numero = "5511954950044"; // TROCA AQUI
 
   window.open(`https://wa.me/${numero}?text=${mensagem}`);
 }
 
-render();
+renderProdutos();
 </script>
 
 </body>
