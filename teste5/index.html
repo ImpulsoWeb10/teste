@@ -8,87 +8,130 @@
 body {
   font-family: Arial;
   background: #fff8f0;
-  padding: 20px;
+  padding: 15px;
 }
 
 h1 {
   text-align: center;
 }
 
-.card {
+.produto {
   background: white;
-  padding: 15px;
+  padding: 10px;
   margin: 10px 0;
   border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 button {
-  width: 100%;
-  padding: 10px;
   background: #ff6600;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
 }
 
 .total {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 18px;
   text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.finalizar {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  font-size: 16px;
 }
 </style>
 
 </head>
 <body>
 
-<h1>🍟 Pedido de Salgados</h1>
+<h1>🍟 Salgados Delícia</h1>
 
-<div class="card">
-  <label>Produto:</label>
-  <select id="produto">
-    <option value="Coxinha - 5">Coxinha - R$5</option>
-    <option value="Kibe - 5">Kibe - R$5</option>
-    <option value="Esfiha - 6">Esfiha - R$6</option>
-    <option value="Enroladinho - 4">Enroladinho - R$4</option>
-  </select>
+<div id="lista"></div>
 
-  <label>Quantidade:</label>
-  <input type="number" id="qtd" value="1" min="1" onchange="calcular()">
-</div>
+<div class="total">Total: R$ <span id="total">0</span></div>
 
-<div class="card total">
-  Total: R$ <span id="total">5</span>
-</div>
+<h3>Seus dados:</h3>
+<input type="text" id="nome" placeholder="Seu nome">
+<input type="text" id="endereco" placeholder="Endereço">
 
-<button onclick="enviarPedido()">Finalizar Pedido no WhatsApp</button>
+<select id="pagamento">
+  <option>Dinheiro</option>
+  <option>Pix</option>
+  <option>Cartão</option>
+</select>
+
+<button class="finalizar" onclick="enviarPedido()">Finalizar no WhatsApp</button>
 
 <script>
+let produtos = [
+  {nome: "Coxinha", preco: 5},
+  {nome: "Kibe", preco: 5},
+  {nome: "Esfiha", preco: 6},
+  {nome: "Enroladinho", preco: 4}
+];
+
+let carrinho = [];
+
+function render() {
+  let html = "";
+  produtos.forEach((p, i) => {
+    html += `
+    <div class="produto">
+      ${p.nome} - R$${p.preco}
+      <button onclick="add(${i})">+</button>
+    </div>`;
+  });
+  document.getElementById("lista").innerHTML = html;
+}
+
+function add(i) {
+  carrinho.push(produtos[i]);
+  calcular();
+}
+
 function calcular() {
-  let produto = document.getElementById("produto").value;
-  let qtd = document.getElementById("qtd").value;
-
-  let preco = produto.split(" - ")[1];
-  let total = preco * qtd;
-
+  let total = carrinho.reduce((s, p) => s + p.preco, 0);
   document.getElementById("total").innerText = total;
 }
 
 function enviarPedido() {
-  let produto = document.getElementById("produto").value;
-  let qtd = document.getElementById("qtd").value;
+  let nome = document.getElementById("nome").value;
+  let endereco = document.getElementById("endereco").value;
+  let pagamento = document.getElementById("pagamento").value;
+
+  let resumo = "";
+  carrinho.forEach(p => {
+    resumo += `- ${p.nome} (R$${p.preco})%0A`;
+  });
+
   let total = document.getElementById("total").innerText;
 
   let mensagem = `🍟 *Pedido de Salgados*%0A
-Produto: ${produto}%0A
-Quantidade: ${qtd}%0A
-Total: R$ ${total}`;
+Nome: ${nome}%0A
+Endereço: ${endereco}%0A
+Pagamento: ${pagamento}%0A
+%0AItens:%0A${resumo}
+%0ATotal: R$ ${total}`;
 
-  let numero = "5511954950044"; // ALTERA AQUI
+  let numero = "5511954950044"; // TROCA AQUI
 
   window.open(`https://wa.me/${numero}?text=${mensagem}`);
 }
+
+render();
 </script>
 
 </body>
