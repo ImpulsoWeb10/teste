@@ -177,6 +177,28 @@ select option { background: #1e1710; }
 .btn-qty.minus:hover { background: var(--card-hover); }
 .qty-display { min-width: 24px; text-align: center; font-weight: 700; font-size: 15px; }
 
+/* COLLAPSIBLE */
+.card-title-btn { cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;width:100%; }
+.collapse-arrow { font-size:11px;color:var(--text-muted);transition:transform .25s ease;display:inline-block; }
+.card-collapsed .collapse-arrow { transform:rotate(-90deg); }
+.collapsible-body { overflow:hidden;max-height:600px;transition:max-height .3s ease,opacity .25s ease;opacity:1; }
+.collapsible-body.fechado { max-height:0;opacity:0; }
+
+/* DESCONTO */
+.desconto-row { display:flex;align-items:center;gap:0;position:relative; }
+.desconto-row input {
+  width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:10px 90px 10px 42px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;
+  outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.desconto-row input:focus { border-color:#e85d20;box-shadow:0 0 0 3px rgba(232,93,32,.12); }
+.desconto-row input::placeholder { color:var(--text-muted); }
+.desconto-badge {
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  background:rgba(232,93,32,.15);color:var(--orange);
+  font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.5px;white-space:nowrap;
+}
+
 /* RESUMO */
 .resumo-vazio { color: var(--text-muted); font-size: 13px; text-align: center; padding: 10px 0; }
 .resumo-item {
@@ -306,9 +328,14 @@ select option { background: #1e1710; }
   </div>
 
   <!-- BEBIDAS -->
-  <div class="card fade-in">
-    <div class="card-title">🥤 Bebidas</div>
-    <div id="bebidas"></div>
+  <div class="card fade-in" id="card-bebidas">
+    <div class="card-title card-title-btn" onclick="toggleBebidas()">
+      <span>🥤 Bebidas</span>
+      <span class="collapse-arrow" id="arrow-bebidas">▼</span>
+    </div>
+    <div class="collapsible-body" id="body-bebidas">
+      <div id="bebidas"></div>
+    </div>
   </div>
 
   <!-- PAGAMENTO -->
@@ -327,6 +354,16 @@ select option { background: #1e1710; }
         <div class="pay-icon">💳</div>
         <div class="pay-label">Cartão</div>
       </div>
+    </div>
+  </div>
+
+  <!-- DESCONTO -->
+  <div class="card fade-in">
+    <div class="card-title">🏷️ Desconto</div>
+    <div class="input-wrap desconto-row">
+      <span class="input-icon">%</span>
+      <input id="desconto" type="number" min="0" max="100" placeholder="Valor do desconto (ex: 5.00)" oninput="recibo()">
+      <span class="desconto-badge" id="desconto-badge" style="display:none"></span>
     </div>
   </div>
 
@@ -437,31 +474,58 @@ function selecionarPag(tipo) {
   recibo();
 }
 
-function recibo() {
-  let itens = [], total = 0;
-  SALGADOS.forEach((p,i) => { const q=carrinho["s"+i]||0; if(q>0){const s=q*p.p;total+=s;itens.push({n:p.n,q,s});} });
-  BEBIDAS.forEach((p,i)  => { const q=carrinho["b"+i]||0; if(q>0){const s=q*p.p;total+=s;itens.push({n:p.n,q,s});} });
+function toggleBebidas() {
+  const body  = document.getElementById("body-bebidas");
+  const card  = document.getElementById("card-bebidas");
+  const arrow = document.getElementById("arrow-bebidas");
+  const fechado = body.classList.toggle("fechado");
+  card.classList.toggle("card-collapsed", fechado);
+}
 
-  const nome    = document.getElementById("nome").value.trim();
-  const consumo = document.getElementById("consumo").value;
-  const corp    = document.getElementById("resumo-corpo");
+function recibo() {
+  let itens = [], subtotal = 0;
+  SALGADOS.forEach((p,i) => { const q=carrinho["s"+i]||0; if(q>0){const s=q*p.p;subtotal+=s;itens.push({n:p.n,q,s});} });
+  BEBIDAS.forEach((p,i)  => { const q=carrinho["b"+i]||0; if(q>0){const s=q*p.p;subtotal+=s;itens.push({n:p.n,q,s});} });
+
+  const nome     = document.getElementById("nome").value.trim();
+  const consumo  = document.getElementById("consumo").value;
+  const descRaw  = parseFloat(document.getElementById("desconto").value) || 0;
+  const descVal  = Math.min(descRaw, subtotal);
+  const total    = Math.max(0, subtotal - descVal);
+  const corp     = document.getElementById("resumo-corpo");
+  const badge    = document.getElementById("desconto-badge");
+
+  // badge de desconto
+  if (descVal > 0) {
+    badge.style.display = "";
+    badge.textContent = `- R$ ${descVal.toFixed(2)}`;
+  } else {
+    badge.style.display = "none";
+  }
 
   if (itens.length === 0) {
     corp.innerHTML = `<div class="resumo-vazio">Nenhum item selecionado ainda.</div>`;
   } else {
-    corp.innerHTML = itens.map(it =>
+    let rows = itens.map(it =>
       `<div class="resumo-item">
         <span class="resumo-item-nome">${it.n} × ${it.q}</span>
         <span class="resumo-item-preco">R$ ${it.s.toFixed(2)}</span>
-       </div>`).join("") +
-      `<div class="resumo-total">
-        <span class="resumo-total-label">Total</span>
-        <span class="resumo-total-valor">R$ ${total.toFixed(2)}</span>
+       </div>`).join("");
+    if (descVal > 0) {
+      rows += `<div class="resumo-item" style="border-bottom:1px solid var(--border)">
+        <span style="color:var(--orange)">🏷️ Desconto</span>
+        <span style="color:var(--orange);font-weight:600">- R$ ${descVal.toFixed(2)}</span>
        </div>`;
+    }
+    rows += `<div class="resumo-total">
+      <span class="resumo-total-label">Total</span>
+      <span class="resumo-total-valor">R$ ${total.toFixed(2)}</span>
+     </div>`;
+    corp.innerHTML = rows;
   }
 
   document.getElementById("btn-finalizar").disabled = !(itens.length>0 && nome && pagamento);
-  window._msgWA = buildRecibo({ nome, consumo, itens, total });
+  window._msgWA = buildRecibo({ nome, consumo, itens, subtotal, descVal, total });
 }
 
 function pad(str, len) {
@@ -472,59 +536,49 @@ function pad(str, len) {
   return " ".repeat(l) + s + " ".repeat(r);
 }
 
-function buildRecibo({ nome, consumo, itens, total }) {
-  const W   = 32; // largura do recibo
+function buildRecibo({ nome, consumo, itens, subtotal, descVal, total }) {
+  const W   = 28;
   const sep = "=".repeat(W);
   const sep2= "-".repeat(W);
   const num = String(numero).padStart(6,"0");
-  const tel = document.getElementById("telefone").value.trim() || "NAO INFORMADO";
+  const tel = document.getElementById("telefone").value.trim() || "N/I";
   const pag = PAGAMENTOS[pagamento] || { label:"---", emoji:"" };
   const now = new Date();
   const data = now.toLocaleDateString("pt-br");
   const hora = now.toLocaleTimeString("pt-br",{hour:"2-digit",minute:"2-digit"});
 
-  const fmtItem = (it) => {
-    const esq = `${it.n} x${it.q}`;
-    const dir = `R$${it.s.toFixed(2)}`;
-    const sp  = " ".repeat(Math.max(1, W - esq.length - dir.length));
+  const row = (esq, dir) => {
+    const sp = " ".repeat(Math.max(1, W - esq.length - dir.length));
     return esq + sp + dir;
   };
 
-  const totDir  = `R$${total.toFixed(2)}`;
-  const totEsp  = " ".repeat(Math.max(1, W - "TOTAL".length - totDir.length));
-
   const linhas = [
     sep,
-    pad("🍟 SALGADOS DELICIA 🍟", W),
-    pad("Aline", W),
-    sep,
-    "",
-    `CUPOM Nº: ${num}`,
-    `DATA:     ${data}`,
-    `HORA:     ${hora}`,
-    "",
+    pad("SALGADOS DELICIA", W),
+    pad("*Aline*", W),
+    pad(data + "  " + hora, W),
+    pad("Nº " + num, W),
     sep2,
-    `CLIENTE:  ${nome}`,
-    `FONE:     ${tel}`,
-    `PEDIDO:   ${consumo}`,
+    row("Cliente:", nome),
+    row("Fone:", tel),
+    row("Tipo:", consumo),
     sep2,
-    "",
-    pad("-- ITENS DO PEDIDO --", W),
+    ...itens.map(it => row(`${it.n} x${it.q}`, `R$${it.s.toFixed(2)}`)),
     sep2,
-    ...itens.map(fmtItem),
-    sep2,
-    `TOTAL${totEsp}*R$${total.toFixed(2)}*`,
-    sep2,
-    "",
-    `${pag.emoji} PAGAMENTO: *${pag.label}*`,
-    "",
-    sep,
-    pad("Obrigada pela preferencia!", W),
-    pad("Volte sempre! 😊", W),
-    sep,
   ];
 
-  // Formata em bloco de código para WhatsApp
+  if (descVal > 0) {
+    linhas.push(row("Subtotal", `R$${subtotal.toFixed(2)}`));
+    linhas.push(row("Desconto", `-R$${descVal.toFixed(2)}`));
+    linhas.push(sep2);
+  }
+
+  linhas.push(row("*TOTAL*", `*R$${total.toFixed(2)}*`));
+  linhas.push(sep2);
+  linhas.push(row(`${pag.emoji} Pgto:`, pag.label));
+  linhas.push(sep);
+  linhas.push(pad("Obrigada! Volte sempre 😊", W));
+
   return "```\n" + linhas.join("\n") + "\n```";
 }
 
@@ -577,6 +631,7 @@ function fecharModal() {
   document.getElementById("nome").value     = "";
   document.getElementById("telefone").value = "";
   document.getElementById("consumo").value  = "Consumir no local";
+  document.getElementById("desconto").value = "";
   document.querySelectorAll(".pay-btn").forEach(b => b.className = "pay-btn");
   numero = parseInt(localStorage.getItem("num")||"0") + 1;
   localStorage.setItem("num", numero);
