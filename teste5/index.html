@@ -69,9 +69,38 @@ button.finalizar {
   color: white;
   font-size: 16px;
 }
-</style>
 
+/* MODAL */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  width: 85%;
+  max-width: 300px;
+  animation: aparecer 0.3s ease;
+}
+
+@keyframes aparecer {
+  from {transform: scale(0.8); opacity: 0;}
+  to {transform: scale(1); opacity: 1;}
+}
+</style>
 </head>
+
 <body>
 
 <header>🍟 Salgados Delícia</header>
@@ -91,8 +120,8 @@ button.finalizar {
 </select>
 
 <div id="campoEndereco" style="display:none;">
-  <input type="text" id="endereco" placeholder="Endereço de entrega">
-  <input type="number" id="taxa" placeholder="Taxa de entrega (R$)" oninput="gerarRecibo()">
+  <input type="text" id="endereco" placeholder="Endereço">
+  <input type="number" id="taxa" placeholder="Taxa entrega" oninput="gerarRecibo()">
 </div>
 
 <h3>📋 Dados</h3>
@@ -104,10 +133,23 @@ button.finalizar {
   <option>Cartão</option>
 </select>
 
-<input type="number" id="desconto" placeholder="Desconto (R$)" oninput="gerarRecibo()">
+<input type="number" id="desconto" placeholder="Desconto" oninput="gerarRecibo()">
 
 <button class="finalizar" onclick="enviar()">Finalizar Pedido</button>
 
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <h2>🎉 Pedido recebido!</h2>
+    <p>
+      Obrigado pela preferência 🙌<br><br>
+      Seu pedido foi registrado com sucesso!<br>
+      Estamos enviando para atendimento.
+    </p>
+    <small>Redirecionando para o WhatsApp...</small>
+  </div>
 </div>
 
 <script>
@@ -177,12 +219,12 @@ function gerarRecibo() {
   let desconto = parseFloat(document.getElementById("desconto").value) || 0;
 
   if (taxa > 0) {
-    texto += `Entrega${" ".repeat(18)}R$${taxa}\n`;
+    texto += `Entrega .......... R$${taxa}\n`;
     total += taxa;
   }
 
   if (desconto > 0) {
-    texto += `Desconto${" ".repeat(17)}-R$${desconto}\n`;
+    texto += `Desconto ......... -R$${desconto}\n`;
     total -= desconto;
   }
 
@@ -237,7 +279,14 @@ function enviar() {
 
   let numero = "5511954950044";
 
-  window.open(`https://wa.me/${numero}?text=${mensagem}`);
+  // MOSTRAR MODAL
+  document.getElementById("modal").style.display = "flex";
+
+  // REDIRECIONAR
+  setTimeout(() => {
+    window.open(`https://wa.me/${numero}?text=${mensagem}`);
+    document.getElementById("modal").style.display = "none";
+  }, 2000);
 }
 
 renderProdutos();
