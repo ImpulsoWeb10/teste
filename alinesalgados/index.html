@@ -483,7 +483,7 @@
 <!-- ===== RETIRE AQUI ===== -->
 <div class="retire-section">
   <div class="retire-title">📍 Como retirar?</div>
-  <button class="retire-btn" onclick="https://www.google.com/maps/@-23.4580398,-46.352157,3a,75y,332.31h,82.1t/data=!3m7!1e1!3m5!1sldBgc_9QQzJX0VawT0jGJw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.897943669374172%26panoid%3DldBgc_9QQzJX0VawT0jGJw%26yaw%3D332.3130861662308!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MDMyNC4wIKXMDSoASAFQAw%3D%3D()">
+  <button class="retire-btn" onclick="abrirLocalizacao()">
     🗺️ &nbsp;Retire Aqui — Ver no Mapa
   </button>
   <div class="retire-addr">Toque para abrir a localização no Google Maps</div>
@@ -1077,10 +1077,7 @@ function enviarWhatsApp() {
 // LOCALIZAÇÃO — RETIRE AQUI
 // ============================================================
 function abrirLocalizacao() {
-  // Tenta abrir com coordenadas GPS da loja (substituir pelas coordenadas corretas)
-  const enderecoEncoded = encodeURIComponent('Salgados Delicia Aline, São Paulo, SP');
-  const urlMaps = `https://www.google.com/maps/search/?api=1&query=${enderecoEncoded}`;
-  window.open(urlMaps, '_blank');
+  window.open('https://maps.app.goo.gl/d6zEQYa4Q6MMo8qZ9', '_blank');
 }
 
 // ============================================================
