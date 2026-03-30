@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aline Salgados</title>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --rosa: #e8325a;
@@ -15,585 +14,502 @@
     --dourado-light: #f0c040;
     --creme: #fdf6ee;
     --marrom: #7a4a2e;
-    --branco: #ffffff;
+    --verde: #22a054;
     --cinza: #f5f5f5;
     --texto: #3a2a1a;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Nunito', sans-serif;
-    background: linear-gradient(135deg, #fff0f4 0%, #fdf6ee 50%, #fff8e8 100%);
+    background: linear-gradient(160deg, #fff0f4 0%, #fdf6ee 55%, #fff8e8 100%);
     min-height: 100vh;
     color: var(--texto);
     overflow-x: hidden;
   }
 
-  /* HEADER */
+  /* ===== HEADER ===== */
   .header {
     background: linear-gradient(135deg, #fff 0%, #fff8f0 100%);
     border-bottom: 2px solid var(--rosa-pale);
-    padding: 16px 20px 12px;
+    padding: 14px 20px 12px;
     text-align: center;
     position: sticky; top: 0; z-index: 100;
-    box-shadow: 0 2px 20px rgba(232,50,90,0.1);
+    box-shadow: 0 2px 20px rgba(232,50,90,0.12);
   }
   .header-logo {
-    width: 90px; height: 90px;
+    width: 100px; height: 100px;
     border-radius: 50%;
     border: 3px solid var(--dourado-light);
     object-fit: cover;
-    box-shadow: 0 4px 15px rgba(201,150,42,0.3);
-    margin-bottom: 6px;
+    box-shadow: 0 4px 18px rgba(201,150,42,0.35);
+    margin-bottom: 4px;
   }
   .header-name {
     font-family: 'Dancing Script', cursive;
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     color: var(--rosa);
-    text-shadow: 2px 2px 0 rgba(232,50,90,0.15);
+    text-shadow: 2px 2px 0 rgba(232,50,90,0.12);
     line-height: 1;
   }
   .header-sub {
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 3px;
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 4px;
     color: var(--marrom);
     text-transform: uppercase;
     margin-bottom: 8px;
   }
-  .header-info {
-    display: flex; flex-direction: column; gap: 3px;
-    align-items: center;
-  }
+  .header-info { display: flex; flex-direction: column; gap: 4px; align-items: center; }
   .info-badge {
     background: linear-gradient(90deg, var(--rosa-pale), #fff8e8);
     border: 1px solid var(--rosa-light);
     border-radius: 20px;
-    padding: 3px 14px;
-    font-size: 0.72rem;
+    padding: 4px 14px;
+    font-size: 0.73rem;
     font-weight: 700;
     color: var(--marrom);
     display: flex; align-items: center; gap: 5px;
   }
-  .info-badge span { font-size: 0.85rem; }
+  .info-badge.gold { border-color: var(--dourado-light); background: linear-gradient(90deg, #fff8e0, #fdf6ee); }
 
-  /* CLIENTE FORM */
+  /* ===== CLIENTE ===== */
   .cliente-section {
     background: white;
-    margin: 14px 14px 0;
-    border-radius: 18px;
-    padding: 16px;
-    box-shadow: 0 2px 15px rgba(232,50,90,0.08);
+    margin: 16px 14px 0;
+    border-radius: 20px;
+    padding: 18px;
+    box-shadow: 0 2px 18px rgba(232,50,90,0.08);
     border: 1px solid var(--rosa-pale);
   }
   .section-title {
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--rosa);
-    margin-bottom: 10px;
-    display: flex; align-items: center; gap: 6px;
+    font-size: 0.75rem; font-weight: 900; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--rosa);
+    margin-bottom: 12px; display: flex; align-items: center; gap: 6px;
   }
   .input-field {
-    width: 100%;
-    border: 1.5px solid #eee;
-    border-radius: 12px;
-    padding: 10px 14px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--texto);
-    background: var(--cinza);
-    margin-bottom: 8px;
-    transition: all 0.2s;
-    outline: none;
+    width: 100%; border: 1.5px solid #eee; border-radius: 12px;
+    padding: 12px 14px; font-family: 'Nunito', sans-serif;
+    font-size: 0.92rem; font-weight: 600; color: var(--texto);
+    background: var(--cinza); margin-bottom: 10px;
+    transition: all 0.2s; outline: none;
   }
-  .input-field:focus {
-    border-color: var(--rosa);
-    background: white;
-    box-shadow: 0 0 0 3px rgba(232,50,90,0.1);
-  }
+  .input-field:focus { border-color: var(--rosa); background: white; box-shadow: 0 0 0 3px rgba(232,50,90,0.1); }
 
-  /* MAIN ACTION BUTTON */
+  /* ===== BOTÃO PRINCIPAL ===== */
   .main-btn {
-    display: block;
-    width: calc(100% - 28px);
-    margin: 14px auto;
+    width: calc(100% - 28px); margin: 16px auto;
     background: linear-gradient(135deg, var(--rosa) 0%, #c0254a 100%);
-    color: white;
-    border: none;
-    border-radius: 16px;
-    padding: 16px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(232,50,90,0.35);
+    color: white; border: none; border-radius: 18px;
+    padding: 18px 20px; font-family: 'Nunito', sans-serif;
+    font-size: 1.15rem; font-weight: 900; letter-spacing: 0.5px;
+    cursor: pointer; box-shadow: 0 8px 24px rgba(232,50,90,0.4);
     transition: all 0.2s;
     display: flex; align-items: center; justify-content: center; gap: 10px;
+    animation: pulse-btn 2.5s ease-in-out infinite;
   }
-  .main-btn:active { transform: scale(0.97); }
-  .main-btn:hover { box-shadow: 0 8px 25px rgba(232,50,90,0.45); }
+  @keyframes pulse-btn {
+    0%,100% { box-shadow: 0 8px 24px rgba(232,50,90,0.4); }
+    50% { box-shadow: 0 8px 36px rgba(232,50,90,0.65); transform: translateY(-1px); }
+  }
+  .main-btn:active { transform: scale(0.97) !important; animation: none; }
 
-  /* CARRINHO */
+  /* ===== CARRINHO ===== */
   .carrinho-section {
-    background: white;
-    margin: 0 14px;
-    border-radius: 18px;
-    padding: 16px;
-    box-shadow: 0 2px 15px rgba(232,50,90,0.08);
-    border: 1px solid var(--rosa-pale);
-    display: none;
+    background: white; margin: 0 14px; border-radius: 20px;
+    padding: 16px; box-shadow: 0 2px 15px rgba(232,50,90,0.08);
+    border: 1px solid var(--rosa-pale); display: none;
   }
   .carrinho-section.show { display: block; }
   .carrinho-item {
-    display: flex; align-items: center; justify-content: space-between;
-    background: var(--cinza);
-    border-radius: 12px;
-    padding: 10px 12px;
-    margin-bottom: 8px;
-    border-left: 4px solid var(--rosa);
+    display: flex; align-items: flex-start; justify-content: space-between;
+    background: #fafafa; border-radius: 12px; padding: 10px 12px;
+    margin-bottom: 8px; border-left: 4px solid var(--rosa);
   }
   .carrinho-item-info { flex: 1; }
-  .carrinho-item-nome { font-weight: 800; font-size: 0.85rem; color: var(--texto); }
-  .carrinho-item-det { font-size: 0.75rem; color: #888; font-weight: 600; }
-  .carrinho-item-preco { font-weight: 800; color: var(--rosa); font-size: 0.95rem; margin-right: 10px; }
-  .btn-remover {
-    background: none; border: none; cursor: pointer;
-    color: #ccc; font-size: 1.1rem; padding: 4px;
-    transition: color 0.2s;
-  }
+  .carrinho-item-nome { font-weight: 900; font-size: 0.87rem; color: var(--texto); }
+  .carrinho-item-det  { font-size: 0.72rem; color: #999; font-weight: 600; margin-top: 2px; }
+  .carrinho-item-sabores { font-size: 0.7rem; color: #bbb; font-weight: 600; }
+  .carrinho-item-preco { font-weight: 900; color: var(--rosa); font-size: 0.95rem; margin: 0 10px; white-space: nowrap; }
+  .btn-remover { background: none; border: none; cursor: pointer; color: #ddd; font-size: 1rem; padding: 2px 4px; transition: color 0.2s; flex-shrink: 0; }
   .btn-remover:hover { color: var(--rosa); }
+  .empty-cart { text-align: center; padding: 12px; color: #ccc; font-size: 0.82rem; font-weight: 600; }
 
-  /* PAGAMENTO */
+  /* ===== PAGAMENTO ===== */
   .pagto-section {
-    background: white;
-    margin: 10px 14px 0;
-    border-radius: 18px;
-    padding: 16px;
-    box-shadow: 0 2px 15px rgba(232,50,90,0.08);
-    border: 1px solid var(--rosa-pale);
-    display: none;
+    background: white; margin: 10px 14px 0; border-radius: 20px;
+    padding: 16px; box-shadow: 0 2px 15px rgba(232,50,90,0.08);
+    border: 1px solid var(--rosa-pale); display: none;
   }
   .pagto-section.show { display: block; }
   .pagto-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .pagto-btn {
-    border: 2px solid #eee;
-    background: white;
-    border-radius: 12px;
-    padding: 10px 8px;
-    cursor: pointer;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    font-size: 0.8rem;
-    color: #888;
-    transition: all 0.2s;
-    display: flex; align-items: center; gap: 6px;
+    border: 2px solid #eee; background: white; border-radius: 12px;
+    padding: 11px 8px; cursor: pointer; font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 0.82rem; color: #aaa;
+    transition: all 0.2s; display: flex; align-items: center; gap: 6px;
   }
-  .pagto-btn.active {
-    border-color: var(--rosa);
-    background: var(--rosa-pale);
-    color: var(--rosa);
-  }
+  .pagto-btn.active { border-color: var(--rosa); background: var(--rosa-pale); color: var(--rosa); }
 
-  /* FECHAR PEDIDO */
+  /* ===== FECHAR PEDIDO ===== */
   .fechar-btn {
-    display: block;
-    width: calc(100% - 28px);
-    margin: 14px auto 24px;
-    background: linear-gradient(135deg, #22a054 0%, #198040 100%);
-    color: white;
-    border: none;
-    border-radius: 16px;
-    padding: 16px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(34,160,84,0.35);
-    display: none;
-    align-items: center; justify-content: center; gap: 10px;
+    width: calc(100% - 28px); margin: 14px auto 100px;
+    background: linear-gradient(135deg, var(--verde) 0%, #198040 100%);
+    color: white; border: none; border-radius: 18px; padding: 18px 20px;
+    font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 900;
+    cursor: pointer; box-shadow: 0 8px 24px rgba(34,160,84,0.4);
+    display: none; align-items: center; justify-content: center; gap: 10px;
+    transition: all 0.2s;
   }
   .fechar-btn.show { display: flex; }
+  .fechar-btn:active { transform: scale(0.97); }
 
-  /* OVERLAY */
+  /* ===== TOTAL FLUTUANTE ===== */
+  .total-bar {
+    background: white; border-top: 2px solid var(--rosa-pale);
+    padding: 12px 20px; position: fixed; bottom: 0; left: 0; right: 0;
+    display: none; align-items: center; justify-content: space-between;
+    box-shadow: 0 -4px 20px rgba(232,50,90,0.12); z-index: 90;
+  }
+  .total-bar.show { display: flex; }
+  .total-bar-label { font-size: 0.75rem; font-weight: 700; color: #aaa; }
+  .total-bar-valor { font-size: 1.4rem; font-weight: 900; color: var(--rosa); }
+  .total-bar-items { font-size: 0.7rem; color: #bbb; font-weight: 600; }
+
+  /* ===== OVERLAY ===== */
   .overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 200;
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55); z-index: 200;
     align-items: center; justify-content: center;
-    padding: 16px;
+    padding: 14px; backdrop-filter: blur(2px);
   }
   .overlay.show { display: flex; }
 
-  /* MODAL ESCOLHA TIPO */
+  /* ===== MODAL BASE ===== */
   .modal {
-    background: white;
-    border-radius: 24px;
-    padding: 24px 20px;
-    width: 100%; max-width: 380px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    position: relative;
-    max-height: 90vh;
-    overflow-y: auto;
+    background: white; border-radius: 26px; padding: 22px 18px 24px;
+    width: 100%; max-width: 400px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    position: relative; max-height: 92vh; overflow-y: auto;
   }
   .modal-title {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.6rem;
-    color: var(--rosa);
-    text-align: center;
-    margin-bottom: 18px;
+    font-family: 'Dancing Script', cursive; font-size: 1.8rem;
+    color: var(--rosa); text-align: center; margin-bottom: 6px; line-height: 1.2;
   }
-  .tipo-card {
-    border: 2px solid #eee;
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .tipo-card:hover, .tipo-card.selected { border-color: var(--rosa); background: var(--rosa-pale); }
-  .tipo-card-title { font-weight: 800; font-size: 1rem; color: var(--texto); margin-bottom: 4px; }
-  .tipo-card-desc { font-size: 0.78rem; color: #666; font-weight: 600; }
-  .tipo-card-preco { font-size: 0.82rem; color: var(--rosa); font-weight: 800; margin-top: 6px; }
   .modal-close {
     position: absolute; top: 14px; right: 16px;
-    background: none; border: none; font-size: 1.3rem;
-    cursor: pointer; color: #bbb;
+    background: #f5f5f5; border: none; border-radius: 50%;
+    width: 30px; height: 30px; font-size: 0.9rem; cursor: pointer; color: #999;
+    display: flex; align-items: center; justify-content: center; transition: all 0.2s;
   }
-  .modal-close:hover { color: var(--rosa); }
+  .modal-close:hover { background: var(--rosa-pale); color: var(--rosa); }
 
-  /* MODAL PEDIDO */
-  .modal-pedido { max-width: 420px; }
-  .pedido-header-title {
-    font-size: 1rem; font-weight: 800; color: var(--texto);
-    text-align: center;
+  /* ===== TIPO CARDS ===== */
+  .tipo-card {
+    border: 2.5px solid #eee; border-radius: 18px; padding: 18px 16px;
+    margin-bottom: 12px; cursor: pointer; transition: all 0.2s; position: relative;
   }
-  .pedido-header-sub {
-    font-size: 0.72rem; color: #999; font-weight: 600;
-    text-align: center; margin-top: 2px; margin-bottom: 14px;
-  }
-  .divider { border: none; border-top: 1px solid #eee; margin: 12px 0; }
+  .tipo-card:hover { border-color: var(--rosa); background: #fffafe; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,50,90,0.12); }
+  .tipo-card-emoji { font-size: 2rem; display: block; margin-bottom: 6px; }
+  .tipo-card-title { font-weight: 900; font-size: 1.05rem; color: var(--texto); margin-bottom: 4px; }
+  .tipo-card-desc  { font-size: 0.8rem; color: #888; font-weight: 600; line-height: 1.4; }
+  .tipo-card-preco { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .preco-tag { background: var(--rosa-pale); border-radius: 20px; padding: 3px 12px; font-size: 0.8rem; font-weight: 800; color: var(--rosa); }
+  .preco-tag.gold { background: #fff8e0; color: var(--dourado); }
+  .tipo-card-arrow { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: #ddd; font-size: 1.2rem; }
 
-  .preparo-title { font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--marrom); margin-bottom: 8px; }
-  .preparo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+  /* ===== MODAL PEDIDO ===== */
+  .pedido-header-title { font-size: 1.05rem; font-weight: 900; color: var(--texto); text-align: center; }
+  .pedido-header-sub   { font-size: 0.72rem; color: #bbb; font-weight: 600; text-align: center; margin-top: 2px; }
+  .divider { border: none; border-top: 1px solid #f0f0f0; margin: 14px 0 12px; }
+
+  .bloco-title {
+    font-size: 0.7rem; font-weight: 900; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--marrom); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .bloco-title::after { content:''; flex:1; height:1px; background: linear-gradient(90deg,#eee,transparent); }
+
+  /* ===== PREPARO ===== */
+  .preparo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 16px; }
   .preparo-btn {
-    border: 2px solid #eee;
-    background: white;
-    border-radius: 12px;
-    padding: 10px 6px;
-    cursor: pointer;
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #999;
-    transition: all 0.2s;
-    text-align: center;
-    line-height: 1.3;
+    border: 2.5px solid #eee; background: white; border-radius: 14px;
+    padding: 14px 8px; cursor: pointer; font-family: 'Nunito', sans-serif;
+    font-size: 0.8rem; font-weight: 800; color: #bbb;
+    transition: all 0.2s; text-align: center; line-height: 1.4;
   }
-  .preparo-btn.active { border-color: var(--rosa); background: var(--rosa-pale); color: var(--rosa); }
+  .preparo-btn:hover { border-color: #ddd; color: #888; }
+  .preparo-btn.active {
+    border-color: var(--rosa);
+    background: linear-gradient(135deg, #fff5f7, #fff0f4);
+    color: var(--rosa); box-shadow: 0 4px 14px rgba(232,50,90,0.18);
+    transform: translateY(-1px);
+  }
+  .preparo-btn .p-emoji { font-size: 1.3rem; display: block; margin-bottom: 4px; }
+  .preparo-btn .p-nome  { font-size: 0.88rem; font-weight: 900; display: block; }
+  .preparo-btn .p-tipo  { font-size: 0.72rem; display: block; opacity: 0.75; }
+  .preparo-btn .p-preco { font-size: 0.8rem; font-weight: 900; display: block; margin-top: 5px; }
 
-  .sabores-title { font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--marrom); margin-bottom: 8px; }
-  .sabores-sub { font-size: 0.7rem; color: #aaa; margin-bottom: 10px; }
-  .sabores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  /* ===== SABORES ===== */
+  .sabores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
   .sabor-btn {
-    border: 2px solid #eee;
-    background: white;
-    border-radius: 12px;
-    padding: 10px 8px;
-    cursor: pointer;
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: #999;
-    transition: all 0.2s;
-    text-align: center;
-    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    border: 2px solid #eee; background: white; border-radius: 13px;
+    padding: 12px 8px; cursor: pointer; font-family: 'Nunito', sans-serif;
+    font-size: 0.76rem; font-weight: 700; color: #aaa;
+    transition: all 0.2s; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 4px; line-height: 1.3;
   }
+  .sabor-btn:hover { border-color: #ddd; color: #888; }
   .sabor-btn.selected { border-color: var(--rosa); background: var(--rosa-pale); color: var(--rosa); }
-  .sabor-btn .emoji { font-size: 1.3rem; }
+  .sabor-btn .emoji { font-size: 1.5rem; }
+  .sabor-badge { font-size: 0.63rem; font-weight: 800; color: var(--verde); background: #e8f8ef; padding: 2px 7px; border-radius: 8px; }
 
-  /* qtde centena */
-  .qtde-row {
-    display: flex; align-items: center; justify-content: center; gap: 14px;
-    margin: 14px 0 8px;
-  }
-  .qtde-label { font-size: 0.78rem; font-weight: 800; color: var(--marrom); }
-  .qtde-ctrl { display: flex; align-items: center; gap: 10px; }
+  /* ===== QTDE ===== */
+  .qtde-section { margin: 14px 0 6px; }
+  .qtde-row { display: flex; align-items: center; justify-content: space-between; }
+  .qtde-label { font-size: 0.82rem; font-weight: 800; color: var(--marrom); }
+  .qtde-ctrl  { display: flex; align-items: center; gap: 12px; }
   .qtde-btn {
-    width: 34px; height: 34px;
-    border-radius: 50%;
-    border: 2px solid var(--rosa);
-    background: white;
-    color: var(--rosa);
-    font-size: 1.2rem;
-    font-weight: 800;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 2px solid var(--rosa); background: white; color: var(--rosa);
+    font-size: 1.3rem; font-weight: 900; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: all 0.15s;
   }
   .qtde-btn:hover { background: var(--rosa); color: white; }
-  .qtde-num { font-size: 1.1rem; font-weight: 800; min-width: 24px; text-align: center; }
+  .qtde-num { font-size: 1.2rem; font-weight: 900; min-width: 28px; text-align: center; color: var(--texto); }
 
-  .add-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  /* ===== ADD BUTTONS ===== */
+  .add-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 14px; }
   .add-btn {
-    border: 2px solid #ddd;
-    border-radius: 12px;
-    padding: 11px 6px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 800;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: #f5f5f5;
-    color: #bbb;
+    border: 2px solid #e8e8e8; border-radius: 13px; padding: 13px 6px;
+    font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 800;
+    cursor: pointer; transition: all 0.2s; background: #f5f5f5; color: #ccc;
+    text-align: center; line-height: 1.35;
   }
-  .add-btn.ready {
-    background: linear-gradient(135deg, var(--rosa) 0%, #c0254a 100%);
-    color: white;
-    border-color: var(--rosa);
-    box-shadow: 0 4px 12px rgba(232,50,90,0.3);
-  }
-  .add-btn.ready-outline {
-    background: white;
-    border-color: var(--rosa);
-    color: var(--rosa);
-  }
+  .add-btn.ready { background: linear-gradient(135deg, var(--rosa) 0%, #c0254a 100%); color: white; border-color: var(--rosa); box-shadow: 0 5px 16px rgba(232,50,90,0.35); }
+  .add-btn.ready-outline { background: white; border-color: var(--rosa); color: var(--rosa); box-shadow: 0 3px 10px rgba(232,50,90,0.12); }
 
-  /* MODAL SABOR DIVERSOS */
-  .modal-sabor { max-width: 340px; }
-  .modal-sabor .modal-title { font-size: 1.2rem; margin-bottom: 6px; }
-  .modal-sabor .sabor-emoji-big { font-size: 2.5rem; text-align: center; display: block; margin-bottom: 8px; }
-  .falta-aviso {
-    background: #fff8e0;
-    border: 1.5px solid var(--dourado-light);
-    border-radius: 10px;
-    padding: 8px 12px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--dourado);
-    text-align: center;
-    margin: 10px 0;
+  /* ===== BTN VOLTAR ===== */
+  .btn-voltar {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--rosa-pale); border: none; border-radius: 20px;
+    padding: 7px 16px; cursor: pointer; color: var(--rosa);
+    font-family: 'Nunito', sans-serif; font-size: 0.82rem; font-weight: 900;
+    margin-bottom: 14px; transition: all 0.2s; letter-spacing: 0.3px;
   }
+  .btn-voltar:hover { background: var(--rosa); color: white; }
+
+  /* ===== MODAL SABOR DIVERSOS ===== */
+  .sabor-emoji-big { font-size: 3rem; text-align: center; display: block; margin-bottom: 6px; }
+  .falta-aviso {
+    background: #fff8e0; border: 1.5px solid var(--dourado-light); border-radius: 10px;
+    padding: 9px 12px; font-size: 0.8rem; font-weight: 800; color: var(--dourado);
+    text-align: center; margin: 12px 0 10px;
+  }
+  .falta-aviso.completo { background: #e8f8ef; border-color: #4caf50; color: #2e7d32; }
   .continuar-btn {
     display: block; width: 100%;
     background: linear-gradient(135deg, var(--rosa) 0%, #c0254a 100%);
-    color: white; border: none; border-radius: 12px;
-    padding: 12px; font-family: 'Nunito', sans-serif;
-    font-size: 0.9rem; font-weight: 800; cursor: pointer;
-    box-shadow: 0 4px 12px rgba(232,50,90,0.3);
-    transition: all 0.2s;
+    color: white; border: none; border-radius: 13px; padding: 13px;
+    font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 900;
+    cursor: pointer; box-shadow: 0 5px 16px rgba(232,50,90,0.35); transition: all 0.2s;
+  }
+  .continuar-btn:active { transform: scale(0.98); }
+
+  /* ===== AVULSO INFO ===== */
+  .avulso-info {
+    background: linear-gradient(90deg, #fff8e8, #fff0f4); border-radius: 10px;
+    padding: 9px 12px; font-size: 0.73rem; font-weight: 800; color: var(--marrom);
+    margin-bottom: 12px; border: 1px solid var(--rosa-pale);
+    text-align: center; line-height: 1.5;
   }
 
-  /* MODAL FECHAMENTO */
+  /* ===== MODAL FECHAMENTO ===== */
+  .overlay-fechamento {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.88); z-index: 300;
+    align-items: center; justify-content: center; padding: 14px;
+  }
+  .overlay-fechamento.show { display: flex; }
   .modal-fechamento {
-    background: #0a0a0a;
-    border: 2px solid var(--dourado);
-    border-radius: 24px;
-    padding: 28px 22px;
+    background: #0d0d0d; border: 2px solid var(--dourado);
+    border-radius: 26px; padding: 26px 20px 22px;
     width: 100%; max-width: 360px;
-    box-shadow: 0 0 60px rgba(201,150,42,0.5), 0 20px 60px rgba(0,0,0,0.8);
-    position: relative;
-    overflow: hidden;
+    box-shadow: 0 0 80px rgba(201,150,42,0.45), 0 24px 64px rgba(0,0,0,0.9);
+    position: relative; max-height: 92vh; overflow-y: auto;
   }
   .modal-fechamento::before {
-    content: '';
-    position: absolute; inset: -50%;
-    background: radial-gradient(ellipse at center, rgba(201,150,42,0.15) 0%, transparent 60%);
+    content:''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(201,150,42,0.12) 0%, transparent 65%);
     pointer-events: none;
   }
   .fechamento-title {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.8rem;
-    color: var(--dourado-light);
-    text-align: center;
-    margin-bottom: 4px;
+    font-family: 'Dancing Script', cursive; font-size: 1.9rem;
+    color: var(--dourado-light); text-align: center; margin-bottom: 2px; position: relative;
   }
-  .fechamento-sub { font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #666; text-align: center; margin-bottom: 18px; }
-
-  /* Recibo maquininha */
-  .recibo {
-    background: white;
-    border-radius: 8px;
-    padding: 16px;
-    font-family: 'Courier New', monospace;
-    position: relative;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  }
-  .recibo::before, .recibo::after {
-    content: '';
-    display: block;
-    background: repeating-linear-gradient(90deg, white 0, white 8px, #ddd 8px, #ddd 10px);
-    height: 8px;
-  }
-  .recibo-header { text-align: center; padding: 8px 0; border-bottom: 1px dashed #ccc; margin-bottom: 8px; }
-  .recibo-logo { font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: var(--rosa); }
-  .recibo-sub-txt { font-size: 0.65rem; color: #999; letter-spacing: 1px; }
-  .recibo-linha { display: flex; justify-content: space-between; font-size: 0.72rem; color: #333; margin: 3px 0; }
-  .recibo-linha.total { font-weight: 800; font-size: 0.82rem; color: #000; border-top: 1px dashed #ccc; padding-top: 6px; margin-top: 6px; }
-  .recibo-linha.cliente { color: #666; font-size: 0.68rem; }
-  .recibo-divider { border: none; border-top: 1px dashed #ddd; margin: 8px 0; }
-  .recibo-footer { text-align: center; font-size: 0.65rem; color: #999; padding-top: 8px; border-top: 1px dashed #ccc; margin-top: 8px; }
-
-  /* PROGRESS BAR */
-  .progress-wrap { margin: 16px 0 8px; }
-  .progress-label { font-size: 0.72rem; color: #555; font-weight: 700; text-align: center; margin-bottom: 6px; font-family: 'Nunito', sans-serif; }
-  .progress-bar-bg { background: #222; border-radius: 100px; height: 6px; overflow: hidden; border: 1px solid var(--dourado); }
-  .progress-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--dourado) 0%, var(--dourado-light) 100%);
-    border-radius: 100px;
-    width: 0%;
-    transition: width 0.1s linear;
-    box-shadow: 0 0 8px var(--dourado-light);
-  }
-  .grato-msg { text-align: center; color: var(--dourado-light); font-family: 'Dancing Script', cursive; font-size: 1.5rem; margin-top: 12px; opacity: 0; transition: opacity 0.5s; }
-  .grato-msg.show { opacity: 1; }
-  .enviando-msg { text-align: center; color: #888; font-size: 0.78rem; font-weight: 700; margin-top: 4px; font-family: 'Nunito', sans-serif; }
-
-  /* TOTAL FLUTUANTE */
-  .total-bar {
-    background: white;
-    border-top: 2px solid var(--rosa-pale);
-    padding: 10px 20px;
-    position: sticky; bottom: 0;
-    display: none;
-    align-items: center; justify-content: space-between;
-    box-shadow: 0 -4px 20px rgba(232,50,90,0.1);
-  }
-  .total-bar.show { display: flex; }
-  .total-bar-label { font-size: 0.78rem; font-weight: 700; color: #999; }
-  .total-bar-valor { font-size: 1.3rem; font-weight: 800; color: var(--rosa); }
-
-  /* VOLTAR BTN dentro modal */
-  .btn-voltar {
-    display: flex; align-items: center; gap: 5px;
-    background: none; border: none; cursor: pointer;
-    color: #aaa; font-family: 'Nunito', sans-serif;
-    font-size: 0.8rem; font-weight: 700;
-    margin-bottom: 12px;
-  }
-  .btn-voltar:hover { color: var(--rosa); }
-
-  /* AVULSO qtde info */
-  .avulso-info {
-    background: linear-gradient(90deg, #fff8e8, #fff0f4);
-    border-radius: 10px; padding: 8px 12px;
-    font-size: 0.72rem; font-weight: 700; color: var(--marrom);
-    margin-bottom: 10px; border: 1px solid var(--rosa-pale);
-    text-align: center;
+  .fechamento-sub {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: #555; text-align: center;
+    margin-bottom: 16px; position: relative;
   }
 
-  .empty-cart {
-    text-align: center; padding: 16px;
-    color: #ccc; font-size: 0.85rem; font-weight: 600;
-  }
+  /* ===== RECIBO MAQUININHA ===== */
+  .recibo-wrap { background: white; border-radius: 6px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.4); }
+  .recibo-topo   { background: repeating-linear-gradient(90deg,white 0,white 7px,#e0e0e0 7px,#e0e0e0 9px); height: 10px; }
+  .recibo-body   { padding: 14px 16px; font-family: 'Courier New', monospace; }
+  .recibo-bottom { background: repeating-linear-gradient(90deg,white 0,white 7px,#e0e0e0 7px,#e0e0e0 9px); height: 10px; }
 
-  /* Scroll suave */
+  .recibo-header { text-align: center; padding-bottom: 10px; border-bottom: 1px dashed #ccc; margin-bottom: 10px; }
+  .recibo-sep    { color: #bbb; font-size: 0.68rem; }
+  .recibo-shop   { font-size: 1rem; font-weight: 700; color: #111; letter-spacing: 1px; }
+  .recibo-nome   { font-size: 0.9rem; color: var(--rosa); font-weight: 700; }
+  .recibo-datetime { font-size: 0.72rem; color: #888; margin-top: 3px; }
+  .recibo-num    { font-size: 0.8rem; color: #333; margin-top: 2px; }
+  .recibo-num b  { color: #0066cc; }
+
+  .recibo-linha { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.78rem; color: #333; margin: 2px 0; }
+  .recibo-linha.cliente-info { font-size: 0.72rem; color: #555; }
+  .recibo-linha.total-linha  { font-size: 0.9rem; font-weight: 700; color: #000; border-top: 1px dashed #ccc; padding-top: 8px; margin-top: 8px; }
+  .recibo-linha.sub-item     { font-size: 0.65rem; color: #999; margin: 0 0 2px 4px; }
+  .recibo-dashed { border: none; border-top: 1px dashed #ddd; margin: 8px 0; }
+  .recibo-footer { text-align: center; padding-top: 10px; border-top: 1px dashed #ccc; margin-top: 8px; }
+  .recibo-footer-txt { font-size: 0.68rem; color: #888; }
+
+  /* ===== PROGRESS ===== */
+  .progress-wrap { margin: 16px 0 4px; position: relative; }
+  .progress-label { font-size: 0.7rem; color: #666; font-weight: 700; text-align: center; margin-bottom: 8px; font-family: 'Nunito', sans-serif; letter-spacing: 1px; }
+  .progress-bar-bg   { background: #1a1a1a; border-radius: 100px; height: 7px; overflow: hidden; border: 1px solid #333; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--dourado) 0%, var(--dourado-light) 100%); border-radius: 100px; width: 0%; transition: width 0.12s linear; box-shadow: 0 0 10px var(--dourado-light); }
+  .grato-msg { text-align: center; color: var(--dourado-light); font-family: 'Dancing Script', cursive; font-size: 1.7rem; margin-top: 10px; opacity: 0; transform: translateY(8px); transition: opacity 0.4s, transform 0.4s; position: relative; }
+  .grato-msg.show { opacity: 1; transform: translateY(0); }
+  .enviando-txt { text-align: center; color: #666; font-size: 0.76rem; font-weight: 700; margin-top: 5px; font-family: 'Nunito', sans-serif; letter-spacing: 0.5px; }
+
+  .fechamento-btns { display: flex; gap: 9px; margin-top: 16px; position: relative; }
+  .btn-cancelar {
+    flex: 1; padding: 12px; border-radius: 13px;
+    border: 1px solid #2a2a2a; background: none; color: #555;
+    font-family: 'Nunito', sans-serif; font-weight: 800; cursor: pointer; font-size: 0.85rem; transition: all 0.2s;
+  }
+  .btn-cancelar:hover { border-color: #444; color: #888; }
+  .btn-confirmar {
+    flex: 2; padding: 12px; border-radius: 13px; border: none;
+    background: linear-gradient(135deg, var(--dourado) 0%, var(--dourado-light) 100%);
+    color: #000; font-family: 'Nunito', sans-serif; font-weight: 900;
+    cursor: pointer; font-size: 0.9rem;
+    box-shadow: 0 5px 18px rgba(201,150,42,0.45); transition: all 0.2s;
+  }
+  .btn-confirmar:hover { box-shadow: 0 7px 24px rgba(201,150,42,0.6); transform: translateY(-1px); }
+  .btn-confirmar:active { transform: scale(0.98); }
+
   html { scroll-behavior: smooth; }
-
-  @media (max-width: 380px) {
-    .sabores-grid { grid-template-columns: 1fr 1fr; }
-    .preparo-grid { grid-template-columns: 1fr 1fr; }
-  }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- ===== HEADER ===== -->
 <div class="header">
-  <img src="/mnt/user-data/uploads/logoaline.png" class="header-logo" alt="Aline Salgados" onerror="this.style.display='none'">
+  <img src="/mnt/user-data/uploads/logoaline__2_.png" class="header-logo" alt="Aline Salgados" onerror="this.style.display='none'">
   <div class="header-name">Aline</div>
   <div class="header-sub">Salgados</div>
   <div class="header-info">
-    <div class="info-badge"><span>🕐</span> Seg a Sáb: 8h às 20h | Dom: 9h às 14h</div>
-    <div class="info-badge" style="border-color: var(--dourado-light); background: linear-gradient(90deg, #fff8e0, #fdf6ee);">
-      <span>📍</span> <b style="color:var(--dourado)">Retirada somente no local</b>
-    </div>
+    <div class="info-badge"><span>🕐</span> Seg–Sáb: 8h às 20h &nbsp;|&nbsp; Dom: 9h às 14h</div>
+    <div class="info-badge gold"><span>📍</span> <b style="color:var(--dourado)">Retirada somente no local</b></div>
   </div>
 </div>
 
-<!-- DADOS DO CLIENTE -->
+<!-- ===== DADOS CLIENTE ===== -->
 <div class="cliente-section">
   <div class="section-title">👤 Seus dados</div>
   <input class="input-field" type="text" id="nomeCliente" placeholder="Nome completo" />
-  <input class="input-field" type="tel" id="wppCliente" placeholder="WhatsApp (ex: 11 99999-9999)" />
+  <input class="input-field" type="tel"  id="wppCliente"  placeholder="WhatsApp (ex: 11 954950044)" />
 </div>
 
-<!-- BOTÃO ESCOLHER -->
+<!-- ===== BOTÃO ESCOLHER ===== -->
 <button class="main-btn" onclick="abrirEscolha()">
-  🛒 Escolher Salgados
+  🛒 &nbsp;Escolher Salgados
 </button>
 
-<!-- CARRINHO -->
+<!-- ===== CARRINHO ===== -->
 <div class="carrinho-section" id="carrinhoSection">
   <div class="section-title">🛍️ Meu Pedido</div>
   <div id="carrinhoItems"><div class="empty-cart">Nenhum item ainda</div></div>
 </div>
 
-<!-- PAGAMENTO -->
+<!-- ===== PAGAMENTO ===== -->
 <div class="pagto-section" id="pagtoSection">
   <div class="section-title">💳 Forma de Pagamento</div>
   <div class="pagto-btns">
-    <button class="pagto-btn" onclick="selecionarPagto(this,'💵 Dinheiro')">💵 Dinheiro</button>
-    <button class="pagto-btn" onclick="selecionarPagto(this,'💳 Cartão Crédito')">💳 Crédito</button>
-    <button class="pagto-btn" onclick="selecionarPagto(this,'💳 Cartão Débito')">🏧 Débito</button>
-    <button class="pagto-btn" onclick="selecionarPagto(this,'📲 Pix')">📲 Pix</button>
+    <button class="pagto-btn" onclick="selecionarPagto(this,'DINHEIRO EM ESPÉCIE')">💵 Dinheiro</button>
+    <button class="pagto-btn" onclick="selecionarPagto(this,'CARTÃO CRÉDITO')">💳 Crédito</button>
+    <button class="pagto-btn" onclick="selecionarPagto(this,'CARTÃO DÉBITO')">🏧 Débito</button>
+    <button class="pagto-btn" onclick="selecionarPagto(this,'PIX')">📲 Pix</button>
   </div>
 </div>
 
-<!-- FECHAR PEDIDO -->
+<!-- ===== FECHAR PEDIDO ===== -->
 <button class="fechar-btn" id="fecharBtn" onclick="abrirFechamento()">
-  ✅ Fechar Pedido e Enviar
+  ✅ &nbsp;Fechar Pedido e Enviar
 </button>
 
-<!-- TOTAL FLUTUANTE -->
+<!-- ===== TOTAL FLUTUANTE ===== -->
 <div class="total-bar" id="totalBar">
   <div>
     <div class="total-bar-label">Total do pedido</div>
-    <div class="total-bar-valor" id="totalValor">R$ 0,00</div>
+    <div class="total-bar-items" id="totalItems"></div>
   </div>
+  <div class="total-bar-valor" id="totalValor">R$ 0,00</div>
 </div>
 
-<!-- ========== OVERLAY: ESCOLHA TIPO ========== -->
+<!-- ============================================================
+     OVERLAY: ESCOLHA TIPO
+     ============================================================ -->
 <div class="overlay" id="ovEscolha">
   <div class="modal">
     <button class="modal-close" onclick="fecharOverlay('ovEscolha')">✕</button>
     <div class="modal-title">O que vai querer? 😋</div>
+    <p style="text-align:center;font-size:0.78rem;color:#bbb;font-weight:600;margin-bottom:18px">Escolha a categoria do seu pedido</p>
+
     <div class="tipo-card" onclick="abrirPedido('centena')">
-      <div class="tipo-card-title">🧺 Centena — 100 Unidades</div>
-      <div class="tipo-card-desc">Sabor único ou diversos sabores à escolha</div>
-      <div class="tipo-card-preco">🔥 Frito R$ 70 &nbsp;|&nbsp; ❄️ Congelado R$ 65</div>
+      <span class="tipo-card-emoji">🧺</span>
+      <div class="tipo-card-title">Centena — 100 Unidades</div>
+      <div class="tipo-card-desc">Sabor único ou diversos sabores à sua escolha</div>
+      <div class="tipo-card-preco">
+        <span class="preco-tag">🔥 Frito R$ 70</span>
+        <span class="preco-tag gold">❄️ Congelado R$ 65</span>
+      </div>
+      <span class="tipo-card-arrow">›</span>
     </div>
+
     <div class="tipo-card" onclick="abrirPedido('avulso')">
-      <div class="tipo-card-title">🛍️ Avulso</div>
-      <div class="tipo-card-desc">Quantidades menores, por R$ 10</div>
-      <div class="tipo-card-preco">🔥 Frito 14 un &nbsp;|&nbsp; ❄️ Congelado 16 un</div>
+      <span class="tipo-card-emoji">🛍️</span>
+      <div class="tipo-card-title">Avulso — Pacote R$ 10</div>
+      <div class="tipo-card-desc">Sabor único ou diversos — pacotes menores</div>
+      <div class="tipo-card-preco">
+        <span class="preco-tag">🔥 Frito 14 un</span>
+        <span class="preco-tag gold">❄️ Congelado 16 un</span>
+      </div>
+      <span class="tipo-card-arrow">›</span>
     </div>
   </div>
 </div>
 
-<!-- ========== OVERLAY: PEDIDO CENTENA / AVULSO ========== -->
+<!-- ============================================================
+     OVERLAY: PEDIDO (CENTENA / AVULSO)
+     ============================================================ -->
 <div class="overlay" id="ovPedido">
-  <div class="modal modal-pedido">
+  <div class="modal" style="max-width:420px">
     <button class="btn-voltar" onclick="voltarEscolha()">← Voltar</button>
     <div class="pedido-header-title" id="pedidoHeaderTitle"></div>
-    <div class="pedido-header-sub" id="pedidoHeaderSub">Escolha o preparo e os sabores</div>
+    <div class="pedido-header-sub">Escolha o preparo e os sabores</div>
     <hr class="divider">
 
-    <div class="preparo-title">PREPARO</div>
+    <div class="bloco-title">🍳 Preparo</div>
     <div class="preparo-grid" id="preparoGrid"></div>
 
-    <div class="sabores-title">SABORES <span style="font-size:0.7rem;color:#bbb;font-weight:600;letter-spacing:0" id="saboresHint"></span></div>
-    <div class="sabores-sub" id="saboresSubtitle">Escolha à vontade!</div>
+    <div class="bloco-title" id="saboresBloco">🌟 Sabores</div>
+    <div class="avulso-info" id="avulsoInfo" style="display:none"></div>
     <div class="sabores-grid" id="saboresGrid"></div>
 
-    <!-- Qtde (sabor único) -->
-    <div id="qtdeSection" style="display:none">
+    <div class="qtde-section" id="qtdeSection" style="display:none">
       <div class="qtde-row">
         <div class="qtde-label" id="qtdeLabel"></div>
         <div class="qtde-ctrl">
@@ -605,78 +521,94 @@
     </div>
 
     <div class="add-btns">
-      <button class="add-btn" id="addBtn" onclick="adicionarPedido(false)">✔ Adicionar</button>
-      <button class="add-btn" id="addContinuarBtn" onclick="adicionarPedido(true)">+ Adicionar e Continuar</button>
+      <button class="add-btn" id="addBtn" onclick="adicionarPedido(false)">✔ Adicionar<br>ao Pedido</button>
+      <button class="add-btn" id="addContinuarBtn" onclick="adicionarPedido(true)">➕ Adicionar e<br>Continuar Comprando</button>
     </div>
   </div>
 </div>
 
-<!-- ========== OVERLAY: SABOR MODAL (DIVERSOS) ========== -->
+<!-- ============================================================
+     OVERLAY: MODAL SABOR DIVERSOS
+     ============================================================ -->
 <div class="overlay" id="ovSabor">
-  <div class="modal modal-sabor">
+  <div class="modal" style="max-width:320px">
     <button class="modal-close" onclick="fecharOverlay('ovSabor')">✕</button>
     <span class="sabor-emoji-big" id="modalSaborEmoji"></span>
-    <div class="modal-title" id="modalSaborNome"></div>
-    <div style="font-size:0.75rem;color:#999;text-align:center;margin-bottom:14px" id="modalSaborInfo"></div>
-    <div class="qtde-row">
-      <div class="qtde-label">Quantidade:</div>
-      <div class="qtde-ctrl">
-        <button class="qtde-btn" onclick="ajustarQtdeSabor(-1)">−</button>
-        <div class="qtde-num" id="qtdeSaborNum">0</div>
-        <button class="qtde-btn" onclick="ajustarQtdeSabor(1)">+</button>
-      </div>
+    <div class="modal-title" id="modalSaborNome" style="font-size:1.4rem"></div>
+    <div style="font-size:0.73rem;color:#bbb;text-align:center;margin-bottom:14px" id="modalSaborInfo"></div>
+    <div class="qtde-row" style="justify-content:center;gap:20px">
+      <button class="qtde-btn" onclick="ajustarQtdeSabor(-1)">−</button>
+      <div class="qtde-num" id="qtdeSaborNum" style="font-size:1.5rem">0</div>
+      <button class="qtde-btn" onclick="ajustarQtdeSabor(1)">+</button>
     </div>
     <div class="falta-aviso" id="faltaAviso" style="display:none"></div>
-    <button class="continuar-btn" onclick="confirmarSabor()">Confirmar</button>
+    <button class="continuar-btn" onclick="confirmarSabor()" style="margin-top:6px">✔ Confirmar</button>
   </div>
 </div>
 
-<!-- ========== OVERLAY: FECHAMENTO ========== -->
-<div class="overlay" id="ovFechamento">
+<!-- ============================================================
+     OVERLAY: FECHAMENTO / RECIBO
+     ============================================================ -->
+<div class="overlay-fechamento" id="ovFechamento">
   <div class="modal-fechamento">
     <div class="fechamento-title">Aline Salgados</div>
-    <div class="fechamento-sub">Resumo do Pedido</div>
-    <div class="recibo" id="reciboConteudo"></div>
+    <div class="fechamento-sub">✦ Resumo do Pedido ✦</div>
+
+    <div class="recibo-wrap">
+      <div class="recibo-topo"></div>
+      <div class="recibo-body" id="reciboConteudo"></div>
+      <div class="recibo-bottom"></div>
+    </div>
+
     <div class="progress-wrap" id="progressWrap" style="display:none">
-      <div class="progress-label">Enviando pedido...</div>
+      <div class="progress-label">⏳ ENVIANDO SEU PEDIDO...</div>
       <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
     </div>
     <div class="grato-msg" id="gratoMsg">Grato! 🙏</div>
-    <div class="enviando-msg" id="enviandoMsg" style="display:none">Seu pedido está sendo enviado</div>
-    <div style="display:flex;gap:8px;margin-top:14px" id="fechamentoBtns">
-      <button onclick="fecharOverlay('ovFechamento')" style="flex:1;padding:12px;border-radius:12px;border:1px solid #333;background:none;color:#666;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;font-size:0.85rem">Cancelar</button>
-      <button onclick="enviarPedido()" id="btnEnviar" style="flex:2;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#c9962a,#f0c040);color:#000;font-family:'Nunito',sans-serif;font-weight:800;cursor:pointer;font-size:0.9rem;box-shadow:0 4px 15px rgba(201,150,42,0.4)">📲 Confirmar e Enviar</button>
+    <div class="enviando-txt" id="enviandoTxt" style="display:none">Seu pedido está sendo processado!</div>
+
+    <div class="fechamento-btns" id="fechamentoBtns">
+      <button class="btn-cancelar" onclick="fecharOverlay('ovFechamento')">Cancelar</button>
+      <button class="btn-confirmar" onclick="enviarPedido()">📲 Confirmar e Enviar</button>
     </div>
   </div>
 </div>
 
 <script>
+// ============================================================
+// CONFIG
+// ============================================================
+const WPP_NUM = '5511999999999'; // ← ALTERE PARA O NÚMERO DA ALINE (com DDI sem +)
+let numeroPedido = parseInt(localStorage.getItem('alinePedNum') || '1');
+
 const SABORES = [
-  { nome: 'Coxinha de Frango', emoji: '🍗' },
-  { nome: 'Bolinho de Queijo', emoji: '🧀' },
-  { nome: 'Risole Presunto/Queijo', emoji: '🥙' },
-  { nome: 'Calabresa', emoji: '🌶️' },
-  { nome: 'Carne', emoji: '🥩' },
-  { nome: 'Salsicha', emoji: '🌭' },
-  { nome: 'Kibe', emoji: '🫓' },
-  { nome: 'Mini Churros', emoji: '🍬' },
+  { nome:'Coxinha de Frango',      emoji:'🍗' },
+  { nome:'Bolinho de Queijo',      emoji:'🧀' },
+  { nome:'Risole Presunto/Queijo', emoji:'🥙' },
+  { nome:'Calabresa',              emoji:'🌶️' },
+  { nome:'Carne',                  emoji:'🥩' },
+  { nome:'Salsicha',               emoji:'🌭' },
+  { nome:'Kibe',                   emoji:'🫓' },
+  { nome:'Mini Churros',           emoji:'🍬' },
 ];
 
-const WPP_NUM = '5511954950044'; // altere aqui
-
-let carrinho = [];
-let pagamento = '';
-let tipoPedido = ''; // 'centena' ou 'avulso'
-let preparoAtual = ''; // ex: 'frito_unico'
-let saboresSelecionados = {}; // {nome: qtde}
-let qtdeCentenas = 1;
-let qtdeAvulsos = 1;
+// ============================================================
+// ESTADO
+// ============================================================
+let carrinho      = [];
+let pagamento     = '';
+let tipoPedido    = '';
+let preparoAtual  = '';
+let saboresSelecionados = {};
+let qtdeCentenas  = 1;
+let qtdeAvulsos   = 1;
 let saborDiversoAtual = null;
 let qtdeSaborModal = 0;
 
-function abrirEscolha() {
-  mostrarOverlay('ovEscolha');
-}
+// ============================================================
+// NAVEGAÇÃO
+// ============================================================
+function abrirEscolha() { mostrarOverlay('ovEscolha'); }
 
 function abrirPedido(tipo) {
   tipoPedido = tipo;
@@ -686,38 +618,40 @@ function abrirPedido(tipo) {
   mostrarOverlay('ovPedido');
 }
 
+function voltarEscolha() {
+  fecharOverlay('ovPedido');
+  mostrarOverlay('ovEscolha');
+}
+
 function resetarPedido() {
   preparoAtual = '';
   saboresSelecionados = {};
   qtdeCentenas = 1;
-  qtdeAvulsos = 1;
+  qtdeAvulsos  = 1;
 }
 
+// ============================================================
+// RENDER MODAL PEDIDO
+// ============================================================
 function renderizarPedidoModal() {
   const isCentena = tipoPedido === 'centena';
-  document.getElementById('pedidoHeaderTitle').textContent = isCentena ? 'Centena (100 un)' : 'Avulso';
-  document.getElementById('pedidoHeaderSub').textContent = 'Escolha o preparo e os sabores';
+  document.getElementById('pedidoHeaderTitle').textContent =
+    isCentena ? 'Centena (100 unidades)' : 'Avulso — Pacote R$ 10';
 
-  // Preparo
-  const preparos = isCentena
-    ? [
-        { id:'frito_unico', label:'🔥 Frito', sub:'Sabor Único', preco:'R$ 70' },
-        { id:'frito_diversos', label:'🔥 Frito', sub:'Diversos Sabores', preco:'R$ 70' },
-        { id:'congelado_unico', label:'❄️ Congelado', sub:'Sabor Único', preco:'R$ 65' },
-        { id:'congelado_diversos', label:'❄️ Congelado', sub:'Diversos Sabores', preco:'R$ 65' },
-      ]
-    : [
-        { id:'frito_unico', label:'🔥 Frito', sub:'Sabor Único (14 un)', preco:'R$ 10' },
-        { id:'frito_diversos', label:'🔥 Frito', sub:'Diversos (14 un)', preco:'R$ 10' },
-        { id:'congelado_unico', label:'❄️ Congelado', sub:'Sabor Único (16 un)', preco:'R$ 10' },
-        { id:'congelado_diversos', label:'❄️ Congelado', sub:'Diversos (16 un)', preco:'R$ 10' },
-      ];
+  const preparos = [
+    { id:'frito_unico',       emoji:'🔥', nome:'Frito',     tipo:'Sabor Único',  preco: isCentena?'R$ 70':'R$ 10' },
+    { id:'frito_diversos',    emoji:'🔥', nome:'Frito',     tipo:'Diversos',     preco: isCentena?'R$ 70':'R$ 10' },
+    { id:'congelado_unico',   emoji:'❄️', nome:'Congelado', tipo:'Sabor Único',  preco: isCentena?'R$ 65':'R$ 10' },
+    { id:'congelado_diversos',emoji:'❄️', nome:'Congelado', tipo:'Diversos',     preco: isCentena?'R$ 65':'R$ 10' },
+  ];
 
   document.getElementById('preparoGrid').innerHTML = preparos.map(p => `
-    <button class="preparo-btn${preparoAtual === p.id ? ' active' : ''}" onclick="selecionarPreparo('${p.id}')">
-      <strong>${p.label}</strong><br>${p.sub}<br><span style="color:var(--rosa)">${p.preco}</span>
-    </button>
-  `).join('');
+    <button class="preparo-btn${preparoAtual===p.id?' active':''}" onclick="selecionarPreparo('${p.id}')">
+      <span class="p-emoji">${p.emoji}</span>
+      <span class="p-nome">${p.nome}</span>
+      <span class="p-tipo">${p.tipo}</span>
+      <span class="p-preco" style="color:${preparoAtual===p.id?'var(--rosa)':'#bbb'}">${p.preco}</span>
+    </button>`).join('');
 
   renderizarSabores();
   atualizarAddBtns();
@@ -729,64 +663,71 @@ function selecionarPreparo(id) {
   renderizarPedidoModal();
 }
 
+// ============================================================
+// RENDER SABORES
+// ============================================================
 function renderizarSabores() {
-  const grid = document.getElementById('saboresGrid');
-  const qtdeSection = document.getElementById('qtdeSection');
-  const saboresHint = document.getElementById('saboresHint');
+  const grid      = document.getElementById('saboresGrid');
+  const qtdeSect  = document.getElementById('qtdeSection');
+  const avInfo    = document.getElementById('avulsoInfo');
   const isCentena = tipoPedido === 'centena';
-  const isUnico = preparoAtual.includes('unico');
-  const isDiversos = preparoAtual.includes('diversos');
-  const isFrito = preparoAtual.includes('frito');
+  const isFrito   = preparoAtual.includes('frito');
+  const isUnico   = preparoAtual.includes('unico');
+  const isDiversos= preparoAtual.includes('diversos');
+  const capUn     = isCentena ? 100 : (isFrito ? 14 : 16);
+  const multi     = isCentena ? qtdeCentenas : qtdeAvulsos;
+  const precisa   = capUn * multi;
+  const totalSel  = Object.values(saboresSelecionados).reduce((a,b)=>a+b,0);
 
-  let capacidade = isCentena
-    ? (isFrito ? 100 : 100)
-    : (isFrito ? 14 : 16);
-
-  let totalSelecionado = Object.values(saboresSelecionados).reduce((a,b)=>a+b,0);
-  let totalPrecisam = isCentena ? capacidade * qtdeCentenas : capacidade * qtdeAvulsos;
+  avInfo.style.display = 'none';
 
   if (!preparoAtual) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#ccc;font-size:0.82rem;padding:16px">Escolha um preparo primeiro ☝️</div>';
-    qtdeSection.style.display = 'none';
-    saboresHint.textContent = '';
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:#ccc;font-size:0.82rem;padding:18px 0">☝️ Escolha um preparo acima</div>`;
+    qtdeSect.style.display = 'none';
     return;
   }
 
   if (isUnico) {
-    saboresHint.textContent = '— escolha 1 sabor';
+    if (!isCentena) {
+      avInfo.style.display = 'block';
+      avInfo.innerHTML = `🔥 Frito: <b>14 un/pct</b> &nbsp;|&nbsp; ❄️ Congelado: <b>16 un/pct</b>`;
+    }
     grid.innerHTML = SABORES.map(s => {
       const sel = saboresSelecionados[s.nome] > 0;
-      return `<button class="sabor-btn${sel ? ' selected' : ''}" onclick="selecionarSaborUnico('${s.nome}')">
+      return `<button class="sabor-btn${sel?' selected':''}" onclick="selecionarSaborUnico('${s.nome}')">
         <span class="emoji">${s.emoji}</span>${s.nome}
-        ${sel ? '<span style="font-size:0.65rem;color:var(--rosa)">✔ selecionado</span>' : ''}
+        ${sel?'<span class="sabor-badge">✔ selecionado</span>':''}
       </button>`;
     }).join('');
-
-    // qtde
-    qtdeSection.style.display = 'flex';
-    qtdeSection.style.flexDirection = 'column';
-    document.getElementById('qtdeLabel').textContent = isCentena ? 'Centenas:' : 'Pacotes:';
-    document.getElementById('qtdeNum').textContent = isCentena ? qtdeCentenas : qtdeAvulsos;
-
+    qtdeSect.style.display = 'block';
+    document.getElementById('qtdeLabel').textContent = isCentena ? 'Nº de centenas:' : 'Nº de pacotes:';
+    document.getElementById('qtdeNum').textContent   = isCentena ? qtdeCentenas : qtdeAvulsos;
   } else if (isDiversos) {
-    let faltam = totalPrecisam - totalSelecionado;
-    saboresHint.textContent = faltam > 0 ? `— faltam ${faltam} un` : '— completo! ✔';
+    const faltam = precisa - totalSel;
+    const cor    = faltam > 0 ? 'var(--rosa)' : 'var(--verde)';
+    const hint   = faltam > 0 ? `— faltam ${faltam} un` : '— completo ✔';
+    document.getElementById('saboresBloco').innerHTML =
+      `🌟 Sabores <span style="font-size:0.7rem;color:${cor};font-weight:700;letter-spacing:0">${hint}</span>`;
+
+    avInfo.style.display = 'block';
+    avInfo.innerHTML = isCentena
+      ? `Complete <b>${precisa} unidades</b> (${qtdeCentenas} centena${qtdeCentenas>1?'s':''} × 100 un)`
+      : `Complete <b>${capUn} unidades</b> por pacote (${isFrito?'Frito 14 un':'Congelado 16 un'})`;
+
     grid.innerHTML = SABORES.map(s => {
       const qtde = saboresSelecionados[s.nome] || 0;
-      return `<button class="sabor-btn${qtde > 0 ? ' selected' : ''}" onclick="abrirModalSabor('${s.nome}','${s.emoji}')">
+      return `<button class="sabor-btn${qtde>0?' selected':''}" onclick="abrirModalSabor('${s.nome}','${s.emoji}')">
         <span class="emoji">${s.emoji}</span>${s.nome}
-        ${qtde > 0 ? `<span style="font-size:0.7rem;color:var(--rosa)">✔ ${qtde} un</span>` : ''}
+        ${qtde>0?`<span class="sabor-badge">${qtde} un</span>`:''}
       </button>`;
     }).join('');
-    qtdeSection.style.display = 'none';
+    qtdeSect.style.display = 'none';
   }
-
   atualizarAddBtns();
 }
 
 function selecionarSaborUnico(nome) {
-  saboresSelecionados = {};
-  saboresSelecionados[nome] = 1;
+  saboresSelecionados = { [nome]: 1 };
   renderizarSabores();
 }
 
@@ -798,152 +739,144 @@ function ajustarQtde(delta) {
     qtdeAvulsos = Math.max(1, qtdeAvulsos + delta);
     document.getElementById('qtdeNum').textContent = qtdeAvulsos;
   }
-  atualizarAddBtns();
+  renderizarSabores();
 }
 
+// ============================================================
+// MODAL SABOR DIVERSOS
+// ============================================================
 function abrirModalSabor(nome, emoji) {
   saborDiversoAtual = { nome, emoji };
   const isCentena = tipoPedido === 'centena';
-  const isFrito = preparoAtual.includes('frito');
-  const capacidade = isCentena ? 100 : (isFrito ? 14 : 16);
-  const multiplier = isCentena ? qtdeCentenas : qtdeAvulsos;
-  const totalPrecisam = capacidade * multiplier;
-  const totalSelecionado = Object.values(saboresSelecionados).reduce((a,b)=>a+b,0);
-
-  qtdeSaborModal = saboresSelecionados[nome] || 0;
+  const isFrito   = preparoAtual.includes('frito');
+  const capUn     = isCentena ? 100 : (isFrito ? 14 : 16);
+  const multi     = isCentena ? qtdeCentenas : qtdeAvulsos;
+  const precisa   = capUn * multi;
+  const totalSel  = Object.values(saboresSelecionados).reduce((a,b)=>a+b,0);
+  qtdeSaborModal  = saboresSelecionados[nome] || 0;
   document.getElementById('modalSaborEmoji').textContent = emoji;
-  document.getElementById('modalSaborNome').textContent = nome;
-  document.getElementById('modalSaborInfo').textContent = `${isCentena ? 'Centena' : 'Avulso'} — ${totalPrecisam} unidades no total`;
-  document.getElementById('qtdeSaborNum').textContent = qtdeSaborModal;
-  atualizarFaltaAviso(totalSelecionado, totalPrecisam);
+  document.getElementById('modalSaborNome').textContent  = nome;
+  document.getElementById('modalSaborInfo').textContent  = `Total do pedido: ${precisa} unidades`;
+  document.getElementById('qtdeSaborNum').textContent    = qtdeSaborModal;
+  atualizarFaltaAviso(totalSel, precisa);
   mostrarOverlay('ovSabor');
 }
 
 function ajustarQtdeSabor(delta) {
   const isCentena = tipoPedido === 'centena';
-  const isFrito = preparoAtual.includes('frito');
-  const capacidade = isCentena ? 100 : (isFrito ? 14 : 16);
-  const multiplier = isCentena ? qtdeCentenas : qtdeAvulsos;
-  const totalPrecisam = capacidade * multiplier;
-  const totalSelecionado = Object.values(saboresSelecionados).reduce((a,b)=>a+b,0);
-  const outrosSelecionados = totalSelecionado - (saboresSelecionados[saborDiversoAtual.nome] || 0);
-  const max = totalPrecisam - outrosSelecionados;
-
-  qtdeSaborModal = Math.min(max, Math.max(0, qtdeSaborModal + delta));
+  const isFrito   = preparoAtual.includes('frito');
+  const capUn     = isCentena ? 100 : (isFrito ? 14 : 16);
+  const multi     = isCentena ? qtdeCentenas : qtdeAvulsos;
+  const precisa   = capUn * multi;
+  const totalSel  = Object.values(saboresSelecionados).reduce((a,b)=>a+b,0);
+  const outros    = totalSel - (saboresSelecionados[saborDiversoAtual.nome] || 0);
+  const max       = precisa - outros;
+  qtdeSaborModal  = Math.min(max, Math.max(0, qtdeSaborModal + delta));
   document.getElementById('qtdeSaborNum').textContent = qtdeSaborModal;
-  atualizarFaltaAviso(outrosSelecionados + qtdeSaborModal, totalPrecisam);
+  atualizarFaltaAviso(outros + qtdeSaborModal, precisa);
 }
 
 function atualizarFaltaAviso(total, precisa) {
-  const div = document.getElementById('faltaAviso');
+  const div    = document.getElementById('faltaAviso');
   const faltam = precisa - total;
+  div.style.display = 'block';
   if (faltam > 0) {
-    div.style.display = 'block';
-    div.textContent = `Faltam ${faltam} unidades para completar`;
-  } else if (faltam === 0) {
-    div.style.display = 'block';
-    div.textContent = '✔ Completo! Todas as unidades preenchidas';
-    div.style.background = '#e8f8ef';
-    div.style.borderColor = '#4caf50';
-    div.style.color = '#2e7d32';
+    div.className   = 'falta-aviso';
+    div.textContent = `⚠️ Faltam ${faltam} unidades para completar`;
   } else {
-    div.style.display = 'none';
+    div.className   = 'falta-aviso completo';
+    div.textContent = '✔ Completo! Todas as unidades preenchidas';
   }
 }
 
 function confirmarSabor() {
-  if (qtdeSaborModal > 0) {
-    saboresSelecionados[saborDiversoAtual.nome] = qtdeSaborModal;
-  } else {
-    delete saboresSelecionados[saborDiversoAtual.nome];
-  }
+  if (qtdeSaborModal > 0) saboresSelecionados[saborDiversoAtual.nome] = qtdeSaborModal;
+  else delete saboresSelecionados[saborDiversoAtual.nome];
   fecharOverlay('ovSabor');
   renderizarSabores();
 }
 
+// ============================================================
+// ADD BUTTONS
+// ============================================================
 function atualizarAddBtns() {
-  const btn = document.getElementById('addBtn');
-  const btn2 = document.getElementById('addContinuarBtn');
   const pronto = verificarPronto();
-  btn.className = 'add-btn' + (pronto ? ' ready' : '');
-  btn2.className = 'add-btn' + (pronto ? ' ready-outline' : '');
+  document.getElementById('addBtn').className          = 'add-btn' + (pronto ? ' ready' : '');
+  document.getElementById('addContinuarBtn').className = 'add-btn' + (pronto ? ' ready-outline' : '');
 }
 
 function verificarPronto() {
   if (!preparoAtual) return false;
   const isCentena = tipoPedido === 'centena';
-  const isFrito = preparoAtual.includes('frito');
-  const isUnico = preparoAtual.includes('unico');
-  const isDiversos = preparoAtual.includes('diversos');
-  const capacidade = isCentena ? 100 : (isFrito ? 14 : 16);
-  const multiplier = isCentena ? qtdeCentenas : qtdeAvulsos;
-  const totalPrecisam = capacidade * multiplier;
-  const totalSelecionado = Object.values(saboresSelecionados).reduce((a,b)=>a+b,0);
-
-  if (isUnico) return Object.keys(saboresSelecionados).length === 1;
-  if (isDiversos) return totalSelecionado === totalPrecisam;
+  const isFrito   = preparoAtual.includes('frito');
+  const isUnico   = preparoAtual.includes('unico');
+  const isDiversos= preparoAtual.includes('diversos');
+  const capUn     = isCentena ? 100 : (isFrito ? 14 : 16);
+  const multi     = isCentena ? qtdeCentenas : qtdeAvulsos;
+  const precisa   = capUn * multi;
+  const totalSel  = Object.values(saboresSelecionados).reduce((a,b)=>a+b,0);
+  if (isUnico)    return Object.keys(saboresSelecionados).length === 1;
+  if (isDiversos) return totalSel === precisa;
   return false;
 }
 
 function adicionarPedido(continuar) {
   if (!verificarPronto()) return;
   const isCentena = tipoPedido === 'centena';
-  const isFrito = preparoAtual.includes('frito');
-  const isUnico = preparoAtual.includes('unico');
+  const isFrito   = preparoAtual.includes('frito');
+  const isUnico   = preparoAtual.includes('unico');
   const precoUnit = isCentena ? (isFrito ? 70 : 65) : 10;
-  const qtde = isCentena ? qtdeCentenas : qtdeAvulsos;
-  const total = precoUnit * qtde;
-  const saboresTexto = Object.keys(saboresSelecionados).join(', ');
-  const tipoTexto = isCentena ? `Centena (${qtde}×100un)` : `Avulso (${qtde} pct)`;
-  const preparoTexto = (isFrito ? '🔥 Frito' : '❄️ Congelado') + ' — ' + (isUnico ? 'Sabor Único' : 'Diversos');
+  const qtde      = isCentena ? qtdeCentenas : qtdeAvulsos;
+  const total     = precoUnit * qtde;
+  const prepStr   = (isFrito ? 'Frito' : 'Congelado') + ' — ' + (isUnico ? 'Sabor Único' : 'Diversos Sabores');
 
-  carrinho.push({
-    id: Date.now(),
-    tipo: tipoTexto,
-    preparo: preparoTexto,
-    sabores: saboresTexto,
-    qtde,
-    preco: total,
-  });
+  // Sabores detalhados: "Coxinha (40un), Kibe (60un)" ou só "Coxinha de Frango"
+  const saboresDetalhe = isUnico
+    ? Object.keys(saboresSelecionados).join(', ')
+    : Object.entries(saboresSelecionados).map(([n,q]) => `${n} (${q}un)`).join(', ');
 
+  const tipoStr = isCentena
+    ? `Centena (${qtde}×100un)`
+    : `Avulso (${qtde} pct × ${isFrito?14:16}un)`;
+
+  carrinho.push({ id: Date.now(), tipo: tipoStr, preparo: prepStr, sabores: saboresDetalhe, qtde, preco: total });
   atualizarCarrinho();
-  if (!continuar) {
-    fecharOverlay('ovPedido');
-  } else {
-    resetarPedido();
-    renderizarPedidoModal();
-  }
+  if (!continuar) fecharOverlay('ovPedido');
+  else { resetarPedido(); renderizarPedidoModal(); }
 }
 
+// ============================================================
+// CARRINHO
+// ============================================================
 function atualizarCarrinho() {
   const section = document.getElementById('carrinhoSection');
-  const items = document.getElementById('carrinhoItems');
-  const total = carrinho.reduce((a,b) => a+b.preco, 0);
+  const items   = document.getElementById('carrinhoItems');
+  const total   = carrinho.reduce((a,b) => a+b.preco, 0);
+  const nItems  = carrinho.length;
 
-  if (carrinho.length === 0) {
+  if (nItems === 0) {
     items.innerHTML = '<div class="empty-cart">Nenhum item ainda</div>';
-    section.classList.remove('show');
-    document.getElementById('pagtoSection').classList.remove('show');
-    document.getElementById('fecharBtn').classList.remove('show');
-    document.getElementById('totalBar').classList.remove('show');
-  } else {
-    section.classList.add('show');
-    document.getElementById('pagtoSection').classList.add('show');
-    document.getElementById('fecharBtn').classList.add('show');
-    document.getElementById('totalBar').classList.add('show');
-    items.innerHTML = carrinho.map(item => `
-      <div class="carrinho-item">
-        <div class="carrinho-item-info">
-          <div class="carrinho-item-nome">${item.tipo}</div>
-          <div class="carrinho-item-det">${item.preparo}</div>
-          <div class="carrinho-item-det">${item.sabores}</div>
-        </div>
-        <div class="carrinho-item-preco">R$ ${item.preco.toFixed(2).replace('.',',')}</div>
-        <button class="btn-remover" onclick="removerItem(${item.id})">✕</button>
-      </div>
-    `).join('');
-    document.getElementById('totalValor').textContent = `R$ ${total.toFixed(2).replace('.',',')}`;
+    ['carrinhoSection','pagtoSection','fecharBtn','totalBar'].forEach(id =>
+      document.getElementById(id).classList.remove('show'));
+    return;
   }
+
+  ['carrinhoSection','pagtoSection','fecharBtn','totalBar'].forEach(id =>
+    document.getElementById(id).classList.add('show'));
+
+  items.innerHTML = carrinho.map(item => `
+    <div class="carrinho-item">
+      <div class="carrinho-item-info">
+        <div class="carrinho-item-nome">${item.tipo}</div>
+        <div class="carrinho-item-det">${item.preparo}</div>
+        <div class="carrinho-item-sabores">${item.sabores}</div>
+      </div>
+      <div class="carrinho-item-preco">R$ ${item.preco.toFixed(2).replace('.',',')}</div>
+      <button class="btn-remover" onclick="removerItem(${item.id})">✕</button>
+    </div>`).join('');
+
+  document.getElementById('totalValor').textContent = `R$ ${total.toFixed(2).replace('.',',')}`;
+  document.getElementById('totalItems').textContent = `${nItems} item${nItems>1?'s':''}`;
 }
 
 function removerItem(id) {
@@ -951,64 +884,80 @@ function removerItem(id) {
   atualizarCarrinho();
 }
 
+// ============================================================
+// PAGAMENTO
+// ============================================================
 function selecionarPagto(el, forma) {
   document.querySelectorAll('.pagto-btn').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
   pagamento = forma;
 }
 
+// ============================================================
+// FECHAMENTO — RECIBO ESTILO MAQUININHA
+// ============================================================
 function abrirFechamento() {
   const nome = document.getElementById('nomeCliente').value.trim();
-  const wpp = document.getElementById('wppCliente').value.trim();
-  if (!nome || !wpp) { alert('Por favor, preencha seu nome e WhatsApp!'); return; }
-  if (carrinho.length === 0) { alert('Seu carrinho está vazio!'); return; }
-  if (!pagamento) { alert('Selecione uma forma de pagamento!'); return; }
+  const wpp  = document.getElementById('wppCliente').value.trim();
+  if (!nome || !wpp)       { alert('Por favor, preencha seu nome e WhatsApp!'); return; }
+  if (carrinho.length===0) { alert('Seu carrinho está vazio!'); return; }
+  if (!pagamento)          { alert('Selecione uma forma de pagamento!'); return; }
 
-  const total = carrinho.reduce((a,b) => a+b.preco, 0);
-  const agora = new Date();
-  const hora = agora.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
-  const data = agora.toLocaleDateString('pt-BR');
+  const total  = carrinho.reduce((a,b) => a+b.preco, 0);
+  const agora  = new Date();
+  const hora   = agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+  const data   = agora.toLocaleDateString('pt-BR');
+  const numPed = String(numeroPedido).padStart(6,'0');
 
-  let itensHtml = carrinho.map(item => `
-    <div class="recibo-linha">
-      <span>${item.tipo}</span>
-      <span>R$ ${item.preco.toFixed(2).replace('.',',')}</span>
-    </div>
-    <div class="recibo-linha" style="font-size:0.65rem;color:#999;margin-top:-2px">
-      <span>${item.preparo}</span><span></span>
-    </div>
-    <div class="recibo-linha" style="font-size:0.65rem;color:#999;margin-bottom:4px">
-      <span>${item.sabores}</span><span></span>
-    </div>
-  `).join('');
+  let itensHtml = '';
+  carrinho.forEach(item => {
+    const pFmt = `R$${item.preco.toFixed(2)}`;
+    itensHtml += `
+      <div class="recibo-linha"><span>${item.tipo}</span><span>${pFmt}</span></div>
+      <div class="recibo-linha sub-item"><span>↳ ${item.preparo}</span></div>
+      <div class="recibo-linha sub-item" style="margin-bottom:5px"><span>↳ ${item.sabores}</span></div>`;
+  });
 
   document.getElementById('reciboConteudo').innerHTML = `
     <div class="recibo-header">
-      <div class="recibo-logoaline">Aline Salgados</div>
-      <div class="recibo-sub-txt">RETIRADA SOMENTE NO LOCAL</div>
-      <div class="recibo-sub-txt">${data} às ${hora}</div>
+      <div class="recibo-sep">============================</div>
+      <div class="recibo-shop">SALGADOS DELICIA</div>
+      <div class="recibo-nome">*Aline*</div>
+      <div class="recibo-datetime">${data}&nbsp;&nbsp;${hora}</div>
+      <div class="recibo-num">N° <b>${numPed}</b></div>
+      <div class="recibo-sep">============================</div>
     </div>
-    <div class="recibo-linha cliente"><span>Cliente:</span><span>${nome}</span></div>
-    <div class="recibo-linha cliente"><span>WhatsApp:</span><span>${wpp}</span></div>
-    <hr class="recibo-divider">
+    <div class="recibo-linha cliente-info"><span>Cliente:</span><span>${nome}</span></div>
+    <div class="recibo-linha cliente-info"><span>Fone:</span><span>${wpp}</span></div>
+    <div class="recibo-linha cliente-info"><span>Tipo:</span><span>Retirada no local</span></div>
+    <hr class="recibo-dashed">
     ${itensHtml}
-    <div class="recibo-linha total"><span>TOTAL</span><span>R$ ${total.toFixed(2).replace('.',',')}</span></div>
-    <div class="recibo-linha" style="font-size:0.72rem"><span>Pagamento</span><span>${pagamento}</span></div>
-    <div class="recibo-footer">★ Obrigada pela preferência! ★<br>Aline Salgados — com muito carinho 💕</div>
-  `;
+    <hr class="recibo-dashed">
+    <div class="recibo-linha total-linha"><span>*TOTAL*</span><span>*R$${total.toFixed(2)}*</span></div>
+    <hr class="recibo-dashed">
+    <div class="recibo-linha" style="font-size:0.78rem"><span>💳 Pgto:</span><span>${pagamento}</span></div>
+    <div class="recibo-footer">
+      <div class="recibo-sep">============================</div>
+      <div class="recibo-footer-txt">Obrigada! Volte sempre 😊</div>
+    </div>`;
 
-  document.getElementById('progressWrap').style.display = 'none';
+  document.getElementById('progressWrap').style.display   = 'none';
   document.getElementById('gratoMsg').classList.remove('show');
-  document.getElementById('enviandoMsg').style.display = 'none';
+  document.getElementById('enviandoTxt').style.display    = 'none';
   document.getElementById('fechamentoBtns').style.display = 'flex';
-  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('progressFill').style.width     = '0%';
   mostrarOverlay('ovFechamento');
 }
 
+// ============================================================
+// ENVIO
+// ============================================================
 function enviarPedido() {
+  // Mostra "Grato!" imediatamente ao confirmar
   document.getElementById('fechamentoBtns').style.display = 'none';
-  document.getElementById('progressWrap').style.display = 'block';
-  document.getElementById('enviandoMsg').style.display = 'block';
+  document.getElementById('progressWrap').style.display   = 'block';
+  document.getElementById('gratoMsg').classList.add('show');
+  document.getElementById('enviandoTxt').style.display    = 'block';
 
   const fill = document.getElementById('progressFill');
   let progress = 0;
@@ -1017,58 +966,62 @@ function enviarPedido() {
     fill.style.width = Math.min(progress, 100) + '%';
     if (progress >= 100) {
       clearInterval(interval);
-      document.getElementById('gratoMsg').classList.add('show');
-      setTimeout(() => {
-        enviarWhatsApp();
-      }, 800);
+      setTimeout(() => enviarWhatsApp(), 600);
     }
   }, 100);
 }
 
 function enviarWhatsApp() {
-  const nome = document.getElementById('nomeCliente').value.trim();
-  const wpp = document.getElementById('wppCliente').value.trim();
+  const nome  = document.getElementById('nomeCliente').value.trim();
+  const wpp   = document.getElementById('wppCliente').value.trim();
   const total = carrinho.reduce((a,b) => a+b.preco, 0);
+  const agora = new Date();
+  const hora  = agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+  const data  = agora.toLocaleDateString('pt-BR');
+  const numPed= String(numeroPedido).padStart(6,'0');
 
-  let msg = `🌸 *ALINE SALGADOS* 🌸\n\n`;
-  msg += `👤 *Cliente:* ${nome}\n`;
-  msg += `📱 *WhatsApp:* ${wpp}\n`;
-  msg += `📍 *Retirada no local*\n\n`;
-  msg += `🛒 *PEDIDO:*\n`;
+  let msg  = `============================\n`;
+  msg     += `      SALGADOS DELICIA\n`;
+  msg     += `          *Aline*\n`;
+  msg     += `  ${data}  ${hora}\n`;
+  msg     += `  N° ${numPed}\n`;
+  msg     += `============================\n`;
+  msg     += `Cliente: ${nome}\n`;
+  msg     += `Fone:    ${wpp}\n`;
+  msg     += `Tipo:    Retirada no local\n`;
+  msg     += `------------------------------\n`;
   carrinho.forEach(item => {
-    msg += `• ${item.tipo} — ${item.preparo}\n`;
-    msg += `  Sabores: ${item.sabores}\n`;
-    msg += `  Valor: R$ ${item.preco.toFixed(2).replace('.',',')}\n\n`;
+    msg += `${item.tipo}\n`;
+    msg += `  ↳ ${item.preparo}\n`;
+    msg += `  ↳ Sabores: ${item.sabores}\n`;
+    msg += `  Valor: R$${item.preco.toFixed(2)}\n`;
   });
-  msg += `💳 *Pagamento:* ${pagamento}\n`;
-  msg += `💰 *TOTAL: R$ ${total.toFixed(2).replace('.',',')}*\n\n`;
-  msg += `✨ Grato pela preferência!`;
+  msg     += `------------------------------\n`;
+  msg     += `*TOTAL*    *R$${total.toFixed(2)}*\n`;
+  msg     += `------------------------------\n`;
+  msg     += `💳 Pgto: ${pagamento}\n`;
+  msg     += `============================\n`;
+  msg     += `Obrigada! Volte sempre 😊\n`;
 
   const encoded = encodeURIComponent(msg);
   window.open(`https://wa.me/${WPP_NUM}?text=${encoded}`, '_blank');
 
+  numeroPedido++;
+  try { localStorage.setItem('alinePedNum', numeroPedido); } catch(e){}
+
   setTimeout(() => {
     fecharOverlay('ovFechamento');
-    carrinho = [];
+    carrinho  = [];
     pagamento = '';
     atualizarCarrinho();
-  }, 1500);
+  }, 2000);
 }
 
-function voltarEscolha() {
-  fecharOverlay('ovPedido');
-  mostrarOverlay('ovEscolha');
-}
-
-function mostrarOverlay(id) {
-  document.getElementById(id).classList.add('show');
-  document.body.style.overflow = 'hidden';
-}
-
-function fecharOverlay(id) {
-  document.getElementById(id).classList.remove('show');
-  document.body.style.overflow = '';
-}
+// ============================================================
+// HELPERS
+// ============================================================
+function mostrarOverlay(id) { document.getElementById(id).classList.add('show'); document.body.style.overflow = 'hidden'; }
+function fecharOverlay(id)  { document.getElementById(id).classList.remove('show'); document.body.style.overflow = ''; }
 </script>
 </body>
 </html>
