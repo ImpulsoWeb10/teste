@@ -955,9 +955,11 @@ function abrirFechamento() {
 
   let itensHtml = '';
   carrinho.forEach((item, idx) => {
-    const pFmt = `R$${item.preco.toFixed(2)}`;
+    const pFmt = `R$ ${item.preco.toFixed(2).replace('.',',')}`;
     itensHtml += `
-      <div class="recibo-linha" style="font-weight:700;color:#111"><span>${item.tipo}</span><span>${pFmt}</span></div>
+      <div class="recibo-linha" style="font-weight:700;color:#111;display:flex;justify-content:space-between;align-items:baseline">
+        <span style="flex:1">${item.tipo}</span><span style="white-space:nowrap;margin-left:8px">${pFmt}</span>
+      </div>
       <div class="recibo-linha sub-item"><span>↳ ${item.preparo}</span></div>
       <div class="recibo-linha sub-item" style="margin-bottom:${idx < carrinho.length-1 ? '10px' : '5px'}"><span>↳ ${item.sabores}</span></div>`;
   });
@@ -971,15 +973,17 @@ function abrirFechamento() {
       <div class="recibo-num">N° <b>${numPed}</b></div>
       <div class="recibo-sep">============================</div>
     </div>
-    <div class="recibo-linha cliente-info"><span>Cliente:</span><span>${nome}</span></div>
-    <div class="recibo-linha cliente-info"><span>Fone:</span><span>${wpp}</span></div>
-    <div class="recibo-linha cliente-info"><span>Tipo:</span><span>Retirada no local</span></div>
+    <div class="recibo-linha cliente-info" style="display:flex;justify-content:space-between"><span>Cliente:</span><span>${nome}</span></div>
+    <div class="recibo-linha cliente-info" style="display:flex;justify-content:space-between"><span>Fone:</span><span>${wpp}</span></div>
+    <div class="recibo-linha cliente-info" style="display:flex;justify-content:space-between"><span>Tipo:</span><span>Retirada no local</span></div>
     <hr class="recibo-dashed">
     ${itensHtml}
     <hr class="recibo-dashed">
-    <div class="recibo-linha total-linha"><span>*TOTAL*</span><span>*R$${total.toFixed(2)}*</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:1rem;font-weight:900;color:#000;padding-top:6px;margin-top:4px">
+      <span>TOTAL</span><span style="font-size:1.05rem">R$ ${total.toFixed(2).replace('.',',')}</span>
+    </div>
     <hr class="recibo-dashed">
-    <div class="recibo-linha" style="font-size:0.78rem"><span>💳 Pgto:</span><span>${pagamento}</span></div>
+    <div class="recibo-linha" style="font-size:0.78rem;display:flex;justify-content:space-between"><span>💳 Pgto:</span><span>${pagamento}</span></div>
     <div class="recibo-footer">
       <div class="recibo-sep">============================</div>
       <div class="recibo-footer-txt">Obrigada! Volte sempre 😊</div>
@@ -1024,10 +1028,10 @@ function enviarWhatsApp() {
   const data  = agora.toLocaleDateString('pt-BR');
   const numPed= String(numeroPedido).padStart(6,'0');
 
-  // Formata cada item com produto à esquerda e valor à direita
+  // Alinha produto à esquerda e valor à direita numa linha de 32 chars
   function linha(esq, dir) {
-    const total = 32;
-    const espacos = Math.max(1, total - esq.length - dir.length);
+    const largura = 32;
+    const espacos = Math.max(1, largura - esq.length - dir.length);
     return esq + ' '.repeat(espacos) + dir;
   }
 
@@ -1037,21 +1041,22 @@ function enviarWhatsApp() {
   msg     += `  ${data}  ${hora}\n`;
   msg     += `  N° ${numPed}\n`;
   msg     += `============================\n`;
-  msg     += `Cliente:    ${nome}\n`;
-  msg     += `Fone:       ${wpp}\n`;
-  msg     += `Tipo:       Retirada no local\n`;
+  msg     += linha('Cliente:', nome) + `\n`;
+  msg     += linha('Fone:', wpp) + `\n`;
+  msg     += linha('Tipo:', 'Retirada no local') + `\n`;
   msg     += `------------------------------\n`;
   carrinho.forEach((item, idx) => {
-    const vlr = `R$${item.preco.toFixed(2)}`;
+    const vlr = `R$ ${item.preco.toFixed(2).replace('.',',')}`;
     msg += linha(item.tipo, vlr) + `\n`;
     msg += `  ↳ ${item.preparo}\n`;
-    msg += `  ↳ Sabores: ${item.sabores}\n`;
-    if (idx < carrinho.length - 1) msg += `\n`; // espaço entre pedidos
+    msg += `  ↳ ${item.sabores}\n`;
+    if (idx < carrinho.length - 1) msg += `\n`;
   });
   msg     += `------------------------------\n`;
-  msg     += linha('*TOTAL*', `*R$${total.toFixed(2)}*`) + `\n`;
+  // *negrito* no WhatsApp = asterisco em volta
+  msg     += linha('*TOTAL*', `*R$ ${total.toFixed(2).replace('.',',')}*`) + `\n`;
   msg     += `------------------------------\n`;
-  msg     += `💳 Pgto: ${pagamento}\n`;
+  msg     += linha('💳 Pgto:', pagamento) + `\n`;
   msg     += `============================\n`;
   msg     += `Obrigada! Volte sempre 😊\n`;
 
