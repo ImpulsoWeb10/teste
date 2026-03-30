@@ -3,759 +3,802 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aline Salgados — Delivery & Retirada</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<title>Aline Salgados</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
-  --rosa: #e8325a;
-  --rosa-dark: #c0254a;
-  --rosa-pale: #fff0f3;
-  --dourado: #f5a623;
-  --dourado-dark: #d4890a;
-  --verde: #22c55e;
-  --cinza-bg: #f7f7f8;
-  --cinza-borda: #eee;
-  --texto: #1a1a1a;
-  --texto-2: #666;
-  --branco: #ffffff;
-  --sombra: 0 2px 20px rgba(0,0,0,0.08);
-  --sombra-hover: 0 8px 32px rgba(232,50,90,0.18);
+  --rosa:#e8325a; --rosa-dark:#c0254a; --rosa-pale:#ffe0e8;
+  --dourado:#c9962a; --dourado-light:#f0c040;
+  --verde:#22a054; --cinza:#f5f5f5; --cinza-bg:#f7f7f8;
+  --texto:#1a1a1a; --texto2:#666; --marrom:#7a4a2e;
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Nunito', sans-serif;
-  background: var(--cinza-bg);
-  color: var(--texto);
-  overflow-x: hidden;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:var(--cinza-bg);color:var(--texto);overflow-x:hidden;}
 
-/* ─── HERO ─── */
-.hero {
-  background: linear-gradient(160deg, #1a0a10 0%, #2d0f1e 40%, #1c0d16 100%);
-  position: relative;
-  overflow: hidden;
-  padding-bottom: 0;
-}
-.hero::before {
-  content:'';
-  position:absolute; inset:0;
-  background: radial-gradient(ellipse at 70% 50%, rgba(232,50,90,0.25) 0%, transparent 65%),
-              radial-gradient(ellipse at 10% 80%, rgba(245,166,35,0.12) 0%, transparent 50%);
-}
-.hero-dots {
-  position:absolute; inset:0; overflow:hidden; pointer-events:none;
-}
-.hero-dots::before {
-  content:'';
-  position:absolute; width:300px; height:300px;
-  border-radius:50%; border:1px solid rgba(232,50,90,0.15);
-  top:-80px; right:-60px;
-}
-.hero-dots::after {
-  content:'';
-  position:absolute; width:200px; height:200px;
-  border-radius:50%; border:1px solid rgba(245,166,35,0.12);
-  bottom:40px; left:-60px;
-}
+/* HERO */
+.hero{background:linear-gradient(160deg,#1a0a10 0%,#2d0f1e 50%,#1c0d16 100%);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 75% 40%,rgba(232,50,90,.28) 0%,transparent 60%),
+             radial-gradient(ellipse at 10% 90%,rgba(240,192,64,.1) 0%,transparent 50%);}
 
-/* ─── TOPBAR ─── */
-.topbar {
-  position: relative; z-index: 10;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 20px 0;
-}
-.logo-wrap {
-  display: flex; align-items: center; gap: 12px;
-}
-.logo-img {
-  width: 52px; height: 52px; border-radius: 50%;
-  border: 2px solid rgba(245,166,35,0.6);
-  object-fit: cover;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-}
-.logo-fallback {
-  width: 52px; height: 52px; border-radius: 50%;
-  border: 2px solid rgba(245,166,35,0.6);
-  background: linear-gradient(135deg, var(--rosa) 0%, var(--rosa-dark) 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.4rem;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-}
-.logo-text { display: flex; flex-direction: column; }
-.logo-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.1rem; font-weight: 900;
-  color: #fff; letter-spacing: 0.5px; line-height: 1.1;
-}
-.logo-sub {
-  font-size: 0.62rem; font-weight: 700; letter-spacing: 3px;
-  color: var(--dourado); text-transform: uppercase;
-}
-.topbar-contact {
-  display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
-}
-.contact-chip {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 20px; padding: 5px 12px;
-  font-size: 0.72rem; font-weight: 700;
-  color: rgba(255,255,255,0.85);
-  display: flex; align-items: center; gap: 6px;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-.contact-chip:hover { background: rgba(232,50,90,0.3); border-color: var(--rosa); color:#fff; }
-.contact-chip .dot { width:7px;height:7px;border-radius:50%;background:var(--verde);flex-shrink:0; animation: blink 1.8s ease-in-out infinite; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.topbar{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:16px 18px 0;}
+.logo-wrap{display:flex;align-items:center;gap:11px;}
+.logo-img{width:50px;height:50px;border-radius:50%;border:2px solid rgba(240,192,64,.6);object-fit:cover;box-shadow:0 4px 16px rgba(0,0,0,.4);}
+.logo-fallback{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--rosa),var(--rosa-dark));display:none;align-items:center;justify-content:center;font-size:1.4rem;border:2px solid rgba(240,192,64,.6);}
+.logo-name{font-family:'Dancing Script',cursive;font-size:1.5rem;font-weight:700;color:#fff;line-height:1;}
+.logo-sub{font-size:.6rem;font-weight:900;letter-spacing:3px;color:var(--dourado-light);text-transform:uppercase;}
+.topbar-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;}
+.contact-pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:5px 12px;font-size:.7rem;font-weight:800;color:rgba(255,255,255,.85);text-decoration:none;transition:all .2s;}
+.contact-pill:hover{background:rgba(232,50,90,.3);border-color:var(--rosa);color:#fff;}
+.pill-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:blink 1.8s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* ─── HERO CONTENT ─── */
-.hero-content {
-  position: relative; z-index: 10;
-  padding: 28px 20px 0;
-  text-align: center;
-}
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(245,166,35,0.15); border: 1px solid rgba(245,166,35,0.35);
-  border-radius: 20px; padding: 5px 14px;
-  font-size: 0.72rem; font-weight: 800; color: var(--dourado);
-  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px;
-}
-.hero-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 2.4rem; font-weight: 900; color: #fff;
-  line-height: 1.1; margin-bottom: 8px;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.4);
-}
-.hero-title span { color: var(--rosa); }
-.hero-desc {
-  font-size: 0.88rem; color: rgba(255,255,255,0.6);
-  font-weight: 600; margin-bottom: 24px; line-height: 1.6;
-}
+.hero-body{position:relative;z-index:10;padding:24px 18px 0;text-align:center;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(240,192,64,.15);border:1px solid rgba(240,192,64,.35);border-radius:20px;padding:5px 14px;font-size:.7rem;font-weight:900;letter-spacing:1px;color:var(--dourado-light);text-transform:uppercase;margin-bottom:12px;}
+.hero-title{font-family:'Dancing Script',cursive;font-size:2.6rem;font-weight:700;color:#fff;line-height:1.1;margin-bottom:6px;text-shadow:0 2px 20px rgba(0,0,0,.4);}
+.hero-title span{color:var(--rosa);}
+.hero-desc{font-size:.85rem;color:rgba(255,255,255,.55);font-weight:600;margin-bottom:20px;line-height:1.6;}
+.hero-btns{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.btn-hero-p{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--rosa),var(--rosa-dark));color:#fff;border:none;border-radius:16px;padding:17px 24px;font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:900;cursor:pointer;box-shadow:0 8px 28px rgba(232,50,90,.45);animation:phero 2.5s ease-in-out infinite;transition:all .2s;}
+@keyframes phero{0%,100%{box-shadow:0 8px 28px rgba(232,50,90,.45)}50%{box-shadow:0 10px 40px rgba(232,50,90,.65);transform:translateY(-1px)}}
+.btn-hero-p:active{transform:scale(.97)!important;animation:none;}
+.btn-hero-s{display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.18);color:rgba(255,255,255,.9);border-radius:16px;padding:15px 24px;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:800;cursor:pointer;text-decoration:none;transition:all .2s;}
+.btn-hero-s:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.35);}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(255,255,255,.08);position:relative;z-index:10;}
+.hstat{padding:14px 8px;text-align:center;border-right:1px solid rgba(255,255,255,.07);}
+.hstat:last-child{border-right:none;}
+.hstat-val{font-size:1.25rem;font-weight:900;color:#fff;line-height:1;}
+.hstat-val span{color:var(--dourado-light);}
+.hstat-label{font-size:.6rem;color:rgba(255,255,255,.4);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:3px;}
 
-/* ─── HERO CTA BUTTONS ─── */
-.hero-btns {
-  display: flex; flex-direction: column; gap: 10px;
-  margin-bottom: 28px;
-}
-.btn-primary {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  background: linear-gradient(135deg, var(--rosa) 0%, var(--rosa-dark) 100%);
-  color: white; border: none; border-radius: 16px;
-  padding: 18px 24px; font-family: 'Nunito', sans-serif;
-  font-size: 1.05rem; font-weight: 900; cursor: pointer;
-  box-shadow: 0 8px 28px rgba(232,50,90,0.45);
-  text-decoration: none;
-  transition: all 0.2s;
-  animation: pulse-hero 2.5s ease-in-out infinite;
-}
-@keyframes pulse-hero {
-  0%,100%{ box-shadow: 0 8px 28px rgba(232,50,90,0.45); }
-  50%{ box-shadow: 0 10px 40px rgba(232,50,90,0.65); transform: translateY(-1px); }
-}
-.btn-primary:active { transform: scale(0.97) !important; animation: none; }
+/* SECTION CARD */
+.section-card{background:#fff;margin:14px 14px 0;border-radius:20px;padding:18px;box-shadow:0 2px 16px rgba(0,0,0,.07);border:1px solid #eee;}
+.sec-label{font-size:.72rem;font-weight:900;letter-spacing:2.5px;text-transform:uppercase;color:var(--rosa);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.inp{width:100%;border:1.5px solid #eee;border-radius:12px;padding:13px 14px;font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:600;color:var(--texto);background:var(--cinza);margin-bottom:10px;transition:all .2s;outline:none;}
+.inp:last-child{margin-bottom:0;}
+.inp:focus{border-color:var(--rosa);background:#fff;box-shadow:0 0 0 3px rgba(232,50,90,.1);}
 
-.btn-secondary {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.18);
-  color: rgba(255,255,255,0.9); border-radius: 16px;
-  padding: 16px 24px; font-family: 'Nunito', sans-serif;
-  font-size: 0.95rem; font-weight: 800; cursor: pointer;
-  text-decoration: none; transition: all 0.2s;
-}
-.btn-secondary:hover { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.35); }
+/* MENU GRID */
+.menu-header{display:flex;align-items:center;justify-content:space-between;padding:0 18px;margin-bottom:10px;}
+.menu-title{font-size:1rem;font-weight:900;color:var(--texto);}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 14px;}
+.menu-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.07);border:1px solid #eee;cursor:pointer;transition:all .22s;}
+.menu-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(232,50,90,.15);}
+.menu-card:active{transform:scale(.97);}
+.menu-card-img{width:100%;aspect-ratio:1/1;background:linear-gradient(135deg,#fff0f3,#fdf6ee);display:flex;align-items:center;justify-content:center;font-size:3.2rem;position:relative;}
+.menu-card-badge{position:absolute;top:8px;left:8px;background:var(--rosa);color:#fff;font-size:.58rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:8px;}
+.menu-card-badge.gold{background:var(--dourado);}
+.menu-card-body{padding:11px 12px 13px;}
+.menu-card-name{font-size:.88rem;font-weight:900;color:var(--texto);margin-bottom:3px;line-height:1.2;}
+.menu-card-desc{font-size:.68rem;color:var(--texto2);font-weight:600;line-height:1.4;margin-bottom:10px;}
+.menu-card-foot{display:flex;align-items:center;justify-content:space-between;}
+.menu-card-preco{font-size:.95rem;font-weight:900;color:var(--rosa);}
+.menu-card-preco small{font-size:.62rem;color:var(--texto2);font-weight:700;}
+.menu-card-add{width:30px;height:30px;border-radius:50%;background:var(--rosa);color:#fff;border:none;font-size:1.1rem;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(232,50,90,.35);transition:all .15s;}
+.menu-card-add:hover{background:var(--rosa-dark);transform:scale(1.1);}
 
-/* ─── HERO STATS ─── */
-.hero-stats {
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  position: relative; z-index: 10;
-}
-.stat {
-  padding: 16px 10px;
-  text-align: center;
-  border-right: 1px solid rgba(255,255,255,0.07);
-}
-.stat:last-child { border-right: none; }
-.stat-val {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.3rem; font-weight: 900; color: #fff;
-  line-height: 1;
-}
-.stat-val span { color: var(--dourado); }
-.stat-label { font-size: 0.62rem; color: rgba(255,255,255,0.45); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-top: 3px; }
+/* LISTA */
+.menu-list-item{background:#fff;margin:0 14px 10px;border-radius:18px;border:1px solid #eee;box-shadow:0 2px 12px rgba(0,0,0,.06);display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer;transition:all .2s;}
+.menu-list-item:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,50,90,.14);}
+.menu-list-item:active{transform:scale(.98);}
+.list-emoji{width:56px;height:56px;border-radius:14px;flex-shrink:0;background:linear-gradient(135deg,#fff0f3,#fdf6ee);display:flex;align-items:center;justify-content:center;font-size:2rem;}
+.list-info{flex:1;}
+.list-nome{font-size:.9rem;font-weight:900;color:var(--texto);margin-bottom:3px;}
+.list-desc{font-size:.7rem;color:var(--texto2);font-weight:600;line-height:1.4;}
+.list-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;}
+.list-preco{font-size:.95rem;font-weight:900;color:var(--rosa);white-space:nowrap;}
+.list-add{width:28px;height:28px;border-radius:50%;background:var(--rosa);color:#fff;border:none;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(232,50,90,.3);transition:all .15s;}
+.list-add:hover{background:var(--rosa-dark);}
 
-/* ─── MAIN BODY ─── */
-.main { padding: 0 0 100px; }
+/* CARRINHO */
+.carrinho-section{background:#fff;margin:14px 14px 0;border-radius:20px;padding:16px;box-shadow:0 2px 15px rgba(232,50,90,.08);border:1px solid var(--rosa-pale);display:none;}
+.carrinho-section.show{display:block;}
+.carrinho-item{background:#fafafa;border-radius:12px;padding:10px 12px;margin-bottom:14px;border-left:4px solid var(--rosa);}
+.carrinho-item-row{display:flex;align-items:baseline;justify-content:space-between;gap:8px;}
+.carrinho-item-nome{font-weight:900;font-size:.9rem;color:var(--texto);}
+.carrinho-item-det{font-size:.72rem;color:#999;font-weight:600;margin-top:2px;}
+.carrinho-item-sabores{font-size:.7rem;color:#bbb;font-weight:600;}
+.carrinho-item-preco{font-weight:900;color:var(--rosa);font-size:.95rem;white-space:nowrap;flex-shrink:0;}
+.btn-remover{background:none;border:none;cursor:pointer;color:#ccc;font-size:.72rem;font-weight:700;font-family:'Nunito',sans-serif;padding:2px 4px;transition:color .2s;}
+.btn-remover:hover{color:var(--rosa);}
+.empty-cart{text-align:center;padding:12px;color:#ccc;font-size:.82rem;font-weight:600;}
 
-/* ─── SECTION HEADER ─── */
-.sec-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 24px 20px 12px;
-}
-.sec-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.15rem; font-weight: 900; color: var(--texto);
-}
-.sec-link {
-  font-size: 0.78rem; font-weight: 800; color: var(--rosa);
-  text-decoration: none;
-}
+/* PAGAMENTO */
+.pagto-section{background:#fff;margin:10px 14px 0;border-radius:20px;padding:16px;box-shadow:0 2px 15px rgba(232,50,90,.08);border:1px solid var(--rosa-pale);display:none;}
+.pagto-section.show{display:block;}
+.pagto-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.pagto-btn{border:2px solid #eee;background:#fff;border-radius:12px;padding:11px 8px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;color:#aaa;transition:all .2s;display:flex;align-items:center;gap:6px;}
+.pagto-btn.active{border-color:var(--rosa);background:var(--rosa-pale);color:var(--rosa);}
 
-/* ─── CATEGORIAS SCROLL ─── */
-.cats-scroll {
-  display: flex; gap: 10px;
-  overflow-x: auto; padding: 0 20px 4px;
-  scrollbar-width: none;
-}
-.cats-scroll::-webkit-scrollbar { display: none; }
-.cat-chip {
-  flex-shrink: 0;
-  display: flex; align-items: center; gap: 7px;
-  background: white; border: 1.5px solid var(--cinza-borda);
-  border-radius: 30px; padding: 9px 16px;
-  font-family: 'Nunito', sans-serif; font-size: 0.82rem; font-weight: 800;
-  color: var(--texto-2); cursor: pointer; transition: all 0.2s;
-  white-space: nowrap;
-}
-.cat-chip.active, .cat-chip:hover {
-  background: var(--rosa); border-color: var(--rosa); color: white;
-}
-.cat-chip .cat-emoji { font-size: 1rem; }
+/* FECHAR */
+.fechar-btn{width:calc(100% - 28px);margin:14px auto 0;background:linear-gradient(135deg,var(--verde),#198040);color:#fff;border:none;border-radius:18px;padding:18px 20px;font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:900;cursor:pointer;box-shadow:0 8px 24px rgba(34,160,84,.4);display:none;align-items:center;justify-content:center;gap:10px;transition:all .2s;}
+.fechar-btn.show{display:flex;}
+.fechar-btn:active{transform:scale(.97);}
 
-/* ─── BANNER DESTAQUE ─── */
-.banner {
-  margin: 20px 20px 0;
-  background: linear-gradient(135deg, #1a0a10 0%, #2d0f1e 100%);
-  border-radius: 22px; padding: 22px 20px;
-  position: relative; overflow: hidden;
-  border: 1px solid rgba(232,50,90,0.3);
-}
-.banner::after {
-  content:'🎉';
-  position:absolute; right:16px; top:50%; transform:translateY(-50%);
-  font-size:3.5rem; opacity:0.25;
-}
-.banner-tag {
-  font-size: 0.65rem; font-weight: 900; letter-spacing: 2.5px;
-  text-transform: uppercase; color: var(--dourado); margin-bottom: 6px;
-}
-.banner-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.4rem; font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 4px;
-}
-.banner-desc { font-size: 0.78rem; color: rgba(255,255,255,0.6); font-weight: 600; margin-bottom: 14px; }
-.banner-btn {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: var(--rosa); color: white;
-  border: none; border-radius: 12px; padding: 10px 18px;
-  font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 900;
-  cursor: pointer; text-decoration: none; transition: all 0.2s;
-}
-.banner-btn:hover { background: var(--rosa-dark); }
+/* INFO CARDS */
+.info-section{margin:14px 14px 0;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.info-card{background:#fff;border-radius:18px;padding:14px 13px;box-shadow:0 2px 12px rgba(0,0,0,.06);border:1px solid #eee;}
+.info-card-icon{font-size:1.5rem;margin-bottom:6px;}
+.info-card-title{font-size:.8rem;font-weight:900;color:var(--texto);margin-bottom:4px;}
+.info-card-txt{font-size:.68rem;color:var(--texto2);font-weight:600;line-height:1.5;}
+.info-card-txt b{color:var(--rosa);}
 
-/* ─── CARDS PRODUTOS ─── */
-.produtos-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 14px; padding: 0 20px;
-}
-.produto-card {
-  background: white; border-radius: 20px;
-  overflow: hidden; box-shadow: var(--sombra);
-  border: 1px solid var(--cinza-borda);
-  cursor: pointer; transition: all 0.25s;
-  text-decoration: none; color: inherit;
-  display: flex; flex-direction: column;
-}
-.produto-card:hover { transform: translateY(-3px); box-shadow: var(--sombra-hover); }
-.produto-card:active { transform: scale(0.98); }
-.produto-img {
-  width: 100%; aspect-ratio: 1/1;
-  background: linear-gradient(135deg, #fff0f3, #fdf6ee);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 3.5rem; position: relative;
-}
-.produto-badge {
-  position: absolute; top: 8px; left: 8px;
-  background: var(--rosa); color: white;
-  font-size: 0.6rem; font-weight: 900; letter-spacing: 1px;
-  text-transform: uppercase; padding: 3px 8px; border-radius: 8px;
-}
-.produto-badge.gold { background: var(--dourado); }
-.produto-info { padding: 12px 12px 14px; flex: 1; display: flex; flex-direction: column; }
-.produto-nome {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.9rem; font-weight: 800; color: var(--texto);
-  margin-bottom: 4px; line-height: 1.2;
-}
-.produto-desc { font-size: 0.7rem; color: var(--texto-2); font-weight: 600; line-height: 1.4; flex: 1; margin-bottom: 10px; }
-.produto-footer { display: flex; align-items: center; justify-content: space-between; }
-.produto-preco { font-size: 1rem; font-weight: 900; color: var(--rosa); }
-.produto-preco small { font-size: 0.65rem; color: var(--texto-2); font-weight: 700; }
-.produto-add {
-  width: 30px; height: 30px; border-radius: 50%;
-  background: var(--rosa); color: white; border: none;
-  font-size: 1.1rem; font-weight: 900; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s; box-shadow: 0 4px 12px rgba(232,50,90,0.35);
-}
-.produto-add:hover { background: var(--rosa-dark); transform: scale(1.1); }
+/* RETIRE */
+.retire-btn{width:100%;background:linear-gradient(135deg,var(--dourado),var(--dourado-light));color:#3a2a1a;border:none;border-radius:16px;padding:16px 20px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;cursor:pointer;box-shadow:0 6px 20px rgba(201,150,42,.4);display:flex;align-items:center;justify-content:center;gap:10px;transition:all .2s;}
+.retire-btn:hover{transform:translateY(-1px);box-shadow:0 8px 28px rgba(201,150,42,.55);}
+.retire-btn:active{transform:scale(.97);}
 
-/* ─── CARD LISTA (full width) ─── */
-.produto-lista {
-  background: white; border-radius: 20px; margin: 0 20px;
-  border: 1px solid var(--cinza-borda);
-  display: flex; align-items: center; gap: 14px;
-  padding: 14px 16px; cursor: pointer; transition: all 0.2s;
-  text-decoration: none; color: inherit;
-  box-shadow: var(--sombra); margin-bottom: 10px;
-}
-.produto-lista:hover { transform: translateY(-2px); box-shadow: var(--sombra-hover); }
-.produto-lista-emoji {
-  width: 58px; height: 58px; border-radius: 14px;
-  background: linear-gradient(135deg, #fff0f3, #fdf6ee);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2rem; flex-shrink: 0;
-}
-.produto-lista-info { flex: 1; }
-.produto-lista-nome { font-family:'Syne',sans-serif; font-size:0.92rem; font-weight:800; color:var(--texto); margin-bottom:3px; }
-.produto-lista-desc { font-size:0.72rem; color:var(--texto-2); font-weight:600; line-height:1.4; }
-.produto-lista-right { display:flex; flex-direction:column; align-items:flex-end; gap:8px; flex-shrink:0; }
-.produto-lista-preco { font-size:1rem; font-weight:900; color:var(--rosa); white-space:nowrap; }
-.produto-lista-add {
-  width:28px; height:28px; border-radius:50%;
-  background:var(--rosa); color:white; border:none;
-  font-size:1rem; cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  box-shadow:0 3px 10px rgba(232,50,90,0.3); transition:all 0.15s;
-}
-.produto-lista-add:hover { background:var(--rosa-dark); }
+/* TOTAL FLUTUANTE */
+.total-bar{background:#fff;border-top:2px solid var(--rosa-pale);padding:12px 20px;position:fixed;bottom:0;left:0;right:0;display:none;align-items:center;justify-content:space-between;box-shadow:0 -4px 20px rgba(232,50,90,.12);z-index:90;}
+.total-bar.show{display:flex;}
+.total-bar-label{font-size:.75rem;font-weight:700;color:#aaa;}
+.total-bar-valor{font-size:1.4rem;font-weight:900;color:var(--rosa);}
+.total-bar-items{font-size:.7rem;color:#bbb;font-weight:600;}
 
-/* ─── HORÁRIO / INFO CARDS ─── */
-.info-cards {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 12px; padding: 0 20px;
-}
-.info-card {
-  background: white; border-radius: 18px; padding: 16px 14px;
-  box-shadow: var(--sombra); border: 1px solid var(--cinza-borda);
-}
-.info-card-icon { font-size: 1.6rem; margin-bottom: 8px; }
-.info-card-title { font-family:'Syne',sans-serif; font-size:0.82rem; font-weight:800; color:var(--texto); margin-bottom:4px; }
-.info-card-txt { font-size:0.7rem; color:var(--texto-2); font-weight:600; line-height:1.5; }
-.info-card-txt b { color:var(--rosa); }
+.divider-sec{height:8px;background:var(--cinza-bg);margin:16px 0 0;border-top:1px solid #ececec;border-bottom:1px solid #ececec;}
+.spacer{height:90px;}
 
-/* ─── AVALIAÇÕES ─── */
-.reviews-scroll {
-  display: flex; gap: 12px;
-  overflow-x: auto; padding: 0 20px 4px;
-  scrollbar-width: none;
-}
-.reviews-scroll::-webkit-scrollbar { display: none; }
-.review-card {
-  flex-shrink: 0; width: 220px;
-  background: white; border-radius: 18px; padding: 14px 16px;
-  box-shadow: var(--sombra); border: 1px solid var(--cinza-borda);
-}
-.review-stars { color: var(--dourado); font-size: 0.8rem; margin-bottom: 6px; }
-.review-txt { font-size: 0.78rem; color: var(--texto); font-weight: 600; line-height: 1.5; margin-bottom: 8px; }
-.review-author { font-size: 0.68rem; color: var(--texto-2); font-weight: 700; }
+/* WHATSAPP FLOAT */
+.wpp-float{position:fixed;bottom:72px;right:16px;z-index:89;width:50px;height:50px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;font-size:1.4rem;text-decoration:none;box-shadow:0 6px 22px rgba(37,211,102,.45);animation:wpulse 2.5s ease-in-out infinite;transition:transform .2s;}
+.wpp-float:hover{transform:scale(1.08);}
+@keyframes wpulse{0%,100%{box-shadow:0 6px 22px rgba(37,211,102,.45)}50%{box-shadow:0 8px 34px rgba(37,211,102,.7)}}
 
-/* ─── BOTTOM NAV ─── */
-.bottom-nav {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-  background: white;
-  border-top: 1px solid var(--cinza-borda);
-  display: flex; align-items: stretch;
-  box-shadow: 0 -4px 24px rgba(0,0,0,0.1);
-  padding-bottom: env(safe-area-inset-bottom);
-}
-.nav-item {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 10px 8px; gap: 3px;
-  cursor: pointer; transition: all 0.15s;
-  text-decoration: none; border: none; background: none;
-  font-family: 'Nunito', sans-serif;
-}
-.nav-icon { font-size: 1.3rem; }
-.nav-label { font-size: 0.6rem; font-weight: 800; color: #bbb; letter-spacing: 0.5px; text-transform: uppercase; }
-.nav-item.active .nav-label { color: var(--rosa); }
-.nav-item.active .nav-icon { filter: none; }
+/* OVERLAY */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;align-items:center;justify-content:center;padding:14px;backdrop-filter:blur(2px);}
+.overlay.show{display:flex;}
+.modal{background:#fff;border-radius:26px;padding:22px 18px 24px;width:100%;max-width:400px;box-shadow:0 24px 64px rgba(0,0,0,.3);position:relative;max-height:92vh;overflow-y:auto;}
+.modal-title{font-family:'Dancing Script',cursive;font-size:1.8rem;color:var(--rosa);text-align:center;margin-bottom:6px;line-height:1.2;}
+.modal-close{position:absolute;top:14px;right:16px;background:#f5f5f5;border:none;border-radius:50%;width:30px;height:30px;font-size:.9rem;cursor:pointer;color:#999;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.modal-close:hover{background:var(--rosa-pale);color:var(--rosa);}
 
-.nav-item-main {
-  flex: 1.4;
-  background: var(--rosa);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 2px;
-  cursor: pointer; text-decoration: none; border: none;
-  font-family: 'Nunito', sans-serif;
-  margin: 6px 4px;
-  border-radius: 16px;
-  box-shadow: 0 4px 18px rgba(232,50,90,0.4);
-  transition: all 0.2s;
-  padding: 8px;
-}
-.nav-item-main .nav-icon { font-size: 1.4rem; }
-.nav-item-main .nav-label { color: rgba(255,255,255,0.9); font-size: 0.6rem; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase; }
-.nav-item-main:hover { background: var(--rosa-dark); transform: translateY(-1px); }
+/* TIPO CARDS */
+.tipo-card{border:2.5px solid #eee;border-radius:18px;padding:18px 16px;margin-bottom:12px;cursor:pointer;transition:all .2s;position:relative;}
+.tipo-card:hover{border-color:var(--rosa);background:#fffafe;transform:translateY(-1px);box-shadow:0 6px 20px rgba(232,50,90,.12);}
+.tipo-card-emoji{font-size:2rem;display:block;margin-bottom:6px;}
+.tipo-card-title{font-weight:900;font-size:1.05rem;color:var(--texto);margin-bottom:4px;}
+.tipo-card-desc{font-size:.8rem;color:#888;font-weight:600;line-height:1.4;}
+.tipo-card-preco{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.preco-tag{background:var(--rosa-pale);border-radius:20px;padding:3px 12px;font-size:.8rem;font-weight:800;color:var(--rosa);}
+.preco-tag.gold{background:#fff8e0;color:var(--dourado);}
+.tipo-card-arrow{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:#ddd;font-size:1.2rem;}
 
-/* ─── WHATSAPP FLOAT ─── */
-.wpp-float {
-  position: fixed; bottom: 80px; right: 18px; z-index: 200;
-  width: 52px; height: 52px; border-radius: 50%;
-  background: #25d366;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem;
-  box-shadow: 0 6px 24px rgba(37,211,102,0.45);
-  text-decoration: none; cursor: pointer;
-  animation: wpp-pulse 2.5s ease-in-out infinite;
-  transition: transform 0.2s;
-}
-.wpp-float:hover { transform: scale(1.08); }
-@keyframes wpp-pulse {
-  0%,100%{ box-shadow: 0 6px 24px rgba(37,211,102,0.45); }
-  50%{ box-shadow: 0 8px 36px rgba(37,211,102,0.7); }
-}
+/* MODAL PEDIDO */
+.pedido-header-title{font-size:1.05rem;font-weight:900;color:var(--texto);text-align:center;}
+.pedido-header-sub{font-size:.72rem;color:#bbb;font-weight:600;text-align:center;margin-top:2px;}
+.divider-line{border:none;border-top:1px solid #f0f0f0;margin:14px 0 12px;}
+.bloco-title{font-size:.7rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--marrom);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.bloco-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,#eee,transparent);}
+.preparo-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;}
+.preparo-btn{border:2.5px solid #eee;background:#fff;border-radius:14px;padding:14px 8px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:800;color:#bbb;transition:all .2s;text-align:center;line-height:1.4;}
+.preparo-btn:hover{border-color:#ddd;color:#888;}
+.preparo-btn.active{border-color:var(--rosa);background:linear-gradient(135deg,#fff5f7,#fff0f4);color:var(--rosa);box-shadow:0 4px 14px rgba(232,50,90,.18);transform:translateY(-1px);}
+.preparo-btn .p-emoji{font-size:1.3rem;display:block;margin-bottom:4px;}
+.preparo-btn .p-nome{font-size:.88rem;font-weight:900;display:block;}
+.preparo-btn .p-tipo{font-size:.72rem;display:block;opacity:.75;}
+.preparo-btn .p-preco{font-size:.8rem;font-weight:900;display:block;margin-top:5px;}
+.sabores-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.sabor-btn{border:2px solid #eee;background:#fff;border-radius:13px;padding:12px 8px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.76rem;font-weight:700;color:#aaa;transition:all .2s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;line-height:1.3;}
+.sabor-btn:hover{border-color:#ddd;color:#888;}
+.sabor-btn.selected{border-color:var(--rosa);background:var(--rosa-pale);color:var(--rosa);}
+.sabor-btn .emoji{font-size:1.5rem;}
+.sabor-badge{font-size:.63rem;font-weight:800;color:var(--verde);background:#e8f8ef;padding:2px 7px;border-radius:8px;}
+.qtde-section{margin:14px 0 6px;}
+.qtde-row{display:flex;align-items:center;justify-content:space-between;}
+.qtde-label{font-size:.82rem;font-weight:800;color:var(--marrom);}
+.qtde-ctrl{display:flex;align-items:center;gap:12px;}
+.qtde-btn{width:36px;height:36px;border-radius:50%;border:2px solid var(--rosa);background:#fff;color:var(--rosa);font-size:1.3rem;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.qtde-btn:hover{background:var(--rosa);color:#fff;}
+.qtde-num{font-size:1.2rem;font-weight:900;min-width:28px;text-align:center;color:var(--texto);}
+.add-btns{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px;}
+.add-btn{border:2px solid #e8e8e8;border-radius:13px;padding:13px 6px;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:800;cursor:pointer;transition:all .2s;background:#f5f5f5;color:#ccc;text-align:center;line-height:1.35;}
+.add-btn.ready{background:linear-gradient(135deg,var(--rosa),var(--rosa-dark));color:#fff;border-color:var(--rosa);box-shadow:0 5px 16px rgba(232,50,90,.35);}
+.add-btn.ready-outline{background:#fff;border-color:var(--rosa);color:var(--rosa);box-shadow:0 3px 10px rgba(232,50,90,.12);}
+.btn-voltar{display:inline-flex;align-items:center;gap:6px;background:var(--rosa-pale);border:none;border-radius:20px;padding:7px 16px;cursor:pointer;color:var(--rosa);font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:900;margin-bottom:14px;transition:all .2s;}
+.btn-voltar:hover{background:var(--rosa);color:#fff;}
+.sabor-emoji-big{font-size:3rem;text-align:center;display:block;margin-bottom:6px;}
+.falta-aviso{background:#fff8e0;border:1.5px solid var(--dourado-light);border-radius:10px;padding:9px 12px;font-size:.8rem;font-weight:800;color:var(--dourado);text-align:center;margin:12px 0 10px;}
+.falta-aviso.completo{background:#e8f8ef;border-color:#4caf50;color:#2e7d32;}
+.continuar-btn{display:block;width:100%;background:linear-gradient(135deg,var(--rosa),var(--rosa-dark));color:#fff;border:none;border-radius:13px;padding:13px;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:900;cursor:pointer;box-shadow:0 5px 16px rgba(232,50,90,.35);transition:all .2s;}
+.continuar-btn:active{transform:scale(.98);}
+.avulso-info{background:linear-gradient(90deg,#fff8e8,#fff0f4);border-radius:10px;padding:9px 12px;font-size:.73rem;font-weight:800;color:var(--marrom);margin-bottom:12px;border:1px solid var(--rosa-pale);text-align:center;line-height:1.5;}
 
-/* ─── SECTION DIVIDER ─── */
-.sec-divider {
-  height: 8px; background: var(--cinza-bg); margin: 20px 0 0;
-  border-top: 1px solid #ececec; border-bottom: 1px solid #ececec;
-}
-
-/* ─── ANIMATIONS ─── */
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(20px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-.fade-up { animation: fadeUp 0.5s ease both; }
-.fade-up-2 { animation: fadeUp 0.5s 0.1s ease both; }
-.fade-up-3 { animation: fadeUp 0.5s 0.2s ease both; }
-.fade-up-4 { animation: fadeUp 0.5s 0.3s ease both; }
+/* MODAL FECHAMENTO */
+.overlay-fechamento{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:300;align-items:center;justify-content:center;padding:14px;}
+.overlay-fechamento.show{display:flex;}
+.modal-fechamento{background:#0d0d0d;border:2px solid var(--dourado);border-radius:26px;padding:26px 20px 22px;width:100%;max-width:360px;box-shadow:0 0 80px rgba(201,150,42,.45),0 24px 64px rgba(0,0,0,.9);position:relative;max-height:92vh;overflow-y:auto;}
+.modal-fechamento::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(201,150,42,.12) 0%,transparent 65%);pointer-events:none;}
+.fechamento-title{font-family:'Dancing Script',cursive;font-size:1.9rem;color:var(--dourado-light);text-align:center;margin-bottom:2px;position:relative;}
+.fechamento-sub{font-size:.65rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#555;text-align:center;margin-bottom:16px;position:relative;}
+.recibo-wrap{background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.4);}
+.recibo-topo{background:repeating-linear-gradient(90deg,#fff 0,#fff 7px,#e0e0e0 7px,#e0e0e0 9px);height:10px;}
+.recibo-body{padding:14px 16px;font-family:'Courier New',monospace;}
+.recibo-bottom{background:repeating-linear-gradient(90deg,#fff 0,#fff 7px,#e0e0e0 7px,#e0e0e0 9px);height:10px;}
+.recibo-header{text-align:center;padding-bottom:10px;border-bottom:1px dashed #ccc;margin-bottom:10px;}
+.recibo-sep{color:#bbb;font-size:.68rem;}
+.recibo-shop{font-size:1rem;font-weight:700;color:#111;letter-spacing:1px;}
+.recibo-nome{font-size:.9rem;color:var(--rosa);font-weight:700;}
+.recibo-datetime{font-size:.72rem;color:#888;margin-top:3px;}
+.recibo-num{font-size:.8rem;color:#333;margin-top:2px;}
+.recibo-num b{color:#0066cc;}
+.recibo-linha{display:flex;justify-content:space-between;align-items:baseline;font-size:.78rem;color:#333;margin:2px 0;}
+.recibo-linha.cliente-info{font-size:.72rem;color:#555;}
+.recibo-linha.sub-item{font-size:.65rem;color:#999;margin:0 0 2px 4px;}
+.recibo-dashed{border:none;border-top:1px dashed #ddd;margin:8px 0;}
+.recibo-footer{text-align:center;padding-top:10px;border-top:1px dashed #ccc;margin-top:8px;}
+.recibo-footer-txt{font-size:.68rem;color:#888;}
+.progress-wrap{margin:16px 0 4px;}
+.progress-label{font-size:.7rem;color:#666;font-weight:700;text-align:center;margin-bottom:8px;font-family:'Nunito',sans-serif;letter-spacing:1px;}
+.progress-bar-bg{background:#1a1a1a;border-radius:100px;height:7px;overflow:hidden;border:1px solid #333;}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--dourado),var(--dourado-light));border-radius:100px;width:0%;transition:width .12s linear;box-shadow:0 0 10px var(--dourado-light);}
+.grato-msg{text-align:center;color:var(--dourado-light);font-family:'Dancing Script',cursive;font-size:1.7rem;margin-top:10px;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s;}
+.grato-msg.show{opacity:1;transform:translateY(0);}
+.enviando-txt{text-align:center;color:#666;font-size:.76rem;font-weight:700;margin-top:5px;font-family:'Nunito',sans-serif;letter-spacing:.5px;}
+.fechamento-btns{display:flex;gap:9px;margin-top:16px;position:relative;}
+.btn-cancelar{flex:1;padding:12px;border-radius:13px;border:1px solid #2a2a2a;background:none;color:#555;font-family:'Nunito',sans-serif;font-weight:800;cursor:pointer;font-size:.85rem;transition:all .2s;}
+.btn-cancelar:hover{border-color:#444;color:#888;}
+.btn-confirmar{flex:2;padding:12px;border-radius:13px;border:none;background:linear-gradient(135deg,var(--dourado),var(--dourado-light));color:#000;font-family:'Nunito',sans-serif;font-weight:900;cursor:pointer;font-size:.9rem;box-shadow:0 5px 18px rgba(201,150,42,.45);transition:all .2s;}
+.btn-confirmar:hover{box-shadow:0 7px 24px rgba(201,150,42,.6);transform:translateY(-1px);}
+.btn-confirmar:active{transform:scale(.98);}
 </style>
 </head>
 <body>
 
-<!-- ═══════════════ HERO ═══════════════ -->
+<!-- ══ HERO ══ -->
 <div class="hero">
-  <div class="hero-dots"></div>
-
-  <!-- TOPBAR -->
   <div class="topbar">
     <div class="logo-wrap">
-      <img src="logo.png" class="logo-img" alt="Aline Salgados"
+      <img src="logo.png" class="logo-img" alt="Aline"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="logo-fallback" style="display:none">🍗</div>
-      <div class="logo-text">
-        <div class="logo-name">Aline Salgados</div>
+      <div class="logo-fallback">🍗</div>
+      <div>
+        <div class="logo-name">Aline</div>
         <div class="logo-sub">Salgados Delicia</div>
       </div>
     </div>
-    <div class="topbar-contact">
-      <a href="tel:11954950044" class="contact-chip">
-        <span class="dot"></span> (11) 95495-0044
-      </a>
-      <a href="https://wa.me/5511954950044" class="contact-chip" target="_blank">
-        💬 WhatsApp
-      </a>
+    <div class="topbar-right">
+      <a href="tel:11954950044" class="contact-pill"><span class="pill-dot"></span>(11) 95495-0044</a>
+      <a href="https://wa.me/5511954950044" target="_blank" class="contact-pill">💬 WhatsApp</a>
     </div>
   </div>
-
-  <!-- HERO CONTENT -->
-  <div class="hero-content fade-up">
+  <div class="hero-body">
     <div class="hero-badge">🔥 Fresquinho todo dia</div>
-    <div class="hero-title">Salgados que<br><span>fazem diferença</span></div>
-    <div class="hero-desc">Coxinhas, kibes, esfirras e muito mais.<br>Retire no local ou encomende pelo WhatsApp.</div>
-
-    <div class="hero-btns fade-up-2">
-      <a href="aline-salgados.html" class="btn-primary">
-        🛒 &nbsp;Fazer Pedido Agora
-      </a>
-      <a href="https://wa.me/5511954950044?text=Olá%20Aline!%20Quero%20fazer%20um%20pedido%20😊" target="_blank" class="btn-secondary">
-        💬 &nbsp;Chamar no WhatsApp
-      </a>
+    <div class="hero-title">Salgados que<br><span>todo mundo ama</span></div>
+    <div class="hero-desc">Coxinhas, kibes, esfirras e muito mais.<br>Retire no local — rápido e fácil!</div>
+    <div class="hero-btns">
+      <button class="btn-hero-p" onclick="scrollToOrder()">🛒 &nbsp;Fazer Pedido Agora</button>
+      <a href="https://wa.me/5511954950044?text=Olá%20Aline!%20Quero%20fazer%20um%20pedido%20😊" target="_blank" class="btn-hero-s">💬 &nbsp;Chamar no WhatsApp</a>
     </div>
   </div>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-val"><span>4.9</span> ★</div><div class="hstat-label">Avaliação</div></div>
+    <div class="hstat"><div class="hstat-val">+<span>500</span></div><div class="hstat-label">Pedidos/mês</div></div>
+    <div class="hstat"><div class="hstat-val"><span>0</span> km</div><div class="hstat-label">Retire aqui</div></div>
+  </div>
+</div>
 
-  <!-- STATS -->
-  <div class="hero-stats fade-up-3">
-    <div class="stat">
-      <div class="stat-val"><span>4.9</span> ★</div>
-      <div class="stat-label">Avaliação</div>
+<!-- ══ CARDÁPIO ══ -->
+<div style="margin-top:14px">
+  <div class="menu-header"><div class="menu-title">🌟 Mais pedidos</div></div>
+  <div class="menu-grid">
+    <div class="menu-card" onclick="abrirEscolha()">
+      <div class="menu-card-img">🍗<div class="menu-card-badge">Popular</div></div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Coxinha de Frango</div>
+        <div class="menu-card-desc">Crocante, recheada e suculenta</div>
+        <div class="menu-card-foot">
+          <div class="menu-card-preco"><small>a partir de </small>R$ 10</div>
+          <button class="menu-card-add" onclick="event.stopPropagation();abrirEscolha()">+</button>
+        </div>
+      </div>
     </div>
-    <div class="stat">
-      <div class="stat-val">+<span>500</span></div>
-      <div class="stat-label">Pedidos / mês</div>
+    <div class="menu-card" onclick="abrirEscolha()">
+      <div class="menu-card-img">🫓<div class="menu-card-badge">Favorito</div></div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Kibe</div>
+        <div class="menu-card-desc">Tempero especial da casa</div>
+        <div class="menu-card-foot">
+          <div class="menu-card-preco"><small>a partir de </small>R$ 10</div>
+          <button class="menu-card-add" onclick="event.stopPropagation();abrirEscolha()">+</button>
+        </div>
+      </div>
     </div>
-    <div class="stat">
-      <div class="stat-val"><span>0</span> km</div>
-      <div class="stat-label">Retire aqui</div>
+    <div class="menu-card" onclick="abrirEscolha()">
+      <div class="menu-card-img">🧀<div class="menu-card-badge gold">Novo</div></div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Bolinho de Queijo</div>
+        <div class="menu-card-desc">Recheio cremoso que derrete</div>
+        <div class="menu-card-foot">
+          <div class="menu-card-preco"><small>a partir de </small>R$ 10</div>
+          <button class="menu-card-add" onclick="event.stopPropagation();abrirEscolha()">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" onclick="abrirEscolha()">
+      <div class="menu-card-img">🌶️</div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Calabresa</div>
+        <div class="menu-card-desc">Sabor marcante e apimentado</div>
+        <div class="menu-card-foot">
+          <div class="menu-card-preco"><small>a partir de </small>R$ 10</div>
+          <button class="menu-card-add" onclick="event.stopPropagation();abrirEscolha()">+</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ MAIN ═══════════════ -->
-<div class="main">
+<div class="divider-sec"></div>
 
-  <!-- CATEGORIAS -->
-  <div class="sec-header">
-    <div class="sec-title">Categorias</div>
+<div style="margin-top:14px">
+  <div class="menu-header"><div class="menu-title">🧺 Centenas e Avulso</div></div>
+  <div class="menu-list-item" onclick="abrirPedido('centena')">
+    <div class="list-emoji">🔥</div>
+    <div class="list-info"><div class="list-nome">Centena Frita</div><div class="list-desc">100 unidades — sabor único ou diversos<br>Fresquinho na hora</div></div>
+    <div class="list-right"><div class="list-preco">R$ 70</div><button class="list-add" onclick="event.stopPropagation();abrirPedido('centena')">+</button></div>
   </div>
-  <div class="cats-scroll">
-    <div class="cat-chip active"><span class="cat-emoji">🍽️</span> Tudo</div>
-    <div class="cat-chip"><span class="cat-emoji">🍗</span> Fritos</div>
-    <div class="cat-chip"><span class="cat-emoji">❄️</span> Congelados</div>
-    <div class="cat-chip"><span class="cat-emoji">🧺</span> Centena</div>
-    <div class="cat-chip"><span class="cat-emoji">🛍️</span> Avulso</div>
-    <div class="cat-chip"><span class="cat-emoji">🥤</span> Bebidas</div>
+  <div class="menu-list-item" onclick="abrirPedido('centena')">
+    <div class="list-emoji">❄️</div>
+    <div class="list-info"><div class="list-nome">Centena Congelada</div><div class="list-desc">100 unidades — sabor único ou diversos<br>Para fritar em casa</div></div>
+    <div class="list-right"><div class="list-preco">R$ 65</div><button class="list-add" onclick="event.stopPropagation();abrirPedido('centena')">+</button></div>
   </div>
-
-  <!-- BANNER -->
-  <div class="banner fade-up-2" style="margin-top:20px">
-    <div class="banner-tag">🎉 Promoção especial</div>
-    <div class="banner-title">Centena a partir de R$ 65</div>
-    <div class="banner-desc">100 salgados fresquinhos pra sua festa ou evento!</div>
-    <a href="aline-salgados.html" class="banner-btn">Pedir agora →</a>
+  <div class="menu-list-item" onclick="abrirPedido('avulso')">
+    <div class="list-emoji">🛍️</div>
+    <div class="list-info"><div class="list-nome">Pacote Avulso</div><div class="list-desc">14 un fritos · 16 un congelados<br>Sabor único ou diversos</div></div>
+    <div class="list-right"><div class="list-preco">R$ 10</div><button class="list-add" onclick="event.stopPropagation();abrirPedido('avulso')">+</button></div>
   </div>
+</div>
 
-  <!-- PRODUTOS EM DESTAQUE -->
-  <div class="sec-header" style="margin-top:8px">
-    <div class="sec-title">🌟 Mais pedidos</div>
+<div class="divider-sec"></div>
+
+<!-- ══ DADOS + CARRINHO ══ -->
+<div id="orderSection">
+  <div class="section-card">
+    <div class="sec-label">👤 Seus dados</div>
+    <input class="inp" type="text" id="nomeCliente" placeholder="Nome completo"/>
+    <input class="inp" type="tel"  id="wppCliente"  placeholder="WhatsApp (ex: 11 99999-9999)"/>
   </div>
-  <div class="produtos-grid">
-
-    <a href="aline-salgados.html" class="produto-card">
-      <div class="produto-img">
-        🍗
-        <div class="produto-badge">Popular</div>
-      </div>
-      <div class="produto-info">
-        <div class="produto-nome">Coxinha de Frango</div>
-        <div class="produto-desc">Crocante por fora, recheada e suculenta por dentro</div>
-        <div class="produto-footer">
-          <div class="produto-preco"><small>a partir de </small>R$ 10</div>
-          <button class="produto-add" onclick="event.preventDefault();window.location='aline-salgados.html'">+</button>
-        </div>
-      </div>
-    </a>
-
-    <a href="aline-salgados.html" class="produto-card">
-      <div class="produto-img">
-        🫓
-        <div class="produto-badge">Favorito</div>
-      </div>
-      <div class="produto-info">
-        <div class="produto-nome">Kibe</div>
-        <div class="produto-desc">Tempero especial da casa, sequinho e saboroso</div>
-        <div class="produto-footer">
-          <div class="produto-preco"><small>a partir de </small>R$ 10</div>
-          <button class="produto-add" onclick="event.preventDefault();window.location='aline-salgados.html'">+</button>
-        </div>
-      </div>
-    </a>
-
-    <a href="aline-salgados.html" class="produto-card">
-      <div class="produto-img">
-        🧀
-        <div class="produto-badge gold">Novo</div>
-      </div>
-      <div class="produto-info">
-        <div class="produto-nome">Bolinho de Queijo</div>
-        <div class="produto-desc">Recheio cremoso de queijo que derrete na boca</div>
-        <div class="produto-footer">
-          <div class="produto-preco"><small>a partir de </small>R$ 10</div>
-          <button class="produto-add" onclick="event.preventDefault();window.location='aline-salgados.html'">+</button>
-        </div>
-      </div>
-    </a>
-
-    <a href="aline-salgados.html" class="produto-card">
-      <div class="produto-img">
-        🌶️
-      </div>
-      <div class="produto-info">
-        <div class="produto-nome">Calabresa</div>
-        <div class="produto-desc">Recheio apimentado pra quem gosta de sabor marcante</div>
-        <div class="produto-footer">
-          <div class="produto-preco"><small>a partir de </small>R$ 10</div>
-          <button class="produto-add" onclick="event.preventDefault();window.location='aline-salgados.html'">+</button>
-        </div>
-      </div>
-    </a>
-
-  </div>
-
-  <!-- DIVIDER -->
-  <div class="sec-divider"></div>
-
-  <!-- CENTENAS -->
-  <div class="sec-header">
-    <div class="sec-title">🧺 Centenas</div>
-    <a href="aline-salgados.html" class="sec-link">Ver tudo</a>
-  </div>
-
-  <a href="aline-salgados.html" class="produto-lista">
-    <div class="produto-lista-emoji">🔥</div>
-    <div class="produto-lista-info">
-      <div class="produto-lista-nome">Centena Frita</div>
-      <div class="produto-lista-desc">100 unidades — sabor único ou diversos<br>Fresquinho na hora</div>
-    </div>
-    <div class="produto-lista-right">
-      <div class="produto-lista-preco">R$ 70</div>
-      <button class="produto-lista-add" onclick="event.preventDefault();window.location='aline-salgados.html'">+</button>
-    </div>
-  </a>
-
-  <a href="aline-salgados.html" class="produto-lista">
-    <div class="produto-lista-emoji">❄️</div>
-    <div class="produto-lista-info">
-      <div class="produto-lista-nome">Centena Congelada</div>
-      <div class="produto-lista-desc">100 unidades — sabor único ou diversos<br>Para fritar em casa</div>
-    </div>
-    <div class="produto-lista-right">
-      <div class="produto-lista-preco">R$ 65</div>
-      <button class="produto-lista-add" onclick="event.preventDefault();window.location='aline-salgados.html'">+</button>
-    </div>
-  </a>
-
-  <a href="aline-salgados.html" class="produto-lista">
-    <div class="produto-lista-emoji">🛍️</div>
-    <div class="produto-lista-info">
-      <div class="produto-lista-nome">Pacote Avulso</div>
-      <div class="produto-lista-desc">14 un fritos · 16 un congelados<br>Sabor único ou diversos</div>
-    </div>
-    <div class="produto-lista-right">
-      <div class="produto-lista-preco">R$ 10</div>
-      <button class="produto-lista-add" onclick="event.preventDefault();window.location='aline-salgados.html'">+</button>
-    </div>
-  </a>
-
-  <!-- DIVIDER -->
-  <div class="sec-divider"></div>
-
-  <!-- INFO CARDS -->
-  <div class="sec-header">
-    <div class="sec-title">📋 Informações</div>
-  </div>
-  <div class="info-cards">
-    <div class="info-card">
-      <div class="info-card-icon">🕐</div>
-      <div class="info-card-title">Horário</div>
-      <div class="info-card-txt">
-        Seg–Sáb<br><b>8h às 20h</b><br>
-        Domingo<br><b>9h às 14h</b>
-      </div>
-    </div>
-    <div class="info-card">
-      <div class="info-card-icon">📍</div>
-      <div class="info-card-title">Retirada</div>
-      <div class="info-card-txt">
-        <b>Somente no local</b><br>
-        Toque para abrir<br>o mapa
-      </div>
-    </div>
-    <div class="info-card">
-      <div class="info-card-icon">💳</div>
-      <div class="info-card-title">Pagamento</div>
-      <div class="info-card-txt">
-        Dinheiro<br>Cartão Crédito<br>Cartão Débito<br><b>Pix</b>
-      </div>
-    </div>
-    <div class="info-card">
-      <div class="info-card-icon">📞</div>
-      <div class="info-card-title">Contato</div>
-      <div class="info-card-txt">
-        <b>(11) 95495-0044</b><br>
-        WhatsApp<br>disponível
-      </div>
-    </div>
-  </div>
-
-  <!-- DIVIDER -->
-  <div class="sec-divider"></div>
-
-  <!-- AVALIAÇÕES -->
-  <div class="sec-header">
-    <div class="sec-title">⭐ Avaliações</div>
-    <span style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:900;color:var(--rosa)">4.9</span>
-  </div>
-  <div class="reviews-scroll">
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <div class="review-txt">"Melhor coxinha que já comi! Sempre fresquinha e crocante. Recomendo demais!"</div>
-      <div class="review-author">— Fernanda S.</div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <div class="review-txt">"Pedi a centena congelada pra festa e todo mundo adorou. Muito saborosa!"</div>
-      <div class="review-author">— Marcos A.</div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <div class="review-txt">"Atendimento excelente, salgados de qualidade. Voltarei sempre com certeza!"</div>
-      <div class="review-author">— Juliana R.</div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <div class="review-txt">"Muito bom! O kibe é incrível. Encomendo toda semana, nunca decepciona."</div>
-      <div class="review-author">— Carlos M.</div>
-    </div>
-  </div>
-
-  <!-- BOTÃO RETIRE AQUI -->
-  <div style="margin:24px 20px 0">
-    <button onclick="window.open('https://maps.app.goo.gl/d6zEQYa4Q6MMo8qZ9','_blank')"
-      style="width:100%;background:linear-gradient(135deg,#f5a623,#f0c040);
-             color:#3a2a1a;border:none;border-radius:18px;padding:18px 20px;
-             font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;
-             cursor:pointer;box-shadow:0 8px 24px rgba(245,166,35,0.4);
-             display:flex;align-items:center;justify-content:center;gap:10px;
-             transition:all 0.2s">
-      🗺️ &nbsp;Retire Aqui — Ver no Mapa
+  <div style="padding:14px 14px 0">
+    <button onclick="abrirEscolha()" style="width:100%;background:linear-gradient(135deg,var(--rosa),var(--rosa-dark));color:#fff;border:none;border-radius:18px;padding:18px 20px;font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:900;cursor:pointer;box-shadow:0 8px 24px rgba(232,50,90,.4);display:flex;align-items:center;justify-content:center;gap:10px;animation:phero 2.5s ease-in-out infinite;">
+      🛒 &nbsp;Escolher Salgados
     </button>
-    <p style="text-align:center;font-size:0.72rem;color:#999;font-weight:600;margin-top:8px">
-      Toque para abrir no Google Maps
-    </p>
   </div>
+  <div class="carrinho-section" id="carrinhoSection">
+    <div class="sec-label">🛍️ Meu Pedido</div>
+    <div id="carrinhoItems"><div class="empty-cart">Nenhum item ainda</div></div>
+  </div>
+  <div class="pagto-section" id="pagtoSection">
+    <div class="sec-label">💳 Forma de Pagamento</div>
+    <div class="pagto-grid">
+      <button class="pagto-btn" onclick="selecionarPagto(this,'DINHEIRO EM ESPÉCIE')">💵 Dinheiro</button>
+      <button class="pagto-btn" onclick="selecionarPagto(this,'CARTÃO CRÉDITO')">💳 Crédito</button>
+      <button class="pagto-btn" onclick="selecionarPagto(this,'CARTÃO DÉBITO')">🏧 Débito</button>
+      <button class="pagto-btn" onclick="selecionarPagto(this,'PIX')">📲 Pix</button>
+    </div>
+  </div>
+  <button class="fechar-btn" id="fecharBtn" onclick="abrirFechamento()">✅ &nbsp;Fechar Pedido e Enviar</button>
+</div>
 
-</div><!-- /main -->
+<div class="divider-sec"></div>
 
-<!-- ═══════ BOTTOM NAV ═══════ -->
-<nav class="bottom-nav">
-  <a href="index.html" class="nav-item active">
-    <span class="nav-icon">🏠</span>
-    <span class="nav-label">Início</span>
-  </a>
-  <a href="aline-salgados.html" class="nav-item-main">
-    <span class="nav-icon">🛒</span>
-    <span class="nav-label">Pedir</span>
-  </a>
-  <a href="https://wa.me/5511954950044" target="_blank" class="nav-item">
-    <span class="nav-icon">💬</span>
-    <span class="nav-label">WhatsApp</span>
-  </a>
-  <a href="https://maps.app.goo.gl/d6zEQYa4Q6MMo8qZ9" target="_blank" class="nav-item">
-    <span class="nav-icon">📍</span>
-    <span class="nav-label">Local</span>
-  </a>
-</nav>
+<!-- INFO -->
+<div class="info-section">
+  <div class="sec-label" style="padding:0 4px 10px">📋 Informações</div>
+  <div class="info-grid">
+    <div class="info-card"><div class="info-card-icon">🕐</div><div class="info-card-title">Horário</div><div class="info-card-txt">Seg–Sáb<br><b>8h às 20h</b><br>Domingo<br><b>9h às 14h</b></div></div>
+    <div class="info-card"><div class="info-card-icon">💳</div><div class="info-card-title">Pagamento</div><div class="info-card-txt">Dinheiro<br>Crédito · Débito<br><b>Pix</b></div></div>
+    <div class="info-card"><div class="info-card-icon">📞</div><div class="info-card-title">Contato</div><div class="info-card-txt"><b>(11) 95495-0044</b><br>WhatsApp disponível</div></div>
+    <div class="info-card"><div class="info-card-icon">📍</div><div class="info-card-title">Retirada</div><div class="info-card-txt"><b>Somente no local</b><br>Veja o mapa abaixo</div></div>
+  </div>
+</div>
 
-<!-- ═══════ WHATSAPP FLUTUANTE ═══════ -->
-<a href="https://wa.me/5511954950044?text=Olá%20Aline!%20Quero%20fazer%20um%20pedido%20😊"
-   target="_blank" class="wpp-float" title="Chamar no WhatsApp">
-  💬
-</a>
+<!-- RETIRE AQUI -->
+<div style="margin:14px 14px 0">
+  <button class="retire-btn" onclick="window.open('https://maps.app.goo.gl/d6zEQYa4Q6MMo8qZ9','_blank')">🗺️ &nbsp;Retire Aqui — Ver no Mapa</button>
+  <p style="text-align:center;font-size:.72rem;color:#aaa;font-weight:600;margin-top:7px">Toque para abrir no Google Maps</p>
+</div>
+
+<div class="spacer"></div>
+
+<!-- TOTAL FLUTUANTE -->
+<div class="total-bar" id="totalBar">
+  <div><div class="total-bar-label">Total do pedido</div><div class="total-bar-items" id="totalItems"></div></div>
+  <div class="total-bar-valor" id="totalValor">R$ 0,00</div>
+</div>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/5511954950044?text=Olá%20Aline!%20Quero%20fazer%20um%20pedido%20😊" target="_blank" class="wpp-float">💬</a>
+
+<!-- ══ OVERLAY: ESCOLHA TIPO ══ -->
+<div class="overlay" id="ovEscolha">
+  <div class="modal">
+    <button class="modal-close" onclick="fecharOverlay('ovEscolha')">✕</button>
+    <div class="modal-title">O que vai querer? 😋</div>
+    <p style="text-align:center;font-size:.78rem;color:#bbb;font-weight:600;margin-bottom:18px">Escolha a categoria do seu pedido</p>
+    <div class="tipo-card" onclick="abrirPedido('centena')">
+      <span class="tipo-card-emoji">🧺</span>
+      <div class="tipo-card-title">Centena — 100 Unidades</div>
+      <div class="tipo-card-desc">Sabor único ou diversos sabores à sua escolha</div>
+      <div class="tipo-card-preco"><span class="preco-tag">🔥 Frito R$ 70</span><span class="preco-tag gold">❄️ Congelado R$ 65</span></div>
+      <span class="tipo-card-arrow">›</span>
+    </div>
+    <div class="tipo-card" onclick="abrirPedido('avulso')">
+      <span class="tipo-card-emoji">🛍️</span>
+      <div class="tipo-card-title">Avulso — Pacote R$ 10</div>
+      <div class="tipo-card-desc">Sabor único ou diversos — pacotes menores</div>
+      <div class="tipo-card-preco"><span class="preco-tag">🔥 Frito 14 un</span><span class="preco-tag gold">❄️ Congelado 16 un</span></div>
+      <span class="tipo-card-arrow">›</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ OVERLAY: PEDIDO ══ -->
+<div class="overlay" id="ovPedido">
+  <div class="modal" style="max-width:420px">
+    <button class="btn-voltar" onclick="voltarEscolha()">← Voltar</button>
+    <div class="pedido-header-title" id="pedidoHeaderTitle"></div>
+    <div class="pedido-header-sub">Escolha o preparo e os sabores</div>
+    <hr class="divider-line">
+    <div class="bloco-title">🍳 Preparo</div>
+    <div class="preparo-grid" id="preparoGrid"></div>
+    <div class="bloco-title" id="saboresBloco">🌟 Sabores</div>
+    <div class="avulso-info" id="avulsoInfo" style="display:none"></div>
+    <div class="sabores-grid" id="saboresGrid"></div>
+    <div class="qtde-section" id="qtdeSection" style="display:none">
+      <div class="qtde-row">
+        <div class="qtde-label" id="qtdeLabel"></div>
+        <div class="qtde-ctrl">
+          <button class="qtde-btn" onclick="ajustarQtde(-1)">−</button>
+          <div class="qtde-num" id="qtdeNum">1</div>
+          <button class="qtde-btn" onclick="ajustarQtde(1)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="add-btns">
+      <button class="add-btn" id="addBtn" onclick="adicionarPedido(false)">✔ Adicionar<br>ao Pedido</button>
+      <button class="add-btn" id="addContinuarBtn" onclick="adicionarPedido(true)">➕ Adicionar e<br>Continuar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ OVERLAY: SABOR DIVERSOS ══ -->
+<div class="overlay" id="ovSabor">
+  <div class="modal" style="max-width:320px">
+    <button class="modal-close" onclick="fecharOverlay('ovSabor')">✕</button>
+    <span class="sabor-emoji-big" id="modalSaborEmoji"></span>
+    <div class="modal-title" id="modalSaborNome" style="font-size:1.4rem"></div>
+    <div style="font-size:.73rem;color:#bbb;text-align:center;margin-bottom:14px" id="modalSaborInfo"></div>
+    <div class="qtde-row" style="justify-content:center;gap:20px">
+      <button class="qtde-btn" onclick="ajustarQtdeSabor(-1)">−</button>
+      <div class="qtde-num" id="qtdeSaborNum" style="font-size:1.5rem">0</div>
+      <button class="qtde-btn" onclick="ajustarQtdeSabor(1)">+</button>
+    </div>
+    <div class="falta-aviso" id="faltaAviso" style="display:none"></div>
+    <button class="continuar-btn" onclick="confirmarSabor()" style="margin-top:6px">✔ Confirmar</button>
+  </div>
+</div>
+
+<!-- ══ OVERLAY: FECHAMENTO ══ -->
+<div class="overlay-fechamento" id="ovFechamento">
+  <div class="modal-fechamento">
+    <div class="fechamento-title">Aline Salgados</div>
+    <div class="fechamento-sub">✦ Resumo do Pedido ✦</div>
+    <div class="recibo-wrap">
+      <div class="recibo-topo"></div>
+      <div class="recibo-body" id="reciboConteudo"></div>
+      <div class="recibo-bottom"></div>
+    </div>
+    <div class="progress-wrap" id="progressWrap" style="display:none">
+      <div class="progress-label">⏳ ENVIANDO SEU PEDIDO...</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+    </div>
+    <div class="grato-msg" id="gratoMsg">Obrigada! 🙏</div>
+    <div class="enviando-txt" id="enviandoTxt" style="display:none">Seu pedido está sendo processado!</div>
+    <div class="fechamento-btns" id="fechamentoBtns">
+      <button class="btn-cancelar" onclick="fecharOverlay('ovFechamento')">Cancelar</button>
+      <button class="btn-confirmar" onclick="enviarPedido()">📲 Confirmar e Enviar</button>
+    </div>
+  </div>
+</div>
 
 <script>
-// Chips de categoria — filtra visualmente
-document.querySelectorAll('.cat-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
+const WPP_NUM = '5511954950044';
+let numeroPedido = parseInt(localStorage.getItem('alinePedNum') || '1');
+const SABORES = [
+  {nome:'Coxinha de Frango',emoji:'🍗'},{nome:'Bolinho de Queijo',emoji:'🧀'},
+  {nome:'Risole Presunto/Queijo',emoji:'🥙'},{nome:'Calabresa',emoji:'🌶️'},
+  {nome:'Carne',emoji:'🥩'},{nome:'Salsicha',emoji:'🌭'},
+  {nome:'Kibe',emoji:'🫓'},{nome:'Mini Churros',emoji:'🍬'},
+];
+let carrinho=[],pagamento='',tipoPedido='',preparoAtual='';
+let saboresSelecionados={},qtdeCentenas=1,qtdeAvulsos=1;
+let saborDiversoAtual=null,qtdeSaborModal=0;
+
+function scrollToOrder(){document.getElementById('orderSection').scrollIntoView({behavior:'smooth',block:'start'});}
+function abrirEscolha(){mostrarOverlay('ovEscolha');}
+function abrirPedido(tipo){tipoPedido=tipo;fecharOverlay('ovEscolha');resetarPedido();renderizarPedidoModal();mostrarOverlay('ovPedido');}
+function voltarEscolha(){fecharOverlay('ovPedido');mostrarOverlay('ovEscolha');}
+function resetarPedido(){preparoAtual='';saboresSelecionados={};qtdeCentenas=1;qtdeAvulsos=1;}
+
+function renderizarPedidoModal(){
+  const isCentena=tipoPedido==='centena';
+  document.getElementById('pedidoHeaderTitle').textContent=isCentena?'Centena (100 unidades)':'Avulso — Pacote R$ 10';
+  const preparos=[
+    {id:'frito_unico',emoji:'🔥',nome:'Frito',tipo:'Sabor Único',preco:isCentena?'R$ 70':'R$ 10'},
+    {id:'frito_diversos',emoji:'🔥',nome:'Frito',tipo:'Diversos',preco:isCentena?'R$ 70':'R$ 10'},
+    {id:'congelado_unico',emoji:'❄️',nome:'Congelado',tipo:'Sabor Único',preco:isCentena?'R$ 65':'R$ 10'},
+    {id:'congelado_diversos',emoji:'❄️',nome:'Congelado',tipo:'Diversos',preco:isCentena?'R$ 65':'R$ 10'},
+  ];
+  document.getElementById('preparoGrid').innerHTML=preparos.map(p=>`
+    <button class="preparo-btn${preparoAtual===p.id?' active':''}" onclick="selecionarPreparo('${p.id}')">
+      <span class="p-emoji">${p.emoji}</span><span class="p-nome">${p.nome}</span>
+      <span class="p-tipo">${p.tipo}</span>
+      <span class="p-preco" style="color:${preparoAtual===p.id?'var(--rosa)':'#bbb'}">${p.preco}</span>
+    </button>`).join('');
+  renderizarSabores();atualizarAddBtns();
+}
+
+function selecionarPreparo(id){preparoAtual=id;saboresSelecionados={};renderizarPedidoModal();}
+
+function renderizarSabores(){
+  const grid=document.getElementById('saboresGrid');
+  const qtdeSect=document.getElementById('qtdeSection');
+  const avInfo=document.getElementById('avulsoInfo');
+  const isCentena=tipoPedido==='centena';
+  const isFrito=preparoAtual.includes('frito');
+  const isUnico=preparoAtual.includes('unico');
+  const isDiversos=preparoAtual.includes('diversos');
+  const capUn=isCentena?100:(isFrito?14:16);
+  const multi=isCentena?qtdeCentenas:qtdeAvulsos;
+  const precisa=capUn*multi;
+  const totalSel=Object.values(saboresSelecionados).reduce((a,b)=>a+b,0);
+  avInfo.style.display='none';
+  if(!preparoAtual){
+    grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;color:#ccc;font-size:.82rem;padding:18px 0">☝️ Escolha um preparo acima</div>`;
+    qtdeSect.style.display='none';return;
+  }
+  if(isUnico){
+    if(!isCentena){avInfo.style.display='block';avInfo.innerHTML=`🔥 Frito: <b>14 un/pct</b> &nbsp;|&nbsp; ❄️ Congelado: <b>16 un/pct</b>`;}
+    grid.innerHTML=SABORES.map(s=>{const sel=saboresSelecionados[s.nome]>0;
+      return `<button class="sabor-btn${sel?' selected':''}" onclick="selecionarSaborUnico('${s.nome}')">
+        <span class="emoji">${s.emoji}</span>${s.nome}${sel?'<span class="sabor-badge">✔ selecionado</span>':''}</button>`;
+    }).join('');
+    qtdeSect.style.display='block';
+    document.getElementById('qtdeLabel').textContent=isCentena?'Nº de centenas:':'Nº de pacotes:';
+    document.getElementById('qtdeNum').textContent=isCentena?qtdeCentenas:qtdeAvulsos;
+  }else if(isDiversos){
+    const faltam=precisa-totalSel;const cor=faltam>0?'var(--rosa)':'var(--verde)';
+    const hint=faltam>0?`— faltam ${faltam} un`:'— completo ✔';
+    document.getElementById('saboresBloco').innerHTML=`🌟 Sabores <span style="font-size:.7rem;color:${cor};font-weight:700;letter-spacing:0">${hint}</span>`;
+    avInfo.style.display='block';
+    avInfo.innerHTML=isCentena?`Complete <b>${precisa} unidades</b> (${qtdeCentenas} centena${qtdeCentenas>1?'s':''} × 100 un)`:`Complete <b>${capUn} unidades</b> por pacote (${isFrito?'Frito 14 un':'Congelado 16 un'})`;
+    grid.innerHTML=SABORES.map(s=>{const qtde=saboresSelecionados[s.nome]||0;
+      return `<button class="sabor-btn${qtde>0?' selected':''}" onclick="abrirModalSabor('${s.nome}','${s.emoji}')">
+        <span class="emoji">${s.emoji}</span>${s.nome}${qtde>0?`<span class="sabor-badge">${qtde} un</span>`:''}</button>`;
+    }).join('');
+    qtdeSect.style.display='none';
+  }
+  atualizarAddBtns();
+}
+
+function selecionarSaborUnico(nome){saboresSelecionados={[nome]:1};renderizarSabores();}
+function ajustarQtde(delta){
+  if(tipoPedido==='centena'){qtdeCentenas=Math.max(1,qtdeCentenas+delta);document.getElementById('qtdeNum').textContent=qtdeCentenas;}
+  else{qtdeAvulsos=Math.max(1,qtdeAvulsos+delta);document.getElementById('qtdeNum').textContent=qtdeAvulsos;}
+  renderizarSabores();
+}
+
+function abrirModalSabor(nome,emoji){
+  saborDiversoAtual={nome,emoji};
+  const isCentena=tipoPedido==='centena';const isFrito=preparoAtual.includes('frito');
+  const capUn=isCentena?100:(isFrito?14:16);const multi=isCentena?qtdeCentenas:qtdeAvulsos;
+  const precisa=capUn*multi;const totalSel=Object.values(saboresSelecionados).reduce((a,b)=>a+b,0);
+  qtdeSaborModal=saboresSelecionados[nome]||0;
+  document.getElementById('modalSaborEmoji').textContent=emoji;
+  document.getElementById('modalSaborNome').textContent=nome;
+  document.getElementById('modalSaborInfo').textContent=`Total do pedido: ${precisa} unidades`;
+  document.getElementById('qtdeSaborNum').textContent=qtdeSaborModal;
+  atualizarFaltaAviso(totalSel,precisa);mostrarOverlay('ovSabor');
+}
+
+function ajustarQtdeSabor(delta){
+  const isCentena=tipoPedido==='centena';const isFrito=preparoAtual.includes('frito');
+  const capUn=isCentena?100:(isFrito?14:16);const multi=isCentena?qtdeCentenas:qtdeAvulsos;
+  const precisa=capUn*multi;const totalSel=Object.values(saboresSelecionados).reduce((a,b)=>a+b,0);
+  const outros=totalSel-(saboresSelecionados[saborDiversoAtual.nome]||0);
+  const max=precisa-outros;
+  qtdeSaborModal=Math.min(max,Math.max(0,qtdeSaborModal+delta));
+  document.getElementById('qtdeSaborNum').textContent=qtdeSaborModal;
+  atualizarFaltaAviso(outros+qtdeSaborModal,precisa);
+}
+
+function atualizarFaltaAviso(total,precisa){
+  const div=document.getElementById('faltaAviso');const faltam=precisa-total;
+  div.style.display='block';
+  if(faltam>0){div.className='falta-aviso';div.textContent=`⚠️ Faltam ${faltam} unidades para completar`;}
+  else{div.className='falta-aviso completo';div.textContent='✔ Completo! Todas as unidades preenchidas';}
+}
+
+function confirmarSabor(){
+  if(qtdeSaborModal>0)saboresSelecionados[saborDiversoAtual.nome]=qtdeSaborModal;
+  else delete saboresSelecionados[saborDiversoAtual.nome];
+  fecharOverlay('ovSabor');renderizarSabores();
+}
+
+function atualizarAddBtns(){
+  const pronto=verificarPronto();
+  document.getElementById('addBtn').className='add-btn'+(pronto?' ready':'');
+  document.getElementById('addContinuarBtn').className='add-btn'+(pronto?' ready-outline':'');
+}
+
+function verificarPronto(){
+  if(!preparoAtual)return false;
+  const isCentena=tipoPedido==='centena';const isFrito=preparoAtual.includes('frito');
+  const isUnico=preparoAtual.includes('unico');const isDiversos=preparoAtual.includes('diversos');
+  const capUn=isCentena?100:(isFrito?14:16);const multi=isCentena?qtdeCentenas:qtdeAvulsos;
+  const precisa=capUn*multi;const totalSel=Object.values(saboresSelecionados).reduce((a,b)=>a+b,0);
+  if(isUnico)return Object.keys(saboresSelecionados).length===1;
+  if(isDiversos)return totalSel===precisa;
+  return false;
+}
+
+function adicionarPedido(continuar){
+  if(!verificarPronto())return;
+  const isCentena=tipoPedido==='centena';const isFrito=preparoAtual.includes('frito');const isUnico=preparoAtual.includes('unico');
+  const precoUnit=isCentena?(isFrito?70:65):10;
+  const qtde=isCentena?qtdeCentenas:qtdeAvulsos;const total=precoUnit*qtde;
+  const prepStr=(isFrito?'Frito':'Congelado')+' — '+(isUnico?'Sabor Único':'Diversos Sabores');
+  const saboresDetalhe=isUnico?Object.keys(saboresSelecionados).join(', '):Object.entries(saboresSelecionados).map(([n,q])=>`${n} (${q}un)`).join(', ');
+  const tipoStr=isCentena?`Centena (${qtde}×100un)`:`Avulso (${qtde} pct × ${isFrito?14:16}un)`;
+  carrinho.push({id:Date.now(),tipo:tipoStr,preparo:prepStr,sabores:saboresDetalhe,qtde,preco:total});
+  atualizarCarrinho();
+  if(!continuar)fecharOverlay('ovPedido');
+  else{resetarPedido();renderizarPedidoModal();}
+}
+
+function atualizarCarrinho(){
+  const items=document.getElementById('carrinhoItems');
+  const total=carrinho.reduce((a,b)=>a+b.preco,0);const nItems=carrinho.length;
+  if(nItems===0){
+    items.innerHTML='<div class="empty-cart">Nenhum item ainda</div>';
+    ['carrinhoSection','pagtoSection','fecharBtn','totalBar'].forEach(id=>document.getElementById(id).classList.remove('show'));
+    return;
+  }
+  ['carrinhoSection','pagtoSection','fecharBtn','totalBar'].forEach(id=>document.getElementById(id).classList.add('show'));
+  items.innerHTML=carrinho.map(item=>`
+    <div class="carrinho-item">
+      <div class="carrinho-item-row">
+        <div class="carrinho-item-nome">${item.tipo}</div>
+        <div class="carrinho-item-preco">R$ ${item.preco.toFixed(2).replace('.',',')}</div>
+      </div>
+      <div class="carrinho-item-det">${item.preparo}</div>
+      <div class="carrinho-item-sabores">${item.sabores}</div>
+      <div style="text-align:right;margin-top:6px">
+        <button class="btn-remover" onclick="removerItem(${item.id})">✕ remover</button>
+      </div>
+    </div>`).join('');
+  document.getElementById('totalValor').textContent=`R$ ${total.toFixed(2).replace('.',',')}`;
+  document.getElementById('totalItems').textContent=`${nItems} item${nItems>1?'s':''}`;
+}
+
+function removerItem(id){carrinho=carrinho.filter(i=>i.id!==id);atualizarCarrinho();}
+function selecionarPagto(el,forma){document.querySelectorAll('.pagto-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');pagamento=forma;}
+
+function abrirFechamento(){
+  const nome=document.getElementById('nomeCliente').value.trim();
+  const wpp=document.getElementById('wppCliente').value.trim();
+  if(!nome||!wpp){alert('Por favor, preencha seu nome e WhatsApp!');return;}
+  if(carrinho.length===0){alert('Seu carrinho está vazio!');return;}
+  if(!pagamento){alert('Selecione uma forma de pagamento!');return;}
+  const total=carrinho.reduce((a,b)=>a+b.preco,0);
+  const agora=new Date();
+  const hora=agora.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  const data=agora.toLocaleDateString('pt-BR');
+  const numPed=String(numeroPedido).padStart(6,'0');
+  let itensHtml='';
+  carrinho.forEach((item,idx)=>{
+    const pFmt=`R$ ${item.preco.toFixed(2).replace('.',',')}`;
+    itensHtml+=`
+      <div class="recibo-linha" style="font-weight:700;color:#111;display:flex;justify-content:space-between;align-items:baseline">
+        <span style="flex:1">${item.tipo}</span><span style="white-space:nowrap;margin-left:8px">${pFmt}</span>
+      </div>
+      <div class="recibo-linha sub-item"><span>↳ ${item.preparo}</span></div>
+      <div class="recibo-linha sub-item" style="margin-bottom:${idx<carrinho.length-1?'10px':'5px'}"><span>↳ ${item.sabores}</span></div>`;
   });
-});
+  document.getElementById('reciboConteudo').innerHTML=`
+    <div class="recibo-header">
+      <div class="recibo-sep">============================</div>
+      <div class="recibo-shop">SALGADOS DELICIA</div>
+      <div class="recibo-nome">*Aline*</div>
+      <div class="recibo-datetime">${data}&nbsp;&nbsp;${hora}</div>
+      <div class="recibo-num">N° <b>${numPed}</b></div>
+      <div class="recibo-sep">============================</div>
+    </div>
+    <div class="recibo-linha cliente-info" style="display:flex;justify-content:space-between"><span>Cliente:</span><span>${nome}</span></div>
+    <div class="recibo-linha cliente-info" style="display:flex;justify-content:space-between"><span>Fone:</span><span>${wpp}</span></div>
+    <div class="recibo-linha cliente-info" style="display:flex;justify-content:space-between"><span>Tipo:</span><span>Retirada no local</span></div>
+    <hr class="recibo-dashed">
+    ${itensHtml}
+    <hr class="recibo-dashed">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:1rem;font-weight:900;color:#000;padding-top:6px;margin-top:4px">
+      <span>TOTAL</span><span style="font-size:1.05rem">R$ ${total.toFixed(2).replace('.',',')}</span>
+    </div>
+    <hr class="recibo-dashed">
+    <div class="recibo-linha" style="font-size:.78rem;display:flex;justify-content:space-between"><span>💳 Pgto:</span><span>${pagamento}</span></div>
+    <div class="recibo-footer">
+      <div class="recibo-sep">============================</div>
+      <div class="recibo-footer-txt">Obrigada! Volte sempre 😊</div>
+    </div>`;
+  document.getElementById('progressWrap').style.display='none';
+  document.getElementById('gratoMsg').classList.remove('show');
+  document.getElementById('enviandoTxt').style.display='none';
+  document.getElementById('fechamentoBtns').style.display='flex';
+  document.getElementById('progressFill').style.width='0%';
+  mostrarOverlay('ovFechamento');
+}
+
+function enviarPedido(){
+  document.getElementById('fechamentoBtns').style.display='none';
+  document.getElementById('progressWrap').style.display='block';
+  document.getElementById('gratoMsg').classList.add('show');
+  document.getElementById('enviandoTxt').style.display='block';
+  const fill=document.getElementById('progressFill');
+  let progress=0;
+  const interval=setInterval(()=>{
+    progress+=2.5;fill.style.width=Math.min(progress,100)+'%';
+    if(progress>=100){clearInterval(interval);setTimeout(()=>enviarWhatsApp(),600);}
+  },100);
+}
+
+function enviarWhatsApp(){
+  const nome=document.getElementById('nomeCliente').value.trim();
+  const wpp=document.getElementById('wppCliente').value.trim();
+  const total=carrinho.reduce((a,b)=>a+b.preco,0);
+  const agora=new Date();
+  const hora=agora.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  const data=agora.toLocaleDateString('pt-BR');
+  const numPed=String(numeroPedido).padStart(6,'0');
+  function linha(esq,dir){const largura=32;const espacos=Math.max(1,largura-esq.length-dir.length);return esq+' '.repeat(espacos)+dir;}
+  let msg=`============================\n`;
+  msg+=`      SALGADOS DELICIA\n`;
+  msg+=`          *Aline*\n`;
+  msg+=`  ${data}  ${hora}\n`;
+  msg+=`  N° ${numPed}\n`;
+  msg+=`============================\n`;
+  msg+=linha('Cliente:',nome)+`\n`;
+  msg+=linha('Fone:',wpp)+`\n`;
+  msg+=linha('Tipo:','Retirada no local')+`\n`;
+  msg+=`------------------------------\n`;
+  carrinho.forEach((item,idx)=>{
+    const vlr=`R$ ${item.preco.toFixed(2).replace('.',',')}`;
+    msg+=linha(item.tipo,vlr)+`\n`;
+    msg+=`  ↳ ${item.preparo}\n`;
+    msg+=`  ↳ ${item.sabores}\n`;
+    if(idx<carrinho.length-1)msg+=`\n`;
+  });
+  msg+=`------------------------------\n`;
+  msg+=linha('*TOTAL*',`*R$ ${total.toFixed(2).replace('.',',')}*`)+`\n`;
+  msg+=`------------------------------\n`;
+  msg+=linha('💳 Pgto:',pagamento)+`\n`;
+  msg+=`============================\n`;
+  msg+=`Obrigada! Volte sempre 😊\n`;
+  const encoded=encodeURIComponent(msg);
+  window.open(`https://wa.me/${WPP_NUM}?text=${encoded}`,'_blank');
+  numeroPedido++;
+  try{localStorage.setItem('alinePedNum',numeroPedido);}catch(e){}
+  setTimeout(()=>{
+    fecharOverlay('ovFechamento');
+    carrinho=[];pagamento='';
+    document.getElementById('nomeCliente').value='';
+    document.getElementById('wppCliente').value='';
+    document.querySelectorAll('.pagto-btn').forEach(b=>b.classList.remove('active'));
+    atualizarCarrinho();
+  },2000);
+}
+
+function mostrarOverlay(id){document.getElementById(id).classList.add('show');document.body.style.overflow='hidden';}
+function fecharOverlay(id){document.getElementById(id).classList.remove('show');document.body.style.overflow='';}
 </script>
 </body>
 </html>
